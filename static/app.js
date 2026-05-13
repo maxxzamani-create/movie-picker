@@ -506,10 +506,9 @@ function setStatus(msg) {
   // resize events (address bar hide/show) don't collapse the sidebar.
   let wasMobile = window.innerWidth <= MOBILE;
 
-  // Set initial state once on load
+  // On mobile, start with filters open so it's the first thing you see
   if (wasMobile) {
-    sidebar.classList.add("collapsed");
-    toggleBtn.textContent = "☰";
+    toggleBtn.textContent = "✕";
   }
 
   // Only react to genuine breakpoint crossings (desktop ↔ mobile)
