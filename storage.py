@@ -28,10 +28,22 @@ def load() -> dict:
         try:
             with open(PREFS_FILE) as f:
                 data = json.load(f)
-            return {**DEFAULTS, **data}
+            prefs = {**DEFAULTS, **data}
         except Exception:
-            pass
-    return dict(DEFAULTS)
+            prefs = dict(DEFAULTS)
+    else:
+        prefs = dict(DEFAULTS)
+
+    # Environment variables always win — lets the deployed app work without
+    # anyone having to paste API keys into the UI.
+    env_tmdb = os.environ.get("TMDB_API_KEY", "")
+    env_omdb = os.environ.get("OMDB_API_KEY", "")
+    if env_tmdb:
+        prefs["api_key"] = env_tmdb
+    if env_omdb:
+        prefs["omdb_api_key"] = env_omdb
+
+    return prefs
 
 
 def save(prefs: dict) -> None:
