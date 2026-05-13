@@ -272,12 +272,12 @@ input[type="range"] {
 .action-btn:hover    { filter: brightness(1.15); }
 .action-btn:disabled { opacity: .4; cursor: not-allowed; filter: none; }
 
-.btn-pick-again   { background: #FF2020; color: #fff; }
-.btn-trailer      { background: #FF7700; color: #fff; }
-.btn-tmdb         { background: #E8D000; color: #000; }
-.btn-watchlist    { background: #00CC44; color: #fff; }
-.btn-watched      { background: #1177FF; color: #fff; }
-.btn-dislike      { background: #9900FF; color: #fff; }
+.btn-pick-again   { background: #4B5320; color: #fff; }
+.btn-trailer      { background: #4B5320; color: #fff; }
+.btn-tmdb         { background: #4B5320; color: #fff; }
+.btn-watchlist    { background: #4B5320; color: #fff; }
+.btn-watched      { background: #4B5320; color: #fff; }
+.btn-dislike      { background: #4B5320; color: #fff; }
 
 /* ── Watchlist bar ────────────────────────────────────────────────────── */
 .watchlist-bar {
