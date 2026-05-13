@@ -500,19 +500,30 @@ function setStatus(msg) {
 (function () {
   const sidebar = document.querySelector(".sidebar");
   const toggleBtn = document.getElementById("btn-filters-toggle");
+  const MOBILE = 768;
 
-  // Start collapsed on mobile
-  function applyInitialState() {
-    if (window.innerWidth <= 768) {
+  // Track which side of the breakpoint we're on so scroll-triggered
+  // resize events (address bar hide/show) don't collapse the sidebar.
+  let wasMobile = window.innerWidth <= MOBILE;
+
+  // Set initial state once on load
+  if (wasMobile) {
+    sidebar.classList.add("collapsed");
+    toggleBtn.textContent = "☰";
+  }
+
+  // Only react to genuine breakpoint crossings (desktop ↔ mobile)
+  window.addEventListener("resize", () => {
+    const isMobile = window.innerWidth <= MOBILE;
+    if (isMobile === wasMobile) return; // same side — ignore (scroll jitter)
+    wasMobile = isMobile;
+    if (isMobile) {
       sidebar.classList.add("collapsed");
       toggleBtn.textContent = "☰";
     } else {
       sidebar.classList.remove("collapsed");
     }
-  }
-
-  applyInitialState();
-  window.addEventListener("resize", applyInitialState);
+  });
 
   toggleBtn.addEventListener("click", () => {
     const isCollapsed = sidebar.classList.toggle("collapsed");
