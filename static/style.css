@@ -181,6 +181,15 @@ input[type="range"] {
 }
 .btn-save:hover { background: #1a3a3a; }
 
+.btn-reset {
+  width: 100%; padding: 8px; margin-top: 6px;
+  background: transparent; color: var(--muted);
+  border: 1px solid #1a3a3a; border-radius: 8px;
+  cursor: pointer; font-size: 13px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-reset:hover { color: #f77; border-color: #f77; }
+
 /* ── Main area ────────────────────────────────────────────────────────── */
 .main-panel {
   display: flex; flex-direction: column;

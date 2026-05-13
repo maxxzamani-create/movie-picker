@@ -232,11 +232,11 @@ function displayMovie(m) {
   const rtBadge = document.getElementById("rt-badge");
   if (m.rt_score) {
     const pct = parseInt(m.rt_score);
-    rtBadge.textContent = `RT  ${m.rt_score}`;
+    rtBadge.textContent = `Rotten Tomatoes  ${m.rt_score}`;
     rtBadge.className   = `badge ${pct >= 75 ? "rt-fresh" : pct >= 60 ? "rt-ok" : "rt-rotten"}`;
     rtBadge.style.display = "";
   } else if (state.prefs.omdb_api_key) {
-    rtBadge.textContent   = "RT: N/A";
+    rtBadge.textContent   = "Rotten Tomatoes: N/A";
     rtBadge.className     = "badge";
     rtBadge.style.display = "";
   } else {
@@ -316,6 +316,40 @@ function setBtnsDisabled(disabled) {
     document.getElementById(id).disabled = disabled;
   });
 }
+
+/* ── Reset search filters ──────────────────────────────────────────────── */
+document.getElementById("btn-reset-filters").addEventListener("click", () => {
+  // Language
+  document.getElementById("language").value = "";
+
+  // Discovery mode → Popular
+  document.querySelector('input[name="discovery"][value="0"]').checked = true;
+
+  // Mood
+  selectMood("none");
+
+  // Actor
+  document.getElementById("actor-input").value = "";
+  document.getElementById("actor-status").textContent = "";
+  state.resolvedActor = null;
+  closeActorDropdown();
+
+  // Genres — uncheck all
+  document.querySelectorAll(".genre-cb").forEach(cb => cb.checked = false);
+
+  // Year
+  document.getElementById("year-from").value = 1980;
+  document.getElementById("year-to").value   = 2026;
+
+  // Rating
+  document.getElementById("rating-slider").value = 6.0;
+  document.getElementById("rating-val").textContent = "6.0 / 10";
+
+  // Providers — uncheck all
+  document.querySelectorAll(".provider-cb").forEach(cb => cb.checked = false);
+
+  setStatus("Filters reset to defaults.");
+});
 
 /* ── Refresh / reset ───────────────────────────────────────────────────── */
 document.getElementById("btn-refresh").addEventListener("click", () => {
