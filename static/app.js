@@ -496,6 +496,30 @@ function setStatus(msg) {
   document.getElementById("status-text").textContent = msg;
 }
 
+/* ── Mobile filters toggle ─────────────────────────────────────────────── */
+(function () {
+  const sidebar = document.querySelector(".sidebar");
+  const toggleBtn = document.getElementById("btn-filters-toggle");
+
+  // Start collapsed on mobile
+  function applyInitialState() {
+    if (window.innerWidth <= 768) {
+      sidebar.classList.add("collapsed");
+      toggleBtn.textContent = "☰";
+    } else {
+      sidebar.classList.remove("collapsed");
+    }
+  }
+
+  applyInitialState();
+  window.addEventListener("resize", applyInitialState);
+
+  toggleBtn.addEventListener("click", () => {
+    const isCollapsed = sidebar.classList.toggle("collapsed");
+    toggleBtn.textContent = isCollapsed ? "☰" : "✕";
+  });
+})();
+
 /* ── Escape HTML ───────────────────────────────────────────────────────── */
 function esc(str) {
   return String(str ?? "")

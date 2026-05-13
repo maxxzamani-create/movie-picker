@@ -394,3 +394,139 @@ input[type="range"] {
 
 /* ── Hint text ────────────────────────────────────────────────────────── */
 .hint-text { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+/* ── Mobile toggle button (hidden on desktop) ─────────────────────────── */
+.btn-filters-toggle { display: none; }
+
+/* ── Mobile / responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  html, body {
+    height: auto;
+    overflow: auto;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  /* Sidebar becomes a collapsible top panel */
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--surface2);
+  }
+
+  .sidebar-inner {
+    overflow: visible;
+    padding-bottom: 12px;
+  }
+
+  /* Collapsed state — hide the filter content */
+  .sidebar.collapsed .sidebar-inner {
+    display: none;
+  }
+
+  /* Show the hamburger toggle, hide on desktop */
+  .btn-filters-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    background: var(--surface2);
+    color: var(--teal-lt);
+    border: 1px solid var(--muted);
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .btn-filters-toggle:hover { background: #1a3a3a; }
+
+  /* Sidebar starts collapsed on mobile */
+  .sidebar { }
+
+  /* Main panel — allow scrolling */
+  .main-panel {
+    overflow: visible;
+    height: auto;
+  }
+
+  /* Stack poster above info */
+  .movie-card {
+    flex-direction: column;
+    overflow: visible;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .poster-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .poster-wrap img {
+    width: 150px;
+    height: 225px;
+  }
+
+  .poster-placeholder {
+    width: 150px;
+    height: 225px;
+  }
+
+  .info-panel {
+    overflow: visible;
+    border-radius: 10px;
+  }
+
+  .info-scroll {
+    overflow: visible;
+    padding: 14px 14px 0;
+  }
+
+  .movie-title { font-size: 20px; }
+
+  /* 2-column action buttons on mobile */
+  .action-buttons {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 12px 14px;
+  }
+
+  .action-btn {
+    padding: 12px 6px;
+    font-size: 12px;
+  }
+
+  /* Watchlist bar */
+  .watchlist-bar { padding: 8px 10px; }
+  .watchlist-hdr { gap: 6px; }
+
+  /* History panel goes horizontal at the bottom */
+  .history-panel {
+    border-left: none;
+    border-top: 1px solid var(--surface2);
+  }
+
+  .history-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .hist-card {
+    flex-shrink: 0;
+    width: 155px;
+    margin-bottom: 0;
+  }
+
+  /* Status bar */
+  .status-bar { padding: 10px 12px 0; }
+}
