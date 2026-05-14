@@ -70,10 +70,14 @@ def pick_movie():
     if not api_key:
         return jsonify({"error": "No API key configured"}), 400
 
-    # Mood overrides genre checkboxes
-    mood_key = data.get("mood", "none")
-    if mood_key and mood_key != "none":
-        genre_ids = tmdb.MOODS[mood_key]["genres"]
+    # Moods combine with OR logic; multiple moods pool their genres
+    mood_keys = data.get("moods", [])
+    if mood_keys:
+        genre_set = set()
+        for mk in mood_keys:
+            if mk in tmdb.MOODS:
+                genre_set.update(tmdb.MOODS[mk]["genres"])
+        genre_ids = list(genre_set)
     else:
         genre_ids = [int(g) for g in data.get("genres", [])]
 

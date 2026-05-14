@@ -1,8 +1,8 @@
 /* ── State ─────────────────────────────────────────────────────────────── */
 let state = {
-  prefs:       {},
-  currentMood: "none",
-  resolvedActor: null,   // { id, name }
+  prefs:         {},
+  currentMoods:  new Set(),   // multi-select — any of these moods
+  resolvedActor: null,        // { id, name }
   currentMovie:  null,
   fetching:      false,
 };
@@ -40,8 +40,11 @@ function loadPrefsIntoUI() {
   // Discovery mode
   document.querySelector(`input[name="discovery"][value="${p.hidden_gem ? "1" : "0"}"]`).checked = true;
 
-  // Mood
-  selectMood(p.mood || "none");
+  // Moods (multi-select)
+  state.currentMoods = new Set(p.moods || []);
+  document.querySelectorAll(".mood-btn").forEach(btn => {
+    btn.classList.toggle("active", state.currentMoods.has(btn.dataset.mood));
+  });
 
   // Actor
   if (p.actor) {
@@ -89,7 +92,7 @@ function collectPrefs() {
     year_to:     yearTo,
     min_rating:  rating,
     hidden_gem:  hidden,
-    mood:        state.currentMood,
+    moods:       [...state.currentMoods],
     actor,
     actor_id:    state.resolvedActor?.name === actor ? state.resolvedActor.id : null,
   };
@@ -102,11 +105,17 @@ document.getElementById("btn-save").addEventListener("click", async () => {
   setStatus("Preferences saved.");
 });
 
-/* ── Mood ──────────────────────────────────────────────────────────────── */
+/* ── Mood (multi-select toggle) ────────────────────────────────────────── */
 function selectMood(key) {
-  state.currentMood = key;
+  if (key === "none") {
+    state.currentMoods.clear();
+  } else if (state.currentMoods.has(key)) {
+    state.currentMoods.delete(key);   // tap again to deselect
+  } else {
+    state.currentMoods.add(key);
+  }
   document.querySelectorAll(".mood-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.mood === key && key !== "none");
+    btn.classList.toggle("active", state.currentMoods.has(btn.dataset.mood));
   });
 }
 
@@ -325,8 +334,9 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
   // Discovery mode → Popular
   document.querySelector('input[name="discovery"][value="0"]').checked = true;
 
-  // Mood
-  selectMood("none");
+  // Moods — clear all
+  state.currentMoods.clear();
+  document.querySelectorAll(".mood-btn").forEach(btn => btn.classList.remove("active"));
 
   // Actor
   document.getElementById("actor-input").value = "";

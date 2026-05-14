@@ -163,7 +163,7 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
         params["popularity.lte"] = 20
 
     if genre_ids:
-        params["with_genres"] = ",".join(str(g) for g in genre_ids)
+        params["with_genres"] = "|".join(str(g) for g in genre_ids)  # | = OR logic
     if without_genre_ids:
         params["without_genres"] = ",".join(str(g) for g in without_genre_ids)
     if provider_ids:

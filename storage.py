@@ -13,7 +13,7 @@ DEFAULTS = {
     "providers": [],
     "language": "",
     "hidden_gem": False,
-    "mood": "none",
+    "moods": [],
     "actor": "",
     "watchlist": [],
     "watched": [],
