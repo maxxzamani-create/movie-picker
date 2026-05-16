@@ -6,7 +6,9 @@ PREFS_FILE = os.path.join(os.path.dirname(__file__), "prefs.json")
 DEFAULTS = {
     "api_key": "",
     "omdb_api_key": "",
-    "genres": [],
+    "media_type": "movie",     # "movie" or "tv"
+    "genres": [],              # movie genres selected
+    "tv_genres": [],           # tv genres selected
     "year_from": 1980,
     "year_to": 2026,
     "min_rating": 6.0,
@@ -18,7 +20,8 @@ DEFAULTS = {
     "watchlist": [],
     "watched": [],
     "disliked": [],
-    "disliked_genres": {},
+    "disliked_genres": {},     # learned: avoid these
+    "liked_genres": {},        # learned: prefer these
     "history": [],
 }
 

@@ -5,6 +5,7 @@ let state = {
   resolvedActor: null,        // { id, name }
   currentMovie:  null,
   fetching:      false,
+  mediaType:     "movie",     // "movie" | "tv"
 };
 
 /* ── API helpers ───────────────────────────────────────────────────────── */
@@ -17,9 +18,14 @@ async function api(path, opts = {}) {
 }
 const post = (path, body) => api(path, { method: "POST", body: JSON.stringify(body) });
 
+const noun = () => state.mediaType === "tv" ? "show" : "movie";
+const nounCap = () => state.mediaType === "tv" ? "Show" : "Movie";
+
 /* ── Init ──────────────────────────────────────────────────────────────── */
 document.addEventListener("DOMContentLoaded", async () => {
   state.prefs = await api("/api/prefs");
+  state.mediaType = state.prefs.media_type || "movie";
+  applyMediaType(state.mediaType, { silent: true });
   loadPrefsIntoUI();
   refreshHistory();
   refreshWatchlist();
@@ -52,9 +58,15 @@ function loadPrefsIntoUI() {
     document.getElementById("actor-status").textContent = `Filtering by: ${p.actor}`;
   }
 
-  // Genres
+  // Movie Genres
   (p.genres || []).forEach(gid => {
     const cb = document.getElementById(`genre-${gid}`);
+    if (cb) cb.checked = true;
+  });
+
+  // TV Genres
+  (p.tv_genres || []).forEach(gid => {
+    const cb = document.getElementById(`tv-genre-${gid}`);
     if (cb) cb.checked = true;
   });
 
@@ -75,18 +87,22 @@ function loadPrefsIntoUI() {
 }
 
 function collectPrefs() {
-  const genres    = [...document.querySelectorAll(".genre-cb:checked")].map(el => parseInt(el.value));
-  const providers = [...document.querySelectorAll(".provider-cb:checked")].map(el => parseInt(el.value));
-  const langEl    = document.getElementById("language");
-  const yearFrom  = parseInt(document.getElementById("year-from").value) || 1980;
-  const yearTo    = parseInt(document.getElementById("year-to").value)   || 2026;
-  const rating    = parseFloat(document.getElementById("rating-slider").value) || 6.0;
-  const hidden    = document.querySelector('input[name="discovery"]:checked').value === "1";
-  const actor     = document.getElementById("actor-input").value.trim();
+  const movieGenres = [...document.querySelectorAll(".genre-cb:checked")].map(el => parseInt(el.value));
+  const tvGenres    = [...document.querySelectorAll(".tv-genre-cb:checked")].map(el => parseInt(el.value));
+  const providers   = [...document.querySelectorAll(".provider-cb:checked")].map(el => parseInt(el.value));
+  const langEl      = document.getElementById("language");
+  const yearFrom    = parseInt(document.getElementById("year-from").value) || 1980;
+  const yearTo      = parseInt(document.getElementById("year-to").value)   || 2026;
+  const rating      = parseFloat(document.getElementById("rating-slider").value) || 6.0;
+  const hidden      = document.querySelector('input[name="discovery"]:checked').value === "1";
+  const actor       = document.getElementById("actor-input").value.trim();
 
   return {
     ...state.prefs,
-    genres, providers,
+    media_type:  state.mediaType,
+    genres:      movieGenres,
+    tv_genres:   tvGenres,
+    providers,
     language:    langEl.value,
     year_from:   yearFrom,
     year_to:     yearTo,
@@ -103,6 +119,26 @@ document.getElementById("btn-save").addEventListener("click", async () => {
   await post("/api/prefs", p);
   state.prefs = p;
   setStatus("Preferences saved.");
+});
+
+/* ── Media type toggle (Movies / TV) ───────────────────────────────────── */
+function applyMediaType(type, { silent = false } = {}) {
+  state.mediaType = type;
+  document.querySelectorAll(".media-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.media === type);
+  });
+  document.querySelectorAll(".media-section").forEach(s => {
+    s.classList.toggle("hidden", s.dataset.mediaSection !== type);
+  });
+  // Update button label and status
+  document.getElementById("btn-pick").innerHTML = `🎲  Pick a ${nounCap()}`;
+  if (!silent) {
+    setStatus(`Switched to ${type === "tv" ? "TV Shows" : "Movies"}.`);
+  }
+}
+
+document.querySelectorAll(".media-btn").forEach(btn => {
+  btn.addEventListener("click", () => applyMediaType(btn.dataset.media));
 });
 
 /* ── Mood (multi-select toggle) ────────────────────────────────────────── */
@@ -180,7 +216,7 @@ document.getElementById("rating-slider").addEventListener("input", e => {
   document.getElementById("rating-val").textContent = `${parseFloat(e.target.value).toFixed(1)} / 10`;
 });
 
-/* ── Movie picking ─────────────────────────────────────────────────────── */
+/* ── Pick movie/show ───────────────────────────────────────────────────── */
 document.getElementById("btn-pick").addEventListener("click", pickMovie);
 document.getElementById("btn-pick-again").addEventListener("click", pickMovie);
 
@@ -189,11 +225,12 @@ async function pickMovie() {
   if (!state.prefs.api_key) { openApiModal(); return; }
 
   state.fetching = true;
-  setStatus("Finding a movie…");
+  setStatus(`Finding a ${noun()}…`);
   clearMovieCard();
   setBtnsDisabled(true);
-  document.getElementById("btn-pick").disabled       = true;
-  document.getElementById("btn-pick").textContent    = "Searching…";
+  const pickBtn = document.getElementById("btn-pick");
+  pickBtn.disabled    = true;
+  pickBtn.textContent = "Searching…";
   document.getElementById("btn-pick-again").disabled = true;
 
   const prefs = collectPrefs();
@@ -211,26 +248,32 @@ async function pickMovie() {
   }
 
   state.fetching = false;
-  document.getElementById("btn-pick").disabled    = false;
-  document.getElementById("btn-pick").textContent = "Pick a Movie";
+  pickBtn.disabled    = false;
+  pickBtn.innerHTML   = `🎲  Pick a ${nounCap()}`;
   setBtnsDisabled(!state.currentMovie);
   if (state.currentMovie) {
     document.getElementById("btn-pick-again").disabled = false;
-    document.getElementById("btn-trailer").disabled =
-      !state.currentMovie.trailer_url;
-    if (!state.currentMovie.trailer_url)
-      document.getElementById("btn-trailer").textContent = "No Trailer";
-    else
-      document.getElementById("btn-trailer").textContent = "▶  Watch Trailer";
+    document.getElementById("btn-trailer").disabled    = !state.currentMovie.trailer_url;
+    document.getElementById("btn-trailer").textContent =
+      state.currentMovie.trailer_url ? "▶  Watch Trailer" : "No Trailer";
   }
   refreshHistory();
 }
 
-/* ── Display movie ─────────────────────────────────────────────────────── */
+/* ── Display movie/show ───────────────────────────────────────────────── */
 function displayMovie(m) {
-  document.getElementById("movie-title").textContent    = m.title || "";
-  document.getElementById("movie-meta").textContent     =
-    `${m.year || ""}${m.runtime ? `  •  ${m.runtime} min` : ""}`;
+  document.getElementById("movie-title").textContent = m.title || "";
+
+  // Build meta line — movies show runtime, shows show seasons/episodes
+  let meta = m.year || "";
+  if (m.media_type === "tv") {
+    if (m.seasons)  meta += `  •  ${m.seasons} season${m.seasons !== 1 ? "s" : ""}`;
+    if (m.episodes) meta += `  •  ${m.episodes} episode${m.episodes !== 1 ? "s" : ""}`;
+    if (m.runtime)  meta += `  •  ~${m.runtime} min/ep`;
+  } else if (m.runtime) {
+    meta += `  •  ${m.runtime} min`;
+  }
+  document.getElementById("movie-meta").textContent = meta;
 
   // Rating badge
   const stars = "★".repeat(Math.round(m.rating / 2)) + "☆".repeat(5 - Math.round(m.rating / 2));
@@ -244,7 +287,8 @@ function displayMovie(m) {
     rtBadge.textContent = `Rotten Tomatoes  ${m.rt_score}`;
     rtBadge.className   = `badge ${pct >= 75 ? "rt-fresh" : pct >= 60 ? "rt-ok" : "rt-rotten"}`;
     rtBadge.style.display = "";
-  } else if (state.prefs.omdb_api_key) {
+  } else if (state.prefs.omdb_api_key && m.media_type !== "tv") {
+    // TV Rotten Tomatoes data is rare in OMDb, so hide N/A for shows
     rtBadge.textContent   = "Rotten Tomatoes: N/A";
     rtBadge.className     = "badge";
     rtBadge.style.display = "";
@@ -252,11 +296,12 @@ function displayMovie(m) {
     rtBadge.style.display = "none";
   }
 
-  document.getElementById("movie-overview").textContent   = m.overview || "No overview available.";
-  document.getElementById("movie-director").textContent   = m.director ? `🎬  Directed by ${m.director}` : "";
-  document.getElementById("movie-cast").textContent       = m.cast?.length ? `🎭  ${m.cast.join(" • ")}` : "";
-  document.getElementById("movie-genres").textContent     = m.genres?.join("  ") || "";
-  document.getElementById("movie-streaming").textContent  =
+  document.getElementById("movie-overview").textContent = m.overview || "No overview available.";
+  const directorLabel = m.media_type === "tv" ? "Created by" : "Directed by";
+  document.getElementById("movie-director").textContent = m.director ? `🎬  ${directorLabel} ${m.director}` : "";
+  document.getElementById("movie-cast").textContent     = m.cast?.length ? `🎭  ${m.cast.join(" • ")}` : "";
+  document.getElementById("movie-genres").textContent   = m.genres?.join("  ") || "";
+  document.getElementById("movie-streaming").textContent =
     m.streaming?.length ? `Streaming: ${m.streaming.join(" • ")}` : "Not on your selected streaming services";
 
   // Poster
@@ -282,7 +327,6 @@ function clearMovieCard() {
 document.getElementById("btn-trailer").addEventListener("click", () => {
   if (state.currentMovie?.trailer_url) {
     window.open(state.currentMovie.trailer_url, "_blank");
-    post("/api/watchlist/add", { ...state.currentMovie });  // log trailer action via history
   }
 });
 
@@ -296,7 +340,10 @@ document.getElementById("btn-watchlist").addEventListener("click", async () => {
   if (r.watchlist) {
     state.prefs.watchlist = r.watchlist;
     refreshWatchlist();
-    setStatus(`Added "${state.currentMovie.title}" to watchlist.`);
+    const more = r.preferred_genres?.length
+      ? `  Will show more ${noun()}s like this (${r.preferred_genres.join(", ")}).`
+      : "";
+    setStatus(`Added "${state.currentMovie.title}" to watchlist.${more}`);
     refreshHistory();
   }
 });
@@ -305,8 +352,11 @@ document.getElementById("btn-watched").addEventListener("click", async () => {
   if (!state.currentMovie) return;
   const r = await post("/api/watched/add", state.currentMovie);
   document.getElementById("watched-count").textContent =
-    `${r.watched_count} movie${r.watched_count !== 1 ? "s" : ""} marked as watched`;
-  setStatus(`Marked "${state.currentMovie.title}" as watched — finding something else…`);
+    `${r.watched_count} ${noun()}${r.watched_count !== 1 ? "s" : ""} marked as watched`;
+  const more = r.preferred_genres?.length
+    ? `  Showing more like this (${r.preferred_genres.join(", ")}).`
+    : "  Finding something else…";
+  setStatus(`Marked "${state.currentMovie.title}" as watched.${more}`);
   refreshHistory();
   pickMovie();
 });
@@ -314,7 +364,7 @@ document.getElementById("btn-watched").addEventListener("click", async () => {
 document.getElementById("btn-dislike").addEventListener("click", async () => {
   if (!state.currentMovie) return;
   const r = await post("/api/disliked/add", state.currentMovie);
-  const note = r.avoided_genres?.length ? `  Avoiding: ${r.avoided_genres.join(", ")}` : "";
+  const note = r.avoided_genres?.length ? `  Showing fewer like this (${r.avoided_genres.join(", ")}).` : "";
   setStatus(`Noted! Skipping "${state.currentMovie.title}" and similar.${note}`);
   refreshHistory();
   pickMovie();
@@ -328,34 +378,26 @@ function setBtnsDisabled(disabled) {
 
 /* ── Reset search filters ──────────────────────────────────────────────── */
 document.getElementById("btn-reset-filters").addEventListener("click", () => {
-  // Language
   document.getElementById("language").value = "";
-
-  // Discovery mode → Popular
   document.querySelector('input[name="discovery"][value="0"]').checked = true;
 
-  // Moods — clear all
   state.currentMoods.clear();
   document.querySelectorAll(".mood-btn").forEach(btn => btn.classList.remove("active"));
 
-  // Actor
   document.getElementById("actor-input").value = "";
   document.getElementById("actor-status").textContent = "";
   state.resolvedActor = null;
   closeActorDropdown();
 
-  // Genres — uncheck all
   document.querySelectorAll(".genre-cb").forEach(cb => cb.checked = false);
+  document.querySelectorAll(".tv-genre-cb").forEach(cb => cb.checked = false);
 
-  // Year
   document.getElementById("year-from").value = 1980;
   document.getElementById("year-to").value   = 2026;
 
-  // Rating
   document.getElementById("rating-slider").value = 6.0;
   document.getElementById("rating-val").textContent = "6.0 / 10";
 
-  // Providers — uncheck all
   document.querySelectorAll(".provider-cb").forEach(cb => cb.checked = false);
 
   setStatus("Filters reset to defaults.");
@@ -364,15 +406,15 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
 /* ── Refresh / reset ───────────────────────────────────────────────────── */
 document.getElementById("btn-refresh").addEventListener("click", () => {
   state.fetching = false;
-  document.getElementById("btn-pick").disabled    = false;
-  document.getElementById("btn-pick").textContent = "Pick a Movie";
+  document.getElementById("btn-pick").disabled  = false;
+  document.getElementById("btn-pick").innerHTML = `🎲  Pick a ${nounCap()}`;
   setBtnsDisabled(!state.currentMovie);
   if (state.currentMovie) {
     document.getElementById("btn-pick-again").disabled = false;
   }
   setStatus(state.currentMovie
     ? `Ready — showing ${state.currentMovie.title}`
-    : "Set your preferences and click Pick a Movie");
+    : `Set your preferences and click Pick a ${nounCap()}`);
 });
 
 /* ── History ───────────────────────────────────────────────────────────── */
@@ -385,16 +427,18 @@ async function refreshHistory() {
 function renderHistory(history) {
   const list = document.getElementById("history-list");
   if (!history.length) {
-    list.innerHTML = `<div class="history-empty">No history yet.<br>Pick a movie to start!</div>`;
+    list.innerHTML = `<div class="history-empty">No history yet.<br>Pick something to start!</div>`;
     return;
   }
   list.innerHTML = history.map(entry => {
     const title = entry.title.length > 20 ? entry.title.slice(0, 19) + "…" : entry.title;
     const chips = (entry.actions || []).map(a =>
       `<span class="chip chip-${a}">${a}</span>`).join("");
+    const tvBadge = entry.media_type === "tv" ? `<span class="hist-type">TV</span>` : "";
     return `<div class="hist-card" onclick="loadMovieById(${entry.id})">
       <div class="hist-title-row">
         <span class="hist-title">${esc(title)}</span>
+        ${tvBadge}
         <button class="hist-play" onclick="event.stopPropagation();loadMovieById(${entry.id})">▶</button>
       </div>
       <div class="hist-meta">${esc(entry.year)}  ★ ${entry.rating}</div>
@@ -408,21 +452,21 @@ document.getElementById("btn-clear-history").addEventListener("click", async () 
   renderHistory([]);
 });
 
-/* ── Load movie from history ───────────────────────────────────────────── */
-async function loadMovieById(movieId) {
+/* ── Load by ID from history ───────────────────────────────────────────── */
+async function loadMovieById(itemId) {
   if (state.fetching) return;
   if (!state.prefs.api_key) return;
 
   state.fetching = true;
-  setStatus("Loading movie details…");
+  setStatus("Loading details…");
   clearMovieCard();
   setBtnsDisabled(true);
   document.getElementById("btn-pick-again").disabled = true;
 
   try {
-    const movie = await api(`/api/movie/${movieId}`);
+    const movie = await api(`/api/movie/${itemId}`);
     if (movie.error) {
-      setStatus("Could not load movie details.");
+      setStatus("Could not load details.");
     } else {
       state.currentMovie = movie;
       displayMovie(movie);
@@ -446,13 +490,14 @@ function refreshWatchlist() {
   if (!items.length) {
     el.innerHTML = `<span class="watchlist-empty">Your watchlist is empty</span>`;
   } else {
-    el.innerHTML = items.map(i =>
-      `<span class="watchlist-chip">${esc(i.title)} (${esc(i.year)})</span>`
-    ).join("");
+    el.innerHTML = items.map(i => {
+      const badge = i.media_type === "tv" ? ` <span class="chip-tv-sm">TV</span>` : "";
+      return `<span class="watchlist-chip">${esc(i.title)} (${esc(i.year)})${badge}</span>`;
+    }).join("");
   }
   const cnt = state.prefs.watched?.length || 0;
   document.getElementById("watched-count").textContent =
-    `${cnt} movie${cnt !== 1 ? "s" : ""} marked as watched`;
+    `${cnt} ${noun()}${cnt !== 1 ? "s" : ""} marked as watched`;
 }
 
 document.getElementById("btn-clear-watchlist").addEventListener("click", async () => {
@@ -486,7 +531,7 @@ document.getElementById("btn-modal-save").addEventListener("click", async () => 
   const omdbKey = document.getElementById("omdb-key-input").value.trim();
   const statusEl = document.getElementById("modal-status");
   statusEl.textContent = "Validating…";
-  statusEl.style.color = "#4dcfcf";
+  statusEl.style.color = "var(--primary)";
 
   const r = await post("/api/validate-key", { api_key: tmdbKey });
   if (r.valid) {
@@ -497,7 +542,7 @@ document.getElementById("btn-modal-save").addEventListener("click", async () => 
     setStatus("API keys saved. Ready to pick!");
   } else {
     statusEl.textContent = "Invalid TMDB key. Try again.";
-    statusEl.style.color = "#f77";
+    statusEl.style.color = "var(--rose)";
   }
 });
 
@@ -512,19 +557,15 @@ function setStatus(msg) {
   const toggleBtn = document.getElementById("btn-filters-toggle");
   const MOBILE = 768;
 
-  // Track which side of the breakpoint we're on so scroll-triggered
-  // resize events (address bar hide/show) don't collapse the sidebar.
   let wasMobile = window.innerWidth <= MOBILE;
 
-  // On mobile, start with filters open so it's the first thing you see
   if (wasMobile) {
     toggleBtn.textContent = "✕";
   }
 
-  // Only react to genuine breakpoint crossings (desktop ↔ mobile)
   window.addEventListener("resize", () => {
     const isMobile = window.innerWidth <= MOBILE;
-    if (isMobile === wasMobile) return; // same side — ignore (scroll jitter)
+    if (isMobile === wasMobile) return;
     wasMobile = isMobile;
     if (isMobile) {
       sidebar.classList.add("collapsed");

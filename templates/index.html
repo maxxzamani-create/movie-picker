@@ -12,17 +12,15 @@
 <!-- ── API Key Modal ─────────────────────────────────────────────────── -->
 <div id="api-modal" class="modal-overlay hidden">
   <div class="modal">
-    <h2>🔑 API Keys</h2>
+    <h2>API Keys</h2>
     <div class="modal-field">
-      <label>TMDB Key — <a href="https://www.themoviedb.org/settings/api" target="_blank"
-        style="color:#00B5CC">themoviedb.org/settings/api</a></label>
+      <label>TMDB Key — <a href="https://www.themoviedb.org/settings/api" target="_blank">themoviedb.org/settings/api</a></label>
       <input id="tmdb-key-input" type="text" placeholder="Paste TMDB API key">
     </div>
     <div class="modal-field">
       <label>OMDb Key (optional — for Rotten Tomatoes scores)</label>
       <input id="omdb-key-input" type="text" placeholder="Paste OMDb API key">
-      <div class="hint">Free key at <a href="https://www.omdbapi.com/apikey.aspx" target="_blank"
-        style="color:#4dcfcf">omdbapi.com/apikey.aspx</a></div>
+      <div class="hint">Free key at <a href="https://www.omdbapi.com/apikey.aspx" target="_blank">omdbapi.com/apikey.aspx</a></div>
     </div>
     <div id="modal-status" class="modal-status"></div>
     <div class="modal-actions">
@@ -48,6 +46,15 @@
     </div>
 
     <div class="sidebar-inner">
+
+      <!-- Media Type — Movies or TV -->
+      <div class="section">
+        <div class="media-toggle">
+          <button class="media-btn active" data-media="movie">Movies</button>
+          <button class="media-btn"        data-media="tv">TV Shows</button>
+        </div>
+      </div>
+      <div class="sep"></div>
 
       <!-- Language -->
       <div class="section">
@@ -97,13 +104,26 @@
       </div>
       <div class="sep"></div>
 
-      <!-- Genres -->
-      <div class="section">
+      <!-- Movie Genres -->
+      <div class="section media-section" data-media-section="movie">
         <div class="section-label">Genres</div>
         <div class="check-grid">
           {% for gid, gname in genres.items() %}
           <label>
             <input type="checkbox" class="genre-cb" id="genre-{{ gid }}" value="{{ gid }}">
+            {{ gname }}
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- TV Genres -->
+      <div class="section media-section hidden" data-media-section="tv">
+        <div class="section-label">Genres</div>
+        <div class="check-grid">
+          {% for gid, gname in tv_genres.items() %}
+          <label>
+            <input type="checkbox" class="tv-genre-cb" id="tv-genre-{{ gid }}" value="{{ gid }}">
             {{ gname }}
           </label>
           {% endfor %}

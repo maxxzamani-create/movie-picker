@@ -34,6 +34,7 @@ def serve_logo():
 def index():
     return render_template("index.html",
                            genres=tmdb.GENRES,
+                           tv_genres=tmdb.TV_GENRES,
                            providers=tmdb.PROVIDERS,
                            languages=tmdb.LANGUAGES,
                            moods=tmdb.MOODS)
@@ -60,26 +61,42 @@ def validate_key():
     return jsonify({"valid": tmdb.validate_key(key)})
 
 
-# ── Movie picking ─────────────────────────────────────────────────────────────
+# ── Pick (movie or TV) ────────────────────────────────────────────────────────
 
 @app.route("/api/pick", methods=["POST"])
-def pick_movie():
+def pick():
     prefs = storage.load()
     data  = request.json or {}
     api_key = prefs.get("api_key", "")
     if not api_key:
         return jsonify({"error": "No API key configured"}), 400
 
+    media_type = data.get("media_type") or prefs.get("media_type", "movie")
+    is_tv = (media_type == "tv")
+    genre_map = tmdb.TV_GENRES if is_tv else tmdb.GENRES
+
     # Moods combine with OR logic; multiple moods pool their genres
     mood_keys = data.get("moods", [])
+    mood_field = "tv_genres" if is_tv else "movie_genres"
     if mood_keys:
         genre_set = set()
         for mk in mood_keys:
             if mk in tmdb.MOODS:
-                genre_set.update(tmdb.MOODS[mk]["genres"])
+                genre_set.update(tmdb.MOODS[mk].get(mood_field, []))
         genre_ids = list(genre_set)
     else:
-        genre_ids = [int(g) for g in data.get("genres", [])]
+        ui_genres = data.get("tv_genres" if is_tv else "genres", [])
+        genre_ids = [int(g) for g in ui_genres]
+
+    # If user picked nothing explicit, bias toward learned LIKED genres
+    # (Only counts where the user has shown a pattern: count >= 2)
+    if not genre_ids:
+        liked = prefs.get("liked_genres", {})
+        liked_relevant = [int(gid) for gid, cnt in liked.items()
+                          if cnt >= 2 and int(gid) in genre_map]
+        # Take top 4 by count to keep results varied
+        liked_relevant.sort(key=lambda g: -liked.get(str(g), 0))
+        genre_ids = liked_relevant[:4]
 
     # Actor resolution
     actor_id   = data.get("actor_id")
@@ -89,16 +106,18 @@ def pick_movie():
         if result:
             actor_id = result[0]
 
-    # Exclusions
+    # Exclusions — never re-suggest watched/disliked items
     watched_ids   = {w["id"] for w in prefs.get("watched",  [])}
     disliked_ids  = {d["id"] for d in prefs.get("disliked", [])}
     excluded_ids  = watched_ids | disliked_ids
 
     disliked_genres = prefs.get("disliked_genres", {})
     avoided_genres  = {int(gid) for gid, cnt in disliked_genres.items()
-                       if cnt >= 2 and int(gid) not in genre_ids}
+                       if cnt >= 2 and int(gid) not in genre_ids
+                       and int(gid) in genre_map}
 
-    movie = tmdb.fetch_random_movie(
+    fetch_fn = tmdb.fetch_random_tv if is_tv else tmdb.fetch_random_movie
+    item = fetch_fn(
         api_key        = api_key,
         genre_ids      = genre_ids,
         year_from      = int(data.get("year_from", 1980)),
@@ -112,17 +131,18 @@ def pick_movie():
         without_genre_ids = avoided_genres,
     )
 
-    if not movie:
-        return jsonify({"error": "No movies found — try relaxing your filters"}), 404
+    if not item:
+        kind = "shows" if is_tv else "movies"
+        return jsonify({"error": f"No {kind} found — try relaxing your filters"}), 404
 
-    # RT score
+    # RT score (works for both via IMDb ID)
     omdb_key = prefs.get("omdb_api_key", "")
-    if omdb_key and movie.get("imdb_id"):
-        movie["rt_score"] = tmdb.fetch_rt_score(omdb_key, movie["imdb_id"])
+    if omdb_key and item.get("imdb_id"):
+        item["rt_score"] = tmdb.fetch_rt_score(omdb_key, item["imdb_id"])
 
-    _log_history(prefs, movie, "Suggested")
+    _log_history(prefs, item, "Suggested")
     storage.save(prefs)
-    return jsonify(movie)
+    return jsonify(item)
 
 
 @app.route("/api/movie/<int:movie_id>")
@@ -131,13 +151,14 @@ def get_movie(movie_id):
     api_key = prefs.get("api_key", "")
     if not api_key:
         return jsonify({"error": "No API key"}), 400
-    movie = tmdb.fetch_movie_by_id(api_key, movie_id)
-    if not movie:
+    # Try movie first, fall back to TV
+    item = tmdb.fetch_movie_by_id(api_key, movie_id) or tmdb.fetch_tv_by_id(api_key, movie_id)
+    if not item:
         return jsonify({"error": "Not found"}), 404
     omdb_key = prefs.get("omdb_api_key", "")
-    if omdb_key and movie.get("imdb_id"):
-        movie["rt_score"] = tmdb.fetch_rt_score(omdb_key, movie["imdb_id"])
-    return jsonify(movie)
+    if omdb_key and item.get("imdb_id"):
+        item["rt_score"] = tmdb.fetch_rt_score(omdb_key, item["imdb_id"])
+    return jsonify(item)
 
 
 @app.route("/api/actors")
@@ -145,6 +166,23 @@ def search_actors():
     prefs = storage.load()
     q     = request.args.get("q", "")
     return jsonify(tmdb.search_actors(prefs.get("api_key", ""), q))
+
+
+# ── Helpers for preference learning ──────────────────────────────────────────
+
+def _bump_liked_genres(prefs: dict, item: dict) -> list[str]:
+    """Increment liked_genres for each genre on a positively-engaged title."""
+    is_tv = (item.get("media_type") == "tv")
+    name_to_id = {v: k for k, v in (tmdb.TV_GENRES if is_tv else tmdb.GENRES).items()}
+    lg = prefs.setdefault("liked_genres", {})
+    boosted = []
+    for gname in item.get("genres", []):
+        gid = name_to_id.get(gname)
+        if gid:
+            lg[str(gid)] = lg.get(str(gid), 0) + 1
+            if lg[str(gid)] >= 2:
+                boosted.append(gname)
+    return boosted
 
 
 # ── Actions ───────────────────────────────────────────────────────────────────
@@ -155,10 +193,14 @@ def add_watchlist():
     data  = request.json or {}
     mid   = data.get("id")
     if not any(w["id"] == mid for w in prefs["watchlist"]):
-        prefs["watchlist"].append({"id": mid, "title": data["title"], "year": data["year"]})
+        prefs["watchlist"].append({
+            "id": mid, "title": data["title"], "year": data["year"],
+            "media_type": data.get("media_type", "movie"),
+        })
         _log_history(prefs, data, "Watchlist")
-        storage.save(prefs)
-    return jsonify({"watchlist": prefs["watchlist"]})
+    boosted = _bump_liked_genres(prefs, data)
+    storage.save(prefs)
+    return jsonify({"watchlist": prefs["watchlist"], "preferred_genres": boosted})
 
 
 @app.route("/api/watched/add", methods=["POST"])
@@ -167,10 +209,14 @@ def add_watched():
     data  = request.json or {}
     mid   = data.get("id")
     if not any(w["id"] == mid for w in prefs["watched"]):
-        prefs["watched"].append({"id": mid, "title": data["title"], "year": data["year"]})
+        prefs["watched"].append({
+            "id": mid, "title": data["title"], "year": data["year"],
+            "media_type": data.get("media_type", "movie"),
+        })
         _log_history(prefs, data, "Watched")
-        storage.save(prefs)
-    return jsonify({"watched_count": len(prefs["watched"])})
+    boosted = _bump_liked_genres(prefs, data)
+    storage.save(prefs)
+    return jsonify({"watched_count": len(prefs["watched"]), "preferred_genres": boosted})
 
 
 @app.route("/api/disliked/add", methods=["POST"])
@@ -182,17 +228,20 @@ def add_disliked():
         prefs["disliked"].append({
             "id": mid, "title": data["title"],
             "year": data["year"], "genres": data.get("genres", []),
+            "media_type": data.get("media_type", "movie"),
         })
-    genre_map = {v: k for k, v in tmdb.GENRES.items()}
+    is_tv = (data.get("media_type") == "tv")
+    name_to_id = {v: k for k, v in (tmdb.TV_GENRES if is_tv else tmdb.GENRES).items()}
     dg = prefs.setdefault("disliked_genres", {})
     for gname in data.get("genres", []):
-        gid = genre_map.get(gname)
+        gid = name_to_id.get(gname)
         if gid:
             dg[str(gid)] = dg.get(str(gid), 0) + 1
     _log_history(prefs, data, "Disliked")
     storage.save(prefs)
-    avoided = [tmdb.GENRES[int(gid)] for gid, cnt in dg.items()
-               if cnt >= 2 and int(gid) in tmdb.GENRES]
+    active_map = tmdb.TV_GENRES if is_tv else tmdb.GENRES
+    avoided = [active_map[int(gid)] for gid, cnt in dg.items()
+               if cnt >= 2 and int(gid) in active_map]
     return jsonify({"avoided_genres": avoided})
 
 
@@ -214,19 +263,20 @@ def clear_history():
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
-def _log_history(prefs: dict, movie: dict, action: str):
+def _log_history(prefs: dict, item: dict, action: str):
     history = prefs.setdefault("history", [])
     for entry in history:
-        if entry["id"] == movie["id"]:
+        if entry["id"] == item["id"]:
             if action not in entry["actions"]:
                 entry["actions"].append(action)
             return
     history.insert(0, {
-        "id":      movie["id"],
-        "title":   movie["title"],
-        "year":    movie.get("year", ""),
-        "rating":  movie.get("rating", 0),
+        "id":      item["id"],
+        "title":   item["title"],
+        "year":    item.get("year", ""),
+        "rating":  item.get("rating", 0),
         "actions": [action],
+        "media_type": item.get("media_type", "movie"),
     })
     if len(history) > 60:
         history.pop()

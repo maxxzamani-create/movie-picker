@@ -12,6 +12,15 @@ GENRES = {
     10752: "War", 37: "Western",
 }
 
+# TV genres are a different set on TMDB (some IDs differ from movie genres)
+TV_GENRES = {
+    10759: "Action & Adventure", 16: "Animation", 35: "Comedy",
+    80: "Crime", 99: "Documentary", 18: "Drama", 10751: "Family",
+    10762: "Kids", 9648: "Mystery", 10763: "News",
+    10764: "Reality", 10765: "Sci-Fi & Fantasy", 10766: "Soap",
+    10767: "Talk", 10768: "War & Politics", 37: "Western",
+}
+
 PROVIDERS = {
     8: "Netflix", 9: "Amazon Prime", 337: "Disney+", 15: "Hulu",
     384: "HBO Max", 531: "Paramount+", 386: "Peacock", 2: "Apple TV+",
@@ -30,35 +39,25 @@ LANGUAGES = {
 }
 
 MOODS = {
-    "none":        {"label": "None",         "genres": []},
-    "feel_good":   {"label": "Feel Good",    "genres": [35, 10749, 10751, 16]},
-    "dark":        {"label": "Dark",         "genres": [53, 80, 27, 18]},
-    "mind_bending":{"label": "Mind-Bending", "genres": [878, 9648]},
-    "action":      {"label": "Action-Packed","genres": [28, 12]},
-    "inspiring":   {"label": "Inspiring",    "genres": [18, 36, 99]},
-    "romantic":    {"label": "Romantic",     "genres": [10749, 35]},
-    "scary":       {"label": "Scary",        "genres": [27]},
-    "funny":       {"label": "Funny",        "genres": [35]},
+    "none":        {"label": "None",         "movie_genres": [],              "tv_genres": []},
+    "feel_good":   {"label": "Feel Good",    "movie_genres": [35, 10749, 10751, 16], "tv_genres": [35, 10751, 16]},
+    "dark":        {"label": "Dark",         "movie_genres": [53, 80, 27, 18],       "tv_genres": [80, 18, 9648]},
+    "mind_bending":{"label": "Mind-Bending", "movie_genres": [878, 9648],            "tv_genres": [10765, 9648]},
+    "action":      {"label": "Action-Packed","movie_genres": [28, 12],               "tv_genres": [10759]},
+    "inspiring":   {"label": "Inspiring",    "movie_genres": [18, 36, 99],           "tv_genres": [18, 99]},
+    "romantic":    {"label": "Romantic",     "movie_genres": [10749, 35],            "tv_genres": [35, 18]},
+    "scary":       {"label": "Scary",        "movie_genres": [27],                   "tv_genres": [9648, 80]},
+    "funny":       {"label": "Funny",        "movie_genres": [35],                   "tv_genres": [35]},
 }
+# Backward-compat alias for the legacy desktop app (app.py uses MOODS[k]["genres"])
+for _m in MOODS.values():
+    _m["genres"] = _m["movie_genres"]
 
 
 OMDB_URL = "http://www.omdbapi.com/"
 
 
-def fetch_movie_by_id(api_key: str, movie_id: int, region: str = "US") -> dict | None:
-    """Fetch full details for a specific movie ID (used when re-loading from history)."""
-    try:
-        detail = requests.get(
-            f"{BASE_URL}/movie/{movie_id}",
-            params={"api_key": api_key, "append_to_response": "watch/providers,videos,credits"},
-            timeout=10,
-        ).json()
-    except Exception:
-        return None
-
-    if not detail.get("id"):
-        return None
-
+def _movie_to_shape(detail: dict, region: str = "US") -> dict:
     watch = detail.get("watch/providers", {}).get("results", {}).get(region, {})
     flatrate = watch.get("flatrate", [])
     streaming = [p["provider_name"] for p in flatrate] if flatrate else []
@@ -93,7 +92,23 @@ def fetch_movie_by_id(api_key: str, movie_id: int, region: str = "US") -> dict |
         "cast": [m["name"] for m in detail.get("credits", {}).get("cast", [])[:5]],
         "director": next((m["name"] for m in detail.get("credits", {}).get("crew", [])
                           if m["job"] == "Director"), None),
+        "media_type": "movie",
     }
+
+
+def fetch_movie_by_id(api_key: str, movie_id: int, region: str = "US") -> dict | None:
+    """Fetch full details for a specific movie ID (used when re-loading from history)."""
+    try:
+        detail = requests.get(
+            f"{BASE_URL}/movie/{movie_id}",
+            params={"api_key": api_key, "append_to_response": "watch/providers,videos,credits"},
+            timeout=10,
+        ).json()
+    except Exception:
+        return None
+    if not detail.get("id"):
+        return None
+    return _movie_to_shape(detail, region)
 
 
 def fetch_rt_score(omdb_key: str, imdb_id: str) -> str | None:
@@ -183,7 +198,6 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
         return None
 
     excluded_ids = excluded_ids or set()
-    # Try up to 8 random pages to find a non-watched movie
     movie = None
     for _ in range(8):
         params["page"] = random.randint(1, total)
@@ -204,11 +218,17 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
         timeout=10,
     ).json()
 
+    return _movie_to_shape(detail, region)
+
+
+# ── TV SHOWS ────────────────────────────────────────────────────────────────
+
+def _tv_to_shape(detail: dict, region: str = "US") -> dict:
+    """Normalize a TV detail payload to the same shape the UI uses for movies."""
     watch = detail.get("watch/providers", {}).get("results", {}).get(region, {})
     flatrate = watch.get("flatrate", [])
     streaming = [p["provider_name"] for p in flatrate] if flatrate else []
 
-    # Find the best YouTube trailer
     videos = detail.get("videos", {}).get("results", [])
     trailer_key = None
     for priority in [
@@ -221,22 +241,113 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
             trailer_key = match["key"]
             break
 
+    episode_runtimes = detail.get("episode_run_time") or []
+    avg_runtime = episode_runtimes[0] if episode_runtimes else None
+    seasons = detail.get("number_of_seasons") or 0
+    episodes = detail.get("number_of_episodes") or 0
+
+    creators = [c["name"] for c in detail.get("created_by", []) if c.get("name")]
+    creator_str = ", ".join(creators) if creators else None
+
+    imdb_id = detail.get("external_ids", {}).get("imdb_id") or detail.get("imdb_id")
+
     return {
         "id": detail.get("id"),
-        "title": detail.get("title", "Unknown"),
+        "title": detail.get("name", "Unknown"),
         "overview": detail.get("overview", ""),
         "rating": round(detail.get("vote_average", 0), 1),
         "votes": detail.get("vote_count", 0),
-        "year": (detail.get("release_date") or "")[:4],
-        "runtime": detail.get("runtime"),
+        "year": (detail.get("first_air_date") or "")[:4],
+        "runtime": avg_runtime,
+        "seasons": seasons,
+        "episodes": episodes,
         "genres": [g["name"] for g in detail.get("genres", [])],
         "poster": IMAGE_BASE + detail["poster_path"] if detail.get("poster_path") else None,
         "streaming": streaming,
-        "tmdb_url": f"https://www.themoviedb.org/movie/{detail.get('id')}",
+        "tmdb_url": f"https://www.themoviedb.org/tv/{detail.get('id')}",
         "trailer_url": f"https://www.youtube.com/watch?v={trailer_key}" if trailer_key else None,
         "popularity": detail.get("popularity", 0),
-        "imdb_id": detail.get("imdb_id"),
+        "imdb_id": imdb_id,
         "cast": [m["name"] for m in detail.get("credits", {}).get("cast", [])[:5]],
-        "director": next((m["name"] for m in detail.get("credits", {}).get("crew", [])
-                          if m["job"] == "Director"), None),
+        "director": creator_str,   # repurpose "director" slot for show creators
+        "media_type": "tv",
     }
+
+
+def fetch_tv_by_id(api_key: str, tv_id: int, region: str = "US") -> dict | None:
+    try:
+        detail = requests.get(
+            f"{BASE_URL}/tv/{tv_id}",
+            params={"api_key": api_key,
+                    "append_to_response": "watch/providers,videos,credits,external_ids"},
+            timeout=10,
+        ).json()
+    except Exception:
+        return None
+    if not detail.get("id"):
+        return None
+    return _tv_to_shape(detail, region)
+
+
+def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
+                    year_to: int, min_rating: float, provider_ids: list[int],
+                    language: str = "", hidden_gem: bool = False,
+                    actor_id: int | None = None, region: str = "US",
+                    excluded_ids: set | None = None,
+                    without_genre_ids: set | None = None) -> dict | None:
+    params = {
+        "api_key": api_key,
+        "sort_by": "vote_average.desc" if hidden_gem else "popularity.desc",
+        "vote_average.gte": min_rating,
+        "vote_count.gte": 200 if hidden_gem else 30,
+        "first_air_date.gte": f"{year_from}-01-01",
+        "first_air_date.lte": f"{year_to}-12-31",
+        "language": "en-US",
+        "page": 1,
+    }
+    if hidden_gem:
+        params["popularity.lte"] = 15
+
+    if genre_ids:
+        params["with_genres"] = "|".join(str(g) for g in genre_ids)
+    if without_genre_ids:
+        params["without_genres"] = ",".join(str(g) for g in without_genre_ids)
+    if provider_ids:
+        params["with_watch_providers"] = "|".join(str(p) for p in provider_ids)
+        params["watch_region"] = region
+    if language:
+        params["with_original_language"] = language
+    if actor_id:
+        params["with_cast"] = actor_id
+
+    r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
+    if r.status_code != 200:
+        return None
+    data = r.json()
+    total = min(data.get("total_pages", 1), 500)
+    if total == 0 or not data.get("results"):
+        return None
+
+    excluded_ids = excluded_ids or set()
+    show = None
+    for _ in range(8):
+        params["page"] = random.randint(1, total)
+        r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
+        if r.status_code != 200:
+            return None
+        candidates = [t for t in r.json().get("results", [])
+                      if t["id"] not in excluded_ids]
+        if candidates:
+            show = random.choice(candidates)
+            break
+    if not show:
+        return None
+
+    detail = requests.get(
+        f"{BASE_URL}/tv/{show['id']}",
+        params={"api_key": api_key,
+                "append_to_response": "watch/providers,videos,credits,external_ids"},
+        timeout=10,
+    ).json()
+
+    return _tv_to_shape(detail, region)
