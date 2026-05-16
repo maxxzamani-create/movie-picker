@@ -1,16 +1,25 @@
+"""
+The Movie Zenie — logo.
+
+A stylized 'Z' rising out of a magic lamp on a dark midnight disc.
+Color palette matches the Indigo Night UI theme.
+"""
 import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-TEAL      = "#00B5CC"
-TEAL_D    = "#007a8a"
-TEAL_LT   = "#40D8F0"
-GREEN     = "#39FF14"
-GREEN_D   = "#1a8a00"
-GOLD      = "#FFD700"
-GOLD_D    = "#8B6000"
-BG        = "#060e0e"
-DARK      = "#030808"
+# Palette (matches static/style.css)
+INDIGO     = "#818cf8"
+INDIGO_D   = "#6366f1"
+INDIGO_LT  = "#a5b4fc"
+AMBER      = "#fbbf24"
+AMBER_D    = "#b45309"
+AMBER_LT   = "#fde68a"
+GOLD       = "#FFD700"
+GOLD_D     = "#8B6000"
+BG         = "#0b1020"
+BG_DEEP    = "#070a17"
+WHITE      = "#FFFDE0"
 
 
 def _font(size):
@@ -32,48 +41,47 @@ def make_logo(size: int = 256) -> Image.Image:
 
     img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
 
-    # ── Teal glow ─────────────────────────────────────────────────────────
+    # ── Indigo glow halo ─────────────────────────────────────────────────
     glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(glow)
-    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(0, 181, 204, 150))
-    glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 15)))
+    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(129, 140, 248, 140))
+    glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 14)))
     img  = Image.alpha_composite(img, glow)
     draw = ImageDraw.Draw(img)
 
-    # ── Background disc ───────────────────────────────────────────────────
+    # ── Background disc ──────────────────────────────────────────────────
     draw.ellipse([cx-r, cx-r, cx+r, cx+r], fill=BG)
-    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=TEAL, width=max(2, s//52))
+    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=INDIGO, width=max(2, s//52))
 
-    # ── Proportional anchors ──────────────────────────────────────────────
-    lamp_cx  = cx
-    lamp_cy  = s * 0.78
-    lamp_rx  = s * 0.21
-    lamp_ry  = s * 0.085
+    # ── Proportional anchors ─────────────────────────────────────────────
+    lamp_cx   = cx
+    lamp_cy   = s * 0.80
+    lamp_rx   = s * 0.22
+    lamp_ry   = s * 0.085
+    smoke_top = lamp_cy - lamp_ry        # smoke exits top of lamp body
 
-    head_cx  = cx
-    head_cy  = s * 0.23
-    head_r   = s * 0.105
-
-    waist_y  = s * 0.60
-    chest_y  = s * 0.46
-    smoke_top = lamp_cy - lamp_ry   # smoke exits top of lamp
+    # Z bounding box (where the 'Z' floats above the lamp)
+    z_top    = s * 0.20
+    z_bot    = s * 0.58
+    z_half_w = s * 0.20
+    z_thick  = s * 0.085
 
     # ── Magic lamp ───────────────────────────────────────────────────────
     # Shadow
-    draw.ellipse([lamp_cx-lamp_rx+s*0.01, lamp_cy-lamp_ry+s*0.01,
-                  lamp_cx+lamp_rx+s*0.01, lamp_cy+lamp_ry+s*0.01], fill=GOLD_D)
+    draw.ellipse([lamp_cx-lamp_rx+s*0.012, lamp_cy-lamp_ry+s*0.012,
+                  lamp_cx+lamp_rx+s*0.012, lamp_cy+lamp_ry+s*0.012], fill=GOLD_D)
     # Body
     draw.ellipse([lamp_cx-lamp_rx, lamp_cy-lamp_ry,
                   lamp_cx+lamp_rx, lamp_cy+lamp_ry], fill=GOLD)
     # Spout (right side, curving up)
     spout = [
         (lamp_cx + lamp_rx*0.65, lamp_cy - lamp_ry*0.5),
-        (lamp_cx + lamp_rx*1.3,  lamp_cy - lamp_ry*1.5),
+        (lamp_cx + lamp_rx*1.30, lamp_cy - lamp_ry*1.5),
         (lamp_cx + lamp_rx*1.55, lamp_cy - lamp_ry*1.1),
         (lamp_cx + lamp_rx*0.85, lamp_cy + lamp_ry*0.1),
     ]
     draw.polygon(spout, fill=GOLD)
-    # Handle (left side arc)
+    # Handle (left side arc, drawn as a string of small circles)
     for i in range(18):
         a = math.radians(-20 + i * 12)
         hr = lamp_rx * 0.42
@@ -87,133 +95,125 @@ def make_logo(size: int = 256) -> Image.Image:
                     lamp_cx+bw, lamp_cy+lamp_ry*1.0], fill=GOLD_D)
     draw.rectangle([lamp_cx-bw*1.1, lamp_cy+lamp_ry*0.9,
                     lamp_cx+bw*1.1, lamp_cy+lamp_ry*1.3], fill=GOLD)
-    # Shine
+    # Highlight
     draw.ellipse([lamp_cx-lamp_rx*0.48, lamp_cy-lamp_ry*0.65,
-                  lamp_cx-lamp_rx*0.05, lamp_cy-lamp_ry*0.05], fill="#FFFDE0")
+                  lamp_cx-lamp_rx*0.05, lamp_cy-lamp_ry*0.05], fill=WHITE)
 
-    # ── Smoke / genie tail (from lamp top up to waist) ───────────────────
-    for layer in range(4):
-        t     = layer / 3
-        alpha = int(200 - t * 80)
-        col   = (0, int(100 + t*81), int(140 + t*64), alpha)
-        w_bot = s * (0.03 + t * 0.01)
-        w_top = s * (0.07 + t * 0.02)
+    # ── Magical smoke rising from the spout, curling to under the Z ──────
+    # We paint several semi-transparent layers, widest near the Z.
+    smoke_x_bottom = lamp_cx + lamp_rx*1.15   # exit point near the spout tip
+    smoke_x_top    = cx                       # converges to center, under Z
+    for layer in range(5):
+        t     = layer / 4
+        alpha = int(190 - t * 130)
+        # Indigo gradient: deeper at bottom, lighter near top
+        col   = (
+            int(99  + t * 60),
+            int(102 + t * 50),
+            int(241 - t * 30),
+            alpha,
+        )
+        w_bot = s * (0.025 + t * 0.012)
+        w_top = s * (0.08  + t * 0.030)
+        # The smoke S-curves slightly: start at spout, curl to center
+        x_mid_bottom = smoke_x_bottom - (smoke_x_bottom - smoke_x_top) * 0.35
+        x_mid_top    = smoke_x_bottom - (smoke_x_bottom - smoke_x_top) * 0.85
+        y_mid        = (smoke_top + z_bot) / 2
         smoke = [
-            (cx - w_bot, smoke_top),
-            (cx - w_top, waist_y - s*0.04),
-            (cx + w_top, waist_y - s*0.04),
-            (cx + w_bot, smoke_top),
+            (x_mid_bottom - w_bot, smoke_top + s*0.005),
+            (x_mid_top    - w_top, z_bot - s*0.01),
+            (x_mid_top    + w_top, z_bot - s*0.01),
+            (x_mid_bottom + w_bot, smoke_top + s*0.005),
         ]
         layer_img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
         ImageDraw.Draw(layer_img).polygon(smoke, fill=col)
+        layer_img = layer_img.filter(ImageFilter.GaussianBlur(max(1, s // 90)))
         img = Image.alpha_composite(img, layer_img)
     draw = ImageDraw.Draw(img)
 
-    # ── Genie torso ───────────────────────────────────────────────────────
-    torso = [
-        (cx - s*0.04, waist_y),
-        (cx - s*0.13, chest_y),
-        (cx - s*0.09, head_cy + head_r*0.7),
-        (cx + s*0.09, head_cy + head_r*0.7),
-        (cx + s*0.13, chest_y),
-        (cx + s*0.04, waist_y),
-    ]
-    draw.polygon(torso, fill=TEAL)
+    # ── Soft glow behind the Z ───────────────────────────────────────────
+    z_glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
+    zd = ImageDraw.Draw(z_glow)
+    glow_pad = s * 0.04
+    zd.ellipse([cx - z_half_w - glow_pad, z_top - glow_pad,
+                cx + z_half_w + glow_pad, z_bot + glow_pad],
+               fill=(251, 191, 36, 90))
+    z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 18)))
+    img = Image.alpha_composite(img, z_glow)
+    draw = ImageDraw.Draw(img)
 
-    # Chest detail line
-    draw.line([cx, chest_y, cx, head_cy + head_r*0.6],
-              fill=TEAL_D, width=max(1, s//90))
+    # ── The Z (3 bars: top, diagonal, bottom) ────────────────────────────
+    _draw_z(draw, cx, z_top, z_bot, z_half_w, z_thick,
+            fill=AMBER, edge=AMBER_D, edge_width=max(1, s // 64))
 
-    # ── Arms ─────────────────────────────────────────────────────────────
-    arm_root_y = chest_y + s*0.02
-    arm_tip_y  = chest_y - s*0.03
-    for side in (-1, 1):
-        arm = [
-            (cx + side*s*0.10, arm_root_y),
-            (cx + side*s*0.27, arm_tip_y - s*0.02),
-            (cx + side*s*0.30, arm_tip_y + s*0.06),
-            (cx + side*s*0.22, arm_root_y + s*0.06),
-        ]
-        draw.polygon(arm, fill=TEAL)
-        # Hand ball
-        hx = cx + side * s*0.295
-        hy = arm_tip_y + s*0.04
-        hr = s*0.038
-        draw.ellipse([hx-hr, hy-hr, hx+hr, hy+hr], fill=TEAL_LT)
+    # Inner shine line along the diagonal of the Z (white highlight)
+    if s >= 80:
+        # Highlight runs along the top-right edge of the diagonal
+        sh_top    = (cx + z_half_w * 0.55, z_top + z_thick + s*0.012)
+        sh_bot    = (cx - z_half_w * 0.30, z_bot - z_thick - s*0.012)
+        sh_w      = max(2, s // 110)
+        draw.line([sh_top, sh_bot], fill=WHITE, width=sh_w)
 
-    # ── Head ─────────────────────────────────────────────────────────────
-    # Shadow
-    draw.ellipse([head_cx-head_r+s*0.01, head_cy-head_r+s*0.01,
-                  head_cx+head_r+s*0.01, head_cy+head_r+s*0.01], fill=TEAL_D)
-    draw.ellipse([head_cx-head_r, head_cy-head_r,
-                  head_cx+head_r, head_cy+head_r], fill=TEAL)
-
-    # Eyes
-    ey  = head_cy - head_r*0.12
-    er  = head_r * 0.16
-    sep = head_r * 0.40
-    for ex in (head_cx - sep, head_cx + sep):
-        draw.ellipse([ex-er*1.1, ey-er*0.8, ex+er*1.1, ey+er*0.8], fill=BG)
-        draw.ellipse([ex-er*0.55, ey-er*0.55, ex+er*0.55, ey+er*0.55], fill=GREEN)
-        cl = max(1, int(er*0.3))
-        draw.ellipse([ex-er*0.2, ey-er*0.4, ex-er*0.2+cl, ey-er*0.4+cl], fill="white")
-
-    # Eyebrows
-    brow_w = head_r * 0.30
-    brow_y = ey - er*1.1
-    brow_h = max(1, s//80)
-    for ex in (head_cx - sep, head_cx + sep):
-        draw.line([ex-brow_w, brow_y+s*0.008, ex+brow_w, brow_y],
-                  fill=BG, width=brow_h*2)
-
-    # Smile
-    sm_r = head_r * 0.38
-    draw.arc([head_cx-sm_r, head_cy+head_r*0.08,
-              head_cx+sm_r, head_cy+head_r*0.52],
-             start=10, end=170, fill=BG, width=max(1, s//70))
-
-    # ── Turban ───────────────────────────────────────────────────────────
-    turban_y  = head_cy - head_r*0.45
-    turban_rx = head_r * 1.08
-    turban_ry = head_r * 0.32
-
-    # Turban band
-    draw.ellipse([head_cx-turban_rx, turban_y-turban_ry,
-                  head_cx+turban_rx, turban_y+turban_ry], fill=GREEN_D)
-    draw.ellipse([head_cx-turban_rx*0.95, turban_y-turban_ry*0.7,
-                  head_cx+turban_rx*0.95, turban_y+turban_ry*0.7], fill=GREEN)
-
-    # Turban top (pointed)
-    tip_y = head_cy - head_r * 1.75
-    turban_top = [
-        (head_cx - turban_rx*0.78, turban_y - turban_ry*0.2),
-        (head_cx,                   tip_y),
-        (head_cx + turban_rx*0.78, turban_y - turban_ry*0.2),
-    ]
-    draw.polygon(turban_top, fill=GREEN)
-    # Turban fold lines
-    for tx, ty in [(-0.3, 0.6), (0.3, 0.6)]:
-        draw.line([head_cx, tip_y,
-                   head_cx + tx*turban_rx, turban_y + ty*turban_ry],
-                  fill=GREEN_D, width=max(1, s//100))
-
-    # Jewel on turban
-    jx, jy, jr = head_cx, turban_y, head_r*0.16
-    draw.ellipse([jx-jr, jy-jr, jx+jr, jy+jr], fill=GOLD_D)
-    draw.ellipse([jx-jr*0.65, jy-jr*0.65, jx+jr*0.65, jy+jr*0.65], fill=GOLD)
-    draw.ellipse([jx-jr*0.25, jy-jr*0.35, jx+jr*0.25, jy+jr*0.05], fill="#FFFDE0")
+        # Tiny shine on the top bar
+        draw.line(
+            [(cx - z_half_w + s*0.025, z_top + s*0.014),
+             (cx + z_half_w - s*0.025, z_top + s*0.014)],
+            fill=AMBER_LT, width=max(1, s // 120)
+        )
 
     # ── Sparkles ─────────────────────────────────────────────────────────
     if s >= 80:
-        for sx, sy, sr in [
-            (cx - r*0.55, cx - r*0.50, s*0.030),
-            (cx + r*0.60, cx - r*0.35, s*0.022),
-            (cx - r*0.20, cx + r*0.55, s*0.018),
-            (cx + r*0.40, cx + r*0.50, s*0.020),
-        ]:
-            _star(draw, sx, sy, sr, GREEN, points=4)
+        sparkles = [
+            (cx - r*0.62, cx - r*0.45, s*0.028, INDIGO_LT),
+            (cx + r*0.60, cx - r*0.30, s*0.022, AMBER),
+            (cx - r*0.18, cx + r*0.55, s*0.017, INDIGO),
+            (cx + r*0.42, cx + r*0.48, s*0.020, AMBER_LT),
+            (cx + r*0.55, cx + r*0.10, s*0.014, INDIGO_LT),
+        ]
+        for sx, sy, sr, scol in sparkles:
+            _star(draw, sx, sy, sr, scol, points=4)
 
     return img
+
+
+def _draw_z(draw, cx, top, bot, half_w, thick, fill, edge=None, edge_width=0):
+    """Bold stylized Z made of 3 polygons: top bar, diagonal stripe, bottom bar."""
+    left  = cx - half_w
+    right = cx + half_w
+
+    top_bar = [
+        (left,  top),
+        (right, top),
+        (right, top + thick),
+        (left,  top + thick),
+    ]
+    bot_bar = [
+        (left,  bot - thick),
+        (right, bot - thick),
+        (right, bot),
+        (left,  bot),
+    ]
+    # Diagonal stripe (parallelogram from top-right to bottom-left)
+    diag = [
+        (right,         top + thick),
+        (left  + thick, bot - thick),
+        (left,          bot - thick),
+        (right - thick, top + thick),
+    ]
+
+    draw.polygon(top_bar, fill=fill)
+    draw.polygon(diag,    fill=fill)
+    draw.polygon(bot_bar, fill=fill)
+
+    # Optional edge stroke for definition
+    if edge and edge_width > 0:
+        def outline(pts):
+            n = len(pts)
+            for i in range(n):
+                draw.line([pts[i], pts[(i+1) % n]], fill=edge, width=edge_width)
+        outline(top_bar)
+        outline(diag)
+        outline(bot_bar)
 
 
 def _star(draw, cx, cy, r, color, points=4):

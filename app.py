@@ -28,7 +28,7 @@ class MoviePickerApp(ctk.CTk):
         self._poster_image = None
         self._resolved_actor: tuple[int, str] | None = None
 
-        self.title("The Movie Genie")
+        self.title("The Movie Zenie")
         self.geometry("1340x760")
         self.minsize(1100, 660)
 
@@ -576,7 +576,7 @@ class MoviePickerApp(ctk.CTk):
 
     def _show_api_dialog(self):
         dlg = ctk.CTkToplevel(self)
-        dlg.title("The Movie Genie — API Keys")
+        dlg.title("The Movie Zenie — API Keys")
         dlg.geometry("440x220")
         dlg.resizable(False, False)
         dlg.grab_set()

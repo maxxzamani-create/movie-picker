@@ -1,5 +1,5 @@
 @echo off
-echo Starting The Movie Genie (Web Edition)...
+echo Starting The Movie Zenie (Web Edition)...
 echo.
 python -m pip install flask --quiet
 echo.
