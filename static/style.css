@@ -2,43 +2,49 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* Indigo Night palette — softer on the eyes */
-  --bg:         #0b1020;   /* deep midnight */
-  --surface:    #161b2e;   /* card surface */
-  --surface2:  #1f2540;    /* raised surface */
-  --border:    #2a3358;    /* subtle borders */
+  /* Deep Forest palette — moss, pine, and lantern gold */
+  --bg:         #0a1810;   /* deep forest night */
+  --bg-deep:    #050d08;   /* darkest edge */
+  --surface:    #102218;   /* card surface */
+  --surface2:   #1a3324;   /* raised surface */
+  --border:     #284d36;   /* subtle pine borders */
 
-  --primary:   #818cf8;    /* indigo-400 — main accent */
-  --primary-2: #a5b4fc;    /* lighter indigo */
-  --primary-d: #6366f1;    /* indigo-500 for hover */
+  --primary:    #4ade80;   /* emerald-400 — bright leaf */
+  --primary-2:  #86efac;   /* lighter leaf, for hover/accents */
+  --primary-d:  #22c55e;   /* emerald-500 for gradients */
+  --forest:     #166534;   /* deep forest green */
+  --moss:       #65a30d;   /* warm moss/lime accent */
 
-  --amber:     #fbbf24;    /* warm highlight */
-  --emerald:   #34d399;    /* positive action */
-  --emerald-d: #10b981;
-  --rose:      #fb7185;    /* negative action */
-  --rose-d:    #f43f5e;
-  --slate:     #475569;    /* neutral button */
-  --slate-d:   #334155;
+  --amber:      #fbbf24;   /* lantern gold */
+  --amber-d:    #f59e0b;   /* deeper gold for gradients */
+  --amber-lt:   #fde68a;   /* pale gold highlight */
 
-  --text:      #e2e8f0;    /* slate-200 */
-  --text-dim:  #94a3b8;    /* slate-400 */
-  --muted:     #64748b;    /* slate-500 */
+  --rose:       #fb7185;   /* negative action */
+  --rose-d:     #f43f5e;
+
+  --text:       #e8f0e8;   /* warm pale cream */
+  --text-dim:   #a3b8a8;   /* sage gray */
+  --muted:      #6b7d6e;   /* moss gray */
 
   --radius:     12px;
   --radius-sm:  8px;
-  --sidebar-w: 280px;
-  --history-w: 240px;
+  --sidebar-w:  280px;
+  --history-w:  240px;
 
-  --shadow-card: 0 8px 24px -8px rgba(0,0,0,0.5),
+  --shadow-card: 0 8px 24px -8px rgba(0,0,0,0.55),
                  0 2px 6px -2px rgba(0,0,0,0.3);
+  --shadow-green: 0 4px 14px -4px rgba(74,222,128,0.45);
+  --shadow-amber: 0 4px 14px -4px rgba(251,191,36,0.45);
 }
 
 html, body {
   height: 100%;
   background: var(--bg);
+  /* Subtle dappled light effect — green canopy with gold sunlight */
   background-image:
-    radial-gradient(at 15% 0%, rgba(129,140,248,0.08) 0px, transparent 50%),
-    radial-gradient(at 85% 100%, rgba(251,191,36,0.05) 0px, transparent 50%);
+    radial-gradient(at 18% 0%,   rgba(74,222,128,0.10) 0px, transparent 50%),
+    radial-gradient(at 82% 100%, rgba(251,191,36,0.07) 0px, transparent 55%),
+    radial-gradient(at 50% 50%,  rgba(22,101,52,0.15)  0px, transparent 70%);
   background-attachment: fixed;
   color: var(--text);
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -66,7 +72,7 @@ html, body {
 
 /* ── Sidebar ──────────────────────────────────────────────────────────── */
 .sidebar {
-  background: rgba(11, 16, 32, 0.85);
+  background: rgba(10, 24, 16, 0.85);
   backdrop-filter: blur(12px);
   border-right: 1px solid var(--border);
   display: flex;
@@ -90,7 +96,7 @@ html, body {
 
 .sidebar-header img {
   width: 44px; height: 44px; border-radius: 50%;
-  box-shadow: 0 0 0 2px var(--surface2), 0 0 16px rgba(129,140,248,0.3);
+  box-shadow: 0 0 0 2px var(--surface2), 0 0 16px rgba(74,222,128,0.35);
 }
 
 .sidebar-title { flex: 1; line-height: 1.2; }
@@ -140,9 +146,9 @@ html, body {
 }
 .media-btn:hover  { color: var(--text); }
 .media-btn.active {
-  background: var(--primary);
-  color: #0b1020;
-  box-shadow: 0 2px 8px -2px rgba(129,140,248,0.5);
+  background: linear-gradient(135deg, var(--primary), var(--primary-d));
+  color: #07140a;
+  box-shadow: var(--shadow-green);
 }
 
 /* ── Form controls ────────────────────────────────────────────────────── */
@@ -155,7 +161,7 @@ select, input[type="text"], input[type="number"] {
 }
 select:focus, input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(129,140,248,0.15);
+  box-shadow: 0 0 0 3px rgba(74,222,128,0.18);
 }
 select option { background: var(--surface); }
 
@@ -188,8 +194,9 @@ input[type="range"] {
 }
 .mood-btn:hover  { background: var(--surface2); color: var(--text); border-color: var(--primary); }
 .mood-btn.active {
-  background: var(--primary); color: #0b1020; border-color: var(--primary);
-  box-shadow: 0 2px 8px -2px rgba(129,140,248,0.5);
+  background: linear-gradient(135deg, var(--primary), var(--primary-d));
+  color: #07140a; border-color: var(--primary);
+  box-shadow: var(--shadow-green);
 }
 
 /* ── Actor search ─────────────────────────────────────────────────────── */
@@ -201,13 +208,13 @@ input[type="range"] {
   border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px;
 }
 .btn-clear-actor:hover { background: var(--rose-d); color: #fff; border-color: var(--rose); }
-.actor-status { font-size: 11px; color: var(--emerald); margin-top: 6px; min-height: 16px; }
+.actor-status { font-size: 11px; color: var(--primary); margin-top: 6px; min-height: 16px; }
 
 .actor-dropdown {
   position: absolute; top: 100%; left: 0; right: 0; z-index: 999;
   background: var(--surface); border: 1px solid var(--primary);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm); max-height: 280px; overflow-y: auto;
-  box-shadow: 0 8px 20px -4px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 20px -4px rgba(0,0,0,0.45);
   display: none;
 }
 .actor-dropdown.open { display: block; }
@@ -238,14 +245,14 @@ input[type="range"] {
 .btn-pick {
   width: 100%; padding: 13px; margin: 12px 0 8px;
   background: linear-gradient(135deg, var(--primary), var(--primary-d));
-  color: #0b1020;
+  color: #07140a;
   font-size: 15px; font-weight: 700; border: none;
   border-radius: var(--radius-sm); cursor: pointer; transition: all .15s;
-  box-shadow: 0 4px 14px -4px rgba(129,140,248,0.5);
+  box-shadow: var(--shadow-green);
   letter-spacing: 0.3px;
 }
-.btn-pick:hover    { filter: brightness(1.1); transform: translateY(-1px); }
-.btn-pick:disabled { background: var(--slate); color: var(--muted); cursor: not-allowed; box-shadow: none; transform: none; filter: none; }
+.btn-pick:hover    { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-pick:disabled { background: var(--surface2); color: var(--muted); cursor: not-allowed; box-shadow: none; transform: none; filter: none; }
 
 .btn-save {
   width: 100%; padding: 9px;
@@ -329,7 +336,7 @@ input[type="range"] {
   color: var(--amber);
   border: 1px solid var(--border);
 }
-.badge.rt-fresh  { color: var(--emerald); border-color: rgba(52,211,153,0.3); }
+.badge.rt-fresh  { color: var(--primary); border-color: rgba(74,222,128,0.3); }
 .badge.rt-ok     { color: var(--amber);   border-color: rgba(251,191,36,0.3); }
 .badge.rt-rotten { color: var(--rose);    border-color: rgba(251,113,133,0.3); }
 
@@ -340,7 +347,7 @@ input[type="range"] {
 .movie-director { font-size: 12px; font-weight: 600; color: var(--primary-2); margin-bottom: 4px; }
 .movie-cast     { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; }
 .movie-genres   { font-size: 12px; color: var(--amber); margin-bottom: 6px; }
-.movie-streaming{ font-size: 12px; color: var(--emerald); margin-bottom: 18px; font-weight: 500; }
+.movie-streaming{ font-size: 12px; color: var(--primary); margin-bottom: 18px; font-weight: 500; }
 
 /* ── Action buttons grid ──────────────────────────────────────────────── */
 .action-buttons {
@@ -354,14 +361,18 @@ input[type="range"] {
   text-overflow: ellipsis;
   letter-spacing: 0.2px;
 }
-.action-btn:hover    { transform: translateY(-1px); filter: brightness(1.1); }
+.action-btn:hover    { transform: translateY(-1px); filter: brightness(1.08); }
 .action-btn:disabled { opacity: .35; cursor: not-allowed; filter: none; transform: none; }
 
-/* Semantic colors — meaning communicated through hue */
+/* Semantic colors:
+   forest green = primary actions and positive feedback (more like this)
+   amber/gold   = save/watchlist (lantern accent — "treasured")
+   slate        = neutral (trailer, view)
+   rose         = negative (don't like) */
 .btn-pick-again {
   background: linear-gradient(135deg, var(--primary), var(--primary-d));
-  color: #0b1020;
-  box-shadow: 0 2px 8px -2px rgba(129,140,248,0.4);
+  color: #07140a;
+  box-shadow: var(--shadow-green);
 }
 .btn-trailer {
   background: var(--surface2); color: var(--text);
@@ -372,24 +383,24 @@ input[type="range"] {
   border: 1px solid var(--border);
 }
 .btn-watchlist {
-  background: linear-gradient(135deg, var(--emerald), var(--emerald-d));
-  color: #0b1020;
-  box-shadow: 0 2px 8px -2px rgba(52,211,153,0.4);
+  background: linear-gradient(135deg, var(--amber), var(--amber-d));
+  color: #1a1004;
+  box-shadow: var(--shadow-amber);
 }
 .btn-watched {
-  background: linear-gradient(135deg, var(--emerald), var(--emerald-d));
-  color: #0b1020;
-  box-shadow: 0 2px 8px -2px rgba(52,211,153,0.4);
+  background: linear-gradient(135deg, var(--primary), var(--primary-d));
+  color: #07140a;
+  box-shadow: var(--shadow-green);
 }
 .btn-dislike {
   background: linear-gradient(135deg, var(--rose), var(--rose-d));
-  color: #0b1020;
-  box-shadow: 0 2px 8px -2px rgba(251,113,133,0.4);
+  color: #1a0608;
+  box-shadow: 0 4px 14px -4px rgba(251,113,133,0.45);
 }
 
 /* ── Watchlist bar ────────────────────────────────────────────────────── */
 .watchlist-bar {
-  background: rgba(11, 16, 32, 0.6);
+  background: rgba(10, 24, 16, 0.6);
   border-top: 1px solid var(--border);
   padding: 10px 16px; flex-shrink: 0;
 }
@@ -424,12 +435,12 @@ input[type="range"] {
 .chip-tv-sm {
   display: inline-block; font-size: 9px; font-weight: 700;
   padding: 1px 5px; margin-left: 4px; border-radius: 4px;
-  background: var(--primary); color: #0b1020;
+  background: var(--amber); color: #1a1004;
 }
 
 /* ── History panel ────────────────────────────────────────────────────── */
 .history-panel {
-  background: rgba(11, 16, 32, 0.85);
+  background: rgba(10, 24, 16, 0.85);
   backdrop-filter: blur(12px);
   border-left: 1px solid var(--border);
   display: flex; flex-direction: column; overflow: hidden;
@@ -472,7 +483,7 @@ input[type="range"] {
 }
 .hist-type {
   font-size: 9px; font-weight: 700; padding: 1px 5px;
-  background: var(--primary); color: #0b1020;
+  background: var(--amber); color: #1a1004;
   border-radius: 4px;
 }
 .hist-play {
@@ -481,7 +492,7 @@ input[type="range"] {
   border: 1px solid var(--border); border-radius: 5px; cursor: pointer;
   transition: all 0.15s;
 }
-.hist-play:hover { background: var(--primary); color: #0b1020; border-color: var(--primary); }
+.hist-play:hover { background: var(--primary); color: #07140a; border-color: var(--primary); }
 
 .hist-meta { font-size: 11px; color: var(--text-dim); margin-bottom: 6px; }
 
@@ -489,10 +500,10 @@ input[type="range"] {
 .chip {
   font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600;
 }
-.chip-Suggested { background: rgba(129,140,248,0.15); color: var(--primary-2); }
+.chip-Suggested { background: rgba(74,222,128,0.15);  color: var(--primary-2); }
 .chip-Trailer   { background: rgba(251,191,36,0.15);  color: var(--amber); }
-.chip-Watchlist { background: rgba(52,211,153,0.15);  color: var(--emerald); }
-.chip-Watched   { background: rgba(52,211,153,0.15);  color: var(--emerald); }
+.chip-Watchlist { background: rgba(251,191,36,0.18);  color: var(--amber); }
+.chip-Watched   { background: rgba(74,222,128,0.15);  color: var(--primary); }
 .chip-Disliked  { background: rgba(251,113,133,0.15); color: var(--rose); }
 
 /* ── API key modal ────────────────────────────────────────────────────── */
@@ -522,12 +533,12 @@ input[type="range"] {
 .btn-modal-save {
   flex: 1; padding: 11px;
   background: linear-gradient(135deg, var(--primary), var(--primary-d));
-  color: #0b1020;
+  color: #07140a;
   font-weight: 700; border: none; border-radius: var(--radius-sm);
   cursor: pointer; font-size: 14px;
-  box-shadow: 0 4px 14px -4px rgba(129,140,248,0.5);
+  box-shadow: var(--shadow-green);
 }
-.btn-modal-save:hover { filter: brightness(1.1); }
+.btn-modal-save:hover { filter: brightness(1.08); }
 .btn-modal-cancel {
   padding: 11px 20px; background: var(--surface2); color: var(--text);
   border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 14px;

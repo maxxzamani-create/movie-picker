@@ -8,17 +8,18 @@ import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Palette (matches static/style.css)
-INDIGO     = "#818cf8"
-INDIGO_D   = "#6366f1"
-INDIGO_LT  = "#a5b4fc"
-AMBER      = "#fbbf24"
+# Palette (matches static/style.css — Deep Forest)
+FOREST     = "#4ade80"   # emerald-400, bright leaf
+FOREST_D   = "#22c55e"   # emerald-500, deeper
+FOREST_LT  = "#86efac"   # pale leaf
+PINE       = "#166534"   # deep pine for depth
+AMBER      = "#fbbf24"   # lantern gold
 AMBER_D    = "#b45309"
 AMBER_LT   = "#fde68a"
 GOLD       = "#FFD700"
 GOLD_D     = "#8B6000"
-BG         = "#0b1020"
-BG_DEEP    = "#070a17"
+BG         = "#0a1810"   # deep forest night
+BG_DEEP    = "#050d08"
 WHITE      = "#FFFDE0"
 
 
@@ -41,17 +42,17 @@ def make_logo(size: int = 256) -> Image.Image:
 
     img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
 
-    # ── Indigo glow halo ─────────────────────────────────────────────────
+    # ── Forest-green glow halo ───────────────────────────────────────────
     glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(glow)
-    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(129, 140, 248, 140))
+    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(74, 222, 128, 130))
     glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 14)))
     img  = Image.alpha_composite(img, glow)
     draw = ImageDraw.Draw(img)
 
     # ── Background disc ──────────────────────────────────────────────────
     draw.ellipse([cx-r, cx-r, cx+r, cx+r], fill=BG)
-    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=INDIGO, width=max(2, s//52))
+    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=FOREST, width=max(2, s//52))
 
     # ── Proportional anchors ─────────────────────────────────────────────
     lamp_cx   = cx
@@ -106,11 +107,11 @@ def make_logo(size: int = 256) -> Image.Image:
     for layer in range(5):
         t     = layer / 4
         alpha = int(190 - t * 130)
-        # Indigo gradient: deeper at bottom, lighter near top
+        # Emerald-pine gradient: deeper green at bottom, brighter near top
         col   = (
-            int(99  + t * 60),
-            int(102 + t * 50),
-            int(241 - t * 30),
+            int(34  + t * 60),
+            int(140 + t * 80),
+            int(80  + t * 50),
             alpha,
         )
         w_bot = s * (0.025 + t * 0.012)
@@ -161,14 +162,14 @@ def make_logo(size: int = 256) -> Image.Image:
             fill=AMBER_LT, width=max(1, s // 120)
         )
 
-    # ── Sparkles ─────────────────────────────────────────────────────────
+    # ── Sparkles (fireflies — green and gold) ────────────────────────────
     if s >= 80:
         sparkles = [
-            (cx - r*0.62, cx - r*0.45, s*0.028, INDIGO_LT),
+            (cx - r*0.62, cx - r*0.45, s*0.028, FOREST_LT),
             (cx + r*0.60, cx - r*0.30, s*0.022, AMBER),
-            (cx - r*0.18, cx + r*0.55, s*0.017, INDIGO),
+            (cx - r*0.18, cx + r*0.55, s*0.017, FOREST),
             (cx + r*0.42, cx + r*0.48, s*0.020, AMBER_LT),
-            (cx + r*0.55, cx + r*0.10, s*0.014, INDIGO_LT),
+            (cx + r*0.55, cx + r*0.10, s*0.014, FOREST_LT),
         ]
         for sx, sy, sr, scol in sparkles:
             _star(draw, sx, sy, sr, scol, points=4)
