@@ -8,18 +8,19 @@ import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Palette (matches static/style.css — Forest Green & Gold)
-FOREST     = "#228B22"   # CSS forest green — heritage classic
-FOREST_D   = "#176617"   # darker pine
-FOREST_LT  = "#4caf50"   # brighter leaf for accents
-PINE       = "#0d3a1a"   # deepest pine
-GOLD       = "#FFD700"   # true gold — primary accent
-GOLD_D     = "#b8860b"   # dark goldenrod for gradient end
-GOLD_LT    = "#ffe566"   # pale gold highlight
-GOLD_DEEP  = "#DAA520"   # goldenrod for borders
-BG         = "#0d1a12"   # deep forest night
-BG_DEEP    = "#060e08"
-WHITE      = "#FFFDE0"
+# Palette (matches static/style.css — Superman)
+BLUE       = "#1471D9"   # Superman suit blue
+BLUE_D     = "#0e5cb3"   # deeper blue
+BLUE_LT    = "#4d9eff"   # lighter blue accent
+RED        = "#DC2626"   # Superman cape red
+RED_D      = "#991B1B"   # deep cape red
+RED_LT     = "#fca5a5"   # light red highlight
+GOLD       = "#FFCC00"   # Superman S-shield yellow
+GOLD_D     = "#b58900"   # deeper gold for gradient ends
+GOLD_LT    = "#FFE066"   # pale gold highlight
+BG         = "#061538"   # deep night-sky navy
+BG_DEEP    = "#030a1d"
+WHITE      = "#FFFFFF"
 
 
 def _font(size):
@@ -41,22 +42,22 @@ def make_logo(size: int = 256) -> Image.Image:
 
     img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
 
-    # ── Gold-tinted glow halo ────────────────────────────────────────────
+    # ── Red glow halo (cape flash) ───────────────────────────────────────
     glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(glow)
-    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(218, 165, 32, 130))
+    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(220, 38, 38, 140))
     glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 14)))
     img  = Image.alpha_composite(img, glow)
     draw = ImageDraw.Draw(img)
 
-    # ── Background disc with gold ring on green inner edge ───────────────
+    # ── Background disc with two-tone ring (red outer, gold inner) ───────
     draw.ellipse([cx-r, cx-r, cx+r, cx+r], fill=BG)
-    # Outer gold ring
-    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=GOLD_DEEP, width=max(2, s//52))
-    # Inner forest-green stroke for the two-tone heritage look
-    inner_r = r - max(3, s//40)
+    # Outer red ring (the cape)
+    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=RED, width=max(2, s//50))
+    # Inner gold ring (the S-shield outline)
+    inner_r = r - max(3, s//38)
     draw.ellipse([cx-inner_r, cx-inner_r, cx+inner_r, cx+inner_r],
-                 outline=FOREST, width=max(1, s//110))
+                 outline=GOLD, width=max(1, s//95))
 
     # ── Proportional anchors ─────────────────────────────────────────────
     lamp_cx   = cx
@@ -110,12 +111,12 @@ def make_logo(size: int = 256) -> Image.Image:
     smoke_x_top    = cx                       # converges to center, under Z
     for layer in range(5):
         t     = layer / 4
-        alpha = int(190 - t * 130)
-        # Forest-green smoke shifting to gold mist as it rises
+        alpha = int(195 - t * 130)
+        # Blue smoke shifting to lighter sky-blue as it rises
         col   = (
-            int(34  + t * 180),  # R: 34 -> 214
-            int(139 + t * 35),   # G: 139 -> 174 (stays greenish then warm)
-            int(34  + t * 20),   # B: 34 -> 54 (stays low — warm hue)
+            int(20  + t * 60),    # R: 20 -> 80
+            int(113 + t * 50),    # G: 113 -> 163
+            int(217 + t * 30),    # B: 217 -> 247 (stays bright blue)
             alpha,
         )
         w_bot = s * (0.025 + t * 0.012)
@@ -136,43 +137,43 @@ def make_logo(size: int = 256) -> Image.Image:
         img = Image.alpha_composite(img, layer_img)
     draw = ImageDraw.Draw(img)
 
-    # ── Soft gold glow behind the Z ──────────────────────────────────────
+    # ── Gold glow behind the Z (S-shield aura) ───────────────────────────
     z_glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     zd = ImageDraw.Draw(z_glow)
     glow_pad = s * 0.05
     zd.ellipse([cx - z_half_w - glow_pad, z_top - glow_pad,
                 cx + z_half_w + glow_pad, z_bot + glow_pad],
-               fill=(255, 215, 0, 110))
+               fill=(255, 204, 0, 130))
     z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 16)))
     img = Image.alpha_composite(img, z_glow)
     draw = ImageDraw.Draw(img)
 
-    # ── The Z (3 bars: top, diagonal, bottom) ────────────────────────────
+    # ── The Z — red letter with gold outline (S-shield treatment) ────────
     _draw_z(draw, cx, z_top, z_bot, z_half_w, z_thick,
-            fill=GOLD, edge=GOLD_D, edge_width=max(1, s // 60))
+            fill=RED, edge=GOLD, edge_width=max(2, s // 50))
 
-    # Inner shine line along the diagonal of the Z (pale gold highlight)
+    # Inner shine — pale red highlight along the diagonal
     if s >= 80:
         sh_top    = (cx + z_half_w * 0.55, z_top + z_thick + s*0.012)
         sh_bot    = (cx - z_half_w * 0.30, z_bot - z_thick - s*0.012)
         sh_w      = max(2, s // 110)
-        draw.line([sh_top, sh_bot], fill=GOLD_LT, width=sh_w)
+        draw.line([sh_top, sh_bot], fill=RED_LT, width=sh_w)
 
-        # Tiny shine on the top bar
+        # Tiny gold shine on the top bar
         draw.line(
             [(cx - z_half_w + s*0.025, z_top + s*0.014),
              (cx + z_half_w - s*0.025, z_top + s*0.014)],
-            fill=WHITE, width=max(1, s // 120)
+            fill=GOLD_LT, width=max(1, s // 120)
         )
 
-    # ── Sparkles (fireflies — green and gold) ────────────────────────────
+    # ── Sparkles (stars — gold, red, blue) ───────────────────────────────
     if s >= 80:
         sparkles = [
             (cx - r*0.62, cx - r*0.45, s*0.028, GOLD_LT),
-            (cx + r*0.60, cx - r*0.30, s*0.022, FOREST_LT),
-            (cx - r*0.18, cx + r*0.55, s*0.017, GOLD),
-            (cx + r*0.42, cx + r*0.48, s*0.020, GOLD_LT),
-            (cx + r*0.55, cx + r*0.10, s*0.014, FOREST_LT),
+            (cx + r*0.60, cx - r*0.30, s*0.022, RED_LT),
+            (cx - r*0.18, cx + r*0.55, s*0.017, BLUE_LT),
+            (cx + r*0.42, cx + r*0.48, s*0.020, GOLD),
+            (cx + r*0.55, cx + r*0.10, s*0.014, GOLD_LT),
         ]
         for sx, sy, sr, scol in sparkles:
             _star(draw, sx, sy, sr, scol, points=4)
