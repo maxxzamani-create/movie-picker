@@ -153,20 +153,6 @@
       </div>
       <div class="sep"></div>
 
-      <!-- Streaming Providers -->
-      <div class="section">
-        <div class="section-label">Streaming (US)</div>
-        <div class="check-grid">
-          {% for pid, pname in providers.items() %}
-          <label>
-            <input type="checkbox" class="provider-cb" id="provider-{{ pid }}" value="{{ pid }}">
-            {{ pname }}
-          </label>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="sep"></div>
-
       <!-- Actions -->
       <div class="section">
         <button class="btn-pick" id="btn-pick">🎲  Pick a Movie</button>

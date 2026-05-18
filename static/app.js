@@ -78,18 +78,11 @@ function loadPrefsIntoUI() {
   const slider = document.getElementById("rating-slider");
   slider.value = p.min_rating ?? 6.0;
   document.getElementById("rating-val").textContent = `${parseFloat(slider.value).toFixed(1)} / 10`;
-
-  // Providers
-  (p.providers || []).forEach(pid => {
-    const cb = document.getElementById(`provider-${pid}`);
-    if (cb) cb.checked = true;
-  });
 }
 
 function collectPrefs() {
   const movieGenres = [...document.querySelectorAll(".genre-cb:checked")].map(el => parseInt(el.value));
   const tvGenres    = [...document.querySelectorAll(".tv-genre-cb:checked")].map(el => parseInt(el.value));
-  const providers   = [...document.querySelectorAll(".provider-cb:checked")].map(el => parseInt(el.value));
   const langEl      = document.getElementById("language");
   const yearFrom    = parseInt(document.getElementById("year-from").value) || 1980;
   const yearTo      = parseInt(document.getElementById("year-to").value)   || 2026;
@@ -102,7 +95,7 @@ function collectPrefs() {
     media_type:  state.mediaType,
     genres:      movieGenres,
     tv_genres:   tvGenres,
-    providers,
+    providers:   [],
     language:    langEl.value,
     year_from:   yearFrom,
     year_to:     yearTo,
@@ -397,8 +390,6 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
 
   document.getElementById("rating-slider").value = 6.0;
   document.getElementById("rating-val").textContent = "6.0 / 10";
-
-  document.querySelectorAll(".provider-cb").forEach(cb => cb.checked = false);
 
   setStatus("Filters reset to defaults.");
 });
