@@ -75,15 +75,19 @@ def pick():
     is_tv = (media_type == "tv")
     genre_map = tmdb.TV_GENRES if is_tv else tmdb.GENRES
 
-    # Moods combine with OR logic; multiple moods pool their genres
+    # Moods combine with OR logic; multiple moods pool their genres and keywords
     mood_keys = data.get("moods", [])
     mood_field = "tv_genres" if is_tv else "movie_genres"
+    keyword_ids: list[int] = []
     if mood_keys:
         genre_set = set()
+        keyword_set = set()
         for mk in mood_keys:
             if mk in tmdb.MOODS:
                 genre_set.update(tmdb.MOODS[mk].get(mood_field, []))
+                keyword_set.update(tmdb.MOODS[mk].get("keywords", []))
         genre_ids = list(genre_set)
+        keyword_ids = list(keyword_set)
     else:
         ui_genres = data.get("tv_genres" if is_tv else "genres", [])
         genre_ids = [int(g) for g in ui_genres]
@@ -129,6 +133,7 @@ def pick():
         actor_id       = actor_id,
         excluded_ids   = excluded_ids,
         without_genre_ids = avoided_genres,
+        keyword_ids    = keyword_ids,
     )
 
     if not item:

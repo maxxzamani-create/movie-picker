@@ -38,6 +38,10 @@ LANGUAGES = {
     "zh": "Chinese",
 }
 
+# TMDB keyword IDs used by the indie/arthouse moods.
+# 9826 = "independent film" (well-established TMDB keyword).
+KW_INDEPENDENT = 9826
+
 MOODS = {
     "none":        {"label": "None",         "movie_genres": [],              "tv_genres": []},
     "feel_good":   {"label": "Feel Good",    "movie_genres": [35, 10749, 10751, 16], "tv_genres": [35, 10751, 16]},
@@ -48,10 +52,20 @@ MOODS = {
     "romantic":    {"label": "Romantic",     "movie_genres": [10749, 35],            "tv_genres": [35, 18]},
     "scary":       {"label": "Scary",        "movie_genres": [27],                   "tv_genres": [9648, 80]},
     "funny":       {"label": "Funny",        "movie_genres": [35],                   "tv_genres": [35]},
+    # Indie / artsy / arthouse trio — share the "independent film" keyword
+    # but tilt toward different genre mixes and rating thresholds.
+    "indie":       {"label": "Indie",        "movie_genres": [18, 35, 9648],         "tv_genres": [18, 35, 9648],
+                    "keywords": [KW_INDEPENDENT]},
+    "artsy":       {"label": "Artsy",        "movie_genres": [18, 14, 9648],         "tv_genres": [18, 9648],
+                    "keywords": [KW_INDEPENDENT]},
+    "arthouse":    {"label": "Arthouse",     "movie_genres": [18, 36, 10402],        "tv_genres": [18, 9648],
+                    "keywords": [KW_INDEPENDENT]},
 }
 # Backward-compat alias for the legacy desktop app (app.py uses MOODS[k]["genres"])
+# Also default "keywords" to [] so callers can rely on the field existing.
 for _m in MOODS.values():
     _m["genres"] = _m["movie_genres"]
+    _m.setdefault("keywords", [])
 
 
 OMDB_URL = "http://www.omdbapi.com/"
@@ -163,12 +177,16 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
                        language: str = "", hidden_gem: bool = False,
                        actor_id: int | None = None, region: str = "US",
                        excluded_ids: set | None = None,
-                       without_genre_ids: set | None = None) -> dict | None:
+                       without_genre_ids: set | None = None,
+                       keyword_ids: list[int] | None = None) -> dict | None:
+    # Indie/arthouse moods carry keywords — when present, we want
+    # rarer/lower-vote results to surface (true indie titles).
+    has_keywords = bool(keyword_ids)
     params = {
         "api_key": api_key,
         "sort_by": "vote_average.desc" if hidden_gem else "popularity.desc",
         "vote_average.gte": min_rating,
-        "vote_count.gte": 300 if hidden_gem else 50,
+        "vote_count.gte": 300 if hidden_gem else (20 if has_keywords else 50),
         "primary_release_date.gte": f"{year_from}-01-01",
         "primary_release_date.lte": f"{year_to}-12-31",
         "language": "en-US",
@@ -188,6 +206,8 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
         params["with_original_language"] = language
     if actor_id:
         params["with_cast"] = actor_id
+    if keyword_ids:
+        params["with_keywords"] = "|".join(str(k) for k in keyword_ids)
 
     r = requests.get(f"{BASE_URL}/discover/movie", params=params, timeout=10)
     if r.status_code != 200:
@@ -294,12 +314,14 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
                     language: str = "", hidden_gem: bool = False,
                     actor_id: int | None = None, region: str = "US",
                     excluded_ids: set | None = None,
-                    without_genre_ids: set | None = None) -> dict | None:
+                    without_genre_ids: set | None = None,
+                    keyword_ids: list[int] | None = None) -> dict | None:
+    has_keywords = bool(keyword_ids)
     params = {
         "api_key": api_key,
         "sort_by": "vote_average.desc" if hidden_gem else "popularity.desc",
         "vote_average.gte": min_rating,
-        "vote_count.gte": 200 if hidden_gem else 30,
+        "vote_count.gte": 200 if hidden_gem else (15 if has_keywords else 30),
         "first_air_date.gte": f"{year_from}-01-01",
         "first_air_date.lte": f"{year_to}-12-31",
         "language": "en-US",
@@ -319,6 +341,8 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
         params["with_original_language"] = language
     if actor_id:
         params["with_cast"] = actor_id
+    if keyword_ids:
+        params["with_keywords"] = "|".join(str(k) for k in keyword_ids)
 
     r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
     if r.status_code != 200:
