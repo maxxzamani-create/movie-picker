@@ -92,6 +92,11 @@ def pick():
         ui_genres = data.get("tv_genres" if is_tv else "genres", [])
         genre_ids = [int(g) for g in ui_genres]
 
+    # ★ Indie genre checkbox — adds the independent-film keyword on top of
+    # whatever the user picked (moods or genres). Works in both media modes.
+    if data.get("indie") and tmdb.KW_INDEPENDENT not in keyword_ids:
+        keyword_ids.append(tmdb.KW_INDEPENDENT)
+
     # If user picked nothing explicit, bias toward learned LIKED genres
     # (Only counts where the user has shown a pattern: count >= 2)
     if not genre_ids:

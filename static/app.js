@@ -6,6 +6,7 @@ let state = {
   currentMovie:  null,
   fetching:      false,
   mediaType:     "movie",     // "movie" | "tv"
+  indie:         false,       // ★ Indie genre checkbox (applies TMDB indie keyword)
 };
 
 /* ── API helpers ───────────────────────────────────────────────────────── */
@@ -70,6 +71,10 @@ function loadPrefsIntoUI() {
     if (cb) cb.checked = true;
   });
 
+  // Indie special checkbox (shared between movie and TV genre grids)
+  state.indie = !!p.indie;
+  document.querySelectorAll(".genre-indie-cb").forEach(cb => cb.checked = state.indie);
+
   // Year
   document.getElementById("year-from").value = p.year_from || 1980;
   document.getElementById("year-to").value   = p.year_to   || 2026;
@@ -95,6 +100,7 @@ function collectPrefs() {
     media_type:  state.mediaType,
     genres:      movieGenres,
     tv_genres:   tvGenres,
+    indie:       state.indie,
     providers:   [],
     language:    langEl.value,
     year_from:   yearFrom,
@@ -132,6 +138,16 @@ function applyMediaType(type, { silent = false } = {}) {
 
 document.querySelectorAll(".media-btn").forEach(btn => {
   btn.addEventListener("click", () => applyMediaType(btn.dataset.media));
+});
+
+/* ── Indie genre checkbox (mirrors across movie/TV grids) ──────────────── */
+document.querySelectorAll(".genre-indie-cb").forEach(cb => {
+  cb.addEventListener("change", e => {
+    state.indie = e.target.checked;
+    document.querySelectorAll(".genre-indie-cb").forEach(other => {
+      if (other !== e.target) other.checked = state.indie;
+    });
+  });
 });
 
 /* ── Mood (multi-select toggle) ────────────────────────────────────────── */
@@ -384,6 +400,8 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
 
   document.querySelectorAll(".genre-cb").forEach(cb => cb.checked = false);
   document.querySelectorAll(".tv-genre-cb").forEach(cb => cb.checked = false);
+  state.indie = false;
+  document.querySelectorAll(".genre-indie-cb").forEach(cb => cb.checked = false);
 
   document.getElementById("year-from").value = 1980;
   document.getElementById("year-to").value   = 2026;

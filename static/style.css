@@ -250,6 +250,18 @@ input[type="range"] {
   flex-shrink: 0;
 }
 
+/* Special genre items (e.g. Indie) — keyword-based filters that aren't
+   real TMDB genres. Marked with a gold accent and the star prefix. */
+.check-grid label.genre-special {
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.check-grid label.genre-special:hover { color: var(--gold-lt); }
+.check-grid label.genre-special input[type="checkbox"] {
+  accent-color: var(--gold);
+}
+
 /* ── Sidebar action buttons ───────────────────────────────────────────── */
 /* Big "Pick" CTA — cape red with gold border. Iconic. */
 .btn-pick {
