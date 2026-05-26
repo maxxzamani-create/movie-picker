@@ -97,6 +97,15 @@ def pick():
     if data.get("indie") and tmdb.KW_INDEPENDENT not in keyword_ids:
         keyword_ids.append(tmdb.KW_INDEPENDENT)
 
+    # ⚡ Badass genre checkbox — restricts crew to a curated list of
+    # action/genre directors and enforces a high rating floor so picks
+    # are "really good high rated" by design.
+    crew_ids: list[int] = []
+    min_rating = float(data.get("min_rating", 6.0))
+    if data.get("badass"):
+        crew_ids = list(tmdb.BADASS_DIRECTOR_IDS)
+        min_rating = max(min_rating, tmdb.BADASS_MIN_RATING)
+
     # If user picked nothing explicit, bias toward learned LIKED genres
     # (Only counts where the user has shown a pattern: count >= 2)
     if not genre_ids:
@@ -131,7 +140,7 @@ def pick():
         genre_ids      = genre_ids,
         year_from      = int(data.get("year_from", 1980)),
         year_to        = int(data.get("year_to",   2026)),
-        min_rating     = float(data.get("min_rating", 6.0)),
+        min_rating     = min_rating,
         provider_ids   = [int(p) for p in data.get("providers", [])],
         language       = data.get("language", ""),
         hidden_gem     = bool(data.get("hidden_gem", False)),
@@ -139,6 +148,7 @@ def pick():
         excluded_ids   = excluded_ids,
         without_genre_ids = avoided_genres,
         keyword_ids    = keyword_ids,
+        crew_ids       = crew_ids,
     )
 
     if not item:

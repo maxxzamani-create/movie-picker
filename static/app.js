@@ -7,6 +7,7 @@ let state = {
   fetching:      false,
   mediaType:     "movie",     // "movie" | "tv"
   indie:         false,       // ★ Indie genre checkbox (applies TMDB indie keyword)
+  badass:        false,       // ⚡ Badass genre checkbox (curated director list + rating floor)
 };
 
 /* ── API helpers ───────────────────────────────────────────────────────── */
@@ -75,6 +76,10 @@ function loadPrefsIntoUI() {
   state.indie = !!p.indie;
   document.querySelectorAll(".genre-indie-cb").forEach(cb => cb.checked = state.indie);
 
+  // Badass special checkbox (shared between movie and TV genre grids)
+  state.badass = !!p.badass;
+  document.querySelectorAll(".genre-badass-cb").forEach(cb => cb.checked = state.badass);
+
   // Year
   document.getElementById("year-from").value = p.year_from || 1980;
   document.getElementById("year-to").value   = p.year_to   || 2026;
@@ -101,6 +106,7 @@ function collectPrefs() {
     genres:      movieGenres,
     tv_genres:   tvGenres,
     indie:       state.indie,
+    badass:      state.badass,
     providers:   [],
     language:    langEl.value,
     year_from:   yearFrom,
@@ -146,6 +152,16 @@ document.querySelectorAll(".genre-indie-cb").forEach(cb => {
     state.indie = e.target.checked;
     document.querySelectorAll(".genre-indie-cb").forEach(other => {
       if (other !== e.target) other.checked = state.indie;
+    });
+  });
+});
+
+/* ── Badass genre checkbox (mirrors across movie/TV grids) ─────────────── */
+document.querySelectorAll(".genre-badass-cb").forEach(cb => {
+  cb.addEventListener("change", e => {
+    state.badass = e.target.checked;
+    document.querySelectorAll(".genre-badass-cb").forEach(other => {
+      if (other !== e.target) other.checked = state.badass;
     });
   });
 });
@@ -402,6 +418,8 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
   document.querySelectorAll(".tv-genre-cb").forEach(cb => cb.checked = false);
   state.indie = false;
   document.querySelectorAll(".genre-indie-cb").forEach(cb => cb.checked = false);
+  state.badass = false;
+  document.querySelectorAll(".genre-badass-cb").forEach(cb => cb.checked = false);
 
   document.getElementById("year-from").value = 1980;
   document.getElementById("year-to").value   = 2026;

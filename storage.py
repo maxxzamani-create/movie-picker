@@ -10,6 +10,7 @@ DEFAULTS = {
     "genres": [],              # movie genres selected
     "tv_genres": [],           # tv genres selected
     "indie": False,            # ★ Indie checkbox in genre grid
+    "badass": False,           # ⚡ Badass checkbox in genre grid
     "year_from": 1980,
     "year_to": 2026,
     "min_rating": 6.0,

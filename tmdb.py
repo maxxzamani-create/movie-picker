@@ -42,6 +42,25 @@ LANGUAGES = {
 # 9826 = "independent film" (well-established TMDB keyword).
 KW_INDEPENDENT = 9826
 
+# TMDB person IDs for the ⚡ Badass genre — directors whose films are
+# the kind of thing the user described as "really good high rated, the
+# stuff guys like." Hand-verified against themoviedb.org.
+BADASS_DIRECTOR_IDS = [
+    138,    # Quentin Tarantino
+    2710,   # James Cameron
+    15218,  # James Gunn
+    525,    # Christopher Nolan
+    7467,   # David Fincher
+    578,    # Ridley Scott
+    11090,  # Edgar Wright
+    2294,   # Robert Rodriguez
+    957,    # Matthew Vaughn
+    1032,   # Martin Scorsese
+    956,    # Guy Ritchie
+    638,    # Michael Mann
+]
+BADASS_MIN_RATING = 7.0   # enforced floor when ⚡ Badass is checked
+
 MOODS = {
     "none":        {"label": "None",         "movie_genres": [],              "tv_genres": []},
     "feel_good":   {"label": "Feel Good",    "movie_genres": [35, 10749, 10751, 16], "tv_genres": [35, 10751, 16]},
@@ -178,7 +197,8 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
                        actor_id: int | None = None, region: str = "US",
                        excluded_ids: set | None = None,
                        without_genre_ids: set | None = None,
-                       keyword_ids: list[int] | None = None) -> dict | None:
+                       keyword_ids: list[int] | None = None,
+                       crew_ids: list[int] | None = None) -> dict | None:
     # Indie/arthouse moods carry keywords — when present, we want
     # rarer/lower-vote results to surface (true indie titles).
     has_keywords = bool(keyword_ids)
@@ -208,6 +228,8 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
         params["with_cast"] = actor_id
     if keyword_ids:
         params["with_keywords"] = "|".join(str(k) for k in keyword_ids)
+    if crew_ids:
+        params["with_crew"] = "|".join(str(c) for c in crew_ids)
 
     r = requests.get(f"{BASE_URL}/discover/movie", params=params, timeout=10)
     if r.status_code != 200:
@@ -315,7 +337,8 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
                     actor_id: int | None = None, region: str = "US",
                     excluded_ids: set | None = None,
                     without_genre_ids: set | None = None,
-                    keyword_ids: list[int] | None = None) -> dict | None:
+                    keyword_ids: list[int] | None = None,
+                    crew_ids: list[int] | None = None) -> dict | None:
     has_keywords = bool(keyword_ids)
     params = {
         "api_key": api_key,
@@ -343,6 +366,8 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
         params["with_cast"] = actor_id
     if keyword_ids:
         params["with_keywords"] = "|".join(str(k) for k in keyword_ids)
+    if crew_ids:
+        params["with_crew"] = "|".join(str(c) for c in crew_ids)
 
     r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
     if r.status_code != 200:
