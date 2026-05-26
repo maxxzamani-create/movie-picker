@@ -8,23 +8,24 @@ import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Palette (matches static/style.css — Cyberpunk Neon)
-MAGENTA    = "#ff2da0"   # hot pink neon — primary
-MAGENTA_D  = "#c91a7e"   # deeper magenta
-MAGENTA_LT = "#ff7bc4"   # pale magenta highlight
-CYAN       = "#00f0ff"   # sign cyan — secondary
-CYAN_D     = "#00b8c8"   # deeper cyan
-CYAN_LT    = "#7df0ff"   # pale cyan highlight
-LIME       = "#c6ff00"   # lime sparkle
-LIME_D     = "#8fb800"
-PURPLE     = "#3a1a5a"   # purple haze (border)
-BG         = "#0a0014"   # deep violet-black
-BG_DEEP    = "#050009"
+# Palette (matches static/style.css — California Neon)
+MAGENTA    = "#ff6ec7"   # flamingo pink — primary
+MAGENTA_D  = "#d94a9c"   # deeper flamingo
+MAGENTA_LT = "#ffb3df"   # pale pink highlight
+CYAN       = "#4dd0e1"   # turquoise — secondary
+CYAN_D     = "#26a69a"   # deeper teal
+CYAN_LT    = "#80deea"   # pale teal highlight
+LIME       = "#ffd54f"   # sun gold sparkle (semantic var name kept)
+LIME_D     = "#ffa726"
+PURPLE     = "#4a3a7a"   # lavender haze border
+CORAL      = "#ff8a65"   # sunset coral
+BG         = "#1a1338"   # deep midnight purple
+BG_DEEP    = "#0d0820"
 WHITE      = "#ffffff"
-# Chrome / brushed-metal tones for the magic lamp — silvery rather
-# than gold, to fit the Blade Runner / future-machinery mood.
-GOLD       = "#9ea3b8"   # brushed chrome body (var name kept for downstream code)
-GOLD_D     = "#4a4f5e"   # deep chrome shadow
+# Brushed-chrome tones for the magic lamp — still cool/silvery for the
+# vapor-tech feel, but slightly warmer than the Tokyo cyberpunk version.
+GOLD       = "#a8a3c0"   # brushed chrome body (var name kept for downstream code)
+GOLD_D     = "#5a546d"   # deep chrome shadow
 
 
 def _font(size):
@@ -46,19 +47,19 @@ def make_logo(size: int = 256) -> Image.Image:
 
     img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
 
-    # ── Magenta halo (neon sign bleeding into the rain) ──────────────────
+    # ── Flamingo-pink halo (sunset bleeding into dusk) ───────────────────
     glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(glow)
-    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(255, 45, 160, 170))
-    glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 13)))
+    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(255, 110, 199, 160))
+    glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 12)))
     img  = Image.alpha_composite(img, glow)
     draw = ImageDraw.Draw(img)
 
-    # ── Background disc with two-tone ring (magenta outer, cyan inner) ──
+    # ── Background disc with two-tone ring (pink outer, turquoise inner) ─
     draw.ellipse([cx-r, cx-r, cx+r, cx+r], fill=BG)
-    # Outer magenta ring (the neon)
+    # Outer flamingo ring
     draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=MAGENTA, width=max(2, s//50))
-    # Inner cyan ring (the second tube)
+    # Inner turquoise ring (the second tube)
     inner_r = r - max(3, s//38)
     draw.ellipse([cx-inner_r, cx-inner_r, cx+inner_r, cx+inner_r],
                  outline=CYAN, width=max(1, s//95))
@@ -110,17 +111,18 @@ def make_logo(size: int = 256) -> Image.Image:
                   lamp_cx-lamp_rx*0.05, lamp_cy-lamp_ry*0.05], fill=WHITE)
 
     # ── Smoke rising from the spout, curling to under the Z ──────────────
-    # Cyan-to-magenta gradient — neon vapor under the rain.
+    # Sunset gradient: turquoise at the lamp, coral mid-air, flamingo near
+    # the Z. Reads like sky colors fading into each other at dusk.
     smoke_x_bottom = lamp_cx + lamp_rx*1.15
     smoke_x_top    = cx
     for layer in range(5):
         t     = layer / 4
-        alpha = int(200 - t * 130)
-        # Bottom: cyan (#00f0ff)  Top: magenta (#ff2da0)
+        alpha = int(195 - t * 120)
+        # Bottom: turquoise (#4dd0e1)  Top: flamingo (#ff6ec7)
         col   = (
-            int(0   + t * 255),   # R: 0 -> 255
-            int(240 - t * 195),   # G: 240 -> 45
-            int(255 - t * 95),    # B: 255 -> 160
+            int(77  + t * 178),   # R: 77 -> 255
+            int(208 - t * 98),    # G: 208 -> 110
+            int(225 - t * 26),    # B: 225 -> 199
             alpha,
         )
         w_bot = s * (0.025 + t * 0.012)
@@ -141,42 +143,42 @@ def make_logo(size: int = 256) -> Image.Image:
         img = Image.alpha_composite(img, layer_img)
     draw = ImageDraw.Draw(img)
 
-    # ── Magenta neon glow behind the Z ───────────────────────────────────
+    # ── Flamingo glow behind the Z — soft sunset bloom ───────────────────
     z_glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     zd = ImageDraw.Draw(z_glow)
     glow_pad = s * 0.07
     zd.ellipse([cx - z_half_w - glow_pad, z_top - glow_pad,
                 cx + z_half_w + glow_pad, z_bot + glow_pad],
-               fill=(255, 45, 160, 180))
-    z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 12)))
+               fill=(255, 110, 199, 175))
+    z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 11)))
     img = Image.alpha_composite(img, z_glow)
     draw = ImageDraw.Draw(img)
 
-    # ── The Z — hot magenta fill with cyan outline (peak cyberpunk) ──────
+    # ── The Z — flamingo pink fill with turquoise outline ────────────────
     _draw_z(draw, cx, z_top, z_bot, z_half_w, z_thick,
             fill=MAGENTA, edge=CYAN, edge_width=max(2, s // 56))
 
-    # Inner shine — pale magenta highlight along the diagonal
+    # Inner shine — pale pink highlight along the diagonal
     if s >= 80:
         sh_top    = (cx + z_half_w * 0.55, z_top + z_thick + s*0.012)
         sh_bot    = (cx - z_half_w * 0.30, z_bot - z_thick - s*0.012)
         sh_w      = max(2, s // 110)
         draw.line([sh_top, sh_bot], fill=MAGENTA_LT, width=sh_w)
 
-        # Tiny white shine on the top bar
+        # Tiny gold shine on the top bar (sun catching the edge)
         draw.line(
             [(cx - z_half_w + s*0.025, z_top + s*0.014),
              (cx + z_half_w - s*0.025, z_top + s*0.014)],
-            fill=WHITE, width=max(1, s // 120)
+            fill=LIME, width=max(1, s // 120)
         )
 
-    # ── Sparkles (neon signs in the rain — magenta, cyan, lime) ──────────
+    # ── Sparkles (sunset specks — flamingo, turquoise, sun gold, coral) ──
     if s >= 80:
         sparkles = [
             (cx - r*0.62, cx - r*0.45, s*0.028, MAGENTA_LT),
-            (cx + r*0.60, cx - r*0.30, s*0.022, CYAN),
-            (cx - r*0.18, cx + r*0.55, s*0.017, LIME),
-            (cx + r*0.42, cx + r*0.48, s*0.020, CYAN_LT),
+            (cx + r*0.60, cx - r*0.30, s*0.022, LIME),
+            (cx - r*0.18, cx + r*0.55, s*0.017, CYAN),
+            (cx + r*0.42, cx + r*0.48, s*0.020, CORAL),
             (cx + r*0.55, cx + r*0.10, s*0.014, MAGENTA),
         ]
         for sx, sy, sr, scol in sparkles:

@@ -2,57 +2,59 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* ── Cyberpunk Neon palette ──────────────────────────────────────────
-     Rain-soaked Tokyo / Blade Runner streets. Magenta and cyan
-     dueling on a deep violet-black canvas, with lime sparks. */
+  /* ── California Neon palette ─────────────────────────────────────────
+     Miami Vice / vaporwave / Sunset Strip. Softer than Tokyo cyberpunk
+     — flamingo pink and turquoise washed in sunset coral and sun gold
+     over deep midnight purple. */
 
-  --bg:         #0a0014;   /* deep violet-black */
-  --bg-deep:    #050009;   /* darkest edge */
-  --surface:    #14082a;   /* neon shadow */
-  --surface2:   #1f0f3d;   /* raised surface */
-  --border:     #3a1a5a;   /* purple haze */
+  --bg:         #1a1338;   /* deep midnight purple — sunset just faded */
+  --bg-deep:    #0d0820;   /* darkest edge */
+  --surface:    #261c4d;   /* twilight surface */
+  --surface2:   #322761;   /* raised surface */
+  --border:     #4a3a7a;   /* lavender haze border */
 
-  --magenta:    #ff2da0;   /* hot pink neon — primary */
-  --magenta-d:  #c91a7e;   /* deeper magenta for gradient ends */
-  --magenta-lt: #ff7bc4;   /* pale magenta highlight */
+  --magenta:    #ff6ec7;   /* flamingo pink — primary */
+  --magenta-d:  #d94a9c;   /* deeper flamingo for gradient ends */
+  --magenta-lt: #ffb3df;   /* pale pink highlight */
 
-  --cyan:       #00f0ff;   /* sign cyan — secondary */
-  --cyan-d:     #00b8c8;   /* deeper cyan */
-  --cyan-lt:    #7df0ff;   /* pale cyan */
+  --cyan:       #4dd0e1;   /* turquoise — secondary */
+  --cyan-d:     #26a69a;   /* deeper teal */
+  --cyan-lt:    #80deea;   /* pale teal */
 
-  --lime:       #c6ff00;   /* lime sparkle accent */
-  --lime-d:     #8fb800;
+  --lime:       #ffd54f;   /* sun gold — highlight (replacing lime) */
+  --lime-d:     #ffa726;   /* darker sun gold / amber */
 
-  --rust:       #ff5544;   /* decay / danger accent */
-  --rust-d:     #cc3322;
-  --rust-lt:    #ffa599;
+  --rust:       #ff8a65;   /* sunset coral — soft warm danger */
+  --rust-d:     #d96749;
+  --rust-lt:    #ffb59d;
 
-  --text:       #ece6ff;   /* pale violet-white */
-  --text-dim:   #b8a8d4;   /* dim violet */
-  --muted:      #6b5d8a;   /* purple smoke */
+  --text:       #f3e9ff;   /* cream-tinted lavender white */
+  --text-dim:   #c4b3e0;   /* soft lavender */
+  --muted:      #7a6a9c;   /* dusk purple */
 
   --radius:     12px;
   --radius-sm:  8px;
   --sidebar-w:  280px;
   --history-w:  240px;
 
-  --shadow-card:    0 8px 24px -8px rgba(0,0,0,0.85),
-                    0 2px 6px -2px rgba(0,0,0,0.5);
-  --shadow-magenta: 0 4px 18px -4px rgba(255,45,160,0.6);
-  --shadow-cyan:    0 4px 18px -4px rgba(0,240,255,0.55);
-  --shadow-lime:    0 4px 14px -4px rgba(198,255,0,0.5);
-  --shadow-rust:    0 4px 14px -4px rgba(255,85,68,0.5);
+  --shadow-card:    0 8px 24px -8px rgba(0,0,0,0.75),
+                    0 2px 6px -2px rgba(0,0,0,0.45);
+  --shadow-magenta: 0 4px 20px -4px rgba(255,110,199,0.55);
+  --shadow-cyan:    0 4px 18px -4px rgba(77,208,225,0.5);
+  --shadow-lime:    0 4px 16px -4px rgba(255,213,79,0.55);
+  --shadow-rust:    0 4px 14px -4px rgba(255,138,101,0.45);
 }
 
 html, body {
   height: 100%;
   background: var(--bg);
-  /* Wet-street reflections — magenta from the upper left, cyan from the
-     lower right, a hint of lime in the middle distance */
+  /* Sunset Strip gradient — coral sun setting upper-right, turquoise ocean
+     lower-left, pink wash through the middle, gold horizon kiss */
   background-image:
-    radial-gradient(at 12% 5%,   rgba(255,45,160,0.16) 0px, transparent 50%),
-    radial-gradient(at 88% 95%,  rgba(0,240,255,0.14)  0px, transparent 55%),
-    radial-gradient(at 60% 50%,  rgba(198,255,0,0.05)  0px, transparent 70%);
+    radial-gradient(at 85% 8%,   rgba(255,138,101,0.18) 0px, transparent 50%),
+    radial-gradient(at 8% 92%,   rgba(77,208,225,0.16)  0px, transparent 55%),
+    radial-gradient(at 50% 50%,  rgba(255,110,199,0.10) 0px, transparent 65%),
+    radial-gradient(at 95% 50%,  rgba(255,213,79,0.06)  0px, transparent 60%);
   background-attachment: fixed;
   color: var(--text);
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -80,7 +82,7 @@ html, body {
 
 /* ── Sidebar ──────────────────────────────────────────────────────────── */
 .sidebar {
-  background: rgba(10, 0, 20, 0.88);
+  background: rgba(26, 19, 56, 0.88);
   backdrop-filter: blur(12px);
   border-right: 1px solid var(--border);
   display: flex;
@@ -105,7 +107,7 @@ html, body {
 .sidebar-header img {
   width: 44px; height: 44px; border-radius: 50%;
   box-shadow: 0 0 0 2px var(--surface2),
-              0 0 22px rgba(255,45,160,0.5);
+              0 0 22px rgba(255,110,199,0.5);
 }
 
 .sidebar-title { flex: 1; line-height: 1.2; }
@@ -116,7 +118,7 @@ html, body {
 .sidebar-title .main {
   font-size: 18px; font-weight: 800; color: var(--magenta);
   letter-spacing: 1.2px;
-  text-shadow: 0 0 14px rgba(255,45,160,0.6);
+  text-shadow: 0 0 14px rgba(255,110,199,0.6);
 }
 
 .btn-api {
@@ -176,7 +178,7 @@ select, input[type="text"], input[type="number"] {
 }
 select:focus, input:focus {
   border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(0,240,255,0.22);
+  box-shadow: 0 0 0 3px rgba(77,208,225,0.22);
 }
 select option { background: var(--surface); }
 
@@ -229,7 +231,7 @@ input[type="range"] {
   position: absolute; top: 100%; left: 0; right: 0; z-index: 999;
   background: var(--surface); border: 1px solid var(--cyan);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm); max-height: 280px; overflow-y: auto;
-  box-shadow: 0 8px 22px -4px rgba(0,240,255,0.3);
+  box-shadow: 0 8px 22px -4px rgba(77,208,225,0.3);
   display: none;
 }
 .actor-dropdown.open { display: block; }
@@ -355,7 +357,7 @@ input[type="range"] {
   font-size: 28px; font-weight: 900; line-height: 1.2;
   margin-bottom: 6px; color: var(--cyan);
   letter-spacing: -0.3px;
-  text-shadow: 0 0 18px rgba(0,240,255,0.4);
+  text-shadow: 0 0 18px rgba(77,208,225,0.4);
 }
 .movie-meta { color: var(--magenta-lt); font-size: 13px; margin-bottom: 12px; font-weight: 500; }
 
@@ -366,9 +368,9 @@ input[type="range"] {
   color: var(--lime);
   border: 1px solid var(--border);
 }
-.badge.rt-fresh  { color: var(--lime);     border-color: rgba(198,255,0,0.4); }
-.badge.rt-ok     { color: var(--cyan);     border-color: rgba(0,240,255,0.4); }
-.badge.rt-rotten { color: var(--rust-lt);  border-color: rgba(255,85,68,0.4); }
+.badge.rt-fresh  { color: var(--lime);     border-color: rgba(255,213,79,0.4); }
+.badge.rt-ok     { color: var(--cyan);     border-color: rgba(77,208,225,0.4); }
+.badge.rt-rotten { color: var(--rust-lt);  border-color: rgba(255,138,101,0.4); }
 
 .movie-overview {
   font-size: 14px; color: var(--text); line-height: 1.65; margin-bottom: 16px;
@@ -419,13 +421,13 @@ input[type="range"] {
 .btn-tmdb:hover { border-color: var(--cyan); }
 .btn-watchlist {
   background: linear-gradient(135deg, var(--lime), var(--lime-d));
-  color: #0a0014;
+  color: #1a1338;
   border: 2px solid var(--magenta);
   box-shadow: var(--shadow-lime);
 }
 .btn-watched {
   background: linear-gradient(135deg, var(--cyan), var(--cyan-d));
-  color: #0a0014;
+  color: #1a1338;
   border: 2px solid var(--magenta);
   box-shadow: var(--shadow-cyan);
   text-shadow: 0 0 6px rgba(255,255,255,0.4);
@@ -443,7 +445,7 @@ input[type="range"] {
 
 /* ── Watchlist bar ────────────────────────────────────────────────────── */
 .watchlist-bar {
-  background: rgba(10, 0, 20, 0.7);
+  background: rgba(26, 19, 56, 0.7);
   border-top: 1px solid var(--border);
   padding: 10px 16px; flex-shrink: 0;
 }
@@ -460,21 +462,21 @@ input[type="range"] {
 }
 .btn-sm:hover { background: var(--surface); color: var(--cyan); border-color: var(--cyan); }
 .btn-sm.danger {
-  background: rgba(255,85,68,0.12); color: var(--rust-lt); border-color: rgba(255,85,68,0.4);
+  background: rgba(255,138,101,0.12); color: var(--rust-lt); border-color: rgba(255,138,101,0.4);
 }
 .btn-sm.danger:hover { background: var(--rust); color: #fff; border-color: var(--rust); }
 
 /* Neon lime variant — for the Copy All action */
 .btn-sm.gold {
   background: linear-gradient(135deg, var(--lime), var(--lime-d));
-  color: #0a0014;
+  color: #1a1338;
   border-color: var(--lime);
   font-weight: 700;
 }
 .btn-sm.gold:hover {
   filter: brightness(1.1);
   background: linear-gradient(135deg, var(--lime), var(--cyan));
-  color: #0a0014;
+  color: #1a1338;
 }
 
 .watchlist-items {
@@ -543,7 +545,7 @@ input[type="range"] {
 
 /* ── History panel ────────────────────────────────────────────────────── */
 .history-panel {
-  background: rgba(10, 0, 20, 0.88);
+  background: rgba(26, 19, 56, 0.88);
   backdrop-filter: blur(12px);
   border-left: 1px solid var(--border);
   display: flex; flex-direction: column; overflow: hidden;
@@ -603,11 +605,11 @@ input[type="range"] {
 .chip {
   font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 700;
 }
-.chip-Suggested { background: rgba(0,240,255,0.18);   color: var(--cyan); }
-.chip-Trailer   { background: rgba(198,255,0,0.18);   color: var(--lime); }
-.chip-Watchlist { background: rgba(198,255,0,0.22);   color: var(--lime); }
-.chip-Watched   { background: rgba(0,240,255,0.22);   color: var(--cyan); }
-.chip-Disliked  { background: rgba(255,85,68,0.18);   color: var(--rust-lt); }
+.chip-Suggested { background: rgba(77,208,225,0.18);   color: var(--cyan); }
+.chip-Trailer   { background: rgba(255,213,79,0.18);   color: var(--lime); }
+.chip-Watchlist { background: rgba(255,213,79,0.22);   color: var(--lime); }
+.chip-Watched   { background: rgba(77,208,225,0.22);   color: var(--cyan); }
+.chip-Disliked  { background: rgba(255,138,101,0.18);   color: var(--rust-lt); }
 
 /* ── API key modal ────────────────────────────────────────────────────── */
 .modal-overlay {
@@ -619,12 +621,12 @@ input[type="range"] {
 .modal {
   background: var(--surface); border: 2px solid var(--cyan);
   border-radius: var(--radius); padding: 30px 36px; width: 480px; max-width: 95vw;
-  box-shadow: 0 24px 60px -16px rgba(0,240,255,0.25);
+  box-shadow: 0 24px 60px -16px rgba(77,208,225,0.25);
 }
 .modal h2 {
   font-size: 20px; color: var(--magenta); margin-bottom: 22px;
   text-align: center; font-weight: 800; letter-spacing: 0.8px;
-  text-shadow: 0 0 16px rgba(255,45,160,0.5);
+  text-shadow: 0 0 16px rgba(255,110,199,0.5);
 }
 .modal-field { margin-bottom: 16px; }
 .modal-field label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 6px; }
