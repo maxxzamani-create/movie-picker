@@ -81,7 +81,7 @@ function loadPrefsIntoUI() {
   document.querySelectorAll(".genre-badass-cb").forEach(cb => cb.checked = state.badass);
 
   // Year
-  document.getElementById("year-from").value = p.year_from || 1980;
+  document.getElementById("year-from").value = p.year_from || 2000;
   document.getElementById("year-to").value   = p.year_to   || 2026;
 
   // Rating
@@ -94,7 +94,7 @@ function collectPrefs() {
   const movieGenres = [...document.querySelectorAll(".genre-cb:checked")].map(el => parseInt(el.value));
   const tvGenres    = [...document.querySelectorAll(".tv-genre-cb:checked")].map(el => parseInt(el.value));
   const langEl      = document.getElementById("language");
-  const yearFrom    = parseInt(document.getElementById("year-from").value) || 1980;
+  const yearFrom    = parseInt(document.getElementById("year-from").value) || 2000;
   const yearTo      = parseInt(document.getElementById("year-to").value)   || 2026;
   const rating      = parseFloat(document.getElementById("rating-slider").value) || 6.0;
   const hidden      = document.querySelector('input[name="discovery"]:checked').value === "1";
@@ -421,7 +421,7 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
   state.badass = false;
   document.querySelectorAll(".genre-badass-cb").forEach(cb => cb.checked = false);
 
-  document.getElementById("year-from").value = 1980;
+  document.getElementById("year-from").value = 2000;
   document.getElementById("year-to").value   = 2026;
 
   document.getElementById("rating-slider").value = 6.0;

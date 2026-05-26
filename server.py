@@ -146,7 +146,7 @@ def pick():
     item = fetch_fn(
         api_key        = api_key,
         genre_ids      = genre_ids,
-        year_from      = int(data.get("year_from", 1980)),
+        year_from      = int(data.get("year_from", 2000)),
         year_to        = int(data.get("year_to",   2026)),
         min_rating     = min_rating,
         provider_ids   = [int(p) for p in data.get("providers", [])],

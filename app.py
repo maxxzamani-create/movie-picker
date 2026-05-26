@@ -197,7 +197,7 @@ class MoviePickerApp(ctk.CTk):
         yr.grid(row=row, column=0, sticky="ew", padx=14); row += 1
         yr.grid_columnconfigure((1, 3), weight=1)
         ctk.CTkLabel(yr, text="From").grid(row=0, column=0)
-        self._year_from = ctk.CTkEntry(yr, width=60, placeholder_text="1980",
+        self._year_from = ctk.CTkEntry(yr, width=60, placeholder_text="2000",
                                         fg_color=SURFACE, border_color=ACCENT,
                                         text_color="white", placeholder_text_color="#2a6a6a")
         self._year_from.grid(row=0, column=1, padx=4)
@@ -440,7 +440,7 @@ class MoviePickerApp(ctk.CTk):
             yf = int(self._year_from.get())
             yt = int(self._year_to.get())
         except ValueError:
-            yf, yt = 1980, 2026
+            yf, yt = 2000, 2026
         lang_label = self._language_var.get()
         lang_code = next((k for k, v in tmdb.LANGUAGES.items() if v == lang_label), "")
         return {
