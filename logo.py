@@ -8,23 +8,23 @@ import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Palette (matches static/style.css — Gotham)
-YELLOW     = "#FFD60A"   # bat-signal yellow
-YELLOW_D   = "#d4a500"   # deeper yellow for gradients
-YELLOW_LT  = "#ffe566"   # pale yellow highlight
-COBALT     = "#4d7ec8"   # chrome blue accent
-COBALT_D   = "#2c5a9a"   # darker cobalt
-COBALT_LT  = "#7aa3e0"   # lighter cobalt
-STEEL      = "#2a3142"   # cold steel border
-FOG        = "#8b95a8"   # concrete grey
-BG         = "#0a0b0f"   # pitch night
-BG_DEEP    = "#050608"
+# Palette (matches static/style.css — Cyberpunk Neon)
+MAGENTA    = "#ff2da0"   # hot pink neon — primary
+MAGENTA_D  = "#c91a7e"   # deeper magenta
+MAGENTA_LT = "#ff7bc4"   # pale magenta highlight
+CYAN       = "#00f0ff"   # sign cyan — secondary
+CYAN_D     = "#00b8c8"   # deeper cyan
+CYAN_LT    = "#7df0ff"   # pale cyan highlight
+LIME       = "#c6ff00"   # lime sparkle
+LIME_D     = "#8fb800"
+PURPLE     = "#3a1a5a"   # purple haze (border)
+BG         = "#0a0014"   # deep violet-black
+BG_DEEP    = "#050009"
 WHITE      = "#ffffff"
-# Tarnished-brass tones for the magic lamp — warmer than the Gotham
-# accent palette, so the lamp still reads as a recognizable artifact
-# without breaking the night-city mood.
-GOLD       = "#b08a26"   # aged brass body
-GOLD_D     = "#5a4410"   # deep brass shadow
+# Chrome / brushed-metal tones for the magic lamp — silvery rather
+# than gold, to fit the Blade Runner / future-machinery mood.
+GOLD       = "#9ea3b8"   # brushed chrome body (var name kept for downstream code)
+GOLD_D     = "#4a4f5e"   # deep chrome shadow
 
 
 def _font(size):
@@ -46,22 +46,22 @@ def make_logo(size: int = 256) -> Image.Image:
 
     img = Image.new("RGBA", (s, s), (0, 0, 0, 0))
 
-    # ── Yellow halo (bat-signal cutting the fog) ─────────────────────────
+    # ── Magenta halo (neon sign bleeding into the rain) ──────────────────
     glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(glow)
-    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(255, 214, 10, 150))
-    glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 14)))
+    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(255, 45, 160, 170))
+    glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 13)))
     img  = Image.alpha_composite(img, glow)
     draw = ImageDraw.Draw(img)
 
-    # ── Background disc with two-tone ring (yellow outer, steel inner) ───
+    # ── Background disc with two-tone ring (magenta outer, cyan inner) ──
     draw.ellipse([cx-r, cx-r, cx+r, cx+r], fill=BG)
-    # Outer yellow ring (the bat-signal frame)
-    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=YELLOW, width=max(2, s//50))
-    # Inner steel ring (cold structural edge)
+    # Outer magenta ring (the neon)
+    draw.ellipse([cx-r, cx-r, cx+r, cx+r], outline=MAGENTA, width=max(2, s//50))
+    # Inner cyan ring (the second tube)
     inner_r = r - max(3, s//38)
     draw.ellipse([cx-inner_r, cx-inner_r, cx+inner_r, cx+inner_r],
-                 outline=STEEL, width=max(1, s//95))
+                 outline=CYAN, width=max(1, s//95))
 
     # ── Proportional anchors ─────────────────────────────────────────────
     lamp_cx   = cx
@@ -110,17 +110,17 @@ def make_logo(size: int = 256) -> Image.Image:
                   lamp_cx-lamp_rx*0.05, lamp_cy-lamp_ry*0.05], fill=WHITE)
 
     # ── Smoke rising from the spout, curling to under the Z ──────────────
-    # Cold steel-grey smoke fading to faint yellow as it nears the signal.
+    # Cyan-to-magenta gradient — neon vapor under the rain.
     smoke_x_bottom = lamp_cx + lamp_rx*1.15
     smoke_x_top    = cx
     for layer in range(5):
         t     = layer / 4
-        alpha = int(190 - t * 120)
-        # Cold grey fog at the lamp, warming up toward the yellow Z
+        alpha = int(200 - t * 130)
+        # Bottom: cyan (#00f0ff)  Top: magenta (#ff2da0)
         col   = (
-            int(139 + t * 116),   # R: 139 -> 255 (toward yellow)
-            int(149 + t * 65),    # G: 149 -> 214
-            int(168 - t * 158),   # B: 168 -> 10 (drops as warmth rises)
+            int(0   + t * 255),   # R: 0 -> 255
+            int(240 - t * 195),   # G: 240 -> 45
+            int(255 - t * 95),    # B: 255 -> 160
             alpha,
         )
         w_bot = s * (0.025 + t * 0.012)
@@ -141,27 +141,27 @@ def make_logo(size: int = 256) -> Image.Image:
         img = Image.alpha_composite(img, layer_img)
     draw = ImageDraw.Draw(img)
 
-    # ── Bat-signal glow behind the Z ─────────────────────────────────────
+    # ── Magenta neon glow behind the Z ───────────────────────────────────
     z_glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     zd = ImageDraw.Draw(z_glow)
-    glow_pad = s * 0.06
+    glow_pad = s * 0.07
     zd.ellipse([cx - z_half_w - glow_pad, z_top - glow_pad,
                 cx + z_half_w + glow_pad, z_bot + glow_pad],
-               fill=(255, 214, 10, 160))
-    z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 14)))
+               fill=(255, 45, 160, 180))
+    z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 12)))
     img = Image.alpha_composite(img, z_glow)
     draw = ImageDraw.Draw(img)
 
-    # ── The Z — solid bat-signal yellow with deeper-yellow outline ───────
+    # ── The Z — hot magenta fill with cyan outline (peak cyberpunk) ──────
     _draw_z(draw, cx, z_top, z_bot, z_half_w, z_thick,
-            fill=YELLOW, edge=YELLOW_D, edge_width=max(2, s // 60))
+            fill=MAGENTA, edge=CYAN, edge_width=max(2, s // 56))
 
-    # Inner shine — pale highlight along the diagonal
+    # Inner shine — pale magenta highlight along the diagonal
     if s >= 80:
         sh_top    = (cx + z_half_w * 0.55, z_top + z_thick + s*0.012)
         sh_bot    = (cx - z_half_w * 0.30, z_bot - z_thick - s*0.012)
         sh_w      = max(2, s // 110)
-        draw.line([sh_top, sh_bot], fill=YELLOW_LT, width=sh_w)
+        draw.line([sh_top, sh_bot], fill=MAGENTA_LT, width=sh_w)
 
         # Tiny white shine on the top bar
         draw.line(
@@ -170,14 +170,14 @@ def make_logo(size: int = 256) -> Image.Image:
             fill=WHITE, width=max(1, s // 120)
         )
 
-    # ── Sparkles (city lights — yellow and cobalt) ───────────────────────
+    # ── Sparkles (neon signs in the rain — magenta, cyan, lime) ──────────
     if s >= 80:
         sparkles = [
-            (cx - r*0.62, cx - r*0.45, s*0.028, YELLOW_LT),
-            (cx + r*0.60, cx - r*0.30, s*0.022, COBALT_LT),
-            (cx - r*0.18, cx + r*0.55, s*0.017, YELLOW),
-            (cx + r*0.42, cx + r*0.48, s*0.020, YELLOW_LT),
-            (cx + r*0.55, cx + r*0.10, s*0.014, COBALT_LT),
+            (cx - r*0.62, cx - r*0.45, s*0.028, MAGENTA_LT),
+            (cx + r*0.60, cx - r*0.30, s*0.022, CYAN),
+            (cx - r*0.18, cx + r*0.55, s*0.017, LIME),
+            (cx + r*0.42, cx + r*0.48, s*0.020, CYAN_LT),
+            (cx + r*0.55, cx + r*0.10, s*0.014, MAGENTA),
         ]
         for sx, sy, sr, scol in sparkles:
             _star(draw, sx, sy, sr, scol, points=4)
