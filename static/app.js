@@ -86,7 +86,7 @@ function loadPrefsIntoUI() {
 
   // Rating
   const slider = document.getElementById("rating-slider");
-  slider.value = p.min_rating ?? 6.0;
+  slider.value = p.min_rating ?? 4.0;
   document.getElementById("rating-val").textContent = `${parseFloat(slider.value).toFixed(1)} / 10`;
 }
 
@@ -96,7 +96,7 @@ function collectPrefs() {
   const langEl      = document.getElementById("language");
   const yearFrom    = parseInt(document.getElementById("year-from").value) || 2000;
   const yearTo      = parseInt(document.getElementById("year-to").value)   || 2026;
-  const rating      = parseFloat(document.getElementById("rating-slider").value) || 6.0;
+  const rating      = parseFloat(document.getElementById("rating-slider").value) || 4.0;
   const hidden      = document.querySelector('input[name="discovery"]:checked').value === "1";
   const actor       = document.getElementById("actor-input").value.trim();
 
@@ -424,8 +424,8 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
   document.getElementById("year-from").value = 2000;
   document.getElementById("year-to").value   = 2026;
 
-  document.getElementById("rating-slider").value = 6.0;
-  document.getElementById("rating-val").textContent = "6.0 / 10";
+  document.getElementById("rating-slider").value = 4.0;
+  document.getElementById("rating-val").textContent = "4.0 / 10";
 
   setStatus("Filters reset to defaults.");
 });

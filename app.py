@@ -213,7 +213,7 @@ class MoviePickerApp(ctk.CTk):
         ctk.CTkLabel(sidebar, text="Minimum Rating", font=ctk.CTkFont(weight="bold"),
                      text_color="#4dcfcf").grid(row=row, column=0, sticky="w", padx=14, pady=(4, 2))
         row += 1
-        self._rating_label = ctk.CTkLabel(sidebar, text="6.0 / 10")
+        self._rating_label = ctk.CTkLabel(sidebar, text="4.0 / 10")
         self._rating_label.grid(row=row, column=0, sticky="w", padx=14); row += 1
         self._rating_slider = ctk.CTkSlider(sidebar, from_=0, to=10, number_of_steps=20,
                                              command=self._on_rating_change)

@@ -13,7 +13,7 @@ DEFAULTS = {
     "badass": False,           # ⚡ Badass checkbox in genre grid
     "year_from": 2000,
     "year_to": 2026,
-    "min_rating": 6.0,
+    "min_rating": 4.0,
     "providers": [],
     "language": "",
     "hidden_gem": False,

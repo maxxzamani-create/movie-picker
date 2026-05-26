@@ -119,7 +119,7 @@ def pick():
 
     # ⚡ Bad Ass Dad genre checkbox — additive with whatever the Maxx mood
     # already contributed (deduped). Movies: with_crew; TV: with_networks.
-    min_rating = float(data.get("min_rating", 6.0))
+    min_rating = float(data.get("min_rating", 4.0))
     if mood_rating_floor > min_rating:
         min_rating = mood_rating_floor
     if data.get("badass"):
