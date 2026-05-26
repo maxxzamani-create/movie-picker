@@ -97,13 +97,19 @@ def pick():
     if data.get("indie") and tmdb.KW_INDEPENDENT not in keyword_ids:
         keyword_ids.append(tmdb.KW_INDEPENDENT)
 
-    # ⚡ Badass genre checkbox — restricts crew to a curated list of
-    # action/genre directors and enforces a high rating floor so picks
-    # are "really good high rated" by design.
+    # ⚡ Badass genre checkbox — for movies, restricts to a curated
+    # list of action/genre directors (with_crew). For TV, TMDB's
+    # discover endpoint doesn't support with_crew, so we constrain
+    # to prestige-drama networks (HBO, AMC, FX, Showtime, Apple TV+,
+    # STARZ) instead. Either way, the rating floor jumps to 7.0+.
     crew_ids: list[int] = []
+    network_ids: list[int] = []
     min_rating = float(data.get("min_rating", 6.0))
     if data.get("badass"):
-        crew_ids = list(tmdb.BADASS_DIRECTOR_IDS)
+        if is_tv:
+            network_ids = list(tmdb.BADASS_TV_NETWORK_IDS)
+        else:
+            crew_ids = list(tmdb.BADASS_DIRECTOR_IDS)
         min_rating = max(min_rating, tmdb.BADASS_MIN_RATING)
 
     # If user picked nothing explicit, bias toward learned LIKED genres
@@ -135,6 +141,8 @@ def pick():
                        and int(gid) in genre_map}
 
     fetch_fn = tmdb.fetch_random_tv if is_tv else tmdb.fetch_random_movie
+    # network_ids is TV-only — only included when calling fetch_random_tv
+    extra_kwargs: dict = {"network_ids": network_ids} if is_tv else {}
     item = fetch_fn(
         api_key        = api_key,
         genre_ids      = genre_ids,
@@ -149,6 +157,7 @@ def pick():
         without_genre_ids = avoided_genres,
         keyword_ids    = keyword_ids,
         crew_ids       = crew_ids,
+        **extra_kwargs,
     )
 
     if not item:

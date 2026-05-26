@@ -42,8 +42,8 @@ LANGUAGES = {
 # 9826 = "independent film" (well-established TMDB keyword).
 KW_INDEPENDENT = 9826
 
-# TMDB person IDs for the ⚡ Badass genre — directors whose films are
-# the kind of thing the user described as "really good high rated, the
+# TMDB person IDs for the ⚡ Badass genre (MOVIES) — directors whose films
+# are the kind of thing the user described as "really good high rated, the
 # stuff guys like." Hand-verified against themoviedb.org.
 BADASS_DIRECTOR_IDS = [
     138,    # Quentin Tarantino
@@ -59,6 +59,20 @@ BADASS_DIRECTOR_IDS = [
     956,    # Guy Ritchie
     638,    # Michael Mann
 ]
+
+# TMDB network IDs for the ⚡ Badass genre (TV). TMDB's /discover/tv
+# endpoint doesn't support with_crew, so for TV we constrain by
+# prestige-drama networks instead — the homes of Sopranos, Breaking
+# Bad, Fargo, Yellowjackets, Severance, Power, etc. Hand-verified.
+BADASS_TV_NETWORK_IDS = [
+    49,     # HBO
+    174,    # AMC
+    88,     # FX
+    67,     # Showtime
+    2552,   # Apple TV+
+    318,    # STARZ
+]
+
 BADASS_MIN_RATING = 7.0   # enforced floor when ⚡ Badass is checked
 
 MOODS = {
@@ -338,7 +352,8 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
                     excluded_ids: set | None = None,
                     without_genre_ids: set | None = None,
                     keyword_ids: list[int] | None = None,
-                    crew_ids: list[int] | None = None) -> dict | None:
+                    crew_ids: list[int] | None = None,
+                    network_ids: list[int] | None = None) -> dict | None:
     has_keywords = bool(keyword_ids)
     params = {
         "api_key": api_key,
@@ -368,6 +383,8 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
         params["with_keywords"] = "|".join(str(k) for k in keyword_ids)
     if crew_ids:
         params["with_crew"] = "|".join(str(c) for c in crew_ids)
+    if network_ids:
+        params["with_networks"] = "|".join(str(n) for n in network_ids)
 
     r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
     if r.status_code != 200:
