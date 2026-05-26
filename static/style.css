@@ -465,8 +465,40 @@ input[type="range"] {
   border-radius: 999px;
   font-size: 12px; white-space: nowrap; color: var(--gold-lt); flex-shrink: 0;
   font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
 }
+.watchlist-chip:hover {
+  background: var(--surface);
+  border-color: var(--gold-lt);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+.watchlist-chip:active { transform: translateY(0); }
+.watchlist-chip.copied {
+  background: var(--blue);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: scale(1.04);
+  box-shadow: var(--shadow-blue);
+}
+.watchlist-chip.copied::after { content: "  ✓"; font-weight: 800; }
+
 .watchlist-empty { color: var(--muted); font-size: 12px; line-height: 30px; }
+
+/* Gold variant of the small button — for the Copy All action */
+.btn-sm.gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-d));
+  color: #1a0d00;
+  border-color: var(--gold);
+  font-weight: 700;
+}
+.btn-sm.gold:hover {
+  filter: brightness(1.1);
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold));
+  color: #1a0d00;
+}
 
 .chip-tv-sm {
   display: inline-block; font-size: 9px; font-weight: 800;

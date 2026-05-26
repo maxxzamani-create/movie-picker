@@ -511,6 +511,11 @@ async function loadMovieById(itemId) {
 }
 
 /* ── Watchlist ─────────────────────────────────────────────────────────── */
+function formatWatchlistEntry(i) {
+  const tv = i.media_type === "tv" ? " [TV]" : "";
+  return `${i.title} (${i.year})${tv}`;
+}
+
 function refreshWatchlist() {
   const items = state.prefs.watchlist || [];
   const el    = document.getElementById("watchlist-items");
@@ -519,13 +524,70 @@ function refreshWatchlist() {
   } else {
     el.innerHTML = items.map(i => {
       const badge = i.media_type === "tv" ? ` <span class="chip-tv-sm">TV</span>` : "";
-      return `<span class="watchlist-chip">${esc(i.title)} (${esc(i.year)})${badge}</span>`;
+      const copyText = formatWatchlistEntry(i);
+      return `<button type="button" class="watchlist-chip" data-copy="${esc(copyText)}" title="Click to copy">${esc(i.title)} (${esc(i.year)})${badge}</button>`;
     }).join("");
+    // Wire click handlers for each chip
+    el.querySelectorAll(".watchlist-chip").forEach(btn => {
+      btn.addEventListener("click", () => copyChipToClipboard(btn));
+    });
   }
   const cnt = state.prefs.watched?.length || 0;
   document.getElementById("watched-count").textContent =
     `${cnt} ${noun()}${cnt !== 1 ? "s" : ""} marked as watched`;
 }
+
+async function copyChipToClipboard(btn) {
+  const text = btn.dataset.copy || "";
+  const ok = await copyText(text);
+  if (ok) {
+    btn.classList.add("copied");
+    setStatus(`Copied "${text}" — paste into your notes.`);
+    setTimeout(() => btn.classList.remove("copied"), 1400);
+  } else {
+    setStatus("Couldn't copy automatically — try selecting the text manually.");
+  }
+}
+
+async function copyText(text) {
+  // Prefer the async Clipboard API (works on HTTPS, including Render)
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (e) { /* fall through to fallback */ }
+  // Fallback for older browsers / insecure contexts
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.top = "-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+document.getElementById("btn-copy-watchlist").addEventListener("click", async () => {
+  const items = state.prefs.watchlist || [];
+  if (!items.length) {
+    setStatus("Watchlist is empty — nothing to copy.");
+    return;
+  }
+  const text = items.map(formatWatchlistEntry).join("\n");
+  const ok = await copyText(text);
+  if (ok) {
+    setStatus(`Copied ${items.length} watchlist item${items.length !== 1 ? "s" : ""} to clipboard.`);
+  } else {
+    setStatus("Couldn't copy — try clicking individual titles instead.");
+  }
+});
 
 document.getElementById("btn-clear-watchlist").addEventListener("click", async () => {
   await post("/api/clear-watchlist", {});
