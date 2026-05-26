@@ -44,20 +44,46 @@ KW_INDEPENDENT = 9826
 
 # TMDB person IDs for the ⚡ Badass genre (MOVIES) — directors whose films
 # are the kind of thing the user described as "really good high rated, the
-# stuff guys like." Hand-verified against themoviedb.org.
+# stuff guys like." Every ID hand-verified against themoviedb.org.
 BADASS_DIRECTOR_IDS = [
+    # ── Auteurs & prestige action ────────────────────────────────
     138,    # Quentin Tarantino
     2710,   # James Cameron
-    15218,  # James Gunn
     525,    # Christopher Nolan
     7467,   # David Fincher
     578,    # Ridley Scott
+    1032,   # Martin Scorsese
+    638,    # Michael Mann
+    1150,   # Brian De Palma
+    488,    # Steven Spielberg
+    # ── Classic action / cult / 80s-90s ──────────────────────────
+    11770,  # John Carpenter
+    11401,  # John Woo
+    1090,   # John McTiernan
+    10491,  # Paul Verhoeven
+    893,    # Tony Scott
+    7623,   # Sam Raimi
+    865,    # Michael Bay
+    # ── Modern action, crime & genre ─────────────────────────────
+    15218,  # James Gunn
     11090,  # Edgar Wright
     2294,   # Robert Rodriguez
     957,    # Matthew Vaughn
-    1032,   # Martin Scorsese
     956,    # Guy Ritchie
-    638,    # Michael Mann
+    137427, # Denis Villeneuve
+    20629,  # George Miller
+    40644,  # Chad Stahelski (John Wick)
+    40684,  # David Leitch
+    9033,   # Christopher McQuarrie
+    20907,  # Antoine Fuqua
+    11694,  # Doug Liman
+    25598,  # Paul Greengrass
+    19769,  # David Ayer
+    15217,  # Zack Snyder
+    # ── International heavy hitters ──────────────────────────────
+    10099,  # Park Chan-wook
+    21684,  # Bong Joon-ho
+    142013, # Gareth Evans (The Raid)
 ]
 
 # TMDB network IDs for the ⚡ Badass genre (TV). TMDB's /discover/tv
