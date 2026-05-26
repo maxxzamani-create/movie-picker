@@ -274,6 +274,18 @@ def add_disliked():
     return jsonify({"avoided_genres": avoided})
 
 
+@app.route("/api/watchlist/remove", methods=["POST"])
+def remove_watchlist():
+    """Remove a single item from the watchlist by id."""
+    prefs = storage.load()
+    data  = request.json or {}
+    mid   = data.get("id")
+    if mid is not None:
+        prefs["watchlist"] = [w for w in prefs["watchlist"] if w.get("id") != mid]
+        storage.save(prefs)
+    return jsonify({"watchlist": prefs["watchlist"]})
+
+
 @app.route("/api/clear-watched",   methods=["POST"])
 def clear_watched():
     prefs = storage.load(); prefs["watched"] = []; storage.save(prefs)

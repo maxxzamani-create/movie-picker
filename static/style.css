@@ -476,31 +476,58 @@ input[type="range"] {
 .watchlist-items {
   display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; min-height: 30px;
 }
+/* Wrapper that groups the chip and the ✕ remove button as a split pill */
+.watchlist-chip-group {
+  display: inline-flex;
+  align-items: stretch;
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+.watchlist-chip-group:hover { transform: translateY(-1px); }
+
 .watchlist-chip {
   padding: 5px 12px; background: var(--surface2);
   border: 1px solid var(--yellow);
-  border-radius: 999px;
+  border-right: 1px solid var(--border);          /* divider into the ✕ side */
+  border-radius: 999px 0 0 999px;                 /* left half of the pill */
   font-size: 12px; white-space: nowrap; color: var(--yellow-lt); flex-shrink: 0;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  transition: all 0.15s;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .watchlist-chip:hover {
   background: var(--surface);
   border-color: var(--yellow-lt);
   color: var(--text);
-  transform: translateY(-1px);
 }
-.watchlist-chip:active { transform: translateY(0); }
 .watchlist-chip.copied {
   background: var(--cobalt);
   border-color: var(--yellow);
   color: var(--yellow);
-  transform: scale(1.04);
   box-shadow: var(--shadow-cobalt);
 }
 .watchlist-chip.copied::after { content: "  ✓"; font-weight: 800; }
+
+/* The ✕ remove button on the right side of the pill */
+.watchlist-remove {
+  padding: 0 10px;
+  background: var(--surface2);
+  border: 1px solid var(--yellow);
+  border-left: none;
+  border-radius: 0 999px 999px 0;                 /* right half of the pill */
+  color: var(--muted);
+  font-size: 11px; font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.watchlist-remove:hover {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: #fff;
+}
 
 .watchlist-empty { color: var(--muted); font-size: 12px; line-height: 30px; }
 

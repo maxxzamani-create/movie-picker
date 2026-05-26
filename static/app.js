@@ -525,11 +525,31 @@ function refreshWatchlist() {
     el.innerHTML = items.map(i => {
       const badge = i.media_type === "tv" ? ` <span class="chip-tv-sm">TV</span>` : "";
       const copyText = formatWatchlistEntry(i);
-      return `<button type="button" class="watchlist-chip" data-copy="${esc(copyText)}" title="Click to copy">${esc(i.title)} (${esc(i.year)})${badge}</button>`;
+      const titleAttr = esc(`${i.title} (${i.year})`);
+      return `<span class="watchlist-chip-group" data-id="${i.id}" data-title="${titleAttr}">
+        <button type="button" class="watchlist-chip" data-copy="${esc(copyText)}" title="Click to copy">${esc(i.title)} (${esc(i.year)})${badge}</button>
+        <button type="button" class="watchlist-remove" title="Remove from watchlist" aria-label="Remove">✕</button>
+      </span>`;
     }).join("");
-    // Wire click handlers for each chip
+    // Wire copy handlers for each chip
     el.querySelectorAll(".watchlist-chip").forEach(btn => {
       btn.addEventListener("click", () => copyChipToClipboard(btn));
+    });
+    // Wire remove handlers for each ✕ button
+    el.querySelectorAll(".watchlist-remove").forEach(btn => {
+      btn.addEventListener("click", async e => {
+        e.stopPropagation();
+        const group = btn.closest(".watchlist-chip-group");
+        const id    = parseInt(group?.dataset.id, 10);
+        const title = group?.dataset.title || "item";
+        if (Number.isNaN(id)) return;
+        const r = await post("/api/watchlist/remove", { id });
+        if (r.watchlist !== undefined) {
+          state.prefs.watchlist = r.watchlist;
+          refreshWatchlist();
+          setStatus(`Removed "${title}" from watchlist.`);
+        }
+      });
     });
   }
   const cnt = state.prefs.watched?.length || 0;
