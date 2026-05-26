@@ -75,19 +75,39 @@ def pick():
     is_tv = (media_type == "tv")
     genre_map = tmdb.TV_GENRES if is_tv else tmdb.GENRES
 
-    # Moods combine with OR logic; multiple moods pool their genres and keywords
+    # Moods combine with OR logic; multiple moods pool their genres,
+    # keywords, crew, networks, and rating floors. The Maxx Inspired and
+    # Mind-Bending Twist moods both contribute via this same mechanism.
     mood_keys = data.get("moods", [])
     mood_field = "tv_genres" if is_tv else "movie_genres"
-    keyword_ids: list[int] = []
+    keyword_ids: list[int]   = []
+    crew_ids: list[int]      = []
+    network_ids: list[int]   = []
+    mood_rating_floor: float = 0.0
+
     if mood_keys:
-        genre_set = set()
+        genre_set   = set()
         keyword_set = set()
+        crew_set    = set()
+        network_set = set()
         for mk in mood_keys:
-            if mk in tmdb.MOODS:
-                genre_set.update(tmdb.MOODS[mk].get(mood_field, []))
-                keyword_set.update(tmdb.MOODS[mk].get("keywords", []))
-        genre_ids = list(genre_set)
+            m = tmdb.MOODS.get(mk)
+            if not m:
+                continue
+            genre_set.update(m.get(mood_field, []))
+            keyword_set.update(m.get("keywords", []))
+            # Crew applies only to movies; networks only to TV
+            if is_tv:
+                network_set.update(m.get("tv_network_ids", []))
+            else:
+                crew_set.update(m.get("crew_ids", []))
+            floor = float(m.get("min_rating_floor", 0.0) or 0.0)
+            if floor > mood_rating_floor:
+                mood_rating_floor = floor
+        genre_ids   = list(genre_set)
         keyword_ids = list(keyword_set)
+        crew_ids    = list(crew_set)
+        network_ids = list(network_set)
     else:
         ui_genres = data.get("tv_genres" if is_tv else "genres", [])
         genre_ids = [int(g) for g in ui_genres]
@@ -97,20 +117,22 @@ def pick():
     if data.get("indie") and tmdb.KW_INDEPENDENT not in keyword_ids:
         keyword_ids.append(tmdb.KW_INDEPENDENT)
 
-    # ⚡ Badass genre checkbox — for movies, restricts to a curated
-    # list of action/genre directors (with_crew). For TV, TMDB's
-    # discover endpoint doesn't support with_crew, so we constrain
-    # to prestige-drama networks (HBO, AMC, FX, Showtime, Apple TV+,
-    # STARZ) instead. Either way, the rating floor jumps to 7.0+.
-    crew_ids: list[int] = []
-    network_ids: list[int] = []
+    # ⚡ Bad Ass Dad genre checkbox — additive with whatever the Maxx mood
+    # already contributed (deduped). Movies: with_crew; TV: with_networks.
     min_rating = float(data.get("min_rating", 6.0))
+    if mood_rating_floor > min_rating:
+        min_rating = mood_rating_floor
     if data.get("badass"):
         if is_tv:
-            network_ids = list(tmdb.BADASS_TV_NETWORK_IDS)
+            for n in tmdb.BADASS_TV_NETWORK_IDS:
+                if n not in network_ids:
+                    network_ids.append(n)
         else:
-            crew_ids = list(tmdb.BADASS_DIRECTOR_IDS)
-        min_rating = max(min_rating, tmdb.BADASS_MIN_RATING)
+            for c in tmdb.BADASS_DIRECTOR_IDS:
+                if c not in crew_ids:
+                    crew_ids.append(c)
+        if tmdb.BADASS_MIN_RATING > min_rating:
+            min_rating = tmdb.BADASS_MIN_RATING
 
     # If user picked nothing explicit, bias toward learned LIKED genres
     # (Only counts where the user has shown a pattern: count >= 2)

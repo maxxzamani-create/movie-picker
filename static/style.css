@@ -216,6 +216,24 @@ input[type="range"] {
   box-shadow: var(--shadow-magenta);
 }
 
+/* The Maxx Inspired mood gets a gold border in the idle state so it
+   stands out as the signature mood, even when not selected. */
+.mood-btn[data-mood="maxx"] {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+.mood-btn[data-mood="maxx"]:hover {
+  background: var(--surface2);
+  color: var(--lime);
+  border-color: var(--lime);
+}
+.mood-btn[data-mood="maxx"].active {
+  background: linear-gradient(135deg, var(--lime), var(--lime-d));
+  color: #1a1338;
+  border-color: var(--magenta);
+  box-shadow: var(--shadow-lime);
+}
+
 /* ── Actor search ─────────────────────────────────────────────────────── */
 .actor-wrap { position: relative; }
 .actor-row  { display: flex; gap: 6px; }

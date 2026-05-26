@@ -103,9 +103,26 @@ BADASS_MIN_RATING = 7.0   # enforced floor when ⚡ Badass is checked
 
 MOODS = {
     "none":        {"label": "None",         "movie_genres": [],              "tv_genres": []},
+    # ⭐ Maxx Inspired — the user's signature mood, front and centre.
+    # Combines the Bad Ass Dad director list (movies) / prestige networks
+    # (TV) with a six-genre mix (Crime, Thriller, Action, Drama, Mystery,
+    # Western) and a 7.0+ rating floor. For TV, "Action" translates to
+    # TMDB's Action & Adventure (10759).
+    "maxx":        {"label": "Maxx Inspired",
+                    "movie_genres":    [80, 53, 28, 18, 9648, 37],
+                    "tv_genres":       [80, 10759, 18, 9648, 37],
+                    "crew_ids":        list(BADASS_DIRECTOR_IDS),
+                    "tv_network_ids":  list(BADASS_TV_NETWORK_IDS),
+                    "min_rating_floor": BADASS_MIN_RATING},
+    # Mind-Bending repurposed to focus on twist movies (the "you can never
+    # guess the twist" type — Memento, Sixth Sense, Prestige, Shutter Island
+    # vibe). Pulls from Mystery/Thriller/Crime/Drama with a 7.0+ floor so
+    # cheap-twist filler doesn't sneak in. Key stays "mind_bending" so any
+    # existing prefs files round-trip cleanly.
+    "mind_bending":{"label": "Twist",        "movie_genres": [9648, 53, 80, 18],     "tv_genres": [9648, 80, 18],
+                    "min_rating_floor": 7.0},
     "feel_good":   {"label": "Feel Good",    "movie_genres": [35, 10749, 10751, 16], "tv_genres": [35, 10751, 16]},
     "dark":        {"label": "Dark",         "movie_genres": [53, 80, 27, 18],       "tv_genres": [80, 18, 9648]},
-    "mind_bending":{"label": "Mind-Bending", "movie_genres": [878, 9648],            "tv_genres": [10765, 9648]},
     "action":      {"label": "Action-Packed","movie_genres": [28, 12],               "tv_genres": [10759]},
     "inspiring":   {"label": "Inspiring",    "movie_genres": [18, 36, 99],           "tv_genres": [18, 99]},
     "romantic":    {"label": "Romantic",     "movie_genres": [10749, 35],            "tv_genres": [35, 18]},
@@ -121,10 +138,13 @@ MOODS = {
                     "keywords": [KW_INDEPENDENT]},
 }
 # Backward-compat alias for the legacy desktop app (app.py uses MOODS[k]["genres"])
-# Also default "keywords" to [] so callers can rely on the field existing.
+# Also default the optional new fields so callers can rely on them existing.
 for _m in MOODS.values():
     _m["genres"] = _m["movie_genres"]
     _m.setdefault("keywords", [])
+    _m.setdefault("crew_ids", [])
+    _m.setdefault("tv_network_ids", [])
+    _m.setdefault("min_rating_floor", 0.0)
 
 
 OMDB_URL = "http://www.omdbapi.com/"
