@@ -146,42 +146,87 @@ document.querySelectorAll(".media-btn").forEach(btn => {
   btn.addEventListener("click", () => applyMediaType(btn.dataset.media));
 });
 
-/* ── Indie genre checkbox (mirrors across movie/TV grids) ──────────────── */
-document.querySelectorAll(".genre-indie-cb").forEach(cb => {
-  cb.addEventListener("change", e => {
-    state.indie = e.target.checked;
-    document.querySelectorAll(".genre-indie-cb").forEach(other => {
-      if (other !== e.target) other.checked = state.indie;
-    });
-  });
-});
+/* ── Exclusive filter selection ─────────────────────────────────────────
+   Moods, genres, ★ Indie, and ⚡ Bad Ass Dad all behave as a single
+   radio-style group: clicking any one of them clears all the others
+   so picks reflect only the most recently chosen filter, never a
+   combination. Pass `null` to clear everything. */
+function setActiveFilter(activate) {
+  // 1. Clear ALL filter state and UI
+  state.currentMoods.clear();
+  state.indie  = false;
+  state.badass = false;
+  document.querySelectorAll(".mood-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".genre-cb, .tv-genre-cb, .genre-indie-cb, .genre-badass-cb")
+    .forEach(cb => { cb.checked = false; });
 
-/* ── Badass genre checkbox (mirrors across movie/TV grids) ─────────────── */
-document.querySelectorAll(".genre-badass-cb").forEach(cb => {
-  cb.addEventListener("change", e => {
-    state.badass = e.target.checked;
-    document.querySelectorAll(".genre-badass-cb").forEach(other => {
-      if (other !== e.target) other.checked = state.badass;
-    });
-  });
-});
+  if (!activate) return;
 
-/* ── Mood (multi-select toggle) ────────────────────────────────────────── */
-function selectMood(key) {
-  if (key === "none") {
-    state.currentMoods.clear();
-  } else if (state.currentMoods.has(key)) {
-    state.currentMoods.delete(key);   // tap again to deselect
-  } else {
-    state.currentMoods.add(key);
+  // 2. Activate just the requested filter
+  switch (activate.type) {
+    case "mood": {
+      state.currentMoods.add(activate.key);
+      const btn = document.querySelector(`.mood-btn[data-mood="${activate.key}"]`);
+      btn?.classList.add("active");
+      break;
+    }
+    case "genre": {
+      const cb = document.getElementById(`genre-${activate.key}`);
+      if (cb) cb.checked = true;
+      break;
+    }
+    case "tv_genre": {
+      const cb = document.getElementById(`tv-genre-${activate.key}`);
+      if (cb) cb.checked = true;
+      break;
+    }
+    case "indie": {
+      state.indie = true;
+      document.querySelectorAll(".genre-indie-cb").forEach(c => { c.checked = true; });
+      break;
+    }
+    case "badass": {
+      state.badass = true;
+      document.querySelectorAll(".genre-badass-cb").forEach(c => { c.checked = true; });
+      break;
+    }
   }
-  document.querySelectorAll(".mood-btn").forEach(btn => {
-    btn.classList.toggle("active", state.currentMoods.has(btn.dataset.mood));
-  });
 }
 
+/* ── ★ Indie checkbox (exclusive — clears every other filter) ─────────── */
+document.querySelectorAll(".genre-indie-cb").forEach(cb => {
+  cb.addEventListener("change", () => {
+    setActiveFilter(cb.checked ? { type: "indie" } : null);
+  });
+});
+
+/* ── ⚡ Bad Ass Dad checkbox (exclusive) ───────────────────────────────── */
+document.querySelectorAll(".genre-badass-cb").forEach(cb => {
+  cb.addEventListener("change", () => {
+    setActiveFilter(cb.checked ? { type: "badass" } : null);
+  });
+});
+
+/* ── Genre checkboxes — clicking one clears every other filter ─────────── */
+document.querySelectorAll(".genre-cb").forEach(cb => {
+  cb.addEventListener("change", () => {
+    setActiveFilter(cb.checked ? { type: "genre", key: cb.value } : null);
+  });
+});
+document.querySelectorAll(".tv-genre-cb").forEach(cb => {
+  cb.addEventListener("change", () => {
+    setActiveFilter(cb.checked ? { type: "tv_genre", key: cb.value } : null);
+  });
+});
+
+/* ── Mood buttons (exclusive — one at a time, tap again to clear) ──────── */
 document.querySelectorAll(".mood-btn").forEach(btn => {
-  btn.addEventListener("click", () => selectMood(btn.dataset.mood));
+  btn.addEventListener("click", () => {
+    const key = btn.dataset.mood;
+    if (key === "none") { setActiveFilter(null); return; }
+    const wasActive = state.currentMoods.has(key);
+    setActiveFilter(wasActive ? null : { type: "mood", key });
+  });
 });
 
 /* ── Actor autocomplete ────────────────────────────────────────────────── */
