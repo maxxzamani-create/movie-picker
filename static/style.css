@@ -449,6 +449,13 @@ input[type="range"] {
   border: 2px solid var(--magenta);
   box-shadow: var(--shadow-cyan);
   text-shadow: 0 0 6px rgba(255,255,255,0.4);
+  /* Longer label needs to wrap rather than ellipsis-clip */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  line-height: 1.2;
+  font-size: 11px;
+  padding: 9px 6px;
 }
 .btn-dislike {
   background: var(--surface);
