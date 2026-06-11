@@ -92,27 +92,28 @@ the next morning).
 
 7. **Post the full briefing in chat.** That's the deliverable the user reads.
 
-8. **File into the Notion Projects hub** (if a Notion MCP server is connected;
-   skip silently if not). The hub is the page titled **Projects**
-   (id `37ca86e4-fa11-8130-83bd-e1aa4ffc0dfb`) — `fetch` it to read its child
-   project pages. If the id no longer resolves, `search` for a page named
-   "Projects" and use that; if none exists, create one and use it.
+8. **File pertinent info into the projects.**
 
-   For each project/topic surfaced in the briefing:
-   - Match it to an existing child page by name (e.g. `🍷 Winery — Triassic /
-     Sally`, `🏠 Donna Home Purchase`, `🏡 Irvine Listing`, `📈 Marketing &
-     Content`, `👨‍👩‍👧 Family & Personal`). Matching is fuzzy — a topic about the
-     winery/Sally/vineyard goes to the Winery page, etc.
-   - If no page matches, create a new child page under the hub for that project.
-   - **Append a `## <Month D, YYYY>` section** to that page with: a 1–2 sentence
-     summary of what moved on that project today, then the action items as
-     `- [ ] **@Owner** <task> — <due, if known>` checkboxes. Use `update-page`
-     to append; **never overwrite** existing sections.
-   - Idempotency: if a section with today's date already exists on a page
-     (re-run), replace just that dated section, not the whole page.
+   **Preferred — Cowork project folders (local/desktop runs):** if the user's
+   Cowork projects are accessible on this machine, match each topic in the
+   briefing to its Cowork project (care facility/RCFE, winery, Cal City duplex,
+   ZRE, solar, family — fuzzy match by name). Inside each matching project
+   folder, create a `Plaud notes/` folder if it doesn't exist and write
+   `DATE.md` containing that project's summary + action-item checkboxes for the
+   day. Re-running a date overwrites that date's file. A topic with no matching
+   Cowork project: note it in chat instead of guessing a folder.
 
-   Keep this quiet — a one-line chat note ("Filed to Notion: Winery, Irvine
-   Listing, Family") is enough; the briefing in step 7 is the main deliverable.
+   **Fallback — Notion (cloud runs, no Cowork access):** file into the Notion
+   Projects hub (page titled **Projects**,
+   id `37ca86e4-fa11-8130-83bd-e1aa4ffc0dfb`; `search` by name if the id no
+   longer resolves; create the hub if missing). Match each topic to a child
+   project page (create one if new) and **append a `## <Month D, YYYY>`
+   section** with the summary + `- [ ] **@Owner** <task>` checkboxes via
+   `update-page` — never overwrite earlier sections; on re-run replace just
+   today's dated section. Skip silently if Notion isn't connected either.
+
+   Keep this quiet — a one-line chat note ("Filed to: RCFE, Winery, Family")
+   is enough; the briefing in step 7 is the main deliverable.
 
 ## Notes
 
