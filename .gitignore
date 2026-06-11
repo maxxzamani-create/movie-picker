@@ -1,6 +1,9 @@
 # Sensitive data - keep API keys off GitHub
 prefs.json
 
+# Plaud daily digest output - personal transcripts & action items, never commit
+plaud/
+
 # Python
 __pycache__/
 *.py[cod]
