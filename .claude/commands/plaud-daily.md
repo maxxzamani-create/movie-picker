@@ -82,11 +82,14 @@ the next morning).
 5. **Save** the briefing to `plaud/briefings/DATE.md` (create the folder).
 
 6. Also save full transcripts for reference (quietly, no chat clutter): for each
-   recording write `plaud/transcripts/DATE/NN-<slug>.md` with a header, the
-   summary, and — via `python3 scripts/format_transcript.py "<saved_path>"` —
-   the topics + timestamped transcript. (`get_transcript` returns a *saved file
-   path* for long recordings; pass that path to the script, don't read it into
-   context.)
+   recording write `plaud/transcripts/DATE/<Owner>-NN-<slug>.md` with a header,
+   the summary, and — via `python3 scripts/format_transcript.py "<saved_path>"` —
+   the topics + timestamped transcript. `<Owner>` is the owner prefix from the
+   serial→person map: `Maxx` or `Carly` (use the recording-name prefix as a
+   fallback, or the raw serial for an unknown device). So a file looks like
+   `Maxx-01-winery-call.md` or `Carly-02-rcfe-walkthrough.md`. (`get_transcript`
+   returns a *saved file path* for long recordings; pass that path to the script,
+   don't read it into context.)
 
 7. **Post the full briefing in chat.** That's the deliverable the user reads.
 
