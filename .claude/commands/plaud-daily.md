@@ -21,7 +21,6 @@ Plaud recordings carry a `serial_number`. Map it to a person:
 | ------------------ | ------ |
 | `8810B50283418046` | Max    |
 | `8810B50297255281` | Carly  |
-| `8810B50294244025` | Carly  |
 
 Recent recordings are also auto-named with a `Maxx` or `Carly` prefix — use
 that as a fallback when a serial isn't in the table. Any unknown serial is a
