@@ -92,8 +92,32 @@ the next morning).
 
 7. **Post the full briefing in chat.** That's the deliverable the user reads.
 
+8. **File into the Notion Projects hub** (if a Notion MCP server is connected;
+   skip silently if not). The hub is the page titled **Projects**
+   (id `37ca86e4-fa11-8130-83bd-e1aa4ffc0dfb`) — `fetch` it to read its child
+   project pages. If the id no longer resolves, `search` for a page named
+   "Projects" and use that; if none exists, create one and use it.
+
+   For each project/topic surfaced in the briefing:
+   - Match it to an existing child page by name (e.g. `🍷 Winery — Triassic /
+     Sally`, `🏠 Donna Home Purchase`, `🏡 Irvine Listing`, `📈 Marketing &
+     Content`, `👨‍👩‍👧 Family & Personal`). Matching is fuzzy — a topic about the
+     winery/Sally/vineyard goes to the Winery page, etc.
+   - If no page matches, create a new child page under the hub for that project.
+   - **Append a `## <Month D, YYYY>` section** to that page with: a 1–2 sentence
+     summary of what moved on that project today, then the action items as
+     `- [ ] **@Owner** <task> — <due, if known>` checkboxes. Use `update-page`
+     to append; **never overwrite** existing sections.
+   - Idempotency: if a section with today's date already exists on a page
+     (re-run), replace just that dated section, not the whole page.
+
+   Keep this quiet — a one-line chat note ("Filed to Notion: Winery, Irvine
+   Listing, Family") is enough; the briefing in step 7 is the main deliverable.
+
 ## Notes
 
 - Output under `plaud/` is git-ignored unless committed deliberately.
 - Re-running a date overwrites that date's briefing (safe to re-run).
+- Notion filing (step 8) appends a dated section per project and is safe to
+  re-run; it updates today's section in place rather than duplicating.
 - To change the look, edit this file.
