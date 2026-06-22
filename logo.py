@@ -8,24 +8,23 @@ import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Palette (matches static/style.css — California Neon)
-MAGENTA    = "#ff6ec7"   # flamingo pink — primary
-MAGENTA_D  = "#d94a9c"   # deeper flamingo
-MAGENTA_LT = "#ffb3df"   # pale pink highlight
-CYAN       = "#4dd0e1"   # turquoise — secondary
-CYAN_D     = "#26a69a"   # deeper teal
-CYAN_LT    = "#80deea"   # pale teal highlight
-LIME       = "#ffd54f"   # sun gold sparkle (semantic var name kept)
-LIME_D     = "#ffa726"
-PURPLE     = "#4a3a7a"   # lavender haze border
-CORAL      = "#ff8a65"   # sunset coral
-BG         = "#1a1338"   # deep midnight purple
-BG_DEEP    = "#0d0820"
+# Palette (matches static/style.css — Rose Gold & Teal)
+MAGENTA    = "#e4a79c"   # rose gold — primary
+MAGENTA_D  = "#c47e72"   # deeper rose gold
+MAGENTA_LT = "#f4d3ca"   # pale rose gold highlight
+CYAN       = "#3cc6d4"   # teal — secondary
+CYAN_D     = "#2a97a3"   # deeper teal
+CYAN_LT    = "#7fdce6"   # pale teal highlight
+LIME       = "#e7c9a0"   # champagne gold sparkle (semantic var name kept)
+LIME_D     = "#d3aa72"
+PURPLE     = "#1f5560"   # teal border
+CORAL      = "#d98873"   # terracotta rose
+BG         = "#0a1f24"   # deep teal
+BG_DEEP    = "#04161a"
 WHITE      = "#ffffff"
-# Brushed-chrome tones for the magic lamp — still cool/silvery for the
-# vapor-tech feel, but slightly warmer than the Tokyo cyberpunk version.
-GOLD       = "#a8a3c0"   # brushed chrome body (var name kept for downstream code)
-GOLD_D     = "#5a546d"   # deep chrome shadow
+# Rose-gold metallic tones for the magic lamp — warm and on-theme.
+GOLD       = "#d9a596"   # rose-gold body (var name kept for downstream code)
+GOLD_D     = "#9c6e62"   # deep rose-gold shadow
 
 
 def _font(size):
@@ -50,7 +49,7 @@ def make_logo(size: int = 256) -> Image.Image:
     # ── Flamingo-pink halo (sunset bleeding into dusk) ───────────────────
     glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(glow)
-    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(255, 110, 199, 160))
+    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(228, 167, 156, 160))
     glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 12)))
     img  = Image.alpha_composite(img, glow)
     draw = ImageDraw.Draw(img)
@@ -118,11 +117,11 @@ def make_logo(size: int = 256) -> Image.Image:
     for layer in range(5):
         t     = layer / 4
         alpha = int(195 - t * 120)
-        # Bottom: turquoise (#4dd0e1)  Top: flamingo (#ff6ec7)
+        # Bottom: teal (#3cc6d4)  Top: rose gold (#e4a79c)
         col   = (
-            int(77  + t * 178),   # R: 77 -> 255
-            int(208 - t * 98),    # G: 208 -> 110
-            int(225 - t * 26),    # B: 225 -> 199
+            int(60  + t * 168),   # R: 60 -> 228
+            int(198 - t * 31),    # G: 198 -> 167
+            int(212 - t * 56),    # B: 212 -> 156
             alpha,
         )
         w_bot = s * (0.025 + t * 0.012)
@@ -149,7 +148,7 @@ def make_logo(size: int = 256) -> Image.Image:
     glow_pad = s * 0.07
     zd.ellipse([cx - z_half_w - glow_pad, z_top - glow_pad,
                 cx + z_half_w + glow_pad, z_bot + glow_pad],
-               fill=(255, 110, 199, 175))
+               fill=(228, 167, 156, 175))
     z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 11)))
     img = Image.alpha_composite(img, z_glow)
     draw = ImageDraw.Draw(img)

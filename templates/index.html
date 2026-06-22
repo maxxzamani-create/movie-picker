@@ -81,7 +81,7 @@
       <!-- Mood -->
       <div class="section">
         <div class="section-label">Mood</div>
-        <div class="hint-text" style="margin-bottom:6px">Pick one filter — moods, genres, ★/⚡ don't combine</div>
+        <div class="hint-text" style="margin-bottom:6px">Pick one mood (moods &amp; ★/⚡ don't combine). Genres can be combined — any match.</div>
         <div class="mood-grid">
           {% for key, info in moods.items() %}
           <button class="mood-btn" data-mood="{{ key }}">{{ info.label }}</button>

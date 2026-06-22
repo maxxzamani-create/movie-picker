@@ -207,15 +207,23 @@ document.querySelectorAll(".genre-badass-cb").forEach(cb => {
   });
 });
 
-/* ── Genre checkboxes — clicking one clears every other filter ─────────── */
-document.querySelectorAll(".genre-cb").forEach(cb => {
+/* ── Genre checkboxes — multiple genres combine as OR (any match) ───────
+   Several genres can be checked at once; a title matching ANY of them
+   qualifies (the backend joins them with TMDB's | OR operator). Checking
+   a genre still clears the *exclusive* filters (moods, ★ Indie, ⚡ Bad Ass
+   Dad), since those bring their own genre/crew lists, but it leaves the
+   other genre checkboxes alone. */
+function clearExclusiveFilters() {
+  state.currentMoods.clear();
+  state.indie  = false;
+  state.badass = false;
+  document.querySelectorAll(".mood-btn").forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".genre-indie-cb, .genre-badass-cb")
+    .forEach(cb => { cb.checked = false; });
+}
+document.querySelectorAll(".genre-cb, .tv-genre-cb").forEach(cb => {
   cb.addEventListener("change", () => {
-    setActiveFilter(cb.checked ? { type: "genre", key: cb.value } : null);
-  });
-});
-document.querySelectorAll(".tv-genre-cb").forEach(cb => {
-  cb.addEventListener("change", () => {
-    setActiveFilter(cb.checked ? { type: "tv_genre", key: cb.value } : null);
+    if (cb.checked) clearExclusiveFilters();
   });
 });
 
