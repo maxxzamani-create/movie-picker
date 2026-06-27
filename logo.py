@@ -8,19 +8,19 @@ import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Palette (matches static/style.css — Rose Gold & Teal)
+# Palette (matches static/style.css — Rose Gold & Tiffany Blue)
 MAGENTA    = "#e4a79c"   # rose gold — primary
 MAGENTA_D  = "#c47e72"   # deeper rose gold
 MAGENTA_LT = "#f4d3ca"   # pale rose gold highlight
-CYAN       = "#3cc6d4"   # teal — secondary
-CYAN_D     = "#2a97a3"   # deeper teal
-CYAN_LT    = "#7fdce6"   # pale teal highlight
+CYAN       = "#5fd6cd"   # Tiffany blue — secondary
+CYAN_D     = "#0abab5"   # official Tiffany blue, deeper
+CYAN_LT    = "#aae9e3"   # pale Tiffany blue highlight
 LIME       = "#e7c9a0"   # champagne gold sparkle (semantic var name kept)
 LIME_D     = "#d3aa72"
-PURPLE     = "#1f5560"   # teal border
+PURPLE     = "#1f6058"   # Tiffany border
 CORAL      = "#d98873"   # terracotta rose
-BG         = "#0a1f24"   # deep teal
-BG_DEEP    = "#04161a"
+BG         = "#082523"   # deep Tiffany teal
+BG_DEEP    = "#03140f"
 WHITE      = "#ffffff"
 # Rose-gold metallic tones for the magic lamp — warm and on-theme.
 GOLD       = "#d9a596"   # rose-gold body (var name kept for downstream code)
@@ -117,11 +117,11 @@ def make_logo(size: int = 256) -> Image.Image:
     for layer in range(5):
         t     = layer / 4
         alpha = int(195 - t * 120)
-        # Bottom: teal (#3cc6d4)  Top: rose gold (#e4a79c)
+        # Bottom: Tiffany blue (#5fd6cd)  Top: rose gold (#e4a79c)
         col   = (
-            int(60  + t * 168),   # R: 60 -> 228
-            int(198 - t * 31),    # G: 198 -> 167
-            int(212 - t * 56),    # B: 212 -> 156
+            int(95  + t * 133),   # R: 95 -> 228
+            int(214 - t * 47),    # G: 214 -> 167
+            int(205 - t * 49),    # B: 205 -> 156
             alpha,
         )
         w_bot = s * (0.025 + t * 0.012)
