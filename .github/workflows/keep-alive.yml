@@ -1,0 +1,23 @@
+name: Keep Render app awake
+
+# Render's free tier spins the server down after ~15 min of inactivity,
+# causing a 30-50s cold start on the next visit. This workflow pings the
+# live site every 10 minutes so it stays warm. Repo is public, so Actions
+# minutes are unlimited.
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # every 10 minutes (GitHub may delay under load)
+  workflow_dispatch:          # lets you run it manually from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping the live site
+        run: |
+          echo "Pinging movie-genie..."
+          curl -sS -o /dev/null -w "HTTP %{http_code} in %{time_total}s\n" \
+            --max-time 90 --retry 2 --retry-all-errors \
+            https://movie-genie-lseb.onrender.com/ \
+            || echo "Ping failed (site may have been waking up)"
