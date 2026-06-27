@@ -295,22 +295,32 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
     if r.status_code != 200:
         return None
     data = r.json()
+    page1_results = data.get("results", [])
     total = min(data.get("total_pages", 1), 500)
-    if total == 0 or not data.get("results"):
+    if total == 0 or not page1_results:
         return None
 
     excluded_ids = excluded_ids or set()
     movie = None
-    for _ in range(8):
+    # Pull a random page for variety. TMDB intermittently returns 5xx on
+    # some pages (notably the partial last page), so on a bad response we
+    # try another page instead of giving up on the whole pick.
+    for _ in range(12):
         params["page"] = random.randint(1, total)
         r = requests.get(f"{BASE_URL}/discover/movie", params=params, timeout=10)
         if r.status_code != 200:
-            return None
+            continue
         candidates = [m for m in r.json().get("results", [])
                       if m["id"] not in excluded_ids]
         if candidates:
             movie = random.choice(candidates)
             break
+    # Fallback: reuse the page-1 results we already fetched, so a run of
+    # TMDB page errors can't produce a spurious "No movies found".
+    if not movie:
+        candidates = [m for m in page1_results if m["id"] not in excluded_ids]
+        if candidates:
+            movie = random.choice(candidates)
     if not movie:
         return None
 
@@ -436,22 +446,30 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
     if r.status_code != 200:
         return None
     data = r.json()
+    page1_results = data.get("results", [])
     total = min(data.get("total_pages", 1), 500)
-    if total == 0 or not data.get("results"):
+    if total == 0 or not page1_results:
         return None
 
     excluded_ids = excluded_ids or set()
     show = None
-    for _ in range(8):
+    # TMDB intermittently 5xxs on some pages; try another page rather than
+    # failing the whole pick on a single bad response.
+    for _ in range(12):
         params["page"] = random.randint(1, total)
         r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
         if r.status_code != 200:
-            return None
+            continue
         candidates = [t for t in r.json().get("results", [])
                       if t["id"] not in excluded_ids]
         if candidates:
             show = random.choice(candidates)
             break
+    # Fallback: reuse the page-1 results we already fetched.
+    if not show:
+        candidates = [t for t in page1_results if t["id"] not in excluded_ids]
+        if candidates:
+            show = random.choice(candidates)
     if not show:
         return None
 
