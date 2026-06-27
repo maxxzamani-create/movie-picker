@@ -301,36 +301,45 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
         return None
 
     excluded_ids = excluded_ids or set()
-    movie = None
-    # Pull a random page for variety. TMDB intermittently returns 5xx on
-    # some pages (notably the partial last page), so on a bad response we
-    # try another page instead of giving up on the whole pick.
+
+    # Gather candidate movies from a few random pages (for variety),
+    # tolerating TMDB's intermittent 5xx page errors, and always keeping
+    # the page-1 results we already fetched as a fallback pool.
+    pool, seen_ids = [], set()
     for _ in range(12):
         params["page"] = random.randint(1, total)
         r = requests.get(f"{BASE_URL}/discover/movie", params=params, timeout=10)
         if r.status_code != 200:
             continue
-        candidates = [m for m in r.json().get("results", [])
-                      if m["id"] not in excluded_ids]
-        if candidates:
-            movie = random.choice(candidates)
+        for m in r.json().get("results", []):
+            if m["id"] not in excluded_ids and m["id"] not in seen_ids:
+                seen_ids.add(m["id"])
+                pool.append(m)
+        if len(pool) >= 20:
             break
-    # Fallback: reuse the page-1 results we already fetched, so a run of
-    # TMDB page errors can't produce a spurious "No movies found".
-    if not movie:
-        candidates = [m for m in page1_results if m["id"] not in excluded_ids]
-        if candidates:
-            movie = random.choice(candidates)
-    if not movie:
+    for m in page1_results:
+        if m["id"] not in excluded_ids and m["id"] not in seen_ids:
+            seen_ids.add(m["id"])
+            pool.append(m)
+    if not pool:
         return None
 
-    detail = requests.get(
-        f"{BASE_URL}/movie/{movie['id']}",
-        params={"api_key": api_key, "append_to_response": "watch/providers,videos,credits"},
-        timeout=10,
-    ).json()
-
-    return _movie_to_shape(detail, region)
+    # Fetch full details for a random candidate. The detail endpoint is ALSO
+    # subject to TMDB 5xx errors — if it fails, try the next candidate rather
+    # than returning a blank "Unknown" movie card.
+    random.shuffle(pool)
+    for m in pool[:12]:
+        dr = requests.get(
+            f"{BASE_URL}/movie/{m['id']}",
+            params={"api_key": api_key, "append_to_response": "watch/providers,videos,credits"},
+            timeout=10,
+        )
+        if dr.status_code != 200:
+            continue
+        detail = dr.json()
+        if detail.get("id"):
+            return _movie_to_shape(detail, region)
+    return None
 
 
 # ── TV SHOWS ────────────────────────────────────────────────────────────────
@@ -452,32 +461,43 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
         return None
 
     excluded_ids = excluded_ids or set()
-    show = None
-    # TMDB intermittently 5xxs on some pages; try another page rather than
-    # failing the whole pick on a single bad response.
+
+    # Gather candidate shows from a few random pages (for variety),
+    # tolerating TMDB's intermittent 5xx page errors, with the page-1
+    # results we already fetched as a fallback pool.
+    pool, seen_ids = [], set()
     for _ in range(12):
         params["page"] = random.randint(1, total)
         r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
         if r.status_code != 200:
             continue
-        candidates = [t for t in r.json().get("results", [])
-                      if t["id"] not in excluded_ids]
-        if candidates:
-            show = random.choice(candidates)
+        for t in r.json().get("results", []):
+            if t["id"] not in excluded_ids and t["id"] not in seen_ids:
+                seen_ids.add(t["id"])
+                pool.append(t)
+        if len(pool) >= 20:
             break
-    # Fallback: reuse the page-1 results we already fetched.
-    if not show:
-        candidates = [t for t in page1_results if t["id"] not in excluded_ids]
-        if candidates:
-            show = random.choice(candidates)
-    if not show:
+    for t in page1_results:
+        if t["id"] not in excluded_ids and t["id"] not in seen_ids:
+            seen_ids.add(t["id"])
+            pool.append(t)
+    if not pool:
         return None
 
-    detail = requests.get(
-        f"{BASE_URL}/tv/{show['id']}",
-        params={"api_key": api_key,
-                "append_to_response": "watch/providers,videos,credits,external_ids"},
-        timeout=10,
-    ).json()
-
-    return _tv_to_shape(detail, region)
+    # Fetch full details for a random candidate. The detail endpoint is ALSO
+    # subject to TMDB 5xx errors — if it fails, try the next candidate rather
+    # than returning a blank "Unknown" show card.
+    random.shuffle(pool)
+    for t in pool[:12]:
+        dr = requests.get(
+            f"{BASE_URL}/tv/{t['id']}",
+            params={"api_key": api_key,
+                    "append_to_response": "watch/providers,videos,credits,external_ids"},
+            timeout=10,
+        )
+        if dr.status_code != 200:
+            continue
+        detail = dr.json()
+        if detail.get("id"):
+            return _tv_to_shape(detail, region)
+    return None
