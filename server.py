@@ -165,22 +165,26 @@ def pick():
     fetch_fn = tmdb.fetch_random_tv if is_tv else tmdb.fetch_random_movie
     # network_ids is TV-only — only included when calling fetch_random_tv
     extra_kwargs: dict = {"network_ids": network_ids} if is_tv else {}
-    item = fetch_fn(
-        api_key        = api_key,
-        genre_ids      = genre_ids,
-        year_from      = int(data.get("year_from", 2000)),
-        year_to        = int(data.get("year_to",   2026)),
-        min_rating     = min_rating,
-        provider_ids   = [int(p) for p in data.get("providers", [])],
-        language       = data.get("language", ""),
-        hidden_gem     = bool(data.get("hidden_gem", False)),
-        actor_id       = actor_id,
-        excluded_ids   = excluded_ids,
-        without_genre_ids = avoided_genres,
-        keyword_ids    = keyword_ids,
-        crew_ids       = crew_ids,
-        **extra_kwargs,
-    )
+    try:
+        item = fetch_fn(
+            api_key        = api_key,
+            genre_ids      = genre_ids,
+            year_from      = int(data.get("year_from", 2000)),
+            year_to        = int(data.get("year_to",   2026)),
+            min_rating     = min_rating,
+            provider_ids   = [int(p) for p in data.get("providers", [])],
+            language       = data.get("language", ""),
+            hidden_gem     = bool(data.get("hidden_gem", False)),
+            actor_id       = actor_id,
+            excluded_ids   = excluded_ids,
+            without_genre_ids = avoided_genres,
+            keyword_ids    = keyword_ids,
+            crew_ids       = crew_ids,
+            **extra_kwargs,
+        )
+    except tmdb.TMDBUnavailable:
+        return jsonify({"error": "TMDB (the movie database) is having trouble "
+                                 "right now — please try again in a moment."}), 503
 
     if not item:
         kind = "shows" if is_tv else "movies"

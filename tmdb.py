@@ -150,6 +150,22 @@ for _m in MOODS.values():
 OMDB_URL = "http://www.omdbapi.com/"
 
 
+class TMDBUnavailable(Exception):
+    """Raised when TMDB's API is erroring or unreachable (5xx / timeout /
+    connection failure) — as opposed to a query that legitimately returns
+    zero results. Lets the server show an honest 'TMDB is down' message
+    instead of blaming the user's filters."""
+
+
+def _tmdb_get(url: str, params: dict, timeout: int = 10):
+    """GET wrapper that turns network failures into TMDBUnavailable.
+    Returns the Response; callers inspect status_code themselves."""
+    try:
+        return requests.get(url, params=params, timeout=timeout)
+    except requests.exceptions.RequestException as exc:
+        raise TMDBUnavailable() from exc
+
+
 def _movie_to_shape(detail: dict, region: str = "US") -> dict:
     watch = detail.get("watch/providers", {}).get("results", {}).get(region, {})
     flatrate = watch.get("flatrate", [])
@@ -291,7 +307,9 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
     if crew_ids:
         params["with_crew"] = "|".join(str(c) for c in crew_ids)
 
-    r = requests.get(f"{BASE_URL}/discover/movie", params=params, timeout=10)
+    r = _tmdb_get(f"{BASE_URL}/discover/movie", params)
+    if r.status_code >= 500:
+        raise TMDBUnavailable()
     if r.status_code != 200:
         return None
     data = r.json()
@@ -308,7 +326,7 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
     pool, seen_ids = [], set()
     for _ in range(12):
         params["page"] = random.randint(1, total)
-        r = requests.get(f"{BASE_URL}/discover/movie", params=params, timeout=10)
+        r = _tmdb_get(f"{BASE_URL}/discover/movie", params)
         if r.status_code != 200:
             continue
         for m in r.json().get("results", []):
@@ -328,17 +346,22 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
     # subject to TMDB 5xx errors — if it fails, try the next candidate rather
     # than returning a blank "Unknown" movie card.
     random.shuffle(pool)
+    detail_errors = 0
     for m in pool[:12]:
-        dr = requests.get(
+        dr = _tmdb_get(
             f"{BASE_URL}/movie/{m['id']}",
-            params={"api_key": api_key, "append_to_response": "watch/providers,videos,credits"},
-            timeout=10,
+            {"api_key": api_key, "append_to_response": "watch/providers,videos,credits"},
         )
         if dr.status_code != 200:
+            detail_errors += 1
             continue
         detail = dr.json()
         if detail.get("id"):
             return _movie_to_shape(detail, region)
+    # We had candidates but couldn't fetch details for any of them — if that
+    # was due to TMDB errors (not just exclusions), say so honestly.
+    if detail_errors:
+        raise TMDBUnavailable()
     return None
 
 
@@ -451,7 +474,9 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
     if network_ids:
         params["with_networks"] = "|".join(str(n) for n in network_ids)
 
-    r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
+    r = _tmdb_get(f"{BASE_URL}/discover/tv", params)
+    if r.status_code >= 500:
+        raise TMDBUnavailable()
     if r.status_code != 200:
         return None
     data = r.json()
@@ -468,7 +493,7 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
     pool, seen_ids = [], set()
     for _ in range(12):
         params["page"] = random.randint(1, total)
-        r = requests.get(f"{BASE_URL}/discover/tv", params=params, timeout=10)
+        r = _tmdb_get(f"{BASE_URL}/discover/tv", params)
         if r.status_code != 200:
             continue
         for t in r.json().get("results", []):
@@ -488,16 +513,19 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
     # subject to TMDB 5xx errors — if it fails, try the next candidate rather
     # than returning a blank "Unknown" show card.
     random.shuffle(pool)
+    detail_errors = 0
     for t in pool[:12]:
-        dr = requests.get(
+        dr = _tmdb_get(
             f"{BASE_URL}/tv/{t['id']}",
-            params={"api_key": api_key,
-                    "append_to_response": "watch/providers,videos,credits,external_ids"},
-            timeout=10,
+            {"api_key": api_key,
+             "append_to_response": "watch/providers,videos,credits,external_ids"},
         )
         if dr.status_code != 200:
+            detail_errors += 1
             continue
         detail = dr.json()
         if detail.get("id"):
             return _tv_to_shape(detail, region)
+    if detail_errors:
+        raise TMDBUnavailable()
     return None
