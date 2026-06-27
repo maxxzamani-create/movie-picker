@@ -1,23 +1,38 @@
 name: Keep Render app awake
 
 # Render's free tier spins the server down after ~15 min of inactivity,
-# causing a 30-50s cold start on the next visit. This workflow pings the
-# live site every 10 minutes so it stays warm. Repo is public, so Actions
-# minutes are unlimited.
+# causing a 30-50s cold start on the next visit.
+#
+# GitHub's scheduled (cron) triggers are "best effort" and are frequently
+# delayed or skipped at short intervals, so we can't rely on the schedule
+# firing every 10 min. Instead, each run stays alive and pings every ~5
+# minutes for ~55 minutes — so a SINGLE trigger keeps the site warm for a
+# full hour. Combined with the schedule attempting to fire often, the site
+# stays awake as long as GitHub starts a run roughly once an hour.
+#
+# Repo is public, so Actions minutes are unlimited.
 
 on:
   schedule:
-    - cron: "*/10 * * * *"   # every 10 minutes (GitHub may delay under load)
+    - cron: "*/10 * * * *"   # attempt every 10 min (GitHub often delays/skips)
   workflow_dispatch:          # lets you run it manually from the Actions tab
+
+# Only one keep-alive run at a time; a new trigger restarts the loop fresh.
+concurrency:
+  group: keep-alive
+  cancel-in-progress: true
 
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 58
     steps:
-      - name: Ping the live site
+      - name: Ping the live site every ~5 min for ~55 min
         run: |
-          echo "Pinging movie-genie..."
-          curl -sS -o /dev/null -w "HTTP %{http_code} in %{time_total}s\n" \
-            --max-time 90 --retry 2 --retry-all-errors \
-            https://movie-genie-lseb.onrender.com/ \
-            || echo "Ping failed (site may have been waking up)"
+          URL="https://movie-genie-lseb.onrender.com/"
+          for i in $(seq 1 12); do
+            curl -sS -o /dev/null -w "ping $i: HTTP %{http_code} in %{time_total}s\n" \
+              --max-time 90 --retry 2 --retry-all-errors "$URL" \
+              || echo "ping $i failed (site may have been waking up)"
+            if [ "$i" -lt 12 ]; then sleep 290; fi
+          done
