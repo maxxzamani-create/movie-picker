@@ -4,24 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AD-SHARK — Business Dashboard</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦈</text></svg>">
+<meta name="theme-color" content="#03050a">
+<link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
+<link rel="shortcut icon" href="static/brand/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="static/brand/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #06080d; --surface: rgba(19, 24, 36, .72); --line: #232c3f;
-    --text: #eef2f8; --dim: #8b96ab;
-    --gold: #f2a900; --gold2: #ffd35c; --green: #2ecc71; --red: #e74c3c;
+    --bg: #03050a; --surface: rgba(17,25,39,.70); --line: #1c2740;
+    --text: #eef5fc; --dim: #8ea1ba;
+    --gold: #4fb6f2; --gold2: #9fdcff; --green: #2ecc71; --red: #ff5c5c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); min-height: 100vh;
     font-family: "Inter", system-ui, sans-serif; }
   body::before {
-    content: ""; position: fixed; inset: -40%; z-index: -1; pointer-events: none;
+    content: ""; position: fixed; inset: -40%; z-index: -2; pointer-events: none;
     background:
-      radial-gradient(38% 30% at 24% 20%, rgba(242,169,0,.10), transparent 60%),
-      radial-gradient(30% 26% at 80% 74%, rgba(58,160,216,.08), transparent 60%);
+      radial-gradient(38% 30% at 24% 20%, rgba(79,182,242,.10), transparent 60%),
+      radial-gradient(30% 26% at 80% 74%, rgba(11,95,176,.08), transparent 60%);
     animation: drift 28s ease-in-out infinite alternate;
+  }
+  html::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; opacity: .45; pointer-events: none;
+    background-image: radial-gradient(rgba(159,220,255,.06) 1px, transparent 1px);
+    background-size: 26px 26px;
   }
   @keyframes drift {
     from { transform: translate(-2%, -1%); } to { transform: translate(2%, 2%); }
@@ -30,10 +39,10 @@
   header { display: flex; align-items: center; gap: 16px; padding: 16px 28px;
     border-bottom: 1px solid rgba(255,255,255,.06); backdrop-filter: blur(8px); }
   .logo { width: 46px; height: 46px;
-    filter: drop-shadow(0 4px 14px rgba(242,169,0,.45)); }
+    filter: drop-shadow(0 4px 14px rgba(79,182,242,.45)); }
   .wordmark { font-family: "Bebas Neue", sans-serif; font-size: 34px;
     letter-spacing: 4px; line-height: 1;
-    background: linear-gradient(100deg, #ffd35c 10%, #f2a900 45%, #b87400 90%);
+    background: linear-gradient(100deg, #9fdcff 10%, #4fb6f2 45%, #0b5fb0 90%);
     -webkit-background-clip: text; background-clip: text; color: transparent; }
   .tagline { color: var(--dim); font-size: 12px; letter-spacing: 3px;
     text-transform: uppercase; margin-top: 4px; }
@@ -42,12 +51,14 @@
     font-weight: 600; padding: 10px 18px; border-radius: 12px;
     border: 1px solid var(--line); background: var(--surface); transition: .2s; }
   header a:hover { border-color: var(--gold); transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(242,169,0,.18); }
+    box-shadow: 0 6px 20px rgba(79,182,242,.18); }
 
   .wrap { max-width: 1240px; margin: 0 auto; padding: 24px 28px;
     display: flex; flex-direction: column; gap: 20px; }
   .card { background: var(--surface); border: 1px solid rgba(255,255,255,.07);
-    border-radius: 18px; padding: 20px 22px; backdrop-filter: blur(10px); }
+    border-radius: 18px; padding: 20px 22px; backdrop-filter: blur(10px);
+    transition: border-color .25s, box-shadow .25s; }
+  .card:hover { box-shadow: 0 14px 34px rgba(0,0,0,.3); }
   .card h2 { font-size: 11px; letter-spacing: 3px; color: var(--dim);
     margin-bottom: 15px; font-weight: 800; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -57,7 +68,9 @@
   .hero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .hstat { position: relative; overflow: hidden; border-radius: 16px;
     padding: 20px; background: rgba(16,21,32,.85);
-    border: 1px solid rgba(255,255,255,.06); }
+    border: 1px solid rgba(255,255,255,.06); transition: .25s; }
+  .hstat:hover { border-color: rgba(79,182,242,.35); transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.35); }
   .hstat::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0;
     height: 3px; background: linear-gradient(90deg, var(--gold2), var(--gold), transparent); }
   .hstat b { display: block; font-family: "Bebas Neue"; font-size: 46px;
@@ -76,18 +89,18 @@
     font-weight: 600; cursor: pointer; font-family: inherit; transition: .2s; }
   .btn:hover { border-color: var(--gold); transform: translateY(-1px); }
   .btn.primary { background: linear-gradient(120deg, var(--gold2), var(--gold));
-    color: #17110a; border-color: transparent; font-weight: 800; }
-  .btn.primary:hover { box-shadow: 0 8px 26px rgba(242,169,0,.35); }
+    color: #04101f; border-color: transparent; font-weight: 800; }
+  .btn.primary:hover { box-shadow: 0 8px 26px rgba(79,182,242,.35); }
   .btn.danger:hover { border-color: var(--red); color: var(--red); }
   .switch { display: flex; align-items: center; gap: 12px; font-size: 14px; }
   .switch input { width: 42px; height: 22px; accent-color: var(--gold); }
 
   /* upload zone */
-  .dropzone { display: block; border: 2px dashed rgba(242,169,0,.35); border-radius: 14px;
+  .dropzone { display: block; border: 2px dashed rgba(79,182,242,.35); border-radius: 14px;
     padding: 22px; text-align: center; color: var(--dim); font-size: 13.5px;
     transition: .2s; cursor: pointer; }
   .dropzone:hover, .dropzone.hover { border-color: var(--gold);
-    background: rgba(242,169,0,.05); color: var(--text); }
+    background: rgba(79,182,242,.05); color: var(--text); }
   .dropzone b { color: var(--gold2); }
   .dropzone input { display: none; }
 
@@ -106,8 +119,8 @@
   .ad .ctl .btn { margin-left: auto; padding: 6px 12px; font-size: 12px; }
   .pill { font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
     padding: 3px 9px; border-radius: 6px; margin-left: auto;
-    background: rgba(242,169,0,.14); color: var(--gold2);
-    border: 1px solid rgba(242,169,0,.3); }
+    background: rgba(79,182,242,.14); color: var(--gold2);
+    border: 1px solid rgba(79,182,242,.3); }
 
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th { text-align: left; color: var(--dim); font-size: 10.5px; letter-spacing: 1.5px;
@@ -122,20 +135,21 @@
   #msg.err { color: var(--red); } #msg.ok { color: var(--green); }
 
   /* revenue leak */
-  .leak { border-color: rgba(242,169,0,.30); }
+  .leak { border-color: rgba(79,182,242,.30); }
   .story { font-size: 14.5px; line-height: 1.75; color: #cdd6e4;
     max-width: 880px; margin-bottom: 16px; }
   .story .gold { color: var(--gold2); font-weight: 700; }
   .chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 12px; margin-bottom: 18px; }
   .chip { background: rgba(16,21,32,.85); border: 1px solid rgba(255,255,255,.06);
-    border-radius: 12px; padding: 13px 15px; }
+    border-radius: 12px; padding: 13px 15px; transition: .25s; }
+  .chip:hover { border-color: rgba(79,182,242,.3); transform: translateY(-2px); }
   .chip b { display: block; font-family: "Bebas Neue"; font-size: 34px;
     line-height: 1; margin-bottom: 5px;
     background: linear-gradient(120deg, var(--gold2), var(--gold));
     -webkit-background-clip: text; background-clip: text; color: transparent; }
   .chip span { font-size: 12px; color: var(--dim); line-height: 1.5; }
-  .calc { background: rgba(12,17,25,.6); border: 1px dashed rgba(242,169,0,.35);
+  .calc { background: rgba(12,17,25,.6); border: 1px dashed rgba(79,182,242,.35);
     border-radius: 14px; padding: 16px 18px; }
   .calc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
     margin-bottom: 14px; }
@@ -160,7 +174,7 @@
 <header>
   <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
     <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ffd35c"/><stop offset="1" stop-color="#b87400"/>
+      <stop offset="0" stop-color="#9fdcff"/><stop offset="1" stop-color="#0b5fb0"/>
     </linearGradient></defs>
     <path fill="url(#lg)" d="M6 38c10-14 26-20 46-18l6-10 2 14c2 2 3 4 3 6-14 12-34 16-48 12l-9 8-2-14z"/>
     <circle cx="48" cy="30" r="2.4" fill="#06080d"/>
