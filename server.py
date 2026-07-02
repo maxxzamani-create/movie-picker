@@ -173,6 +173,16 @@ def pick():
     fetch_fn = tmdb.fetch_random_tv if is_tv else tmdb.fetch_random_movie
     # network_ids is TV-only — only included when calling fetch_random_tv
     extra_kwargs: dict = {"network_ids": network_ids} if is_tv else {}
+
+    # Minimum Rotten Tomatoes filter (movies only — OMDb rarely has RT
+    # data for TV, so applying it there would fail nearly every pick).
+    omdb_key = prefs.get("omdb_api_key", "")
+    try:
+        min_rt = int(data.get("min_rt", 0) or 0)
+    except (TypeError, ValueError):
+        min_rt = 0
+    if not is_tv and min_rt and omdb_key:
+        extra_kwargs.update(omdb_key=omdb_key, min_rt=min_rt)
     try:
         item = fetch_fn(
             api_key        = api_key,
@@ -196,11 +206,13 @@ def pick():
 
     if not item:
         kind = "shows" if is_tv else "movies"
-        return jsonify({"error": f"No {kind} found — try relaxing your filters"}), 404
+        hint = (f" with a Rotten Tomatoes score of {min_rt}%+"
+                if (not is_tv and min_rt and omdb_key) else "")
+        return jsonify({"error": f"No {kind} found{hint} — try relaxing your filters"}), 404
 
-    # RT score (works for both via IMDb ID)
-    omdb_key = prefs.get("omdb_api_key", "")
-    if omdb_key and item.get("imdb_id"):
+    # RT score (works for both via IMDb ID). Skip if the RT filter already
+    # fetched it during candidate selection.
+    if omdb_key and item.get("imdb_id") and "rt_score" not in item:
         item["rt_score"] = tmdb.fetch_rt_score(omdb_key, item["imdb_id"])
 
     _log_history(prefs, item, "Suggested")

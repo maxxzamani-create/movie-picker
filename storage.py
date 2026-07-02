@@ -14,6 +14,7 @@ DEFAULTS = {
     "year_from": 2000,
     "year_to": 2026,
     "min_rating": 4.0,
+    "min_rt": 0,               # minimum Rotten Tomatoes % (0 = off; movies only)
     "providers": [],
     "language": "",
     "hidden_gem": False,

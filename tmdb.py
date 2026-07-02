@@ -220,6 +220,16 @@ def fetch_movie_by_id(api_key: str, movie_id: int, region: str = "US") -> dict |
     return _movie_to_shape(detail, region)
 
 
+def rt_score_to_int(rt: str | None) -> int | None:
+    """Parse an OMDb Rotten Tomatoes value like '95%' into 95."""
+    if not rt:
+        return None
+    try:
+        return int(rt.strip().rstrip("%"))
+    except ValueError:
+        return None
+
+
 def fetch_rt_score(omdb_key: str, imdb_id: str) -> str | None:
     if not omdb_key or not imdb_id:
         return None
@@ -274,7 +284,9 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
                        excluded_ids: set | None = None,
                        without_genre_ids: set | None = None,
                        keyword_ids: list[int] | None = None,
-                       crew_ids: list[int] | None = None) -> dict | None:
+                       crew_ids: list[int] | None = None,
+                       omdb_key: str = "",
+                       min_rt: int = 0) -> dict | None:
     # Indie/arthouse moods carry keywords — when present, we want
     # rarer/lower-vote results to surface (true indie titles).
     has_keywords = bool(keyword_ids)
@@ -353,10 +365,14 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
 
     # Fetch full details for a random candidate. The detail endpoint is ALSO
     # subject to TMDB 5xx errors — if it fails, try the next candidate rather
-    # than returning a blank "Unknown" movie card.
+    # than returning a blank "Unknown" movie card. When a minimum Rotten
+    # Tomatoes score is set, each candidate's RT score is checked via OMDb
+    # and candidates below the bar (or with no RT data) are skipped — so we
+    # walk more of the pool.
     random.shuffle(pool)
     detail_errors = 0
-    for m in pool[:12]:
+    rt_filtering  = bool(min_rt and omdb_key)
+    for m in pool[: (25 if rt_filtering else 12)]:
         dr = _tmdb_get(
             f"{BASE_URL}/movie/{m['id']}",
             {"api_key": api_key, "append_to_response": "watch/providers,videos,credits"},
@@ -365,11 +381,19 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
             detail_errors += 1
             continue
         detail = dr.json()
-        if detail.get("id"):
-            return _movie_to_shape(detail, region)
+        if not detail.get("id"):
+            continue
+        item = _movie_to_shape(detail, region)
+        if rt_filtering:
+            rt = fetch_rt_score(omdb_key, item.get("imdb_id"))
+            item["rt_score"] = rt          # reused downstream — no second fetch
+            score = rt_score_to_int(rt)
+            if score is None or score < min_rt:
+                continue
+        return item
     # We had candidates but couldn't fetch details for any of them — if that
-    # was due to TMDB errors (not just exclusions), say so honestly.
-    if detail_errors:
+    # was due to TMDB errors (not RT filtering / exclusions), say so honestly.
+    if detail_errors and not rt_filtering:
         raise TMDBUnavailable()
     return None
 

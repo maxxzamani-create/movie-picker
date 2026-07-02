@@ -91,6 +91,15 @@ function loadPrefsIntoUI() {
   const slider = document.getElementById("rating-slider");
   slider.value = p.min_rating ?? 4.0;
   document.getElementById("rating-val").textContent = `${parseFloat(slider.value).toFixed(1)} / 10`;
+
+  // Rotten Tomatoes minimum (movies only)
+  const rtSlider = document.getElementById("rt-slider");
+  rtSlider.value = p.min_rt ?? 0;
+  document.getElementById("rt-val").textContent = rtLabel(rtSlider.value);
+}
+
+function rtLabel(v) {
+  return parseInt(v) > 0 ? `${v}%+ 🍅` : "Off";
 }
 
 function collectPrefs() {
@@ -100,6 +109,7 @@ function collectPrefs() {
   const yearFrom    = parseInt(document.getElementById("year-from").value) || 2000;
   const yearTo      = parseInt(document.getElementById("year-to").value)   || 2026;
   const rating      = parseFloat(document.getElementById("rating-slider").value) || 4.0;
+  const minRt       = parseInt(document.getElementById("rt-slider").value) || 0;
   const hidden      = document.querySelector('input[name="discovery"]:checked').value === "1";
   const actor       = document.getElementById("actor-input").value.trim();
 
@@ -115,6 +125,7 @@ function collectPrefs() {
     year_from:   yearFrom,
     year_to:     yearTo,
     min_rating:  rating,
+    min_rt:      minRt,
     hidden_gem:  hidden,
     moods:       [...state.currentMoods],
     actor,
@@ -295,6 +306,11 @@ document.getElementById("btn-clear-actor").addEventListener("click", () => {
 /* ── Rating slider ─────────────────────────────────────────────────────── */
 document.getElementById("rating-slider").addEventListener("input", e => {
   document.getElementById("rating-val").textContent = `${parseFloat(e.target.value).toFixed(1)} / 10`;
+});
+
+/* ── Rotten Tomatoes slider ────────────────────────────────────────────── */
+document.getElementById("rt-slider").addEventListener("input", e => {
+  document.getElementById("rt-val").textContent = rtLabel(e.target.value);
 });
 
 /* ── Pick movie/show ───────────────────────────────────────────────────── */
@@ -490,6 +506,9 @@ document.getElementById("btn-reset-filters").addEventListener("click", () => {
 
   document.getElementById("rating-slider").value = 4.0;
   document.getElementById("rating-val").textContent = "4.0 / 10";
+
+  document.getElementById("rt-slider").value = 0;
+  document.getElementById("rt-val").textContent = "Off";
 
   setStatus("Filters reset to defaults.");
 });

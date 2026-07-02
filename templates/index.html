@@ -169,6 +169,17 @@
       </div>
       <div class="sep"></div>
 
+      <!-- Rotten Tomatoes (movies only — OMDb rarely has RT data for TV) -->
+      <div class="section media-section" data-media-section="movie">
+        <div class="section-label">Minimum Rotten Tomatoes 🍅</div>
+        <div class="range-row">
+          <input id="rt-slider" type="range" min="0" max="100" step="5" value="0">
+          <span id="rt-val" class="range-val">Off</span>
+        </div>
+        <div class="hint-text">Needs the OMDb key. When set, movies without an RT score are skipped.</div>
+      </div>
+      <div class="sep"></div>
+
       <!-- Actions -->
       <div class="section">
         <button class="btn-pick" id="btn-pick">🎲  Pick a Movie</button>
