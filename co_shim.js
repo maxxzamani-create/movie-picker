@@ -16,8 +16,8 @@
     { id: "wings", name: "50¢ Wing Night",
       url: "static/co/ad_wings.mp4", url_webm: "static/co/ad_wings.webm",
       enabled: true, builtin: true },
-    { id: "happyhour", name: "Happy Hour 4–7",
-      url: "static/co/ad_happyhour.mp4", url_webm: "static/co/ad_happyhour.webm",
+    { id: "dessert", name: "Molten Chocolate Cake — $6",
+      url: "static/co/ad_dessert.mp4", url_webm: "static/co/ad_dessert.webm",
       enabled: true, builtin: true },
   ];
 
