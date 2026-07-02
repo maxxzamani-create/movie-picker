@@ -4,109 +4,170 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AD-SHARK — Business Dashboard</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦈</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0e13; --surface: #131822; --surface2: #1a2130;
-    --line: #232c3f; --text: #e8ecf4; --dim: #8b96ab;
-    --gold: #f2a900; --green: #2ecc71; --red: #e74c3c;
+    --bg: #06080d; --surface: rgba(19, 24, 36, .72); --line: #232c3f;
+    --text: #eef2f8; --dim: #8b96ab;
+    --gold: #f2a900; --gold2: #ffd35c; --green: #2ecc71; --red: #e74c3c;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text);
-         font-family: "Segoe UI", system-ui, sans-serif; min-height: 100vh; }
-  header { display: flex; align-items: center; gap: 14px;
-           padding: 14px 22px; border-bottom: 1px solid var(--line); }
-  header .mark { width: 34px; height: 34px; border-radius: 8px;
-                 background: linear-gradient(135deg, var(--gold), #b87400);
-                 display: grid; place-items: center; font-weight: 800; color: #14100a; }
-  header h1 { font-size: 17px; letter-spacing: 2px; }
+  body { background: var(--bg); color: var(--text); min-height: 100vh;
+    font-family: "Inter", system-ui, sans-serif; }
+  body::before {
+    content: ""; position: fixed; inset: -40%; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(38% 30% at 24% 20%, rgba(242,169,0,.10), transparent 60%),
+      radial-gradient(30% 26% at 80% 74%, rgba(58,160,216,.08), transparent 60%);
+    animation: drift 28s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    from { transform: translate(-2%, -1%); } to { transform: translate(2%, 2%); }
+  }
+
+  header { display: flex; align-items: center; gap: 16px; padding: 16px 28px;
+    border-bottom: 1px solid rgba(255,255,255,.06); backdrop-filter: blur(8px); }
+  .logo { width: 46px; height: 46px;
+    filter: drop-shadow(0 4px 14px rgba(242,169,0,.45)); }
+  .wordmark { font-family: "Bebas Neue", sans-serif; font-size: 34px;
+    letter-spacing: 4px; line-height: 1;
+    background: linear-gradient(100deg, #ffd35c 10%, #f2a900 45%, #b87400 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tagline { color: var(--dim); font-size: 12px; letter-spacing: 3px;
+    text-transform: uppercase; margin-top: 4px; }
   header nav { margin-left: auto; }
-  header a { color: var(--dim); text-decoration: none; font-size: 13px;
-             padding: 7px 14px; border: 1px solid var(--line); border-radius: 8px; }
-  header a:hover { color: var(--text); border-color: var(--gold); }
+  header a { color: var(--text); text-decoration: none; font-size: 13px;
+    font-weight: 600; padding: 10px 18px; border-radius: 12px;
+    border: 1px solid var(--line); background: var(--surface); transition: .2s; }
+  header a:hover { border-color: var(--gold); transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(242,169,0,.18); }
 
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 22px;
-          display: flex; flex-direction: column; gap: 18px; }
-  .card { background: var(--surface); border: 1px solid var(--line);
-          border-radius: 14px; padding: 18px 20px; }
-  .card h2 { font-size: 11px; letter-spacing: 2px; color: var(--dim);
-             margin-bottom: 14px; font-weight: 700; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  @media (max-width: 800px) { .row2 { grid-template-columns: 1fr; } }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 24px 28px;
+    display: flex; flex-direction: column; gap: 20px; }
+  .card { background: var(--surface); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px; padding: 20px 22px; backdrop-filter: blur(10px); }
+  .card h2 { font-size: 11px; letter-spacing: 3px; color: var(--dim);
+    margin-bottom: 15px; font-weight: 800; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 820px) { .row2 { grid-template-columns: 1fr; } }
 
-  input[type=text] { background: var(--surface2); border: 1px solid var(--line);
-        color: var(--text); border-radius: 8px; padding: 9px 12px; font-size: 14px;
-        width: 100%; }
-  input[type=file] { color: var(--dim); font-size: 13px; }
-  .btn { padding: 9px 18px; border-radius: 8px; border: 1px solid var(--line);
-         background: var(--surface2); color: var(--text); font-size: 13px;
-         cursor: pointer; }
-  .btn:hover { border-color: var(--gold); }
-  .btn.primary { background: var(--gold); color: #14100a; font-weight: 700;
-                 border-color: var(--gold); }
+  /* hero stats */
+  .hero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .hstat { position: relative; overflow: hidden; border-radius: 16px;
+    padding: 20px; background: rgba(16,21,32,.85);
+    border: 1px solid rgba(255,255,255,.06); }
+  .hstat::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: linear-gradient(90deg, var(--gold2), var(--gold), transparent); }
+  .hstat b { display: block; font-family: "Bebas Neue"; font-size: 46px;
+    line-height: 1;
+    background: linear-gradient(120deg, var(--gold2), var(--gold));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hstat span { font-size: 11px; color: var(--dim); letter-spacing: 2px;
+    font-weight: 700; }
+
+  input[type=text] { background: rgba(12,17,25,.9); border: 1px solid var(--line);
+    color: var(--text); border-radius: 10px; padding: 11px 14px; font-size: 14px;
+    width: 100%; font-family: inherit; }
+  input[type=text]:focus { outline: none; border-color: var(--gold); }
+  .btn { padding: 11px 20px; border-radius: 10px; border: 1px solid var(--line);
+    background: rgba(16,21,32,.9); color: var(--text); font-size: 13.5px;
+    font-weight: 600; cursor: pointer; font-family: inherit; transition: .2s; }
+  .btn:hover { border-color: var(--gold); transform: translateY(-1px); }
+  .btn.primary { background: linear-gradient(120deg, var(--gold2), var(--gold));
+    color: #17110a; border-color: transparent; font-weight: 800; }
+  .btn.primary:hover { box-shadow: 0 8px 26px rgba(242,169,0,.35); }
   .btn.danger:hover { border-color: var(--red); color: var(--red); }
-  .switch { display: flex; align-items: center; gap: 10px; font-size: 14px; }
-  .switch input { width: 40px; height: 21px; accent-color: var(--gold); }
+  .switch { display: flex; align-items: center; gap: 12px; font-size: 14px; }
+  .switch input { width: 42px; height: 22px; accent-color: var(--gold); }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-          gap: 14px; }
-  .ad { background: var(--surface2); border: 1px solid var(--line);
-        border-radius: 11px; overflow: hidden; }
-  .ad.off { opacity: .45; }
+  /* upload zone */
+  .dropzone { display: block; border: 2px dashed rgba(242,169,0,.35); border-radius: 14px;
+    padding: 22px; text-align: center; color: var(--dim); font-size: 13.5px;
+    transition: .2s; cursor: pointer; }
+  .dropzone:hover, .dropzone.hover { border-color: var(--gold);
+    background: rgba(242,169,0,.05); color: var(--text); }
+  .dropzone b { color: var(--gold2); }
+  .dropzone input { display: none; }
+
+  /* ad grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px; }
+  .ad { background: rgba(16,21,32,.85); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px; overflow: hidden; transition: .2s; }
+  .ad:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.4); }
+  .ad.off { opacity: .42; }
   .ad video { width: 100%; aspect-ratio: 16/9; background: #000; display: block; }
-  .ad .body { padding: 10px 12px; }
-  .ad .name { font-size: 13.5px; font-weight: 600; margin-bottom: 8px; }
+  .ad .body { padding: 12px 14px; }
+  .ad .name { font-size: 14px; font-weight: 700; margin-bottom: 9px; }
   .ad .ctl { display: flex; align-items: center; gap: 8px; font-size: 12px;
-             color: var(--dim); }
-  .ad .ctl button { margin-left: auto; }
-  .pill { font-size: 10px; font-weight: 700; letter-spacing: 1px;
-          padding: 2px 8px; border-radius: 5px; background: var(--surface);
-          color: var(--dim); }
+    color: var(--dim); }
+  .ad .ctl .btn { margin-left: auto; padding: 6px 12px; font-size: 12px; }
+  .pill { font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+    padding: 3px 9px; border-radius: 6px; margin-left: auto;
+    background: rgba(242,169,0,.14); color: var(--gold2);
+    border: 1px solid rgba(242,169,0,.3); }
 
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-           margin-bottom: 16px; }
-  .stat { background: var(--surface2); border-radius: 10px; padding: 14px;
-          text-align: center; }
-  .stat b { display: block; font-size: 26px; color: var(--gold); }
-  .stat span { font-size: 11px; color: var(--dim); letter-spacing: .5px; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; color: var(--dim); font-size: 11px; letter-spacing: 1px;
-       padding: 7px 9px; border-bottom: 1px solid var(--line); }
-  td { padding: 7px 9px; border-bottom: 1px solid var(--surface2); }
+  th { text-align: left; color: var(--dim); font-size: 10.5px; letter-spacing: 1.5px;
+    padding: 8px 10px; border-bottom: 1px solid var(--line); font-weight: 800; }
+  td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,.04); }
+  tr:hover td { background: rgba(255,255,255,.02); }
   .muted { color: var(--dim); }
-  #msg { font-size: 13px; margin-top: 9px; min-height: 17px; }
+  .bar-cell { display: flex; align-items: center; gap: 8px; }
+  .minibar { height: 7px; border-radius: 4px; min-width: 4px;
+    background: linear-gradient(90deg, var(--gold2), var(--gold)); }
+  #msg { font-size: 13px; margin-top: 10px; min-height: 18px; }
   #msg.err { color: var(--red); } #msg.ok { color: var(--green); }
 </style>
 </head>
 <body>
 <header>
-  <div class="mark">🦈</div>
-  <h1>AD-SHARK · BUSINESS DASHBOARD</h1>
+  <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd35c"/><stop offset="1" stop-color="#b87400"/>
+    </linearGradient></defs>
+    <path fill="url(#lg)" d="M6 38c10-14 26-20 46-18l6-10 2 14c2 2 3 4 3 6-14 12-34 16-48 12l-9 8-2-14z"/>
+    <circle cx="48" cy="30" r="2.4" fill="#06080d"/>
+  </svg>
+  <div>
+    <div class="wordmark">AD-SHARK</div>
+    <div class="tagline">business dashboard</div>
+  </div>
   <nav><a href="/co/">← Watch the TV</a></nav>
 </header>
 
 <div class="wrap">
+  <div class="hero">
+    <div class="hstat"><b id="stPlays">0</b><span>TOTAL PLAYS</span></div>
+    <div class="hstat"><b id="stAirtime">0s</b><span>YOUR AIRTIME</span></div>
+    <div class="hstat"><b id="stSpots">0</b><span>SPOTS ON AIR</span></div>
+  </div>
+
   <div class="row2">
     <div class="card">
       <h2>BUSINESS SETTINGS</h2>
-      <div style="display:flex; gap:10px; margin-bottom:14px">
+      <div style="display:flex; gap:10px; margin-bottom:16px">
         <input type="text" id="bizName" placeholder="Business name">
         <button class="btn" id="saveName">Save</button>
       </div>
       <label class="switch">
         <input type="checkbox" id="overrideToggle">
-        <span>Commercial override <b>enabled</b> — swap breaks for my promos</span>
+        <span>AD-SHARK <b>armed</b> — strike every commercial break</span>
       </label>
     </div>
     <div class="card">
       <h2>UPLOAD A PROMO SPOT</h2>
       <form id="uploadForm">
-        <div style="display:flex; flex-direction:column; gap:10px">
-          <input type="text" id="adName" placeholder="Spot name (e.g. Weekend Brunch Special)">
-          <div style="display:flex; gap:10px; align-items:center">
-            <input type="file" id="adFile" accept=".mp4,.webm,.mov,.m4v">
-            <button class="btn primary" type="submit">Upload</button>
-          </div>
+        <input type="text" id="adName" placeholder="Spot name (e.g. Weekend Brunch Special)"
+               style="margin-bottom:10px">
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="adFile" accept=".mp4,.webm,.mov,.m4v">
+          <span id="dzText">Drop a video here or <b>click to browse</b> — mp4 / webm / mov</span>
+        </label>
+        <div style="display:flex; justify-content:flex-end; margin-top:10px">
+          <button class="btn primary" type="submit">🦈 &nbsp;Add to rotation</button>
         </div>
       </form>
       <div id="msg"></div>
@@ -114,17 +175,12 @@
   </div>
 
   <div class="card">
-    <h2>AD LIBRARY <span class="muted" style="letter-spacing:0">— spots rotate during detected breaks</span></h2>
+    <h2>AD LIBRARY <span class="muted" style="letter-spacing:0; font-weight:400">— spots rotate during detected breaks</span></h2>
     <div class="grid" id="adGrid"></div>
   </div>
 
   <div class="card">
     <h2>PERFORMANCE</h2>
-    <div class="stats">
-      <div class="stat"><b id="stPlays">0</b><span>TOTAL PLAYS</span></div>
-      <div class="stat"><b id="stAirtime">0s</b><span>TOTAL AIRTIME</span></div>
-      <div class="stat"><b id="stSpots">0</b><span>ACTIVE SPOTS</span></div>
-    </div>
     <div class="row2">
       <div>
         <h2>BY SPOT</h2>
@@ -141,7 +197,7 @@
         </table>
       </div>
     </div>
-    <button class="btn danger" id="clearBtn" style="margin-top:14px">Clear impression log</button>
+    <button class="btn danger" id="clearBtn" style="margin-top:16px">Clear impression log</button>
   </div>
 </div>
 
@@ -170,12 +226,12 @@ function renderAds() {
       <div class="body">
         <div class="name">${esc(ad.name)}</div>
         <div class="ctl">
-          <label class="switch" style="gap:6px">
+          <label class="switch" style="gap:7px">
             <input type="checkbox" ${ad.enabled ? "checked" : ""}
                    onchange="toggleAd('${ad.id}')"> on air
           </label>
           ${ad.builtin
-            ? '<span class="pill" style="margin-left:auto">DEMO</span>'
+            ? '<span class="pill">DEMO</span>'
             : `<button class="btn danger" onclick="deleteAd('${ad.id}')">Delete</button>`}
         </div>
       </div>`;
@@ -188,12 +244,16 @@ async function loadStats() {
   const s = await (await fetch("/co/api/impressions")).json();
   $("stPlays").textContent = s.total_plays;
   $("stAirtime").textContent = Math.round(s.total_seconds) + "s";
+  const entries = Object.entries(s.per_ad);
+  const maxSec = Math.max(1, ...entries.map(([, v]) => v.seconds));
   const pa = $("perAdTable").querySelector("tbody"); pa.innerHTML = "";
-  for (const [, v] of Object.entries(s.per_ad)) {
+  for (const [, v] of entries) {
     pa.innerHTML += `<tr><td>${esc(v.ad_name)}</td><td>${v.plays}</td>
-                     <td>${Math.round(v.seconds)}s</td></tr>`;
+      <td><span class="bar-cell"><span class="minibar"
+        style="width:${Math.round(v.seconds / maxSec * 90)}px"></span>
+        ${Math.round(v.seconds)}s</span></td></tr>`;
   }
-  if (!Object.keys(s.per_ad).length)
+  if (!entries.length)
     pa.innerHTML = '<tr><td colspan="3" class="muted">No plays yet — go watch the TV and let a break hit.</td></tr>';
   const rc = $("recentTable").querySelector("tbody"); rc.innerHTML = "";
   for (const imp of s.recent) {
@@ -229,9 +289,25 @@ $("overrideToggle").addEventListener("change", async e => {
   });
 });
 
+/* drag & drop upload */
+const dz = $("dropzone"), fileInput = $("adFile");
+dz.addEventListener("dragover", e => { e.preventDefault(); dz.classList.add("hover"); });
+dz.addEventListener("dragleave", () => dz.classList.remove("hover"));
+dz.addEventListener("drop", e => {
+  e.preventDefault(); dz.classList.remove("hover");
+  if (e.dataTransfer.files.length) {
+    fileInput.files = e.dataTransfer.files;
+    $("dzText").innerHTML = `<b>${esc(fileInput.files[0].name)}</b> ready`;
+  }
+});
+fileInput.addEventListener("change", () => {
+  if (fileInput.files.length)
+    $("dzText").innerHTML = `<b>${esc(fileInput.files[0].name)}</b> ready`;
+});
+
 $("uploadForm").addEventListener("submit", async e => {
   e.preventDefault();
-  const f = $("adFile").files[0];
+  const f = fileInput.files[0];
   if (!f) return flash("Choose a video file first.", "err");
   const fd = new FormData();
   fd.append("file", f);
@@ -240,7 +316,8 @@ $("uploadForm").addEventListener("submit", async e => {
   const res = await fetch("/co/api/ads", {method: "POST", body: fd});
   const out = await res.json();
   if (out.error) return flash(out.error, "err");
-  $("adName").value = ""; $("adFile").value = "";
+  $("adName").value = ""; fileInput.value = "";
+  $("dzText").innerHTML = 'Drop a video here or <b>click to browse</b> — mp4 / webm / mov';
   flash("Uploaded — it's in the rotation.", "ok");
   await load();
 });
@@ -252,7 +329,7 @@ $("clearBtn").addEventListener("click", async () => {
 });
 
 function flash(text, cls) { const m = $("msg"); m.textContent = text; m.className = cls; }
-const esc = s => s.replace(/[&<>"']/g,
+const esc = s => String(s).replace(/[&<>"']/g,
   c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 load();
