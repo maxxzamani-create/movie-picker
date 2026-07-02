@@ -388,7 +388,9 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
             rt = fetch_rt_score(omdb_key, item.get("imdb_id"))
             item["rt_score"] = rt          # reused downstream — no second fetch
             score = rt_score_to_int(rt)
-            if score is None or score < min_rt:
+            # Only reject when a score EXISTS and is below the bar.
+            # No RT score ≠ unworthy — unrated titles stay in the running.
+            if score is not None and score < min_rt:
                 continue
         return item
     # We had candidates but couldn't fetch details for any of them — if that

@@ -2,61 +2,62 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* ── Tiffany Blue & White palette ────────────────────────────────────
-     Light theme: Tiffany & Co. robin's-egg blue background with white
-     cards/buttons and deep-Tiffany accents. Rose gold removed — the
-     "magenta" slot is now WHITE (used for button fills). Body text is a
-     deep teal ink for readability. */
+  /* ── Cloud & Cornflower palette ──────────────────────────────────────
+     Research-backed calm light theme (2026): a soft warm cloud-white
+     base (not stark #fff — less glare), white cards, high-contrast
+     slate-ink text, ONE confident blue accent (the most trusted /
+     best-converting CTA color in A/B research), and muted sage green
+     as a quiet secondary for save/positive touches. */
 
-  --bg:         #7ed4cb;   /* Tiffany blue background */
-  --bg-deep:    #5cc3b8;   /* deeper Tiffany edge */
+  --bg:         #f5f3ee;   /* warm cloud-white background */
+  --bg-deep:    #eae7de;   /* deeper cloud edge */
   --surface:    #ffffff;   /* white card / panel */
-  --surface2:   #eef9f7;   /* faint Tiffany-white raised surface */
-  --border:     #bfe6e0;   /* soft Tiffany border */
+  --surface2:   #eef2fa;   /* faint blue-tinted raised surface */
+  --border:     #dbe0e8;   /* soft cool border */
 
-  /* primary slot (was rose gold) — now WHITE for button fills */
-  --magenta:    #ffffff;
-  --magenta-d:  #e3f5f2;   /* faint Tiffany-white for gradient depth */
-  --magenta-lt: #ffffff;
+  /* primary slot — same blue family (kept for any legacy refs) */
+  --magenta:    #3b82f6;
+  --magenta-d:  #2563eb;
+  --magenta-lt: #dbeafe;
 
-  --cyan:       #0fb4ad;   /* Tiffany blue accent (deep enough to pop on white) */
-  --cyan-d:     #0a8f8a;   /* deeper Tiffany — hovers / text on white buttons */
-  --cyan-lt:    #5fd6cd;   /* light Tiffany */
+  --cyan:       #3b82f6;   /* cornflower blue — THE accent / CTA color */
+  --cyan-d:     #2457c5;   /* deep blue — labels & text on white */
+  --cyan-lt:    #a5c6fb;   /* light blue */
 
-  /* highlight slot (was champagne gold) — folded into Tiffany to stay two-tone */
-  --lime:       #0fb4ad;
-  --lime-d:     #0a8f8a;
+  /* secondary highlight — muted sage green (grounding, positive) */
+  --lime:       #3f7d5f;
+  --lime-d:     #2f6a4f;
 
-  --rust:       #d4694f;   /* restrained coral — destructive actions only */
-  --rust-d:     #b5503a;
-  --rust-lt:    #c25b41;
+  --rust:       #c4653f;   /* muted terracotta — destructive actions only */
+  --rust-d:     #a44f2e;
+  --rust-lt:    #b25a37;
 
-  --text:       #0c3b37;   /* deep teal ink — body text */
-  --text-dim:   #3c6e68;   /* muted teal */
-  --muted:      #6f9893;   /* lighter muted teal */
+  --text:       #24303f;   /* slate ink — body text */
+  --text-dim:   #55637a;   /* muted slate */
+  --muted:      #7f8ca0;   /* lighter muted slate */
 
   --radius:     12px;
   --radius-sm:  8px;
   --sidebar-w:  280px;
   --history-w:  240px;
 
-  --shadow-card:    0 8px 24px -8px rgba(12,59,55,0.22),
-                    0 2px 6px -2px rgba(12,59,55,0.12);
-  --shadow-magenta: 0 4px 16px -6px rgba(12,59,55,0.22);
-  --shadow-cyan:    0 4px 18px -4px rgba(15,180,173,0.35);
-  --shadow-lime:    0 4px 16px -4px rgba(15,180,173,0.30);
-  --shadow-rust:    0 4px 14px -4px rgba(212,105,79,0.30);
+  --shadow-card:    0 8px 24px -8px rgba(36,48,63,0.16),
+                    0 2px 6px -2px rgba(36,48,63,0.08);
+  --shadow-magenta: 0 4px 16px -6px rgba(36,48,63,0.16);
+  --shadow-cyan:    0 4px 18px -4px rgba(59,130,246,0.30);
+  --shadow-lime:    0 4px 16px -4px rgba(63,125,95,0.28);
+  --shadow-rust:    0 4px 14px -4px rgba(196,101,63,0.28);
 }
 
 html, body {
   height: 100%;
   background: var(--bg);
-  /* Soft white sheen over the Tiffany-blue background */
+  /* Whisper-subtle blue and sage washes over the warm cloud base */
   background-image:
-    radial-gradient(at 85% 8%,   rgba(255,255,255,0.45) 0px, transparent 50%),
-    radial-gradient(at 8% 92%,   rgba(255,255,255,0.28) 0px, transparent 55%),
-    radial-gradient(at 50% 50%,  rgba(255,255,255,0.16) 0px, transparent 65%),
-    radial-gradient(at 95% 50%,  rgba(255,255,255,0.12) 0px, transparent 60%);
+    radial-gradient(at 85% 8%,   rgba(59,130,246,0.06)  0px, transparent 50%),
+    radial-gradient(at 8% 92%,   rgba(63,125,95,0.05)   0px, transparent 55%),
+    radial-gradient(at 50% 50%,  rgba(255,255,255,0.55) 0px, transparent 65%),
+    radial-gradient(at 95% 50%,  rgba(59,130,246,0.04)  0px, transparent 60%);
   background-attachment: fixed;
   color: var(--text);
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -109,7 +110,7 @@ html, body {
 .sidebar-header img {
   width: 44px; height: 44px; border-radius: 50%;
   box-shadow: 0 0 0 2px #fff,
-              0 0 18px rgba(15,180,173,0.35);
+              0 0 18px rgba(59,130,246,0.35);
 }
 
 .sidebar-title { flex: 1; line-height: 1.2; }
@@ -179,7 +180,7 @@ select, input[type="text"], input[type="number"] {
 }
 select:focus, input:focus {
   border-color: var(--cyan);
-  box-shadow: 0 0 0 3px rgba(15,180,173,0.20);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.20);
 }
 select option { background: #fff; }
 
@@ -250,7 +251,7 @@ input[type="range"] {
   position: absolute; top: 100%; left: 0; right: 0; z-index: 999;
   background: #fff; border: 1px solid var(--cyan);
   border-radius: 0 0 var(--radius-sm) var(--radius-sm); max-height: 280px; overflow-y: auto;
-  box-shadow: 0 8px 22px -4px rgba(15,180,173,0.25);
+  box-shadow: 0 8px 22px -4px rgba(59,130,246,0.25);
   display: none;
 }
 .actor-dropdown.open { display: block; }
@@ -280,13 +281,13 @@ input[type="range"] {
 /* Special genre items (e.g. Indie, Bad Ass Dad) — keyword/curated filters
    that aren't real TMDB genres. Accent them to set them apart. */
 .check-grid label.genre-special {
-  color: var(--cyan-d);
+  color: var(--lime-d);
   font-weight: 700;
   letter-spacing: 0.3px;
 }
-.check-grid label.genre-special:hover { color: var(--cyan); }
+.check-grid label.genre-special:hover { color: var(--lime); }
 .check-grid label.genre-special input[type="checkbox"] {
-  accent-color: var(--cyan-d);
+  accent-color: var(--lime-d);
 }
 
 /* ── Sidebar action buttons ───────────────────────────────────────────── */
@@ -385,9 +386,9 @@ input[type="range"] {
   color: var(--cyan-d);
   border: 1px solid var(--border);
 }
-.badge.rt-fresh  { color: var(--cyan-d);  border-color: rgba(15,180,173,0.4); }
-.badge.rt-ok     { color: var(--cyan-d);  border-color: rgba(15,180,173,0.4); }
-.badge.rt-rotten { color: var(--rust);    border-color: rgba(212,105,79,0.4); }
+.badge.rt-fresh  { color: var(--cyan-d);  border-color: rgba(59,130,246,0.4); }
+.badge.rt-ok     { color: var(--cyan-d);  border-color: rgba(59,130,246,0.4); }
+.badge.rt-rotten { color: var(--rust);    border-color: rgba(196,101,63,0.4); }
 
 .movie-overview {
   font-size: 14px; color: var(--text); line-height: 1.65; margin-bottom: 16px;
@@ -396,7 +397,7 @@ input[type="range"] {
 .movie-director { font-size: 12px; font-weight: 700; color: var(--cyan-d); margin-bottom: 4px; }
 .movie-cast     { font-size: 12px; color: var(--text-dim); margin-bottom: 12px; }
 .movie-genres   { font-size: 12px; color: var(--cyan-d); margin-bottom: 6px; font-weight: 600; }
-.movie-streaming{ font-size: 12px; color: var(--cyan-d); margin-bottom: 18px; font-weight: 700; }
+.movie-streaming{ font-size: 12px; color: var(--lime-d); margin-bottom: 18px; font-weight: 700; }
 
 /* ── Action buttons grid ──────────────────────────────────────────────── */
 .action-buttons {
@@ -435,9 +436,9 @@ input[type="range"] {
 .btn-tmdb:hover { border-color: var(--cyan); }
 .btn-watchlist {
   background: #fff;
-  color: var(--cyan-d);
-  border: 2px solid var(--cyan);
-  box-shadow: var(--shadow-cyan);
+  color: var(--lime-d);
+  border: 2px solid var(--lime);
+  box-shadow: var(--shadow-lime);
 }
 .btn-watched {
   background: linear-gradient(135deg, var(--cyan), var(--cyan-d));
@@ -482,7 +483,7 @@ input[type="range"] {
 }
 .btn-sm:hover { background: var(--surface2); color: var(--cyan-d); border-color: var(--cyan); }
 .btn-sm.danger {
-  background: rgba(212,105,79,0.10); color: var(--rust); border-color: rgba(212,105,79,0.4);
+  background: rgba(196,101,63,0.10); color: var(--rust); border-color: rgba(196,101,63,0.4);
 }
 .btn-sm.danger:hover { background: var(--rust); color: #fff; border-color: var(--rust); }
 
@@ -624,15 +625,15 @@ input[type="range"] {
 .chip {
   font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 700;
 }
-.chip-Suggested { background: rgba(15,180,173,0.16);  color: var(--cyan-d); }
-.chip-Trailer   { background: rgba(15,180,173,0.12);  color: var(--cyan-d); }
-.chip-Watchlist { background: rgba(15,180,173,0.20);  color: var(--cyan-d); }
-.chip-Watched   { background: rgba(15,180,173,0.24);  color: var(--cyan-d); }
-.chip-Disliked  { background: rgba(212,105,79,0.16);  color: var(--rust); }
+.chip-Suggested { background: rgba(59,130,246,0.14);  color: var(--cyan-d); }
+.chip-Trailer   { background: rgba(59,130,246,0.10);  color: var(--cyan-d); }
+.chip-Watchlist { background: rgba(63,125,95,0.16);   color: var(--lime-d); }
+.chip-Watched   { background: rgba(63,125,95,0.22);   color: var(--lime-d); }
+.chip-Disliked  { background: rgba(196,101,63,0.16);  color: var(--rust); }
 
 /* ── API key modal ────────────────────────────────────────────────────── */
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(12,59,55,.5);
+  position: fixed; inset: 0; background: rgba(36,48,63,.5);
   backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center; z-index: 1000;
 }
@@ -640,7 +641,7 @@ input[type="range"] {
 .modal {
   background: var(--surface); border: 2px solid var(--cyan);
   border-radius: var(--radius); padding: 30px 36px; width: 480px; max-width: 95vw;
-  box-shadow: 0 24px 60px -16px rgba(12,59,55,0.35);
+  box-shadow: 0 24px 60px -16px rgba(36,48,63,0.35);
 }
 .modal h2 {
   font-size: 20px; color: var(--cyan-d); margin-bottom: 22px;

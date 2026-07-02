@@ -8,23 +8,23 @@ import math
 import os
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-# Palette (matches static/style.css — Tiffany Blue & White)
+# Palette (matches static/style.css — Cloud & Cornflower)
 MAGENTA    = "#ffffff"   # white — primary (Z fill / sparkles)
-MAGENTA_D  = "#e3f5f2"   # faint Tiffany-white
+MAGENTA_D  = "#dbeafe"   # faint blue-white
 MAGENTA_LT = "#ffffff"   # white highlight
-CYAN       = "#0a8f8a"   # deep Tiffany — Z outline / ring (contrast on disc)
-CYAN_D     = "#0a7a75"   # deeper Tiffany
-CYAN_LT    = "#5fd6cd"   # light Tiffany highlight
+CYAN       = "#1e40af"   # deep blue — Z outline / ring (contrast on disc)
+CYAN_D     = "#1e3a8a"   # deeper blue
+CYAN_LT    = "#93c5fd"   # light blue highlight
 LIME       = "#ffffff"   # white sparkle (semantic var name kept)
-LIME_D     = "#e3f5f2"
-PURPLE     = "#0a8f8a"   # Tiffany border
+LIME_D     = "#dbeafe"
+PURPLE     = "#1e40af"   # deep blue border
 CORAL      = "#ffffff"   # white speck
-BG         = "#17b3ab"   # Tiffany blue disc
-BG_DEEP    = "#0a8f8a"
+BG         = "#3b82f6"   # cornflower blue disc
+BG_DEEP    = "#1d4ed8"
 WHITE      = "#ffffff"
-# White metallic tones for the magic lamp — clean against the Tiffany disc.
+# White metallic tones for the magic lamp — clean against the blue disc.
 GOLD       = "#ffffff"   # white lamp body (var name kept for downstream code)
-GOLD_D     = "#cfeeea"   # soft Tiffany lamp shadow
+GOLD_D     = "#c7d7f5"   # soft blue lamp shadow
 
 
 def _font(size):
@@ -49,7 +49,7 @@ def make_logo(size: int = 256) -> Image.Image:
     # ── Flamingo-pink halo (sunset bleeding into dusk) ───────────────────
     glow = Image.new("RGBA", (s, s), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(glow)
-    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(15, 180, 173, 140))
+    gd.ellipse([cx-r-6, cx-r-6, cx+r+6, cx+r+6], fill=(59, 130, 246, 140))
     glow = glow.filter(ImageFilter.GaussianBlur(max(4, s // 12)))
     img  = Image.alpha_composite(img, glow)
     draw = ImageDraw.Draw(img)
@@ -117,11 +117,11 @@ def make_logo(size: int = 256) -> Image.Image:
     for layer in range(5):
         t     = layer / 4
         alpha = int(195 - t * 120)
-        # Bottom: deep Tiffany (#0a8f8a)  Top: white (#ffffff)
+        # Bottom: deep blue (#1e40af)  Top: white (#ffffff)
         col   = (
-            int(10  + t * 245),   # R: 10 -> 255
-            int(143 + t * 112),   # G: 143 -> 255
-            int(138 + t * 117),   # B: 138 -> 255
+            int(30  + t * 225),   # R: 30 -> 255
+            int(64  + t * 191),   # G: 64 -> 255
+            int(175 + t * 80),    # B: 175 -> 255
             alpha,
         )
         w_bot = s * (0.025 + t * 0.012)
@@ -148,7 +148,7 @@ def make_logo(size: int = 256) -> Image.Image:
     glow_pad = s * 0.07
     zd.ellipse([cx - z_half_w - glow_pad, z_top - glow_pad,
                 cx + z_half_w + glow_pad, z_bot + glow_pad],
-               fill=(15, 180, 173, 120))
+               fill=(219, 234, 254, 150))
     z_glow = z_glow.filter(ImageFilter.GaussianBlur(max(3, s // 11)))
     img = Image.alpha_composite(img, z_glow)
     draw = ImageDraw.Draw(img)
