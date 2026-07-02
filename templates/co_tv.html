@@ -404,7 +404,7 @@ const feed = $("feedVideo"), adVid = $("adVideo");
 
 let windows = [], ads = [], adIdx = 0;
 let overrideEnabled = true, overrideActive = false, activeWindow = null;
-let curAd = null, adStartedAt = 0;
+let curAd = null, adStartedAt = 0, adSlice = Infinity, breakAdsPlayed = 0;
 let sessionOverrides = 0, sessionAirtime = 0;
 let duration = 1, audioReady = false, analyser = null, audioBuf = null;
 
@@ -543,6 +543,12 @@ setInterval(() => {
 
   if (overrideActive) sessionAirtime += 0.2;
   $("statAirtime").textContent = Math.round(sessionAirtime) + "s";
+
+  // fair rotation: every enabled spot gets an equal slice of the break
+  if (overrideActive && curAd && breakAdsPlayed < ads.length &&
+      (performance.now() - adStartedAt) / 1000 >= adSlice) {
+    playNextAd();
+  }
 }, 200);
 
 function startOverride(win) {
@@ -551,6 +557,9 @@ function startOverride(win) {
   $("statOverrides").textContent = sessionOverrides;
   feed.muted = true;
   takeover("AD-SHARK TAKEOVER");
+  // split the whole break evenly across the enabled spots
+  adSlice = Math.max(3, (win.end - win.start - 0.8) / ads.length);
+  breakAdsPlayed = 0;
   setTimeout(() => {
     playNextAd();
     adVid.style.display = "block";
@@ -566,6 +575,7 @@ function playNextAd() {
   if (curAd) reportImpression();
   curAd = ads[adIdx % ads.length];
   adIdx++;
+  breakAdsPlayed++;
   renderQueue();
   adStartedAt = performance.now();
   setSources(adVid, curAd.url, curAd.url_webm);

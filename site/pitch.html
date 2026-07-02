@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AD-SHARK — Investor Deck</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦈</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#06080d; --line:#232c3f; --text:#eef2f8; --dim:#8b96ab;
+    --gold:#f2a900; --gold2:#ffd35c; --green:#2ecc71; --red:#e74c3c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#000; color:var(--text); font-family:"Inter",system-ui,sans-serif; }
+  .slide { width:100vw; height:100vh; display:none; position:relative; overflow:hidden;
+    background: var(--bg); padding:7vh 8vw; flex-direction:column; justify-content:center; }
+  .slide.active { display:flex; }
+  .slide::before { content:""; position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(40% 34% at 22% 18%, rgba(242,169,0,.10), transparent 60%),
+                radial-gradient(32% 28% at 82% 78%, rgba(58,160,216,.07), transparent 60%); }
+  .kicker { color:var(--gold2); font-weight:800; letter-spacing:4px; font-size:13px;
+    text-transform:uppercase; margin-bottom:18px; }
+  h1 { font-family:"Bebas Neue"; font-size:clamp(50px,9vw,120px); letter-spacing:4px; line-height:.95; }
+  h2 { font-family:"Bebas Neue"; font-size:clamp(34px,5vw,60px); letter-spacing:3px; margin-bottom:26px; }
+  .gold { background:linear-gradient(120deg,var(--gold2),var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  p, li { font-size:clamp(15px,1.6vw,20px); line-height:1.75; color:#cdd6e4; }
+  .dim { color:var(--dim); }
+  .grid { display:grid; gap:20px; }
+  .g2 { grid-template-columns:1fr 1fr; } .g3 { grid-template-columns:1fr 1fr 1fr; }
+  .g4 { grid-template-columns:repeat(4,1fr); }
+  .box { background:rgba(19,24,36,.75); border:1px solid rgba(255,255,255,.08);
+    border-radius:16px; padding:22px; position:relative; z-index:1; }
+  .box b.n { display:block; font-family:"Bebas Neue"; font-size:clamp(36px,4.5vw,58px);
+    line-height:1; margin-bottom:8px;
+    background:linear-gradient(120deg,var(--gold2),var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .box.red b.n { background:linear-gradient(120deg,#ff8a80,var(--red));
+    -webkit-background-clip:text; background-clip:text; }
+  .box p { font-size:clamp(12px,1.2vw,15px); color:var(--dim); }
+  .foot { position:absolute; bottom:26px; left:8vw; right:8vw; display:flex;
+    justify-content:space-between; color:var(--dim); font-size:12px; letter-spacing:1px; }
+  .photo { border-radius:16px; width:100%; height:100%; object-fit:cover;
+    border:1px solid rgba(255,255,255,.1); }
+  ul.check { list-style:none; display:flex; flex-direction:column; gap:12px; }
+  ul.check li::before { content:"🦈 "; }
+  .navhint { position:fixed; bottom:14px; right:18px; color:var(--dim); font-size:12px;
+    z-index:9; background:rgba(6,8,13,.7); padding:6px 12px; border-radius:8px; }
+  .logo-row { display:flex; align-items:center; gap:16px; margin-bottom:30px; }
+  .logo-row svg { width:64px; height:64px; }
+  @media print {
+    body { background:#06080d; }
+    .slide { display:flex !important; page-break-after:always; width:100%; height:100vh; }
+    .navhint { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="slide active">
+  <div class="logo-row">
+    <svg viewBox="0 0 64 64"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd35c"/><stop offset="1" stop-color="#b87400"/></linearGradient></defs>
+      <path fill="url(#lg)" d="M6 38c10-14 26-20 46-18l6-10 2 14c2 2 3 4 3 6-14 12-34 16-48 12l-9 8-2-14z"/>
+      <circle cx="48" cy="30" r="2.4" fill="#06080d"/></svg>
+    <div style="font-family:'Bebas Neue'; font-size:34px; letter-spacing:5px" class="gold">AD-SHARK</div>
+  </div>
+  <h1>YOUR TV.<br><span class="gold">YOUR ADS.</span><br>EVERY BREAK.</h1>
+  <p style="margin-top:28px; max-width:640px">The commercial killer for bars &amp; restaurants —
+    detect every ad break, replace it with the house's own specials, snap back when the game returns.</p>
+  <div class="foot"><span>INVESTOR DECK · 2026</span><span>maxxzamani@gmail.com</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">The problem</div>
+  <h2>EVERY SCREEN IN EVERY RESTAURANT<br>SELLS FOR <span class="gold">SOMEBODY ELSE</span></h2>
+  <p style="max-width:760px; margin-bottom:30px">A guest finishes dinner. A soft-serve commercial
+    plays on the house TV. Dessert happens on the drive home — at a competitor's register.
+    The restaurant paid for the TV, the cable bill, and the audience… and then handed the
+    sale away.</p>
+  <div class="grid g4">
+    <div class="box"><b class="n">+45%</b><p>more snacking while food ads play — automatic, unrelated to hunger</p></div>
+    <div class="box"><b class="n">14%</b><p>crave the exact advertised product</p></div>
+    <div class="box"><b class="n">8%</b><p>purchase it — wherever the ad pointed</p></div>
+    <div class="box red"><b class="n">$16k</b><p>estimated yearly leak, single 800-guest/week location</p></div>
+  </div>
+  <div class="foot"><span>AD-SHARK</span><span>sources: food-marketing EMA studies; Harris et al.; industry consumer research</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">The solution</div>
+  <h2>DETECT. <span class="gold">TAKE OVER.</span> SNAP BACK.</h2>
+  <div class="grid g2" style="align-items:center">
+    <ul class="check">
+      <li><b>Detects breaks in real time</b> from broadcast signals — black frames, silent
+        audio, rapid scene cuts. No feed modification, ever: we change what the screen
+        shows, like flipping inputs.</li>
+      <li><b>Takes over with the house's own spots</b> — pro-quality ads built from the
+        owner's photos, equal airtime per spot.</li>
+      <li><b>Snaps back instantly</b> when programming resumes. Nobody misses a play.</li>
+      <li><b>Proves it</b> — every play and second of reclaimed airtime logged in the
+        owner dashboard.</li>
+    </ul>
+    <video class="photo" autoplay muted loop playsinline>
+      <source src="static/co/ad_dessert.mp4" type="video/mp4">
+      <source src="static/co/ad_dessert.webm" type="video/webm">
+    </video>
+  </div>
+  <div class="foot"><span>AD-SHARK</span><span>live demo: one click away — it works today</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">Product · live today</div>
+  <h2>PHASE 1 IS <span class="gold">BUILT AND RUNNING</span></h2>
+  <div class="grid g3">
+    <div class="box"><b class="n">⚙️</b><p><b style="color:#eef2f8">Detection engine.</b>
+      Black-frame + audio-silence boundaries, scene-cut-rate classification — the same
+      heuristics production broadcast systems use. 82% confidence on the demo feed, tunable.</p></div>
+    <div class="box"><b class="n">📺</b><p><b style="color:#eef2f8">Auto-takeover player.</b>
+      Virtual TV proves the full loop: break detected → house promos rotate with equal
+      airtime → instant snap-back. Real-time luminance/audio telemetry on screen.</p></div>
+    <div class="box"><b class="n">📊</b><p><b style="color:#eef2f8">Owner dashboard.</b>
+      Upload spots, schedule rotation, count plays and airtime, and a revenue-leak
+      calculator that turns research rates into the owner's own dollars.</p></div>
+  </div>
+  <p class="dim" style="margin-top:26px">Everything in this deck is clickable right now —
+    the demo, the dashboard, the calculator. Built lean: one engineer-equivalent, weeks not years.</p>
+  <div class="foot"><span>AD-SHARK</span><span>demo: maxxzamani-create.github.io/movie-picker</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">Market</div>
+  <h2>PROVEN CATEGORY, <span class="gold">UNGUARDED FLANK</span></h2>
+  <div class="grid g3">
+    <div class="box"><b class="n">$1B</b><p>Atmosphere TV's valuation for out-of-home screen
+      content — built WITHOUT live sports. They replace the whole channel; bars that show
+      the game can't use them.</p></div>
+    <div class="box"><b class="n">300k+</b><p>US bars &amp; full-service restaurants, nearly
+      all with TVs on during service. Add gyms, barbershops, waiting rooms.</p></div>
+    <div class="box"><b class="n">0</b><p>competitors at scale doing break-level takeover on
+      live sports. Atmosphere/UPshow replace the feed; AD-SHARK keeps the game and takes
+      only the breaks.</p></div>
+  </div>
+  <p style="margin-top:26px; max-width:760px"><b>The wedge:</b> sports bars are locked out of
+    every existing solution because their customers came to watch the game. AD-SHARK is the
+    only play that keeps the game on.</p>
+  <div class="foot"><span>AD-SHARK</span><span>Atmosphere valuation: StreamTV Insider</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">Business model</div>
+  <h2>HARDWARE ONCE, <span class="gold">SAAS FOREVER</span></h2>
+  <div class="grid g3">
+    <div class="box"><b class="n">$49<span style="font-size:20px">/mo</span></b>
+      <p><b style="color:#eef2f8">Starter</b> · 1 screen + $199 box. Detection, takeover,
+      3 spots, dashboard.</p></div>
+    <div class="box" style="border-color:var(--gold)"><b class="n">$99<span style="font-size:20px">/mo</span></b>
+      <p><b style="color:#eef2f8">Full Bar</b> · up to 4 screens, boxes included on 12-mo
+      term, unlimited spots + scheduling, we produce 3 pro spots free.</p></div>
+    <div class="box"><b class="n">Custom</b>
+      <p><b style="color:#eef2f8">Chain</b> · fleet dashboard, central brand control,
+      dedicated success. Future: local ad marketplace on every screen.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="box"><p><b style="color:var(--green)">Owner ROI:</b> $1,188/yr vs a ~$15,900/yr
+      measured leak — recapturing one dessert per day covers the subscription.</p></div>
+    <div class="box"><p><b style="color:var(--gold2)">Unit economics target:</b> box COGS ~$150,
+      installed payback &lt; 4 months, ~85% gross margin on the SaaS line at scale.</p></div>
+  </div>
+  <div class="foot"><span>AD-SHARK</span><span>pricing validated against UPshow/Atmosphere comps</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">Moat &amp; legal posture</div>
+  <h2>WHY WE <span class="gold">DON'T GET SUED</span> AND OTHERS DO</h2>
+  <ul class="check" style="max-width:820px">
+    <li><b>We never touch the broadcast signal.</b> AD-SHARK changes what the screen displays
+      during a break — legally equivalent to muting the TV or flipping inputs, which bars have
+      always done. No retransmission, no signal modification.</li>
+    <li><b>Detection is on-premise.</b> The box reads pixels and audio levels locally;
+      nothing is recorded or redistributed.</li>
+    <li><b>The data becomes the moat.</b> Every installed screen builds a fingerprint library
+      of local break patterns → detection accuracy compounds and follow-on entrants start from zero.</li>
+    <li><b>The network is the endgame.</b> Installed screens become sellable local ad
+      inventory — the Atmosphere playbook, plus live sports.</li>
+  </ul>
+  <div class="foot"><span>AD-SHARK</span><span>counsel review scheduled pre-pilot</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">Roadmap</div>
+  <h2>DEMO → BOX → <span class="gold">NETWORK</span></h2>
+  <div class="grid g4">
+    <div class="box"><b class="n" style="background:linear-gradient(120deg,#7bffb5,var(--green));-webkit-background-clip:text;background-clip:text">✓</b>
+      <p><b style="color:#eef2f8">Phase 1 · done.</b> Working software: detection, takeover,
+      dashboard, calculator. You can click it today.</p></div>
+    <div class="box"><b class="n">90d</b><p><b style="color:#eef2f8">Phase 2 · pilot.</b>
+      Raspberry-Pi appliance (~$150 BOM) on live HDMI, HDMI-CEC input switching. 10 friendly
+      bars, measure real check lift.</p></div>
+    <div class="box"><b class="n">M4–9</b><p><b style="color:#eef2f8">Phase 3 · sell.</b>
+      Case studies → outbound to sports bars &amp; franchise groups. Target 200 paying screens.</p></div>
+    <div class="box"><b class="n">Y2</b><p><b style="color:#eef2f8">Phase 4 · network.</b>
+      Local ad marketplace on every installed screen.</p></div>
+  </div>
+  <div class="foot"><span>AD-SHARK</span><span>every phase gated on pilot data, not faith</span></div>
+</div>
+
+<div class="slide">
+  <div class="kicker">The ask</div>
+  <h2><span class="gold">$150K PRE-SEED</span> → 10-BAR PILOT WITH DATA</h2>
+  <div class="grid g3">
+    <div class="box"><b class="n">$60k</b><p>Hardware v1: 25 appliances, enclosure, install
+      kit, CEC/IR compatibility across major TV brands</p></div>
+    <div class="box"><b class="n">$60k</b><p>9 months founder + contract engineering:
+      live-feed detection port, fleet dashboard, spot-production pipeline</p></div>
+    <div class="box"><b class="n">$30k</b><p>Pilot ops &amp; legal: installs, measurement,
+      counsel review of the display-switching posture</p></div>
+  </div>
+  <p style="margin-top:28px; max-width:760px"><b>Milestone that unlocks seed:</b> pilot
+    P&amp;L showing measured check-size lift across 10 locations — the number every
+    restaurant owner in America understands.</p>
+  <div class="foot"><span>AD-SHARK</span><span>maxxzamani@gmail.com</span></div>
+</div>
+
+<div class="slide" style="text-align:center; align-items:center">
+  <h1 style="font-size:clamp(60px,10vw,140px)">🦈</h1>
+  <h1><span class="gold">AD-SHARK</span></h1>
+  <p style="margin-top:20px; font-size:22px">Your TV. Your ads. Every break.</p>
+  <p class="dim" style="margin-top:30px">Live demo: maxxzamani-create.github.io/movie-picker<br>
+    maxxzamani@gmail.com</p>
+</div>
+
+<div class="navhint">← → arrows / click to advance · Ctrl+P for PDF</div>
+<script>
+const slides = [...document.querySelectorAll(".slide")];
+let cur = 0;
+function show(n) {
+  cur = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((s, i) => s.classList.toggle("active", i === cur));
+}
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") show(cur + 1);
+  if (e.key === "ArrowLeft" || e.key === "PageUp") show(cur - 1);
+});
+document.addEventListener("click", e => {
+  if (e.target.closest("a")) return;
+  show(cur + 1);
+});
+</script>
+</body>
+</html>

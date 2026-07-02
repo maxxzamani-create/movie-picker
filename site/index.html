@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AD-SHARK — Your TV. Your ads. Every break.</title>
+<meta name="description" content="AD-SHARK detects commercial breaks on the TVs in your bar or restaurant and swaps them for your own specials. No more competitor food ads in front of your captive audience.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦈</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#06080d; --surface:rgba(19,24,36,.72); --line:#232c3f;
+    --text:#eef2f8; --dim:#8b96ab; --gold:#f2a900; --gold2:#ffd35c;
+    --green:#2ecc71; --red:#e74c3c; --blue:#3aa0d8; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text); font-family:"Inter",system-ui,sans-serif; }
+  body::before { content:""; position:fixed; inset:-40%; z-index:-1;
+    background: radial-gradient(38% 30% at 24% 20%, rgba(242,169,0,.10), transparent 60%),
+                radial-gradient(30% 26% at 80% 74%, rgba(58,160,216,.08), transparent 60%);
+    animation:drift 28s ease-in-out infinite alternate; }
+  @keyframes drift { from{transform:translate(-2%,-1%);} to{transform:translate(2%,2%);} }
+  a { color:var(--gold2); }
+  .btn { display:inline-block; padding:14px 28px; border-radius:12px; text-decoration:none;
+    font-weight:800; font-size:15px; border:1px solid var(--line); color:var(--text);
+    background:rgba(16,21,32,.85); transition:.2s; }
+  .btn:hover { transform:translateY(-2px); border-color:var(--gold); }
+  .btn.primary { background:linear-gradient(120deg,var(--gold2),var(--gold));
+    color:#17110a; border-color:transparent; }
+  .btn.primary:hover { box-shadow:0 12px 34px rgba(242,169,0,.35); }
+  header { display:flex; align-items:center; gap:14px; padding:16px 28px;
+    border-bottom:1px solid rgba(255,255,255,.06); position:sticky; top:0;
+    background:rgba(6,8,13,.85); backdrop-filter:blur(10px); z-index:50; }
+  .logo { width:42px; height:42px; filter:drop-shadow(0 4px 14px rgba(242,169,0,.45)); }
+  .wordmark { font-family:"Bebas Neue"; font-size:30px; letter-spacing:4px; line-height:1;
+    background:linear-gradient(100deg,#ffd35c 10%,#f2a900 45%,#b87400 90%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  header nav { margin-left:auto; display:flex; gap:10px; flex-wrap:wrap; }
+  header nav a { color:var(--dim); text-decoration:none; font-size:13px; font-weight:600;
+    padding:9px 14px; border-radius:10px; }
+  header nav a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+  section { max-width:1100px; margin:0 auto; padding:72px 28px; }
+  h1 { font-family:"Bebas Neue"; font-size:clamp(44px,7vw,84px); letter-spacing:3px;
+    line-height:.98; }
+  h1 .gold { background:linear-gradient(120deg,var(--gold2),var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  h2 { font-family:"Bebas Neue"; font-size:38px; letter-spacing:2px; margin-bottom:20px; }
+  .sub { color:var(--dim); font-size:18px; line-height:1.7; max-width:640px; }
+  .hero { display:grid; grid-template-columns:1.15fr 1fr; gap:44px; align-items:center;
+    padding-top:84px; }
+  @media (max-width:900px){ .hero{grid-template-columns:1fr;} }
+  .hero .ctas { display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
+  .tvframe { border-radius:18px; overflow:hidden; border:1px solid #2a3040;
+    box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(242,169,0,.12); }
+  .tvframe video { display:block; width:100%; }
+  .kicker { color:var(--gold2); font-weight:800; letter-spacing:3px; font-size:12px;
+    text-transform:uppercase; margin-bottom:14px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+  .card { background:var(--surface); border:1px solid rgba(255,255,255,.07);
+    border-radius:16px; padding:22px; }
+  .card b.big { display:block; font-family:"Bebas Neue"; font-size:44px; line-height:1;
+    background:linear-gradient(120deg,var(--gold2),var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:8px; }
+  .card p { color:var(--dim); font-size:13.5px; line-height:1.6; }
+  .steps { counter-reset:s; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+  .step { position:relative; background:var(--surface); border:1px solid rgba(255,255,255,.07);
+    border-radius:16px; padding:24px 22px 22px; }
+  .step::before { counter-increment:s; content:counter(s); position:absolute; top:-16px;
+    left:20px; width:34px; height:34px; border-radius:10px; display:grid; place-items:center;
+    font-family:"Bebas Neue"; font-size:20px; color:#17110a;
+    background:linear-gradient(120deg,var(--gold2),var(--gold)); }
+  .step h3 { font-size:16px; margin-bottom:8px; }
+  .step p { color:var(--dim); font-size:13.5px; line-height:1.65; }
+
+  /* Sharky the avatar */
+  .sharky-zone { display:grid; grid-template-columns:280px 1fr; gap:34px; align-items:center;
+    background:var(--surface); border:1px solid rgba(242,169,0,.3); border-radius:22px;
+    padding:34px; }
+  @media (max-width:800px){ .sharky-zone{grid-template-columns:1fr;} }
+  #sharkySvg { width:100%; max-width:280px; filter:drop-shadow(0 14px 30px rgba(242,169,0,.25)); }
+  #sharkySvg .fin-tail { transform-origin:85% 55%; animation:tail 1.6s ease-in-out infinite; }
+  @keyframes tail { 50% { transform:rotate(6deg); } }
+  #sharkySvg.talking .jaw { animation:jaw .28s ease-in-out infinite; transform-origin:30% 60%; }
+  @keyframes jaw { 50% { transform:rotate(7deg); } }
+  #sharkySvg .eye-lid { animation:blink 4.2s infinite; transform-origin:center; }
+  @keyframes blink { 0%,94%,100%{transform:scaleY(0);} 96%{transform:scaleY(1);} }
+  .bubble { position:relative; background:#0e1420; border:1px solid rgba(242,169,0,.35);
+    border-radius:18px; padding:22px 24px; font-size:16.5px; line-height:1.75;
+    min-height:130px; }
+  .bubble::before { content:""; position:absolute; left:-11px; top:44px; width:20px; height:20px;
+    background:#0e1420; border-left:1px solid rgba(242,169,0,.35);
+    border-bottom:1px solid rgba(242,169,0,.35); transform:rotate(45deg); }
+  .bubble .who { color:var(--gold2); font-weight:800; font-size:12px; letter-spacing:2px;
+    margin-bottom:8px; }
+  .sharky-ctl { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .sharky-ctl button { padding:10px 18px; border-radius:10px; border:1px solid var(--line);
+    background:rgba(16,21,32,.9); color:var(--text); font-weight:700; cursor:pointer;
+    font-family:inherit; font-size:13px; }
+  .sharky-ctl button:hover { border-color:var(--gold); }
+  .sharky-ctl button.primary { background:linear-gradient(120deg,var(--gold2),var(--gold));
+    color:#17110a; border-color:transparent; }
+
+  /* pricing */
+  .tiers { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
+  .tier { background:var(--surface); border:1px solid rgba(255,255,255,.08);
+    border-radius:18px; padding:26px; display:flex; flex-direction:column; }
+  .tier.hot { border-color:var(--gold); box-shadow:0 0 40px rgba(242,169,0,.15); }
+  .tier .name { font-weight:800; letter-spacing:2px; font-size:13px; color:var(--dim); }
+  .tier .price { font-family:"Bebas Neue"; font-size:52px; margin:10px 0 2px;
+    background:linear-gradient(120deg,var(--gold2),var(--gold));
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .tier .per { color:var(--dim); font-size:12.5px; margin-bottom:16px; }
+  .tier ul { list-style:none; display:flex; flex-direction:column; gap:9px;
+    font-size:13.5px; color:#cdd6e4; margin-bottom:20px; }
+  .tier li::before { content:"🦈 "; font-size:11px; }
+  .tier .btn { margin-top:auto; text-align:center; }
+  .roi { margin-top:18px; background:rgba(46,204,113,.08); border:1px solid rgba(46,204,113,.3);
+    border-radius:14px; padding:16px 20px; font-size:14.5px; line-height:1.7; }
+  .roi b { color:var(--green); }
+
+  /* roadmap */
+  .phases { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
+  .phase { background:var(--surface); border:1px solid rgba(255,255,255,.07);
+    border-radius:16px; padding:22px; }
+  .phase .tag { font-size:11px; font-weight:800; letter-spacing:2px; padding:4px 10px;
+    border-radius:6px; background:rgba(242,169,0,.15); color:var(--gold2); }
+  .phase.done .tag { background:rgba(46,204,113,.15); color:var(--green); }
+  .phase h3 { margin:12px 0 8px; font-size:17px; }
+  .phase p { color:var(--dim); font-size:13.5px; line-height:1.65; }
+  footer { border-top:1px solid rgba(255,255,255,.06); padding:34px 28px; text-align:center;
+    color:var(--dim); font-size:13px; line-height:1.8; }
+</style>
+</head>
+<body>
+<header>
+  <svg class="logo" viewBox="0 0 64 64"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#ffd35c"/><stop offset="1" stop-color="#b87400"/></linearGradient></defs>
+    <path fill="url(#lg)" d="M6 38c10-14 26-20 46-18l6-10 2 14c2 2 3 4 3 6-14 12-34 16-48 12l-9 8-2-14z"/>
+    <circle cx="48" cy="30" r="2.4" fill="#06080d"/></svg>
+  <div><div class="wordmark">AD-SHARK</div></div>
+  <nav>
+    <a href="#problem">The Leak</a>
+    <a href="#how">How it works</a>
+    <a href="#sharky">Meet Sharky</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="tv.html" style="color:var(--gold2)">▶ Live Demo</a>
+    <a href="pitch.html" style="color:var(--gold2)">Investor Deck</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="kicker">For bars · restaurants · anywhere with a TV</div>
+    <h1>YOUR TV.<br><span class="gold">YOUR ADS.</span><br>EVERY BREAK.</h1>
+    <p class="sub" style="margin-top:22px">AD-SHARK watches the game with you. The moment
+      the broadcast cuts to commercials, your screens switch to <b>your</b> specials —
+      your burger, your wings, your dessert — then snap back the instant the game returns.
+      No more competitor food ads in front of your captive audience.</p>
+    <div class="ctas">
+      <a class="btn primary" href="tv.html">▶ Watch the live demo</a>
+      <a class="btn" href="dashboard.html">See the owner dashboard</a>
+    </div>
+  </div>
+  <div class="tvframe">
+    <video autoplay muted loop playsinline>
+      <source src="static/co/ad_burger.mp4" type="video/mp4">
+      <source src="static/co/ad_burger.webm" type="video/webm">
+    </video>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="kicker">The problem</div>
+  <h2>EVERY BREAK, YOUR TV SELLS FOR SOMEONE ELSE</h2>
+  <p class="sub" style="margin-bottom:28px">Your customer just finished dinner and is thinking
+    about something sweet. A soft-serve commercial plays on your TV — and dessert happens on
+    the drive home, at someone else's register. Published research says this isn't a maybe:</p>
+  <div class="cards">
+    <div class="card"><b class="big">+45%</b><p>more snacking while food commercials play — automatic, and unrelated to hunger</p></div>
+    <div class="card"><b class="big">14%</b><p>of viewers crave the exact product they just saw advertised</p></div>
+    <div class="card"><b class="big">8%</b><p>go on to buy it — wherever the ad pointed them</p></div>
+    <div class="card"><b class="big">$16k</b><p>estimated yearly leak for a typical 800-guest/week room (see the calculator in the dashboard demo)</p></div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="kicker">How it works</div>
+  <h2>DETECT. TAKE OVER. SNAP BACK.</h2>
+  <div class="steps" style="margin-top:30px">
+    <div class="step"><h3>Detect the break</h3><p>AD-SHARK reads the same signals broadcasters
+      leave in every ad break — black frames, silent audio, rapid scene cuts — and knows
+      within a second that commercials have started.</p></div>
+    <div class="step"><h3>Take over the screen</h3><p>Your promo rotation plays instead:
+      real spots for your menu, built from your photos, each getting equal airtime.
+      Your customers stay your customers.</p></div>
+    <div class="step"><h3>Snap back to the game</h3><p>The instant programming resumes,
+      the game is back on. Nobody misses a play — the broadcast signal is never touched,
+      only what the screen displays.</p></div>
+    <div class="step"><h3>Count the money</h3><p>The owner dashboard logs every play and
+      every second of reclaimed airtime, so you can watch the leak turn into check size.</p></div>
+  </div>
+</section>
+
+<section id="sharky">
+  <div class="kicker">Meet Sharky</div>
+  <h2>LET SHARKY EXPLAIN IT</h2>
+  <div class="sharky-zone">
+    <svg id="sharkySvg" viewBox="0 0 200 140">
+      <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffd35c"/><stop offset="1" stop-color="#b87400"/></linearGradient></defs>
+      <g class="fin-tail"><path fill="url(#sg)" d="M158 62 L192 34 L186 66 L192 92 Z"/></g>
+      <path fill="url(#sg)" d="M20 70 C 45 30, 120 25, 165 62 C 120 100, 45 105, 20 70 Z"/>
+      <path fill="url(#sg)" d="M85 40 L98 12 L112 42 Z"/>
+      <path fill="#d18f00" d="M70 88 L82 106 L92 90 Z"/>
+      <g class="jaw"><path fill="#0e1420" d="M22 72 C 40 84, 66 88, 88 84 C 66 96, 38 94, 22 78 Z"/>
+      <path fill="#fff" d="M30 76 l6 6 4-7 5 7 5-7 5 7 5-7 5 6 5-6 4 5"/></g>
+      <circle cx="52" cy="56" r="6" fill="#0e1420"/>
+      <circle cx="54" cy="54" r="2" fill="#fff"/>
+      <rect class="eye-lid" x="44" y="50" width="16" height="12" rx="6" fill="url(#sg)"/>
+      <path fill="#e8b64d" d="M118 52 C 130 44, 146 44, 156 52 C 146 58, 130 58, 118 52 Z" opacity=".5"/>
+    </svg>
+    <div>
+      <div class="bubble">
+        <div class="who">SHARKY · AD-SHARK SPOKESFISH</div>
+        <div id="bubbleText">Hey! I'm Sharky. Click "Play the tour" and I'll walk you
+          through what AD-SHARK does, why your TV is leaking money, and how we bite back.
+          🔊 Turn your sound on — I actually talk.</div>
+      </div>
+      <div class="sharky-ctl">
+        <button class="primary" id="tourBtn">🔊 Play the tour</button>
+        <button id="nextBtn">Next tip →</button>
+        <button id="stopBtn">Stop</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="kicker">Pricing</div>
+  <h2>COSTS LESS THAN ONE LOST TABLE A WEEK</h2>
+  <div class="tiers" style="margin-top:26px">
+    <div class="tier">
+      <div class="name">STARTER</div>
+      <div class="price">$49<span style="font-size:22px">/mo</span></div>
+      <div class="per">per location · 1 screen · + $199 one-time AD-SHARK box</div>
+      <ul><li>Break detection &amp; auto-takeover</li><li>3 promo spots in rotation</li>
+        <li>Owner dashboard &amp; play counts</li><li>Email support</li></ul>
+      <a class="btn" href="#contact">Join the pilot</a>
+    </div>
+    <div class="tier hot">
+      <div class="name">FULL BAR · MOST POPULAR</div>
+      <div class="price">$99<span style="font-size:22px">/mo</span></div>
+      <div class="per">per location · up to 4 screens · boxes included on 12-mo term</div>
+      <ul><li>Everything in Starter</li><li>Unlimited promo spots + scheduling
+        (wing night on Wednesdays, brunch on weekends)</li><li>We produce 3 pro spots from
+        your photos — free</li><li>Priority support</li></ul>
+      <a class="btn primary" href="#contact">Join the pilot</a>
+    </div>
+    <div class="tier">
+      <div class="name">CHAIN / ENTERPRISE</div>
+      <div class="price" style="font-size:40px">Let's talk</div>
+      <div class="per">multi-location fleets · sports bars · gyms · franchises</div>
+      <ul><li>Fleet dashboard across locations</li><li>Central brand control, local specials</li>
+        <li>Future: sell your break inventory to neighboring businesses</li><li>Dedicated success manager</li></ul>
+      <a class="btn" href="#contact">Book a call</a>
+    </div>
+  </div>
+  <div class="roi">💰 <b>The math for an owner:</b> a typical 800-guest/week room leaks an
+    estimated <b>$15,900/year</b> in ad-driven walkout purchases. Full Bar costs $1,188/year.
+    If AD-SHARK recaptures even <b>one dessert a day</b>, it pays for itself — everything
+    after that is new margin.</div>
+</section>
+
+<section id="roadmap">
+  <div class="kicker">The path</div>
+  <h2>FROM DEMO TO EVERY BAR IN AMERICA</h2>
+  <div class="phases" style="margin-top:26px">
+    <div class="phase done"><span class="tag">✓ DONE — YOU'RE LOOKING AT IT</span>
+      <h3>Phase 1 · Working software</h3>
+      <p>Detection engine (black-frame + silence + scene-cut analysis), auto-takeover player,
+      promo rotation with equal airtime, owner dashboard with impressions and the revenue-leak
+      calculator. Live in this browser.</p></div>
+    <div class="phase"><span class="tag">NEXT · 90 DAYS</span>
+      <h3>Phase 2 · The box + 10-bar pilot</h3>
+      <p>Raspberry-Pi appliance (~$150 parts) between the cable box and TV: same detection on
+      the live HDMI feed, switches inputs over HDMI-CEC. Install in 10 friendly locations,
+      measure real check-size lift.</p></div>
+    <div class="phase"><span class="tag">MONTHS 4–9</span>
+      <h3>Phase 3 · Sell &amp; scale</h3>
+      <p>Pilot case studies → outbound to sports bars &amp; franchise groups. Fleet dashboard,
+      installer network, spot-production service. Target: 200 paying screens.</p></div>
+    <div class="phase"><span class="tag">YEAR 2</span>
+      <h3>Phase 4 · The network</h3>
+      <p>Every screen is local ad inventory. Let the pizza shop next door pay to appear during
+      breaks at the gym — AD-SHARK takes the margin. This is how Atmosphere TV reached a
+      $1B valuation, without our "keep the game on" advantage.</p></div>
+  </div>
+</section>
+
+<section id="contact" style="text-align:center">
+  <h2>THE SHARK IS READY. ARE YOU?</h2>
+  <p class="sub" style="margin:0 auto 26px">Investors and pilot locations: get in touch and
+    watch the demo take its first bite.</p>
+  <a class="btn primary" href="mailto:maxxzamani@gmail.com?subject=AD-SHARK">📧 maxxzamani@gmail.com</a>
+  <a class="btn" href="pitch.html" style="margin-left:10px">Read the investor deck →</a>
+</section>
+
+<footer>
+  AD-SHARK 🦈 — the commercial killer · demo built with licensed Adobe Stock photography ·
+  detection never modifies the broadcast signal, it only changes what the screen displays
+</footer>
+
+<script>
+/* Sharky: animated avatar + spoken tour (Web Speech API) */
+const LINES = [
+  "Here's the problem. Every commercial break, the TV in your restaurant sells burgers, soft serve, and pizza... for somebody else. Your customers are sitting right there, wallets open.",
+  "Research shows people snack forty five percent more while food ads play, and eight percent go buy the exact thing they saw. That purchase should happen at YOUR register.",
+  "AD-SHARK watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
+  "During the break, your screens show YOUR specials. Real photos of your food, equal airtime for every spot. When the game comes back, I snap back instantly. Nobody misses a play.",
+  "The dashboard counts every play and estimates what the leak was costing you. For a typical room, that's around sixteen thousand dollars a year, and Full Bar costs ninety nine a month.",
+  "Want to see me hunt? Hit the live demo and watch me eat a commercial in real time. Chomp chomp."
+];
+let idx = -1, speaking = false;
+const bubble = document.getElementById("bubbleText");
+const sharky = document.getElementById("sharkySvg");
+
+function say(text) {
+  bubble.textContent = text;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = 1.02; u.pitch = 0.8;
+    u.onstart = () => sharky.classList.add("talking");
+    u.onend = () => { sharky.classList.remove("talking");
+      if (speaking) { setTimeout(nextLine, 600); } };
+    speechSynthesis.speak(u);
+  } catch (e) { /* no speech support — text still shows */ }
+}
+function nextLine() {
+  idx++;
+  if (idx >= LINES.length) { speaking = false; idx = -1;
+    sharky.classList.remove("talking"); return; }
+  say(LINES[idx]);
+}
+document.getElementById("tourBtn").addEventListener("click", () => {
+  speaking = true; idx = -1; nextLine();
+});
+document.getElementById("nextBtn").addEventListener("click", () => {
+  speaking = false; idx = (idx + 1) % LINES.length; say(LINES[idx]);
+});
+document.getElementById("stopBtn").addEventListener("click", () => {
+  speaking = false; try { speechSynthesis.cancel(); } catch (e) {}
+  sharky.classList.remove("talking");
+});
+</script>
+</body>
+</html>
