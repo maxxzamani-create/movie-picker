@@ -291,7 +291,7 @@ input[type="range"] {
 }
 
 /* ── Sidebar action buttons ───────────────────────────────────────────── */
-/* Pick CTA — Tiffany blue */
+/* Pick CTA — cornflower blue */
 .btn-pick {
   width: 100%; padding: 13px; margin: 12px 0 8px;
   background: linear-gradient(135deg, var(--cyan), var(--cyan-d));
@@ -487,7 +487,7 @@ input[type="range"] {
 }
 .btn-sm.danger:hover { background: var(--rust); color: #fff; border-color: var(--rust); }
 
-/* Tiffany variant — for the Copy All action */
+/* Blue variant — for the Copy All action */
 .btn-sm.gold {
   background: linear-gradient(135deg, var(--cyan), var(--cyan-d));
   color: #fff;
