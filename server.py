@@ -152,10 +152,18 @@ def pick():
         if result:
             actor_id = result[0]
 
-    # Exclusions — never re-suggest watched/disliked items
+    # Exclusions — never re-suggest watched/disliked items, and never
+    # repeat a title already shown in this browser session (the frontend
+    # tracks what it has displayed and sends the IDs with each pick).
     watched_ids   = {w["id"] for w in prefs.get("watched",  [])}
     disliked_ids  = {d["id"] for d in prefs.get("disliked", [])}
-    excluded_ids  = watched_ids | disliked_ids
+    session_seen  = set()
+    for sid in data.get("session_seen", []):
+        try:
+            session_seen.add(int(sid))
+        except (TypeError, ValueError):
+            continue
+    excluded_ids  = watched_ids | disliked_ids | session_seen
 
     disliked_genres = prefs.get("disliked_genres", {})
     avoided_genres  = {int(gid) for gid, cnt in disliked_genres.items()

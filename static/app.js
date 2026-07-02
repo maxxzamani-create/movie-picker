@@ -8,6 +8,9 @@ let state = {
   mediaType:     "movie",     // "movie" | "tv"
   indie:         false,       // ★ Indie genre checkbox (applies TMDB indie keyword)
   badass:        false,       // ⚡ Badass genre checkbox (curated director list + rating floor)
+  // Titles already shown this session — never repeated until page reload.
+  // Movie and TV IDs live in separate TMDB namespaces, so track separately.
+  sessionSeen:   { movie: new Set(), tv: new Set() },
 };
 
 /* ── API helpers ───────────────────────────────────────────────────────── */
@@ -311,14 +314,22 @@ async function pickMovie() {
   pickBtn.textContent = "Searching…";
   document.getElementById("btn-pick-again").disabled = true;
 
-  const prefs = collectPrefs();
+  // session_seen rides along with the pick request ONLY (not saved prefs):
+  // the server excludes these IDs so a session never repeats a title.
+  const seen  = state.sessionSeen[state.mediaType];
+  const prefs = { ...collectPrefs(), session_seen: [...seen] };
   try {
     const result = await post("/api/pick", prefs);
     if (result.error) {
-      setStatus(result.error);
+      let msg = result.error;
+      if (msg.startsWith("No ") && seen.size > 0) {
+        msg += ` (You've already been shown ${seen.size} this session — refresh the page to allow repeats.)`;
+      }
+      setStatus(msg);
     } else {
       displayMovie(result);
       state.currentMovie = result;
+      seen.add(result.id);
       setStatus(`Here's your pick!${result.popularity < 15 ? "  ✨ Hidden Gem" : ""}`);
     }
   } catch (e) {
