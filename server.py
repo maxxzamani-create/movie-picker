@@ -28,7 +28,7 @@ def home():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5050))
     print("=" * 50)
-    print("  Commercial Override")
+    print("  AD-SHARK — Commercial Killer")
     print(f"  TV:        http://localhost:{port}/co/")
     print(f"  Dashboard: http://localhost:{port}/co/dashboard")
     print("=" * 50)

@@ -1,9 +1,9 @@
-# Commercial Override
+# AD-SHARK 🦈 — the Commercial Killer
 
 **When the commercials come on, the screen shows *your* specials instead.**
 
 A business (sports bar, restaurant, gym) plays a live game on its TVs. When
-the broadcast cuts to a commercial break, Commercial Override detects the
+the broadcast cuts to a commercial break, AD-SHARK detects the
 break and switches the screen to the business's own promo spots — your
 burger instead of McDonald's — then switches back the moment the game
 returns.
@@ -15,7 +15,7 @@ as flipping inputs during a commercial — then returns to the live feed.
 ## Try the demo
 
 Live in your browser (nothing to install):
-**https://maxxzamani-create.github.io/movie-picker/**
+**https://maxxzamani-create.github.io/AD-SHARK/**
 
 Or run it locally — double-click `run.bat` (Windows), or:
 
