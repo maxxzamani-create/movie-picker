@@ -292,9 +292,13 @@ def fetch_random_movie(api_key: str, genre_ids: list[int], year_from: int,
         # A hidden gem is GOOD but under the radar — obscure alone isn't
         # enough. Enforce a 7.0 rating floor (the random-page selection
         # otherwise dredges up low-rated filler from deep result pages)
-        # and keep popularity capped so blockbusters stay out.
+        # and keep popularity capped so blockbusters stay out. TMDB's
+        # popularity metric decays with time, letting old blockbusters
+        # drift under the cap — so also cap vote COUNT, which famous
+        # films keep forever (300–5000 votes ≈ proven but not famous).
         params["popularity.lte"] = 20
         params["vote_average.gte"] = max(min_rating, 7.0)
+        params["vote_count.lte"] = 5000
 
     if genre_ids:
         params["with_genres"] = "|".join(str(g) for g in genre_ids)  # | = OR logic
@@ -459,9 +463,12 @@ def fetch_random_tv(api_key: str, genre_ids: list[int], year_from: int,
         "page": 1,
     }
     if hidden_gem:
-        # Same principle as movies: gems must be good, not just obscure.
+        # Same principle as movies: gems must be good, not just obscure —
+        # and a vote-count ceiling keeps long-famous shows out even after
+        # their recency-biased popularity score has decayed.
         params["popularity.lte"] = 15
         params["vote_average.gte"] = max(min_rating, 7.0)
+        params["vote_count.lte"] = 3000
 
     if genre_ids:
         params["with_genres"] = "|".join(str(g) for g in genre_ids)
