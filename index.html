@@ -247,6 +247,10 @@
   .sharky-ctl button:hover { border-color:var(--blue); }
   .sharky-ctl button.primary { background:linear-gradient(120deg,var(--blue-pale),var(--blue));
     color:var(--navy); border-color:transparent; }
+  .sharky-ctl select { padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+    background:rgba(16,21,32,.9); color:var(--text); font-weight:700; cursor:pointer;
+    font-family:inherit; font-size:13px; max-width:220px; }
+  .sharky-ctl select:hover { border-color:var(--blue); }
 
   .tiers { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
   .tier { background:var(--surface); border:1px solid rgba(255,255,255,.08);
@@ -543,6 +547,7 @@
         <button class="primary" id="tourBtn">🔊 Play the tour</button>
         <button id="nextBtn">Next tip →</button>
         <button id="stopBtn">Stop</button>
+        <select id="voiceSelect" title="Choose Sharky's voice" aria-label="Choose Sharky's voice"></select>
       </div>
     </div>
   </div>
@@ -700,13 +705,62 @@ const LINES = [
 let idx = -1, speaking = false;
 const bubble = document.getElementById("bubbleText");
 const sharky = document.getElementById("sharkySvg");
+const voiceSelect = document.getElementById("voiceSelect");
+let voicesList = [], chosenVoice = null;
+
+function scoreVoice(v) {
+  const n = v.name.toLowerCase();
+  let score = 0;
+  if (/natural|neural|premium|enhanced|online/.test(n)) score += 50;
+  if (/google/.test(n)) score += 30;
+  if (/^microsoft (guy|ryan|andrew|christopher|eric|davis|jason)/.test(n)) score += 40;
+  if (/daniel|alex|fred|tom|aaron|nathan/.test(n)) score += 20;
+  if (v.localService) score += 10;
+  if (v.lang && v.lang.startsWith("en")) score += 15;
+  if (v.lang === "en-US" || v.lang === "en-GB") score += 5;
+  if (/compact|whisper|zira/.test(n)) score -= 40;
+  return score;
+}
+
+function loadVoices() {
+  const all = speechSynthesis.getVoices();
+  if (!all.length) return;
+  voicesList = all.filter(v => v.lang && v.lang.startsWith("en"));
+  if (!voicesList.length) voicesList = all;
+  voicesList.sort((a, b) => scoreVoice(b) - scoreVoice(a));
+  voiceSelect.innerHTML = voicesList.map((v, i) =>
+    `<option value="${i}">${v.name.replace(/^Microsoft |^Google /, "")}</option>`).join("");
+  let useIdx = 0;
+  try {
+    const saved = localStorage.getItem("adshark_sharky_voice");
+    if (saved) {
+      const savedIdx = voicesList.findIndex(v => v.name === saved);
+      if (savedIdx >= 0) useIdx = savedIdx;
+    }
+  } catch (e) { }
+  voiceSelect.value = useIdx;
+  chosenVoice = voicesList[useIdx];
+}
+loadVoices();
+if ("speechSynthesis" in window) {
+  speechSynthesis.addEventListener("voiceschanged", loadVoices);
+}
+voiceSelect.addEventListener("change", () => {
+  chosenVoice = voicesList[+voiceSelect.value];
+  if (chosenVoice) {
+    try { localStorage.setItem("adshark_sharky_voice", chosenVoice.name); } catch (e) { }
+  }
+  speaking = false;
+  say("Hi, I'm Sharky. This is what I sound like now.");
+});
 
 function say(text) {
   bubble.textContent = text;
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.02; u.pitch = 0.8;
+    u.rate = 1.0; u.pitch = 1.0;
+    if (chosenVoice) u.voice = chosenVoice;
     u.onstart = () => sharky.classList.add("talking");
     u.onend = () => { sharky.classList.remove("talking");
       if (speaking) { setTimeout(nextLine, 600); } };
