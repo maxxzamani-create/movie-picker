@@ -11,11 +11,9 @@ from flask import Flask, jsonify, render_template, request, send_file
 
 import storage
 import tmdb
-from commercial_override import co_bp
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "movie-zenie-secret")
-app.register_blueprint(co_bp)   # Commercial Override demo lives at /co/
 
 
 # ── Static assets ────────────────────────────────────────────────────────────

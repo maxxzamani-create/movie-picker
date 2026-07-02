@@ -1,10 +1,6 @@
 # Sensitive data - keep API keys off GitHub
 prefs.json
 
-# Commercial Override runtime data
-co_data.json
-static/co/uploads/
-
 # Python
 __pycache__/
 *.py[cod]
