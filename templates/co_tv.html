@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commercial Override — Live TV</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📺</text></svg>">
+<style>
+  :root {
+    --bg: #0b0e13; --surface: #131822; --surface2: #1a2130;
+    --line: #232c3f; --text: #e8ecf4; --dim: #8b96ab;
+    --gold: #f2a900; --green: #2ecc71; --red: #e74c3c; --blue: #3aa0d8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text);
+         font-family: "Segoe UI", system-ui, sans-serif; min-height: 100vh; }
+  header { display: flex; align-items: center; gap: 14px;
+           padding: 14px 22px; border-bottom: 1px solid var(--line); }
+  header .mark { width: 34px; height: 34px; border-radius: 8px;
+                 background: linear-gradient(135deg, var(--gold), #b87400);
+                 display: grid; place-items: center; font-weight: 800; color: #14100a; }
+  header h1 { font-size: 17px; letter-spacing: 2px; font-weight: 700; }
+  header .biz { color: var(--gold); font-size: 13px; margin-left: 4px; }
+  header nav { margin-left: auto; }
+  header a { color: var(--dim); text-decoration: none; font-size: 13px;
+             padding: 7px 14px; border: 1px solid var(--line); border-radius: 8px; }
+  header a:hover { color: var(--text); border-color: var(--gold); }
+
+  .wrap { display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(300px, 1fr);
+          gap: 18px; padding: 18px 22px; max-width: 1400px; margin: 0 auto; }
+  @media (max-width: 980px) { .wrap { grid-template-columns: 1fr; } }
+
+  /* ── TV set ── */
+  .tv { background: #05070a; border: 10px solid #191d26; border-radius: 18px;
+        position: relative; aspect-ratio: 16/9; overflow: hidden;
+        box-shadow: 0 18px 60px rgba(0,0,0,.55); }
+  .tv video { position: absolute; inset: 0; width: 100%; height: 100%;
+              object-fit: cover; background: #000; }
+  #adVideo { display: none; }
+  .badge { position: absolute; top: 14px; right: 14px; z-index: 5;
+           font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+           padding: 5px 12px; border-radius: 6px; }
+  #liveBadge { background: var(--red); }
+  #adBadge  { background: var(--gold); color: #14100a; display: none; }
+  #startOverlay { position: absolute; inset: 0; z-index: 10; border: 0;
+                  background: rgba(5,7,10,.82); color: var(--text);
+                  font-size: 18px; cursor: pointer; display: grid;
+                  place-items: center; gap: 6px; }
+  #startOverlay .big { font-size: 44px; }
+  #startOverlay small { color: var(--dim); }
+
+  /* ── timeline under the TV ── */
+  .timeline { margin-top: 12px; }
+  .timeline .bar { position: relative; height: 26px; border-radius: 7px;
+                   background: var(--surface2); border: 1px solid var(--line);
+                   overflow: hidden; }
+  .timeline .win { position: absolute; top: 0; bottom: 0;
+                   background: rgba(242,169,0,.32);
+                   border-left: 1px solid var(--gold);
+                   border-right: 1px solid var(--gold); }
+  .timeline .head { position: absolute; top: 0; bottom: 0; width: 2px;
+                    background: var(--red); }
+  .timeline .lbl { display: flex; justify-content: space-between;
+                   font-size: 11px; color: var(--dim); margin-top: 5px; }
+
+  /* ── control panel ── */
+  .panel { display: flex; flex-direction: column; gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--line);
+          border-radius: 14px; padding: 15px 16px; }
+  .card h2 { font-size: 11px; letter-spacing: 2px; color: var(--dim);
+             margin-bottom: 11px; font-weight: 700; }
+
+  #stateBox { text-align: center; padding: 17px 10px; border-radius: 10px;
+              font-weight: 800; letter-spacing: 1.5px; font-size: 15px;
+              background: rgba(46,204,113,.12); color: var(--green);
+              border: 1px solid rgba(46,204,113,.4); transition: all .25s; }
+  #stateBox.break  { background: rgba(231,76,60,.12); color: var(--red);
+                     border-color: rgba(231,76,60,.4); }
+  #stateBox.override { background: rgba(242,169,0,.14); color: var(--gold);
+                       border-color: rgba(242,169,0,.5); }
+  #stateSub { font-size: 11px; font-weight: 500; letter-spacing: .3px;
+              color: var(--dim); margin-top: 5px; }
+
+  .meter { margin-bottom: 11px; }
+  .meter .row { display: flex; justify-content: space-between;
+                font-size: 11px; color: var(--dim); margin-bottom: 4px; }
+  .meter .track { height: 9px; border-radius: 5px; background: var(--surface2);
+                  overflow: hidden; }
+  .meter .fill { height: 100%; width: 0%; border-radius: 5px;
+                 background: var(--blue); transition: width .12s linear; }
+  #lumaFill { background: linear-gradient(90deg, #26313f, #cfd9e8); }
+  #audioFill { background: linear-gradient(90deg, #1d5c39, var(--green)); }
+  .flag { font-size: 10px; font-weight: 700; padding: 2px 7px;
+          border-radius: 4px; background: var(--surface2); color: var(--dim); }
+  .flag.on { background: var(--red); color: #fff; }
+
+  .queue { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .queue li { display: flex; align-items: center; gap: 9px; font-size: 13px;
+              padding: 8px 10px; border-radius: 8px; background: var(--surface2); }
+  .queue li.next { outline: 1px solid var(--gold); }
+  .queue .dot { width: 8px; height: 8px; border-radius: 50%;
+                background: var(--green); flex-shrink: 0; }
+  .queue li.off { opacity: .38; } .queue li.off .dot { background: var(--dim); }
+  .queue .tag { margin-left: auto; font-size: 10px; color: var(--gold);
+                font-weight: 700; letter-spacing: 1px; }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .stat { background: var(--surface2); border-radius: 9px; padding: 10px;
+          text-align: center; }
+  .stat b { display: block; font-size: 21px; color: var(--gold); }
+  .stat span { font-size: 10.5px; color: var(--dim); letter-spacing: .5px; }
+
+  .btn { width: 100%; padding: 10px; border-radius: 9px; border: 1px solid var(--line);
+         background: var(--surface2); color: var(--text); font-size: 13px;
+         cursor: pointer; margin-top: 9px; }
+  .btn:hover { border-color: var(--gold); }
+  .btn.primary { background: var(--gold); color: #14100a; font-weight: 700;
+                 border-color: var(--gold); }
+  .switch { display: flex; align-items: center; justify-content: space-between;
+            font-size: 13px; }
+  .switch input { width: 40px; height: 21px; accent-color: var(--gold); }
+
+  #console { font-family: ui-monospace, Menlo, monospace; font-size: 11px;
+             color: #9fd8a8; background: #0a0f0c; border: 1px solid #17331e;
+             border-radius: 9px; padding: 9px 11px; height: 128px;
+             overflow-y: auto; line-height: 1.7; }
+  #console .g { color: var(--gold); } #console .r { color: #ff8a80; }
+</style>
+</head>
+<body>
+<header>
+  <div class="mark">CO</div>
+  <h1>COMMERCIAL OVERRIDE</h1>
+  <span class="biz" id="bizName"></span>
+  <nav><a href="/co/dashboard">Business Dashboard →</a></nav>
+</header>
+
+<div class="wrap">
+  <div>
+    <div class="tv">
+      <video id="feedVideo" playsinline preload="auto" crossorigin="anonymous"></video>
+      <video id="adVideo" playsinline preload="auto"></video>
+      <span class="badge" id="liveBadge">● LIVE</span>
+      <span class="badge" id="adBadge">★ YOUR AD</span>
+      <button id="startOverlay">
+        <span class="big">▶</span>
+        <span>Start the broadcast</span>
+        <small>Simulated live game — a commercial break hits ~30s in</small>
+      </button>
+    </div>
+    <div class="timeline">
+      <div class="bar" id="tlBar"><div class="head" id="tlHead"></div></div>
+      <div class="lbl"><span>broadcast timeline — <span style="color:var(--gold)">gold = detected commercial break</span></span><span id="tlClock">0:00</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="card">
+      <div id="stateBox">LIVE PROGRAMMING
+        <div id="stateSub">monitoring broadcast signals</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>DETECTION SIGNALS</h2>
+      <div class="meter">
+        <div class="row"><span>Frame luminance</span><span class="flag" id="blackFlag">BLACK</span></div>
+        <div class="track"><div class="fill" id="lumaFill"></div></div>
+      </div>
+      <div class="meter">
+        <div class="row"><span>Broadcast audio</span><span class="flag" id="silenceFlag">SILENT</span></div>
+        <div class="track"><div class="fill" id="audioFill"></div></div>
+      </div>
+      <div id="console"></div>
+    </div>
+
+    <div class="card">
+      <h2>AD QUEUE</h2>
+      <ul class="queue" id="adQueue"></ul>
+      <label class="switch" style="margin-top:12px">
+        <span>Override enabled</span>
+        <input type="checkbox" id="overrideToggle" checked>
+      </label>
+      <button class="btn" id="skipBtn">⏩ Skip to just before the break</button>
+    </div>
+
+    <div class="card">
+      <h2>THIS SESSION</h2>
+      <div class="stats">
+        <div class="stat"><b id="statOverrides">0</b><span>OVERRIDES</span></div>
+        <div class="stat"><b id="statAirtime">0s</b><span>YOUR AIRTIME</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const feed = $("feedVideo"), adVid = $("adVideo");
+
+let windows = [], ads = [], adIdx = 0;
+let overrideEnabled = true, overrideActive = false, activeWindow = null;
+let curAd = null, adStartedAt = 0;
+let sessionOverrides = 0, sessionAirtime = 0;
+let duration = 1, audioReady = false, analyser = null, audioBuf = null;
+
+function log(msg, cls) {
+  const c = $("console");
+  const t = new Date().toLocaleTimeString([], {hour12: false});
+  c.innerHTML += `<div>${t} <span class="${cls || ''}">${msg}</span></div>`;
+  c.scrollTop = c.scrollHeight;
+}
+
+async function init() {
+  const st = await (await fetch("/co/api/state")).json();
+  $("bizName").textContent = "· " + st.business_name;
+  overrideEnabled = st.override_enabled;
+  $("overrideToggle").checked = overrideEnabled;
+  ads = st.ads.filter(a => a.enabled);
+  windows = (st.analysis.commercial_windows || []);
+  duration = st.analysis.duration || 75;
+  setSources(feed, st.feed_url, st.feed_url_webm);
+
+  // shade detected windows on the timeline
+  for (const w of windows) {
+    const d = document.createElement("div");
+    d.className = "win";
+    d.style.left = (w.start / duration * 100) + "%";
+    d.style.width = ((w.end - w.start) / duration * 100) + "%";
+    $("tlBar").insertBefore(d, $("tlHead"));
+  }
+  renderQueue();
+  log(`analysis loaded — ${windows.length} commercial window(s) found`);
+  if (windows[0]) {
+    const s = windows[0].signals;
+    log(`window @${windows[0].start}s–${windows[0].end}s · black+silence ✓ · ${s.cuts_per_min} cuts/min`, "g");
+  }
+}
+
+function renderQueue() {
+  const ul = $("adQueue"); ul.innerHTML = "";
+  ads.forEach((a, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span class="dot"></span>${a.name}` +
+      (i === adIdx % ads.length ? `<span class="tag">NEXT UP</span>` : "");
+    if (i === adIdx % ads.length) li.classList.add("next");
+    ul.appendChild(li);
+  });
+}
+
+// ── start ──
+$("startOverlay").addEventListener("click", async () => {
+  $("startOverlay").style.display = "none";
+  setupAudio();
+  feed.muted = false;
+  await feed.play();
+  log("broadcast started", "g");
+});
+
+function setupAudio() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const src = ctx.createMediaElementSource(feed);
+    analyser = ctx.createAnalyser();
+    analyser.fftSize = 512;
+    src.connect(analyser);
+    analyser.connect(ctx.destination);
+    audioBuf = new Uint8Array(analyser.frequencyBinCount);
+    audioReady = true;
+  } catch (e) { log("audio meter unavailable: " + e.message, "r"); }
+}
+
+// ── live telemetry (real measurement, same signals the detector uses) ──
+const lumaCanvas = document.createElement("canvas");
+lumaCanvas.width = 32; lumaCanvas.height = 18;
+const lctx = lumaCanvas.getContext("2d", { willReadFrequently: true });
+
+setInterval(() => {
+  if (feed.paused || !feed.videoWidth) return;
+  // luminance
+  let luma = 0;
+  try {
+    lctx.drawImage(feed, 0, 0, 32, 18);
+    const px = lctx.getImageData(0, 0, 32, 18).data;
+    let sum = 0;
+    for (let i = 0; i < px.length; i += 4)
+      sum += 0.2126 * px[i] + 0.7152 * px[i+1] + 0.0722 * px[i+2];
+    luma = sum / (px.length / 4) / 255;
+  } catch (e) { /* canvas blocked — skip meter */ }
+  $("lumaFill").style.width = Math.round(luma * 100) + "%";
+  $("blackFlag").classList.toggle("on", luma < 0.08);
+  // audio level
+  let level = 0;
+  if (audioReady && !feed.muted) {
+    analyser.getByteTimeDomainData(audioBuf);
+    let sq = 0;
+    for (const v of audioBuf) { const d = (v - 128) / 128; sq += d * d; }
+    level = Math.min(1, Math.sqrt(sq / audioBuf.length) * 3);
+  }
+  $("audioFill").style.width = Math.round(level * 100) + "%";
+  $("silenceFlag").classList.toggle("on", feed.muted ? false : level < 0.03);
+}, 180);
+
+// ── override state machine ──
+setInterval(() => {
+  if (feed.paused && !overrideActive) return;
+  const t = feed.currentTime;
+  $("tlHead").style.left = (t / duration * 100) + "%";
+  $("tlClock").textContent = fmt(t) + " / " + fmt(duration);
+
+  const win = windows.find(w => t >= w.start + 0.2 && t < w.end - 0.2);
+
+  if (win && !overrideActive && overrideEnabled && ads.length) {
+    startOverride(win);
+  } else if (win && !overrideActive) {
+    setState("break", "COMMERCIAL BREAK", "override disabled — showing broadcast ads");
+  } else if (!win && overrideActive) {
+    endOverride();
+  } else if (!win && !overrideActive) {
+    setState("", "LIVE PROGRAMMING", "monitoring broadcast signals");
+  }
+
+  if (overrideActive) sessionAirtime += 0.2;
+  $("statAirtime").textContent = Math.round(sessionAirtime) + "s";
+}, 200);
+
+function startOverride(win) {
+  overrideActive = true; activeWindow = win;
+  sessionOverrides++;
+  $("statOverrides").textContent = sessionOverrides;
+  feed.muted = true;
+  playNextAd();
+  adVid.style.display = "block";
+  $("adBadge").style.display = "inline";
+  $("liveBadge").style.display = "none";
+  setState("override", "OVERRIDE ACTIVE", "showing your promos instead of national ads");
+  log("break detected (black+silence boundary) → OVERRIDE ON", "g");
+}
+
+function playNextAd() {
+  if (curAd) reportImpression();
+  curAd = ads[adIdx % ads.length];
+  adIdx++;
+  renderQueue();
+  adStartedAt = performance.now();
+  setSources(adVid, curAd.url, curAd.url_webm);
+  adVid.muted = false;
+  adVid.play().catch(() => {});
+  log("now playing: " + curAd.name, "g");
+}
+
+adVid.addEventListener("ended", () => { if (overrideActive) playNextAd(); });
+
+function endOverride() {
+  overrideActive = false;
+  if (curAd) reportImpression();
+  curAd = null;
+  adVid.pause();
+  adVid.style.display = "none";
+  $("adBadge").style.display = "none";
+  $("liveBadge").style.display = "inline";
+  feed.muted = false;
+  setState("", "LIVE PROGRAMMING", "programming resumed — back to the game");
+  log("programming resumed → OVERRIDE OFF", "r");
+}
+
+function reportImpression() {
+  const secs = (performance.now() - adStartedAt) / 1000;
+  if (secs < 0.5) return;
+  fetch("/co/api/impressions", {
+    method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ad_id: curAd.id, seconds: secs}),
+  }).catch(() => {});
+}
+
+function setState(cls, main, sub) {
+  const box = $("stateBox");
+  box.className = cls;
+  box.childNodes[0].textContent = main;
+  $("stateSub").textContent = sub;
+}
+
+// loop the "live" feed forever
+feed.addEventListener("ended", () => {
+  if (overrideActive) endOverride();
+  feed.currentTime = 0;
+  feed.play();
+  log("— next quarter —");
+});
+
+$("overrideToggle").addEventListener("change", e => {
+  overrideEnabled = e.target.checked;
+  fetch("/co/api/settings", {
+    method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({override_enabled: overrideEnabled}),
+  });
+  log("override " + (overrideEnabled ? "enabled" : "disabled"));
+  if (!overrideEnabled && overrideActive) endOverride();
+});
+
+$("skipBtn").addEventListener("click", () => {
+  if (!windows.length) return;
+  feed.currentTime = Math.max(0, windows[0].start - 4);
+  if (feed.paused) $("startOverlay").click();
+  log("skipped to 4s before the detected break");
+});
+
+const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+
+// MP4 first (universal), WebM fallback for browsers without H.264
+function setSources(video, mp4, webm) {
+  video.innerHTML = "";
+  for (const [url, type] of [[mp4, "video/mp4"], [webm, "video/webm"]]) {
+    if (!url) continue;
+    const s = document.createElement("source");
+    s.src = url; s.type = type;
+    video.appendChild(s);
+  }
+  video.load();
+}
+
+init();
+</script>
+</body>
+</html>
