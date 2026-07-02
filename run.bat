@@ -1,10 +1,12 @@
 @echo off
-echo Starting The Movie Zenie (Web Edition)...
+echo ============================================
+echo   Commercial Override
+echo ============================================
 echo.
 python -m pip install flask --quiet
 echo.
-echo Open your browser to: http://localhost:5000
-echo Press Ctrl+C to stop the server.
+echo Starting... your browser will open automatically.
+echo Press Ctrl+C to stop.
 echo.
 python server.py
 echo.
