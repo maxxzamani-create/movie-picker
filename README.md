@@ -33,6 +33,30 @@ python server.py
 - **`/co/dashboard`** — the business side: upload promo spots, toggle the
   rotation, and see impression counts / airtime per spot.
 
+## The revenue leak (why this exists)
+
+A customer just finished dinner and is thinking about something sweet. The
+break hits and a soft-serve commercial plays on your TV — now dessert happens
+on the drive home, at someone else's register. While they're your captive
+audience, the screen should be selling *your* dessert menu. No more Pizza Hut
+ads in a pizza restaurant.
+
+Published research behind the pitch:
+
+- Adults snack **~45% more** while food commercials play — the effect is
+  automatic and unrelated to hunger (Harris et al., via Psychology Today).
+- **14%** of people report craving the exact product they just saw advertised,
+  and **8%** go on to purchase it (ecological momentary assessment studies of
+  food-marketing exposure).
+- **31%** of diners are already thinking about dessert before the entrée
+  arrives (Restaurant-Hospitality consumer research) — the sale is sitting at
+  the table waiting to be claimed.
+- **78%** of consumers say they'd take a discounted add-on like dessert or a
+  drink at full-service restaurants.
+
+The dashboard includes a calculator that turns these rates into an estimated
+weekly/yearly revenue leak for a specific room.
+
 ## How detection works (`co_detect.py`)
 
 The same heuristics production systems start with, run via ffmpeg:
@@ -57,7 +81,7 @@ commercial block when its cut rate is high.
 
 ## Demo media
 
-`static/co/*.mp4` are synthesized by `make_demo_media.py` (requires ffmpeg) —
+Promo spots are built on licensed Adobe Stock photography (free-collection assets, in `assets_src/`). `static/co/*.mp4` are rendered by `make_demo_media.py` (requires ffmpeg) —
 a simulated football broadcast with a realistic break, plus three sample
 promo spots. `game_feed.analysis.json` is the cached detector output so the
 demo runs without ffmpeg installed.

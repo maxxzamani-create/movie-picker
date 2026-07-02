@@ -6,8 +6,12 @@ stadium crowd, animated players, broadcast score bug, art-directed national
 ads and AD-SHARK promo spots), then encodes with ffmpeg.
 
 The broadcast keeps the exact structure real detectors key on:
-  game (30 s) → black+silence (1.5 s) → six loud fast-cut national ads
-  (18 s) → black+silence (1.5 s) → game (24 s)
+  game (12 s) → black+silence (1.5 s) → six loud fast-cut national ads
+  (18 s) → black+silence (1.5 s) → game (10 s)
+
+The business promo spots are built on licensed Adobe Stock photography
+(free-collection assets 241107328, 327610055, 246980236 in assets_src/)
+with Ken Burns motion and the Maxx's Bar & Grill lockup.
 
 Run:  python make_demo_media.py          (~5-10 min; requires ffmpeg + Pillow)
 """
@@ -423,32 +427,48 @@ def ad_frame_insurance(t, dur):
     return img
 
 
-def ad_frame_detergent(t, dur):
-    img = vgrad(W, H, (250, 214, 235), (242, 170, 210)).convert("RGBA")
+def ad_frame_softserve(t, dur):
+    """Competitor dessert ad — the exact revenue leak AD-SHARK exists to stop:
+    the customer just ate at YOUR restaurant, sees this, and buys dessert on
+    the way home somewhere else."""
+    img = vgrad(W, H, (252, 224, 238), (246, 182, 214)).convert("RGBA")
     d = ImageDraw.Draw(img)
     for k in range(14):
         a = -t * 0.8 + k * math.pi / 7
-        d.polygon([(W / 2, 290),
-                   (W / 2 + 720 * math.cos(a), 290 + 720 * math.sin(a)),
-                   (W / 2 + 720 * math.cos(a + 0.10), 290 + 720 * math.sin(a + 0.10))],
-                  fill=(255, 255, 255, 42))
-    cx, cy = W / 2, 310
-    d.rounded_rectangle([cx - 90, cy - 130, cx + 90, cy + 130], 30, fill=(160, 30, 110))
-    d.rounded_rectangle([cx - 46, cy - 176, cx + 46, cy - 118], 12, fill=(240, 200, 40))
-    d.rounded_rectangle([cx - 66, cy - 60, cx + 66, cy + 84], 16, fill=(255, 255, 255))
-    d.text((cx, cy - 20), "SHINE", font=font(36), fill=(160, 30, 110), anchor="mm")
-    d.text((cx, cy + 30), "ultra", font=font(24), fill=(90, 90, 100), anchor="mm")
-    for k in range(7):
-        a = t * 4 + k * 1.7
-        star(d, cx + 170 * math.cos(a * 0.7 + k),
-             cy - 40 + 130 * math.sin(a * 0.5 + k * 2),
-             14 + 5 * math.sin(t * 6 + k), (255, 255, 255, 240), rot=a)
-    glow_text(img, (W / 2, 80), "SHINE DETERGENT", font(62), (120, 20, 80),
+        d.polygon([(W / 2, 300),
+                   (W / 2 + 720 * math.cos(a), 300 + 720 * math.sin(a)),
+                   (W / 2 + 720 * math.cos(a + 0.10), 300 + 720 * math.sin(a + 0.10))],
+                  fill=(255, 255, 255, 46))
+    cx, cy = W / 2, 330
+    # cone
+    d.polygon([(cx - 62, cy - 10), (cx + 62, cy - 10), (cx, cy + 150)],
+              fill=(214, 158, 88))
+    for gy in range(0, 4):
+        d.line([(cx - 56 + gy * 10, cy + gy * 34 - 4), (cx + 56 - gy * 10, cy + gy * 34 - 4)],
+               fill=(178, 126, 62), width=3)
+    # soft-serve swirl
+    sway = math.sin(t * 3) * 4
+    for i, r in enumerate((66, 56, 44, 30)):
+        yy = cy - 30 - i * 38
+        d.ellipse([cx - r + sway * (i % 2), yy - 26, cx + r + sway * (i % 2), yy + 26],
+                  fill=(252, 248, 240))
+        d.ellipse([cx - r + sway * (i % 2), yy - 26, cx + r + sway * (i % 2), yy + 6],
+                  fill=(255, 253, 248))
+    d.polygon([(cx - 8, cy - 196), (cx + 16, cy - 226), (cx + 8, cy - 188)],
+              fill=(252, 248, 240))
+    # cherry
+    d.ellipse([cx - 12, cy - 208, cx + 12, cy - 184], fill=(210, 30, 60))
+    glow_text(img, (W / 2, 80), "SWIRLY'S SOFT SERVE", font(60), (196, 32, 92),
               (255, 255, 255), 10, anchor="mm")
     d = ImageDraw.Draw(img)
-    d.text((W / 2, 496), "50% BRIGHTER WHITES", font=font(32), fill=(110, 25, 75),
-           anchor="mm")
-    d.text((30, 26), "AD", font=font(18), fill=(120, 20, 80, 170))
+    badge = 1 + 0.07 * math.sin(t * 8)
+    d.ellipse([772 - 82 * badge, 350 - 82 * badge, 772 + 82 * badge, 350 + 82 * badge],
+              fill=(196, 32, 92))
+    d.text((772, 332), "ONLY", font=font(24), fill=(255, 255, 255), anchor="mm")
+    d.text((772, 368), "$1.99", font=font(40), fill=(255, 240, 160), anchor="mm")
+    d.text((W / 2, 496), "GRAB ONE ON YOUR WAY HOME", font=font(32),
+           fill=(120, 20, 60), anchor="mm")
+    d.text((30, 26), "AD", font=font(18), fill=(120, 20, 60, 170))
     return img
 
 
@@ -473,130 +493,85 @@ def _promo_chrome(img, t, headline, sub, cta, accent):
     d.text((W / 2, H - 50), cta, font=font(22), fill=(14, 10, 4, a), anchor="mm")
 
 
-def promo_frame_burger(t, dur):
-    img = vgrad(W, H, (16, 12, 8), (34, 22, 12)).convert("RGBA")
-    img.alpha_composite(radial_glow(760, (242, 169, 0)), (W // 2 - 380, -110))
+PHOTOS = {}
+
+
+def _photo(name):
+    """Load a licensed stock photo once, pre-scaled for Ken Burns headroom."""
+    if name not in PHOTOS:
+        p = os.path.join(os.path.dirname(__file__), "assets_src", f"{name}.jpg")
+        img = Image.open(p).convert("RGB")
+        # cover-scale to 1.18x the canvas so we can zoom/pan without edges
+        scale = max(W * 1.18 / img.width, H * 1.18 / img.height)
+        img = img.resize((int(img.width * scale), int(img.height * scale)),
+                         Image.LANCZOS)
+        PHOTOS[name] = img
+    return PHOTOS[name]
+
+
+def photo_promo_frame(t, dur, photo, headline, sub, cta, accent,
+                      badge_top, badge_main, pan=(0.5, 0.55)):
+    """Promo spot built on real food photography: slow Ken Burns move,
+    cinematic dark gradients, brand lockup, price badge."""
+    src = _photo(photo)
+    # Ken Burns: slow zoom-in with a slight drift toward the pan anchor
+    z = 1.0 + 0.12 * (t / dur)
+    cw, ch = int(W * 1.18 / z), int(H * 1.18 / z)
+    cw, ch = min(cw, src.width), min(ch, src.height)
+    cx = pan[0] * src.width + (t / dur) * 18
+    cy = pan[1] * src.height + (t / dur) * 10
+    x0 = int(min(max(cx - cw / 2, 0), src.width - cw))
+    y0 = int(min(max(cy - ch / 2, 0), src.height - ch))
+    img = src.crop((x0, y0, x0 + cw, y0 + ch)).resize((W, H), Image.BILINEAR)
+    img = img.convert("RGBA")
+
+    # cinematic top/bottom gradients so type is readable over the photo
+    shade = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(shade)
+    for y in range(240):
+        sd.line([(0, y), (W, y)], fill=(6, 5, 4, int(215 * (1 - y / 240))))
+    for y in range(190):
+        yy = H - 1 - y
+        sd.line([(0, yy), (W, yy)], fill=(6, 5, 4, int(220 * (1 - y / 190))))
+    img.alpha_composite(shade)
+    img.alpha_composite(VIGNETTE)
+
+    # price badge
     d = ImageDraw.Draw(img)
-    cx, cy = W / 2, 368
-    bob = math.sin(t * 2) * 5
-    for k in range(3):  # steam wisps
-        phase = t * 0.7 + k * 2.1
-        pts = [(cx - 60 + k * 60 + 18 * math.sin(phase + y / 30.0),
-                cy - 130 + bob - y) for y in range(0, 110, 8)]
-        a = int(90 + 50 * math.sin(phase))
-        d.line(pts, fill=(255, 245, 225, max(30, a)), width=5, joint="curve")
-    d.ellipse([cx - 190, cy + 66 + bob, cx + 190, cy + 122 + bob], fill=(0, 0, 0, 130))
-    d.rounded_rectangle([cx - 175, cy + 30 + bob, cx + 175, cy + 78 + bob], 22,
-                        fill=(224, 162, 76))
-    for k in range(8):
-        lx = cx - 165 + k * 48
-        d.ellipse([lx - 30, cy + 6 + bob, lx + 30, cy + 44 + bob], fill=(94, 172, 62))
-    d.rounded_rectangle([cx - 165, cy - 16 + bob, cx + 165, cy + 20 + bob], 14,
-                        fill=(92, 50, 24))
-    d.rectangle([cx - 165, cy - 26 + bob, cx + 165, cy - 10 + bob], fill=(250, 190, 50))
-    for k in range(6):
-        chx = cx - 138 + k * 55
-        d.polygon([(chx - 26, cy - 12 + bob), (chx + 26, cy - 12 + bob),
-                   (chx, cy + 28 + bob)], fill=(250, 190, 50))
-    d.rounded_rectangle([cx - 158, cy - 52 + bob, cx + 158, cy - 20 + bob], 12,
-                        fill=(92, 50, 24))
-    d.ellipse([cx - 175, cy - 128 + bob, cx + 175, cy - 22 + bob], fill=(238, 176, 86))
-    rng = random.Random(4)
-    for _ in range(18):
-        sx = cx + rng.uniform(-130, 130)
-        sy = cy - 100 + bob + rng.uniform(0, 48) - abs(sx - cx) * 0.14
-        d.ellipse([sx - 6, sy - 3, sx + 6, sy + 3], fill=(252, 240, 205))
-    rock = math.sin(t * 3) * 0.12
-    bx, by = cx + 268, cy - 60
-    d.ellipse([bx - 84, by - 84, bx + 84, by + 84], fill=(242, 169, 0))
-    d.ellipse([bx - 74, by - 74, bx + 74, by + 74], outline=(20, 14, 6), width=3)
-    d.text((bx, by - 22 + rock * 40), "½ PRICE", font=font(30), fill=(20, 14, 6),
-           anchor="mm")
-    d.text((bx, by + 20 + rock * 40), "game time", font=font(20), fill=(60, 40, 10),
-           anchor="mm")
-    _promo_chrome(img, t, "THE ZENIE BURGER", "half price during every game",
-                  "ORDER AT THE BAR — TONIGHT ONLY", (242, 169, 0))
+    rock = math.sin(t * 3) * 4
+    bx, by = W - 150, 300 + rock
+    d.ellipse([bx - 84, by - 84, bx + 84, by + 84], fill=(*accent, 245))
+    d.ellipse([bx - 73, by - 73, bx + 73, by + 73], outline=(20, 14, 6, 220),
+              width=3)
+    d.text((bx, by - 26), badge_top, font=font(17), fill=(20, 14, 6), anchor="mm")
+    d.text((bx, by + 12), badge_main, font=font(32), fill=(20, 14, 6), anchor="mm")
+
+    _promo_chrome(img, t, headline, sub, cta, accent)
     return img
+
+
+def promo_frame_burger(t, dur):
+    return photo_promo_frame(
+        t, dur, "burger",
+        "THE ZENIE BURGER", "half price during every game",
+        "ORDER AT THE BAR — TONIGHT ONLY", (242, 169, 0),
+        "GAME TIME", "\u00bd PRICE", pan=(0.5, 0.55))
 
 
 def promo_frame_wings(t, dur):
-    img = vgrad(W, H, (22, 8, 6), (52, 14, 8)).convert("RGBA")
-    d = ImageDraw.Draw(img)
-    for layer, (col, amp, yb) in enumerate([((200, 60, 10, 160), 46, 40),
-                                            ((245, 120, 20, 170), 34, 22),
-                                            ((255, 200, 60, 180), 22, 6)]):
-        pts = [(0, H)]
-        for x in range(0, W + 1, 24):
-            y = H - yb - amp * (0.6 + 0.4 * math.sin(x * 0.045 + t * (3 + layer)))
-            pts.append((x, y))
-        pts.append((W, H))
-        d.polygon(pts, fill=col)
-    rng = random.Random(6)
-    for _ in range(26):
-        ex = rng.uniform(0, W)
-        ey = (rng.uniform(0, H) - t * rng.uniform(50, 130)) % H
-        r = rng.uniform(2, 5)
-        d.ellipse([ex - r, ey - r, ex + r, ey + r],
-                  fill=(255, 170, 60, int(rng.uniform(70, 190))))
-    cx, cy = W / 2, 350
-    d.rounded_rectangle([cx - 180, cy + 10, cx + 180, cy + 96], 18, fill=(150, 34, 26))
-    d.rounded_rectangle([cx - 196, cy - 6, cx + 196, cy + 26], 12, fill=(180, 44, 32))
-    wing_rng = random.Random(2)
-    for k in range(7):
-        wx = cx - 140 + k * 47 + wing_rng.uniform(-8, 8)
-        wy = cy - 24 + (k % 2) * 14
-        wing = Image.new("RGBA", (110, 80), (0, 0, 0, 0))
-        wd = ImageDraw.Draw(wing)
-        wd.ellipse([10, 20, 86, 66], fill=(176, 84, 30))
-        wd.ellipse([60, 12, 102, 46], fill=(150, 66, 22))
-        wd.ellipse([16, 30, 52, 58], fill=(198, 104, 40))
-        wing = wing.rotate(wing_rng.uniform(-30, 30), resample=Image.BICUBIC,
-                           expand=True)
-        img.alpha_composite(wing, (int(wx - wing.width / 2), int(wy - wing.height / 2)))
-    price = 1 + 0.06 * math.sin(t * 6)
-    glow_text(img, (cx + 286, 300), "50¢", font(int(84 * price)), (255, 220, 80),
-              (255, 120, 20), 16, anchor="mm")
-    _promo_chrome(img, t, "WING NIGHT", "every wednesday — all flavors",
-                  "DINE-IN ONLY — ASK YOUR SERVER", (226, 88, 34))
-    return img
+    return photo_promo_frame(
+        t, dur, "wings",
+        "50\u00a2 WING NIGHT", "every wednesday — all flavors",
+        "DINE-IN ONLY — ASK YOUR SERVER", (226, 88, 34),
+        "EVERY WED", "50\u00a2", pan=(0.45, 0.5))
 
 
-def promo_frame_happyhour(t, dur):
-    img = vgrad(W, H, (6, 14, 26), (12, 28, 48)).convert("RGBA")
-    d = ImageDraw.Draw(img)
-    rng = random.Random(8)
-    for _ in range(30):
-        bx = rng.uniform(0, W)
-        r = rng.uniform(2, 7)
-        by = (rng.uniform(0, H) - t * (18 + r * 8)) % (H + 20) - 10
-        d.ellipse([bx - r, by - r, bx + r, by + r], outline=(120, 180, 220, 90),
-                  width=1)
-    clink = math.sin(t * 1.6)
-    for side in (-1, 1):
-        ang = side * (8 - 6 * max(0, clink))
-        mug = Image.new("RGBA", (240, 300), (0, 0, 0, 0))
-        md = ImageDraw.Draw(mug)
-        md.rounded_rectangle([40, 60, 180, 280], 18, fill=(244, 170, 40, 235))
-        for gx in (62, 96, 130):
-            md.rounded_rectangle([gx, 76, gx + 16, 264], 8, fill=(255, 220, 120, 130))
-        md.rounded_rectangle([40, 60, 180, 280], 18, outline=(255, 245, 220, 200),
-                             width=5)
-        md.rounded_rectangle([176, 110, 226, 230], 22, outline=(255, 245, 220, 200),
-                             width=12)
-        md.ellipse([30, 30, 110, 86], fill=(252, 248, 238))
-        md.ellipse([80, 20, 160, 80], fill=(252, 248, 238))
-        md.ellipse([130, 32, 196, 86], fill=(252, 248, 238))
-        for _ in range(9):
-            fx, fy = rng.uniform(46, 180), rng.uniform(90, 250)
-            md.ellipse([fx - 3, fy - 3, fx + 3, fy + 3], fill=(255, 235, 170, 150))
-        mug = mug.rotate(ang, resample=Image.BICUBIC, expand=True)
-        x = int(W / 2 + side * 150 - mug.width / 2 + side * -30 * max(0, clink))
-        img.alpha_composite(mug, (x, 250 - mug.height // 2 + 60))
-    if clink > 0.93:
-        star(d, W / 2, 300, 44, (255, 255, 220, 240), rot=t * 2)
-    _promo_chrome(img, t, "HAPPY HOUR 4–7", "$3 drafts • $5 apps • mon–fri",
-                  "BRING A FRIEND — WE'LL KEEP THE GAME ON", (58, 160, 216))
-    return img
+def promo_frame_dessert(t, dur):
+    return photo_promo_frame(
+        t, dur, "dessert",
+        "SAVE ROOM FOR DESSERT", "molten chocolate cake — made here",
+        "ASK FOR THE DESSERT MENU BEFORE YOU GO", (200, 120, 200),
+        "TONIGHT", "$6", pan=(0.42, 0.5))
 
 
 # ── encoding ─────────────────────────────────────────────────────────────────
@@ -654,21 +629,21 @@ def main():
     seg = lambda n: os.path.join(tmp, n)
 
     print("Rendering game segments (PIL frames)…")
-    render_segment(seg("g1.mp4"), 30,
+    render_segment(seg("g1.mp4"), 12,
                    lambda t, d: game_frame(t, d, (21, 17), 462, fade_out=True),
-                   CROWD.format(d=30))
+                   CROWD.format(d=12))
     black_segment(seg("b1.mp4"))
     print("Rendering national ad block…")
     ads = [(ad_frame_car, 520), (ad_frame_cola, 660), (ad_frame_burger, 440),
            (ad_frame_phone, 780), (ad_frame_insurance, 350),
-           (ad_frame_detergent, 590)]
+           (ad_frame_softserve, 590)]
     for i, (fn, f) in enumerate(ads):
         render_segment(seg(f"c{i}.mp4"), 3, fn,
                        AD_AUDIO.format(f=f, f15=int(f * 1.5), f2=f * 2, d=3))
     black_segment(seg("b2.mp4"))
-    render_segment(seg("g2.mp4"), 24,
+    render_segment(seg("g2.mp4"), 10,
                    lambda t, d: game_frame(t, d, (24, 17), 311, fade_in=True),
-                   CROWD.format(d=24))
+                   CROWD.format(d=10))
 
     print("Concatenating broadcast…")
     concat([seg("g1.mp4"), seg("b1.mp4"),
@@ -679,7 +654,7 @@ def main():
     print("Rendering AD-SHARK promo spots…")
     promos = [("ad_burger.mp4", promo_frame_burger, 392),
               ("ad_wings.mp4", promo_frame_wings, 440),
-              ("ad_happyhour.mp4", promo_frame_happyhour, 494)]
+              ("ad_dessert.mp4", promo_frame_dessert, 494)]
     for name, fn, f in promos:
         render_segment(os.path.join(OUT_DIR, name), 10, fn,
                        PROMO_AUDIO.format(f=f, f5=int(f * 1.25), f3=int(f * 1.5),
