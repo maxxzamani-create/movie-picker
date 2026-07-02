@@ -3,24 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AD-SHARK — Your TV. Your ads. Every break.</title>
-<meta name="description" content="AD-SHARK detects commercial breaks on the TVs in your bar or restaurant and swaps them for your own specials. No more competitor food ads in front of your captive audience.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦈</text></svg>">
+<title>AdShark.tv — Your TV. Your ads. Every break.</title>
+<meta name="description" content="AdShark detects commercial breaks on the TVs in your bar or restaurant and swaps them for your own specials. No more competitor food ads in front of your captive audience.">
+<meta name="theme-color" content="#06080d">
+<link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
+<link rel="shortcut icon" href="static/brand/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="static/brand/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AdShark — Your TV. Your ads. Every break.">
+<meta property="og:description" content="The instant a commercial break hits, AdShark switches your bar or restaurant's screens to your own specials — then snaps back the second the game returns.">
+<meta property="og:image" content="https://adshark.tv/static/brand/og-image.jpg">
+<meta property="og:url" content="https://adshark.tv/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AdShark — Your TV. Your ads. Every break.">
+<meta name="twitter:description" content="Commercial breaks are selling for your competitors. AdShark takes that airtime back.">
+<meta name="twitter:image" content="https://adshark.tv/static/brand/og-image.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AdShark",
+  "url": "https://adshark.tv",
+  "logo": "https://adshark.tv/static/brand/og-image.jpg",
+  "description": "AdShark detects commercial breaks on TVs in bars and restaurants and automatically switches them to the owner's own promotional content.",
+  "founder": { "@type": "Person", "name": "Maxx Zamani" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root { --bg:#06080d; --surface:rgba(19,24,36,.72); --line:#232c3f;
     --text:#eef2f8; --dim:#8b96ab; --gold:#f2a900; --gold2:#ffd35c;
-    --green:#2ecc71; --red:#e74c3c; --blue:#3aa0d8; }
+    --green:#2ecc71; --red:#e74c3c; --blue:#0ea5e9; --blue2:#5fd4ff; --blue-deep:#0369a1; }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
-  body { background:var(--bg); color:var(--text); font-family:"Inter",system-ui,sans-serif; }
+  body { background:var(--bg); color:var(--text); font-family:"Inter",system-ui,sans-serif; overflow-x:hidden; }
   body::before { content:""; position:fixed; inset:-40%; z-index:-1;
     background: radial-gradient(38% 30% at 24% 20%, rgba(242,169,0,.10), transparent 60%),
-                radial-gradient(30% 26% at 80% 74%, rgba(58,160,216,.08), transparent 60%);
+                radial-gradient(30% 26% at 80% 74%, rgba(14,165,233,.14), transparent 60%);
     animation:drift 28s ease-in-out infinite alternate; }
   @keyframes drift { from{transform:translate(-2%,-1%);} to{transform:translate(2%,2%);} }
-  a { color:var(--gold2); }
+  a { color:var(--blue2); }
   .btn { display:inline-block; padding:14px 28px; border-radius:12px; text-decoration:none;
     font-weight:800; font-size:15px; border:1px solid var(--line); color:var(--text);
     background:rgba(16,21,32,.85); transition:.2s; }
@@ -28,16 +52,19 @@
   .btn.primary { background:linear-gradient(120deg,var(--gold2),var(--gold));
     color:#17110a; border-color:transparent; }
   .btn.primary:hover { box-shadow:0 12px 34px rgba(242,169,0,.35); }
-  header { display:flex; align-items:center; gap:14px; padding:16px 28px;
+  .btn.blue { background:linear-gradient(120deg,var(--blue2),var(--blue));
+    color:#03202e; border-color:transparent; }
+  .btn.blue:hover { box-shadow:0 12px 34px rgba(14,165,233,.35); }
+  header { display:flex; align-items:center; gap:12px; padding:14px 28px;
     border-bottom:1px solid rgba(255,255,255,.06); position:sticky; top:0;
     background:rgba(6,8,13,.85); backdrop-filter:blur(10px); z-index:50; }
-  .logo { width:42px; height:42px; filter:drop-shadow(0 4px 14px rgba(242,169,0,.45)); }
-  .wordmark { font-family:"Bebas Neue"; font-size:30px; letter-spacing:4px; line-height:1;
-    background:linear-gradient(100deg,#ffd35c 10%,#f2a900 45%,#b87400 90%);
-    -webkit-background-clip:text; background-clip:text; color:transparent; }
-  header nav { margin-left:auto; display:flex; gap:10px; flex-wrap:wrap; }
+  .logo { width:38px; height:38px; filter:drop-shadow(0 4px 14px rgba(14,165,233,.5)); flex-shrink:0; }
+  .wordmark { font-family:"Bebas Neue"; font-size:26px; letter-spacing:3px; line-height:1;
+    background:linear-gradient(100deg,#bdeeff 5%,var(--blue2) 40%,var(--blue-deep) 95%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; white-space:nowrap; }
+  header nav { margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
   header nav a { color:var(--dim); text-decoration:none; font-size:13px; font-weight:600;
-    padding:9px 14px; border-radius:10px; }
+    padding:9px 13px; border-radius:10px; }
   header nav a:hover { color:var(--text); background:rgba(255,255,255,.05); }
   section { max-width:1100px; margin:0 auto; padding:72px 28px; }
   h1 { font-family:"Bebas Neue"; font-size:clamp(44px,7vw,84px); letter-spacing:3px;
@@ -47,17 +74,21 @@
   h2 { font-family:"Bebas Neue"; font-size:38px; letter-spacing:2px; margin-bottom:20px; }
   .sub { color:var(--dim); font-size:18px; line-height:1.7; max-width:640px; }
   .hero { display:grid; grid-template-columns:1.15fr 1fr; gap:44px; align-items:center;
-    padding-top:84px; }
+    padding-top:64px; }
   @media (max-width:900px){ .hero{grid-template-columns:1fr;} }
   .hero .ctas { display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
+  .trust-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+  .trust-chip { display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700;
+    color:var(--dim); background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+    padding:8px 13px; border-radius:100px; }
   .tvframe { border-radius:18px; overflow:hidden; border:1px solid #2a3040;
-    box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(242,169,0,.12); }
+    box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(14,165,233,.15); }
   .tvframe video { display:block; width:100%; }
   .filmwrap { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden;
     border:1px solid #2a3040; background:#000;
     box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(242,169,0,.12); }
   .filmwrap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
-  .kicker { color:var(--gold2); font-weight:800; letter-spacing:3px; font-size:12px;
+  .kicker { color:var(--blue2); font-weight:800; letter-spacing:3px; font-size:12px;
     text-transform:uppercase; margin-bottom:14px; }
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
   .card { background:var(--surface); border:1px solid rgba(255,255,255,.07);
@@ -75,6 +106,45 @@
     background:linear-gradient(120deg,var(--gold2),var(--gold)); }
   .step h3 { font-size:16px; margin-bottom:8px; }
   .step p { color:var(--dim); font-size:13.5px; line-height:1.65; }
+
+  /* trust / credibility section */
+  .trust-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-top:26px; }
+  .trust-card { background:var(--surface); border:1px solid rgba(14,165,233,.25);
+    border-radius:18px; padding:26px; }
+  .trust-card .ic { font-size:26px; margin-bottom:12px; display:block; }
+  .trust-card h3 { font-size:17px; margin-bottom:10px; }
+  .trust-card p { color:var(--dim); font-size:14px; line-height:1.7; }
+  .founder-note { margin-top:22px; background:rgba(14,165,233,.07); border:1px solid rgba(14,165,233,.28);
+    border-radius:16px; padding:20px 22px; font-size:14.5px; line-height:1.8; color:#cdd6e4; }
+  .founder-note b { color:var(--blue2); }
+  .founding-badge { display:inline-flex; align-items:center; gap:10px; margin-top:24px;
+    background:linear-gradient(120deg,rgba(255,211,92,.14),rgba(242,169,0,.08));
+    border:1px solid rgba(242,169,0,.4); border-radius:100px; padding:10px 20px;
+    font-weight:800; font-size:13px; letter-spacing:.5px; }
+
+  /* comparison table */
+  .compare { margin-top:26px; overflow-x:auto; border-radius:16px; border:1px solid rgba(255,255,255,.08); }
+  table.cmp { width:100%; border-collapse:collapse; min-width:560px; background:var(--surface); }
+  table.cmp th, table.cmp td { padding:16px 18px; text-align:left; font-size:14px;
+    border-bottom:1px solid rgba(255,255,255,.06); }
+  table.cmp thead th { font-family:"Bebas Neue"; letter-spacing:1.5px; font-size:15px;
+    color:var(--dim); background:rgba(255,255,255,.02); }
+  table.cmp thead th.hl { color:#03202e; background:linear-gradient(120deg,var(--blue2),var(--blue)); }
+  table.cmp tbody td.hl { background:rgba(14,165,233,.08); font-weight:700; color:var(--blue2); }
+  table.cmp tbody tr:last-child td { border-bottom:none; }
+  table.cmp td.yes { color:var(--green); font-weight:700; }
+  table.cmp td.no { color:var(--dim); }
+
+  /* FAQ */
+  .faq { display:flex; flex-direction:column; gap:12px; margin-top:26px; }
+  .faq details { background:var(--surface); border:1px solid rgba(255,255,255,.07);
+    border-radius:14px; padding:18px 20px; }
+  .faq summary { cursor:pointer; font-weight:700; font-size:15.5px; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary::after { content:"+"; font-size:22px; color:var(--blue2); font-weight:400; flex-shrink:0; }
+  .faq details[open] summary::after { content:"−"; }
+  .faq p { color:var(--dim); font-size:14px; line-height:1.7; margin-top:14px; }
 
   /* Sharky the avatar */
   .sharky-zone { display:grid; grid-template-columns:280px 1fr; gap:34px; align-items:center;
@@ -131,26 +201,30 @@
   .phase.done .tag { background:rgba(46,204,113,.15); color:var(--green); }
   .phase h3 { margin:12px 0 8px; font-size:17px; }
   .phase p { color:var(--dim); font-size:13.5px; line-height:1.65; }
+
   footer { border-top:1px solid rgba(255,255,255,.06); padding:34px 28px; text-align:center;
     color:var(--dim); font-size:13px; line-height:1.8; }
+  footer img { height:22px; vertical-align:middle; margin-right:8px; opacity:.85; }
+
+  /* scroll reveal */
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity:1; transform:translateY(0); }
 </style>
 </head>
 <body>
 <header>
-  <svg class="logo" viewBox="0 0 64 64"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#ffd35c"/><stop offset="1" stop-color="#b87400"/></linearGradient></defs>
-    <path fill="url(#lg)" d="M6 38c10-14 26-20 46-18l6-10 2 14c2 2 3 4 3 6-14 12-34 16-48 12l-9 8-2-14z"/>
-    <circle cx="48" cy="30" r="2.4" fill="#06080d"/></svg>
-  <div><div class="wordmark">AD-SHARK</div></div>
+  <img class="logo" src="static/brand/icon.png" alt="AdShark shark-fin logo">
+  <div class="wordmark">ADSHARK.TV</div>
   <nav>
     <a href="#film">▶ Watch</a>
     <a href="#problem">The Leak</a>
     <a href="#how">How it works</a>
+    <a href="#trust">Why Trust Us</a>
     <a href="#sharky">Meet Sharky</a>
     <a href="#pricing">Pricing</a>
-    <a href="#roadmap">Roadmap</a>
-    <a href="tv.html" style="color:var(--gold2)">▶ Live Demo</a>
-    <a href="pitch.html" style="color:var(--gold2)">Investor Deck</a>
+    <a href="#faq">FAQ</a>
+    <a href="tv.html" style="color:var(--blue2)">▶ Live Demo</a>
+    <a href="pitch.html" style="color:var(--blue2)">Investor Deck</a>
   </nav>
 </header>
 
@@ -158,13 +232,18 @@
   <div>
     <div class="kicker">For bars · restaurants · anywhere with a TV</div>
     <h1>YOUR TV.<br><span class="gold">YOUR ADS.</span><br>EVERY BREAK.</h1>
-    <p class="sub" style="margin-top:22px">AD-SHARK watches the game with you. The moment
+    <p class="sub" style="margin-top:22px">AdShark watches the game with you. The moment
       the broadcast cuts to commercials, your screens switch to <b>your</b> specials —
       your burger, your wings, your dessert — then snap back the instant the game returns.
       No more competitor food ads in front of your captive audience.</p>
     <div class="ctas">
       <a class="btn primary" href="tv.html">▶ Watch the live demo</a>
       <a class="btn" href="dashboard.html">See the owner dashboard</a>
+    </div>
+    <div class="trust-row">
+      <div class="trust-chip">🔒 Never touches your broadcast signal</div>
+      <div class="trust-chip">📺 Works with your TV & streaming setup</div>
+      <div class="trust-chip">🎯 10 founding spots · price locked for life</div>
     </div>
   </div>
   <div class="tvframe">
@@ -175,20 +254,20 @@
   </div>
 </section>
 
-<section id="film">
+<section id="film" class="reveal">
   <div class="kicker">See it in 90 seconds</div>
   <h2>WATCH THE FILM</h2>
   <p class="sub" style="margin-bottom:26px">Our spokesperson breaks down what your guests
-    do during commercial breaks, what it costs you, and how AD-SHARK turns that moment
+    do during commercial breaks, what it costs you, and how AdShark turns that moment
     into revenue for your business.</p>
   <div class="filmwrap">
     <iframe src="https://drive.google.com/file/d/1M2NBolP5syLQb-sP7IUCEUJhc9FtfLQu/preview"
             allow="autoplay; fullscreen" allowfullscreen loading="lazy"
-            title="AD-SHARK — The Future of CTV Advertising"></iframe>
+            title="AdShark — The Future of CTV Advertising"></iframe>
   </div>
 </section>
 
-<section id="problem">
+<section id="problem" class="reveal">
   <div class="kicker">The problem</div>
   <h2>EVERY BREAK, YOUR TV SELLS FOR SOMEONE ELSE</h2>
   <p class="sub" style="margin-bottom:28px">Your customer just finished dinner and is thinking
@@ -203,15 +282,15 @@
   <p class="sub" style="margin-top:22px; max-width:800px">Put those numbers together and a typical
     restaurant is leaking an estimated <b style="color:var(--gold2)">$16,000 a year</b> in add-on
     sales — desserts, appetizers, and drinks that guests were ready to buy, just not from you.
-    AD-SHARK turns that same moment into revenue for your business instead. (Try the calculator
+    AdShark turns that same moment into revenue for your business instead. (Try the calculator
     on the dashboard demo with your own numbers.)</p>
 </section>
 
-<section id="how">
+<section id="how" class="reveal">
   <div class="kicker">How it works</div>
   <h2>DETECT. TAKE OVER. SNAP BACK.</h2>
   <div class="steps" style="margin-top:30px">
-    <div class="step"><h3>Notices the break</h3><p>AD-SHARK watches the broadcast right along
+    <div class="step"><h3>Notices the break</h3><p>AdShark watches the broadcast right along
       with your customers and knows the instant it cuts to commercials — no waiting, no lag.</p></div>
     <div class="step"><h3>Puts your menu on screen</h3><p>Your own promo spots play instead:
       real ads for your food, built from your photos, each getting equal airtime.
@@ -223,11 +302,43 @@
       every second your screens spent selling for you, so you can watch it turn into bigger checks.</p></div>
   </div>
   <div class="roi" style="margin-top:22px">📺 <b>Works with what you already have.</b>
-    AD-SHARK is compatible with almost every TV and streaming setup on the market today —
+    AdShark is compatible with almost every TV and streaming setup on the market today —
     no new hardware headaches, no IT department, no changing how your bar already runs.</div>
 </section>
 
-<section id="sharky">
+<section id="trust" class="reveal">
+  <div class="kicker">Why trust a pre-launch startup</div>
+  <h2>WE'RE NOT ASKING YOU TO TAKE OUR WORD FOR IT</h2>
+  <p class="sub" style="margin-bottom:10px">AdShark is early — Phase 1 is live software, Phase 2 is
+    a 10-location pilot. Here's exactly how we handle that honestly.</p>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <span class="ic">🔒</span>
+      <h3>Your broadcast is never touched</h3>
+      <p>AdShark only changes what your local screen displays during a break. Your cable box,
+        streaming device, and the actual game feed are never modified, recorded, or interfered with.</p>
+    </div>
+    <div class="trust-card">
+      <span class="ic">🛠️</span>
+      <h3>Built by an operator</h3>
+      <p>Founder Maxx Zamani runs a licensed mortgage lending practice and a solar company day
+        to day. This is built by someone who has to make margins and payroll work in the real
+        world — not a side project sitting in a lab.</p>
+    </div>
+    <div class="trust-card">
+      <span class="ic">▶</span>
+      <h3>Try it before you talk to anyone</h3>
+      <p>The live demo and owner dashboard are open right now, in your browser — no sales call,
+        no signup wall, no "book a demo" form required to see exactly what you'd be buying.</p>
+    </div>
+  </div>
+  <div class="founder-note">📧 <b>Straight talk:</b> we're taking the first 10 restaurants and bars
+    into a founding pilot so we can prove real check-size lift before scaling. If you join now,
+    you're an early partner shaping the product — not customer #4,000. <a href="#contact">Reach out directly</a> and you'll hear back from Maxx, not a support queue.</div>
+  <div class="founding-badge">🎯 10 FOUNDING SPOTS · FIRST MONTH FREE · PRICE LOCKED FOR LIFE</div>
+</section>
+
+<section id="sharky" class="reveal">
   <div class="kicker">Meet Sharky</div>
   <h2>LET SHARKY EXPLAIN IT</h2>
   <div class="sharky-zone">
@@ -247,9 +358,9 @@
     </svg>
     <div>
       <div class="bubble">
-        <div class="who">SHARKY · AD-SHARK SPOKESFISH</div>
+        <div class="who">SHARKY · ADSHARK SPOKESFISH</div>
         <div id="bubbleText">Hey! I'm Sharky. Click "Play the tour" and I'll walk you
-          through what AD-SHARK does, why your TV is leaking money, and how we bite back.
+          through what AdShark does, why your TV is leaking money, and how we bite back.
           🔊 Turn your sound on — I actually talk.</div>
       </div>
       <div class="sharky-ctl">
@@ -261,14 +372,36 @@
   </div>
 </section>
 
-<section id="pricing">
+<section id="compare" class="reveal">
+  <div class="kicker">The alternative</div>
+  <h2>WHAT YOUR SCREENS ARE DOING RIGHT NOW VS. WITH ADSHARK</h2>
+  <p class="sub" style="margin-bottom:6px">Most bars fall into one of two camps: TVs just run the
+    broadcast (ads and all), or someone bought expensive digital signage that replaces the game
+    entirely. Neither one is selling for you during a commercial break.</p>
+  <div class="compare">
+    <table class="cmp">
+      <thead>
+        <tr><th>&nbsp;</th><th>Doing nothing</th><th>Traditional digital signage</th><th class="hl">AdShark</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Keeps the live game/broadcast on</td><td class="yes">Yes</td><td class="no">No — replaces it</td><td class="hl">Yes, always</td></tr>
+        <tr><td>Who the commercial break sells for</td><td class="no">National brands</td><td class="no">Whoever's on the loop</td><td class="hl">You, automatically</td></tr>
+        <tr><td>New screens or hardware required</td><td class="yes">None</td><td class="no">Usually yes</td><td class="hl">Works with what you have</td></tr>
+        <tr><td>Set up time</td><td class="yes">N/A</td><td class="no">Days</td><td class="hl">Minutes</td></tr>
+        <tr><td>Tracks what it recaptured for you</td><td class="no">No</td><td class="no">Rarely</td><td class="hl">Every play, on your dashboard</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="pricing" class="reveal">
   <div class="kicker">Pricing</div>
   <h2>COSTS LESS THAN ONE LOST TABLE A WEEK</h2>
   <div class="tiers" style="margin-top:26px">
     <div class="tier">
       <div class="name">STARTER</div>
       <div class="price">$49<span style="font-size:22px">/mo</span></div>
-      <div class="per">per location · 1 screen · + $199 one-time AD-SHARK box</div>
+      <div class="per">per location · 1 screen · + $199 one-time AdShark box</div>
       <ul><li>Automatic commercial takeover</li><li>3 promo spots in rotation</li>
         <li>Owner dashboard &amp; play counts</li><li>Email support</li></ul>
       <a class="btn" href="#contact">Join the pilot</a>
@@ -293,11 +426,54 @@
   </div>
   <div class="roi">💰 <b>The math for an owner:</b> a typical 800-guest/week room leaks an
     estimated <b>$15,900/year</b> in ad-driven walkout purchases. Full Bar costs $1,188/year.
-    If AD-SHARK recaptures even <b>one dessert a day</b>, it pays for itself — everything
+    If AdShark recaptures even <b>one dessert a day</b>, it pays for itself — everything
     after that is new margin.</div>
 </section>
 
-<section id="roadmap">
+<section id="faq" class="reveal">
+  <div class="kicker">Straight answers</div>
+  <h2>FREQUENTLY ASKED QUESTIONS</h2>
+  <div class="faq">
+    <details>
+      <summary>Does this interrupt the game or the live broadcast?</summary>
+      <p>No. AdShark only takes over during the commercial break that's already happening —
+        it snaps back to the live broadcast the instant programming resumes. Nobody misses a play,
+        and the broadcast signal itself is never modified.</p>
+    </details>
+    <details>
+      <summary>Do I need new TVs or complicated hardware?</summary>
+      <p>No. AdShark is compatible with almost every TV and streaming setup already running in
+        your bar. The Starter plan includes a one-time $199 AdShark box; Full Bar includes the
+        boxes for every screen as part of the 12-month term.</p>
+    </details>
+    <details>
+      <summary>What do I actually need to provide to get started?</summary>
+      <p>Photos of your food and drinks. On Starter, you build your own rotation of up to 3 promo
+        spots. On Full Bar, our team produces 3 professional spots from your photos at no extra
+        charge.</p>
+    </details>
+    <details>
+      <summary>How do I know it's actually working?</summary>
+      <p>Every takeover is logged on your owner dashboard — play counts, timing, and an
+        estimate of what each play was worth, so you can watch the leak turn into revenue instead
+        of just taking our word for it.</p>
+    </details>
+    <details>
+      <summary>Is this legal — does it mess with my cable or streaming feed?</summary>
+      <p>AdShark's detection never modifies the broadcast signal. It only changes what your local
+        screen displays, and only during a commercial break that's already playing. Your cable
+        box, streaming device, and the underlying feed are untouched.</p>
+    </details>
+    <details>
+      <summary>What's the "10 founding spots" offer?</summary>
+      <p>We're taking ten founding restaurants and bars through Phase 2 of the rollout — first
+        month free, with your price locked for life as an early partner. After that, pricing
+        moves to the standard tiers above.</p>
+    </details>
+  </div>
+</section>
+
+<section id="roadmap" class="reveal">
   <div class="kicker">The path</div>
   <h2>FROM DEMO TO EVERY BAR IN AMERICA</h2>
   <div class="phases" style="margin-top:26px">
@@ -317,21 +493,22 @@
     <div class="phase"><span class="tag">YEAR 2</span>
       <h3>Phase 4 · The network</h3>
       <p>Every screen is local ad inventory. Let the pizza shop next door pay to appear during
-      breaks at the gym — AD-SHARK takes the margin. This is how Atmosphere TV reached a
+      breaks at the gym — AdShark takes the margin. This is how Atmosphere TV reached a
       $1B valuation, without our "keep the game on" advantage.</p></div>
   </div>
 </section>
 
-<section id="contact" style="text-align:center">
+<section id="contact" class="reveal" style="text-align:center">
   <h2>THE SHARK IS READY. ARE YOU?</h2>
   <p class="sub" style="margin:0 auto 26px">Investors and pilot locations: get in touch and
     watch the demo take its first bite.</p>
-  <a class="btn primary" href="mailto:maxxzamani@gmail.com?subject=AD-SHARK">📧 maxxzamani@gmail.com</a>
+  <a class="btn primary" href="mailto:maxxzamani@gmail.com?subject=AdShark">📧 maxxzamani@gmail.com</a>
   <a class="btn" href="pitch.html" style="margin-left:10px">Read the investor deck →</a>
 </section>
 
 <footer>
-  AD-SHARK 🦈 — the commercial killer · demo built with licensed Adobe Stock photography ·
+  <img src="static/brand/icon.png" alt="">
+  ADSHARK.TV — the commercial killer · demo built with licensed Adobe Stock photography ·
   detection never modifies the broadcast signal, it only changes what the screen displays
 </footer>
 
@@ -340,7 +517,7 @@
 const LINES = [
   "Here's the problem. Every commercial break, the TV in your restaurant sells burgers, soft serve, and pizza... for somebody else. Your customers are sitting right there, wallets open.",
   "Research shows people snack forty five percent more while food ads play, and eight percent go buy the exact thing they saw. That purchase should happen at YOUR register.",
-  "AD-SHARK watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
+  "AdShark watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
   "During the break, your screens show YOUR specials. Real photos of your food, equal airtime for every spot. When the game comes back, I snap back instantly. Nobody misses a play.",
   "The dashboard counts every play and estimates what the leak was costing you. For a typical room, that's around sixteen thousand dollars a year, and Full Bar costs ninety nine a month.",
   "Want to see me hunt? Hit the live demo and watch me eat a commercial in real time. Chomp chomp."
@@ -377,6 +554,16 @@ document.getElementById("stopBtn").addEventListener("click", () => {
   speaking = false; try { speechSynthesis.cancel(); } catch (e) {}
   sharky.classList.remove("talking");
 });
+
+/* Scroll-reveal for sections */
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
+}
 </script>
 </body>
 </html>
