@@ -130,6 +130,13 @@
   @keyframes blink { 50% { opacity: .25; } }
   #adBadge { background: linear-gradient(120deg, var(--gold2), var(--gold));
     color: #04101f; display: none; box-shadow: 0 0 22px rgba(79,182,242,.65); }
+  .tv-mute { position: absolute; top: 26px; left: 28px; z-index: 7;
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    border: 1px solid rgba(255,255,255,.18); background: rgba(4,10,20,.6);
+    backdrop-filter: blur(6px); color: #fff; font-size: 17px; line-height: 1;
+    display: grid; place-items: center; transition: .2s; }
+  .tv-mute:hover { border-color: var(--gold); background: rgba(4,10,20,.88); transform: scale(1.06); }
+  .tv-mute.muted { color: #ff8a80; border-color: rgba(255,92,92,.5); }
 
   /* shark takeover wipe */
   .takeover { position: absolute; inset: 10px; z-index: 5; border-radius: 12px;
@@ -364,6 +371,7 @@
         </div>
         <span class="badge" id="liveBadge">LIVE</span>
         <span class="badge" id="adBadge">🦈 YOUR AD</span>
+        <button class="tv-mute" id="muteBtn" title="Mute game audio" aria-label="Mute game audio">🔊</button>
         <button id="startOverlay">
           <span class="inner">
             <img src="static/brand/icon.png" alt="AdShark" class="startIcon">
@@ -436,7 +444,7 @@ let windows = [], ads = [], adIdx = 0;
 let overrideEnabled = true, overrideActive = false, activeWindow = null;
 let curAd = null, adStartedAt = 0, adSlice = Infinity, breakAdsPlayed = 0;
 let sessionOverrides = 0, sessionAirtime = 0;
-let duration = 1, audioReady = false, analyser = null, audioBuf = null, feedGain = null;
+let duration = 1, audioReady = false, analyser = null, audioBuf = null, feedGain = null, userMuted = false;
 
 function log(msg, cls) {
   const c = $("console");
@@ -523,8 +531,23 @@ function setupAudio() {
     if (ctx.state === "suspended") ctx.resume();
     audioBuf = new Uint8Array(analyser.frequencyBinCount);
     audioReady = true;
+    applyAudio();
   } catch (e) { log("audio meter unavailable: " + e.message, "r"); }
 }
+
+// Manual mute — silence the game with one click while you talk over the demo.
+// Combined with the break state so muting never fights the auto-duck.
+function applyAudio() {
+  if (feedGain) feedGain.gain.value = (userMuted || overrideActive) ? 0 : 0.9;
+}
+const muteBtn = $("muteBtn");
+if (muteBtn) muteBtn.addEventListener("click", () => {
+  userMuted = !userMuted;
+  muteBtn.textContent = userMuted ? "🔇" : "🔊";
+  muteBtn.classList.toggle("muted", userMuted);
+  muteBtn.title = userMuted ? "Unmute game audio" : "Mute game audio";
+  applyAudio();
+});
 
 /* live telemetry — real measurements from the playing video */
 const lumaCanvas = document.createElement("canvas");
@@ -594,7 +617,7 @@ function startOverride(win) {
   sessionOverrides++;
   $("statOverrides").textContent = sessionOverrides;
   feed.muted = true;
-  if (feedGain) feedGain.gain.value = 0;   // duck the crowd — the ad carries the break
+  applyAudio();   // silence the crowd — the ad carries the break
   takeover("ADSHARK TAKEOVER");
   // split the whole break evenly across the enabled spots
   adSlice = Math.max(3, (win.end - win.start - 0.8) / ads.length);
@@ -635,7 +658,7 @@ function endOverride() {
   $("adBadge").style.display = "none";
   $("liveBadge").style.display = "inline";
   feed.muted = false;
-  if (feedGain) feedGain.gain.value = 0.9;   // bring the crowd back with the game
+  applyAudio();   // bring the crowd back with the game (unless you muted it)
   renderQueue();
   setState("", "LIVE PROGRAMMING", "programming resumed — back to the game");
   setGlow("46, 204, 113");
