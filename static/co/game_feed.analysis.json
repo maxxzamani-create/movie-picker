@@ -1,38 +1,38 @@
 {
   "video": "game_feed.mp4",
-  "duration": 43.04,
+  "duration": 43.0,
   "boundaries": [
     [
-      11.71,
-      13.54
+      12.0,
+      13.5
     ],
     [
-      31.54,
-      33.42
+      31.5,
+      33.0
     ]
   ],
   "scene_cuts": [
-    11.71,
-    13.54,
-    16.54,
-    19.54,
-    22.54,
-    25.54,
-    28.54,
-    31.54,
-    33.42
+    12.0,
+    13.5,
+    16.5,
+    19.5,
+    22.5,
+    25.5,
+    28.5,
+    31.5,
+    33.0
   ],
   "commercial_windows": [
     {
-      "start": 11.71,
-      "end": 33.42,
+      "start": 12.0,
+      "end": 33.0,
       "signals": {
         "black_frames": true,
         "audio_silence": true,
-        "scene_cuts": 5,
-        "cuts_per_min": 16.7
+        "scene_cuts": 7,
+        "cuts_per_min": 25.7
       },
-      "confidence": 0.8222222222222222
+      "confidence": 0.86
     }
   ],
   "detector": {
