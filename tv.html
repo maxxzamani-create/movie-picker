@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AD-SHARK — Live TV</title>
+<title>AdShark — Live TV</title>
 <meta name="theme-color" content="#03050a">
 <link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
@@ -329,7 +329,7 @@
 <header>
   <img class="logo" src="static/brand/icon.png" alt="AdShark logo">
   <div>
-    <div class="wordmark">AD-SHARK</div>
+    <div class="wordmark">AdShark.tv</div>
     <div class="tagline">the commercial killer</div>
   </div>
   <span class="biz" id="bizName"></span>
@@ -351,7 +351,7 @@
         <div class="takeover" id="takeover">
           <div class="wave"></div>
           <img class="fin" src="static/brand/icon.png" alt="" aria-hidden="true">
-          <div class="stamp" id="stampText">AD-SHARK TAKEOVER</div>
+          <div class="stamp" id="stampText">ADSHARK TAKEOVER</div>
         </div>
         <span class="badge" id="liveBadge">LIVE</span>
         <span class="badge" id="adBadge">🦈 YOUR AD</span>
@@ -577,7 +577,7 @@ function startOverride(win) {
   sessionOverrides++;
   $("statOverrides").textContent = sessionOverrides;
   feed.muted = true;
-  takeover("AD-SHARK TAKEOVER");
+  takeover("ADSHARK TAKEOVER");
   // split the whole break evenly across the enabled spots
   adSlice = Math.max(3, (win.end - win.start - 0.8) / ads.length);
   breakAdsPlayed = 0;

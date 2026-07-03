@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#03050a">
+<title>AdShark — Owner Dashboard (Demo Month)</title>
+<meta name="description" content="A real month of AdShark on your screens: every break captured, every spot played, every dollar estimated. Demo data for Tony's Sports Grill.">
+<link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
+<link rel="shortcut icon" href="static/brand/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#03050a;--panel:#0a1322;--panel2:#0e1a2e;--line:#1b2c47;--blue:#3db6ff;--blue2:#2e9fe6;
+        --white:#f4f8fd;--dim:#9db4d0;--gold:#ffc93d;--green:#3ddc84}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:var(--white);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  header{padding:20px 0;border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+  .logo{font-family:"Bebas Neue",sans-serif;font-size:1.35rem;letter-spacing:.06em;color:var(--white);text-decoration:none}
+  .logo span{color:var(--blue)}
+  .navlinks a{color:var(--dim);text-decoration:none;font-size:.88rem;margin-left:18px}
+  .navlinks a:hover{color:var(--blue)}
+  .bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin:30px 0 8px}
+  .venue h1{font-family:"Bebas Neue",sans-serif;font-size:1.9rem;letter-spacing:.03em}
+  .venue p{color:var(--dim);font-size:.9rem}
+  .badge{background:rgba(255,201,61,.12);border:1px solid rgba(255,201,61,.5);color:var(--gold);
+    font-weight:800;font-size:.72rem;letter-spacing:.14em;padding:7px 14px;border-radius:999px;text-transform:uppercase}
+  .armed{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:600;font-size:.9rem}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 1.6s infinite}
+  @keyframes pulse{50%{opacity:.4}}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:22px 0}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 18px}
+  .kpi .v{font-family:"Bebas Neue",sans-serif;font-size:1.9rem;letter-spacing:.02em}
+  .kpi .l{color:var(--dim);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
+  .kpi.money{border-color:var(--blue2);background:linear-gradient(160deg,var(--panel2),var(--panel))}
+  .kpi.money .v{color:var(--blue)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px}
+  .panel h2{font-family:"Bebas Neue",sans-serif;font-size:1.05rem;letter-spacing:.07em;color:var(--blue);margin-bottom:14px;text-transform:uppercase}
+  .chart{display:flex;align-items:flex-end;gap:3px;height:150px;padding-top:8px}
+  .cbar{flex:1;background:linear-gradient(180deg,var(--blue),var(--blue2));border-radius:3px 3px 0 0;min-height:4px;position:relative;opacity:.9}
+  .cbar:hover{opacity:1}
+  .cbar:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+    background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 9px;font-size:.72rem;white-space:nowrap;z-index:2}
+  .axis{display:flex;justify-content:space-between;color:var(--dim);font-size:.72rem;margin-top:8px}
+  .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+  @media(max-width:900px){.cols{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th{color:var(--dim);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:10px;border-bottom:1px solid rgba(27,44,71,.5)}
+  td.r,th.r{text-align:right}
+  .spotbar{height:6px;border-radius:3px;background:var(--blue2);margin-top:5px}
+  .feed td:first-child{color:var(--dim);white-space:nowrap}
+  .note{color:var(--dim);font-size:.8rem;margin-top:12px}
+  .roi{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--blue2);border-radius:14px;
+    padding:24px;text-align:center;margin:4px 0 40px}
+  .roi .big{font-family:"Bebas Neue",sans-serif;font-size:1.5rem}
+  .roi .big em{color:var(--gold);font-style:normal}
+  .roi p{color:var(--dim);font-size:.9rem;margin-top:6px}
+  footer{border-top:1px solid var(--line);padding:24px 0;text-align:center;color:var(--dim);font-size:.85rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="index.html">Ad<span>Shark</span> <span style="color:var(--dim);font-size:.75rem;font-family:Inter">owner dashboard</span></a>
+    <nav class="navlinks">
+      <a href="index.html">← AdShark.tv</a>
+      <a href="tv.html">Watch the TV demo</a>
+      <a href="founding10.html">Join the Founding 10</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="bar">
+    <div class="venue">
+      <h1>TONY'S SPORTS GRILL</h1>
+      <p>Tehachapi, CA · Full Bar plan · 4 screens · June 2 – July 1, 2026</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <span class="armed"><span class="dot"></span>AdShark armed — striking every break</span>
+      <span class="badge">Demo data — simulated month</span>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v" id="kBreaks">—</div><div class="l">Breaks captured</div></div>
+    <div class="kpi"><div class="v" id="kPlays">—</div><div class="l">Spot plays</div></div>
+    <div class="kpi"><div class="v" id="kAir">—</div><div class="l">Airtime reclaimed</div></div>
+    <div class="kpi"><div class="v">6</div><div class="l">Spots in rotation</div></div>
+    <div class="kpi money"><div class="v" id="kMoney">—</div><div class="l">Est. recaptured revenue</div></div>
+  </div>
+
+  <div class="panel">
+    <h2>Spot plays per day — 30 days</h2>
+    <div class="chart" id="chart"></div>
+    <div class="axis"><span>Jun 2</span><span>Jun 9</span><span>Jun 16</span><span>Jun 23</span><span>Jul 1</span></div>
+    <p class="note">Weekend spikes are your game days working for you — Saturdays and Sundays average ~40% more takeovers than weekdays.</p>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <h2>By spot</h2>
+      <table id="spotTable">
+        <thead><tr><th>Spot</th><th class="r">Plays</th><th class="r">Airtime</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="note">Every spot gets equal rotation by default — pin "Dessert Menu" to evening breaks in Settings to ride the 31%-thinking-about-dessert wave.</p>
+    </div>
+    <div class="panel">
+      <h2>Recent plays</h2>
+      <table class="feed">
+        <thead><tr><th>When</th><th>Spot</th><th class="r">Seconds</th></tr></thead>
+        <tbody>
+          <tr><td>Tonight 9:12 PM</td><td>Dessert Menu — Molten Lava Cake</td><td class="r">30</td></tr>
+          <tr><td>Tonight 9:11 PM</td><td>Craft Beer Flight</td><td class="r">30</td></tr>
+          <tr><td>Tonight 8:47 PM</td><td>Loaded Nachos</td><td class="r">30</td></tr>
+          <tr><td>Tonight 8:46 PM</td><td>Wing Wednesday</td><td class="r">30</td></tr>
+          <tr><td>Tonight 8:21 PM</td><td>Happy Hour 3–6</td><td class="r">30</td></tr>
+          <tr><td>Tonight 8:20 PM</td><td>Dessert Menu — Molten Lava Cake</td><td class="r">30</td></tr>
+          <tr><td>Tonight 7:58 PM</td><td>Weekend Brunch</td><td class="r">30</td></tr>
+          <tr><td>Tonight 7:57 PM</td><td>Craft Beer Flight</td><td class="r">30</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Log updates live during every detected break. Full history exports to CSV.</p>
+    </div>
+  </div>
+
+  <div class="roi">
+    <div class="big">This month AdShark cost <em>$99</em> and recaptured an estimated <em id="roiMoney">—</em> — a <em id="roiX">—</em> return.</div>
+    <p>Estimate = your weekly guests × break exposure × the published 8% ad-driven purchase rate × your average add-on price.
+    Set your own numbers in the calculator — then watch your POS dessert line become the real scoreboard.</p>
+  </div>
+
+</div>
+
+<footer>
+  AdShark 🦈 — your TV, your ads, every break · demo dashboard with simulated data for illustration ·
+  detection never modifies the broadcast signal — it only changes what the screen displays
+</footer>
+
+<script>
+  // ---- Single source of truth: daily plays (Jun 2 Tue – Jul 1 Wed, 2026) ----
+  const days = [
+    // wk1: Tue–Sun
+    {d:'Jun 2', p:88},{d:'Jun 3', p:96},{d:'Jun 4', p:92},{d:'Jun 5', p:104},{d:'Jun 6', p:138},{d:'Jun 7', p:132},
+    // wk2: Mon–Sun
+    {d:'Jun 8', p:86},{d:'Jun 9', p:90},{d:'Jun 10', p:98},{d:'Jun 11', p:95},{d:'Jun 12', p:108},{d:'Jun 13', p:142},{d:'Jun 14', p:135},
+    // wk3
+    {d:'Jun 15', p:89},{d:'Jun 16', p:93},{d:'Jun 17', p:101},{d:'Jun 18', p:97},{d:'Jun 19', p:112},{d:'Jun 20', p:146},{d:'Jun 21', p:139},
+    // wk4
+    {d:'Jun 22', p:91},{d:'Jun 23', p:95},{d:'Jun 24', p:103},{d:'Jun 25', p:99},{d:'Jun 26', p:115},{d:'Jun 27', p:149},{d:'Jun 28', p:141},
+    // final Mon–Wed
+    {d:'Jun 29', p:92},{d:'Jun 30', p:97},{d:'Jul 1', p:105}
+  ];
+  const SPOT_SECONDS = 30;
+  const PLAYS_PER_BREAK = 3;            // ~90s average break = 3 spots
+  const PLAN_COST = 99;
+  const EST_RECAPTURE_WEEKLY = 316.8;   // 800 guests/wk × 55% exposure × 8% × $9 add-on
+
+  const spots = [
+    {name:'Dessert Menu — Molten Lava Cake', share:.192},
+    {name:'Wing Wednesday',                  share:.184},
+    {name:'Craft Beer Flight',               share:.174},
+    {name:'Weekend Brunch',                  share:.156},
+    {name:'Happy Hour 3–6',                  share:.150},
+    {name:'Loaded Nachos',                   share:.144}
+  ];
+
+  // ---- Derived totals (always internally consistent) ----
+  const totalPlays  = days.reduce((s,x)=>s+x.p,0);
+  const totalBreaks = Math.round(totalPlays / PLAYS_PER_BREAK);
+  const airSecs     = totalPlays * SPOT_SECONDS;
+  const airH = Math.floor(airSecs/3600), airM = Math.round((airSecs%3600)/60);
+  const money = Math.round(EST_RECAPTURE_WEEKLY * (days.length/7));
+
+  document.getElementById('kBreaks').textContent = totalBreaks.toLocaleString();
+  document.getElementById('kPlays').textContent  = totalPlays.toLocaleString();
+  document.getElementById('kAir').textContent    = `${airH}h ${airM}m`;
+  document.getElementById('kMoney').textContent  = `$${money.toLocaleString()}`;
+  document.getElementById('roiMoney').textContent= `$${money.toLocaleString()}`;
+  document.getElementById('roiX').textContent    = `${(money/PLAN_COST).toFixed(1)}×`;
+
+  // ---- Chart ----
+  const max = Math.max(...days.map(x=>x.p));
+  const chart = document.getElementById('chart');
+  days.forEach(x=>{
+    const b = document.createElement('div');
+    b.className = 'cbar';
+    b.style.height = `${(x.p/max)*100}%`;
+    b.setAttribute('data-tip', `${x.d}: ${x.p} plays`);
+    chart.appendChild(b);
+  });
+
+  // ---- Spot table ----
+  const tbody = document.querySelector('#spotTable tbody');
+  const maxShare = Math.max(...spots.map(s=>s.share));
+  spots.forEach(s=>{
+    const plays = Math.round(totalPlays * s.share);
+    const secs = plays * SPOT_SECONDS;
+    const h = Math.floor(secs/3600), m = Math.round((secs%3600)/60);
+    tbody.insertAdjacentHTML('beforeend',
+      `<tr><td>${s.name}<div class="spotbar" style="width:${(s.share/maxShare)*100}%"></div></td>
+       <td class="r">${plays.toLocaleString()}</td><td class="r">${h}h ${m}m</td></tr>`);
+  });
+</script>
+</body>
+</html>
