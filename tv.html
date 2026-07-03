@@ -503,7 +503,11 @@ function setupAudio() {
     analyser = ctx.createAnalyser();
     analyser.fftSize = 512;
     src.connect(analyser);
-    analyser.connect(ctx.destination);
+    // Deliberately NOT connected to ctx.destination: creating a MediaElementSourceNode
+    // redirects the video's audio away from its normal output, so leaving the analyser
+    // unconnected means the broadcast plays silently while the detector still reads real
+    // audio levels off the analyser for the black-frame + silence signal. No autoplaying
+    // sound anywhere on the site except Sharky's narration, which is gesture-triggered.
     audioBuf = new Uint8Array(analyser.frequencyBinCount);
     audioReady = true;
   } catch (e) { log("audio meter unavailable: " + e.message, "r"); }
@@ -600,7 +604,7 @@ function playNextAd() {
   renderQueue();
   adStartedAt = performance.now();
   setSources(adVid, curAd.url, curAd.url_webm);
-  adVid.muted = false;
+  adVid.muted = true;
   adVid.play().catch(() => {});
   log("now playing: " + curAd.name, "g");
 }
