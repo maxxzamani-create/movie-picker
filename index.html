@@ -105,7 +105,7 @@
   .filmwrap { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden;
     border:1px solid #223049; background:#000;
     box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(79,182,242,.14); }
-  .filmwrap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .filmwrap iframe, .filmwrap video { position:absolute; inset:0; width:100%; height:100%; border:0; background:#000; }
   .kicker { color:var(--blue2); font-weight:800; letter-spacing:3px; font-size:12px;
     text-transform:uppercase; margin-bottom:14px; }
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; }
@@ -169,7 +169,16 @@
     gap:12px; background:linear-gradient(160deg,#181818,#040404); color:#666; text-align:center; padding:20px; }
   .compare-tv .without .badge { font-size:11px; letter-spacing:2px; font-weight:800; color:#8a8a8a;
     border:1px solid #343434; padding:5px 12px; border-radius:100px; }
-  .compare-tv .without .msg { font-size:15px; color:#9a9a9a; max-width:300px; line-height:1.6; }
+  .compare-tv .without .msg { font-size:15px; color:#9a9a9a; max-width:340px; line-height:1.6; }
+  .compare-tv .without .msg b { color:#c4c4c4; }
+  .compare-tv .without .fakead { display:flex; align-items:center; gap:16px; padding:14px 22px;
+    background:#101010; border:1px solid #2c2c2c; border-radius:14px; animation:adGlow 2.6s ease-in-out infinite; }
+  @keyframes adGlow { 0%,100%{box-shadow:0 0 0 rgba(255,207,92,0);} 50%{box-shadow:0 0 26px rgba(255,207,92,.14);} }
+  .compare-tv .without .fakead-ic { width:54px; height:54px; flex-shrink:0; }
+  .compare-tv .without .fakead-w { text-align:left; }
+  .compare-tv .without .fakead-w b { display:block; font-family:"Bebas Neue"; font-size:28px;
+    letter-spacing:2.5px; line-height:1; color:#ffcf5c; }
+  .compare-tv .without .fakead-w span { font-size:11px; font-weight:800; letter-spacing:1.5px; color:#b8b8b8; }
   .compare-tv video { width:100%; height:100%; object-fit:cover; display:block; }
   .compare-toggle { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:20px; }
   .compare-toggle span { font-size:13px; font-weight:700; color:var(--dim); transition:color .2s; }
@@ -449,7 +458,21 @@
     <div class="frame">
       <div class="layer without" id="layerWithout">
         <div class="badge">COMMERCIAL BREAK</div>
-        <div class="msg">Someone else's ad is playing on your TV right now — and your
+        <div class="fakead" aria-hidden="true">
+          <svg class="fakead-ic" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" fill="#c8102e"/>
+            <path d="M15 30 C 18 18, 46 18, 49 30 L 49 32 L 15 32 Z" fill="#ffcf5c"/>
+            <circle cx="24" cy="24.5" r="1.4" fill="#fff8ea"/><circle cx="32" cy="22.5" r="1.4" fill="#fff8ea"/><circle cx="40" cy="24.5" r="1.4" fill="#fff8ea"/>
+            <path d="M14 34 q4 4 9 0 q4 4 9 0 q4 4 9 0 q4 4 9 0 l0 3 l-36 0 Z" fill="#7ec24a"/>
+            <rect x="14" y="38" width="36" height="6" rx="3" fill="#6b3d1e"/>
+            <path d="M15 46 L 49 46 C 48 52, 41 55, 32 55 C 23 55, 16 52, 15 46 Z" fill="#ffcf5c"/>
+          </svg>
+          <div class="fakead-w">
+            <b>BURGER&nbsp;PIT</b>
+            <span>2 FOR $6 — TONIGHT ONLY</span>
+          </div>
+        </div>
+        <div class="msg">A national chain's ad is playing on <b>your</b> TV right now — and your
           customers are watching it, not your menu.</div>
       </div>
       <div class="layer hide" id="layerWith">
@@ -510,9 +533,11 @@
     do during commercial breaks, what it costs you, and how AdShark turns that moment
     into revenue for your business.</p>
   <div class="filmwrap">
-    <iframe src="https://drive.google.com/file/d/1M2NBolP5syLQb-sP7IUCEUJhc9FtfLQu/preview"
-            allow="autoplay; fullscreen" allowfullscreen loading="lazy"
-            title="AdShark — The Future of CTV Advertising"></iframe>
+    <video controls playsinline preload="metadata" poster="promo/adshark-promo-poster.jpg"
+           title="AdShark — the film">
+      <source src="promo/adshark-promo.mp4" type="video/mp4">
+      Your browser can't play this video. <a href="promo/adshark-promo.mp4">Download it instead.</a>
+    </video>
   </div>
 </section>
 
@@ -840,7 +865,7 @@
   <a class="btn" href="tel:+19166286299" style="margin-left:10px">📞 (916) 628-6299</a>
   <a class="btn" href="mailto:maxxzamani@gmail.com?subject=AdShark" style="margin-left:10px">📧 maxxzamani@gmail.com</a>
   <a class="btn" href="investors.html" style="margin-left:10px">For investors →</a>
-  <p class="sub" style="margin:26px auto 0">Built by Maxx Zamani — Tehachapi, California.
+  <p class="sub" style="margin:26px auto 0">Built by Maxx Zamani — Orange County, California.
     Call or text <a href="tel:+19166286299" style="font-weight:700">(916) 628-6299</a> to talk it through.</p>
 </section>
 
