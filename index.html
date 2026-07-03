@@ -168,15 +168,15 @@
   .compare-tv .without .badge { font-size:11px; letter-spacing:2px; font-weight:800; color:#8a8a8a;
     border:1px solid #343434; padding:5px 12px; border-radius:100px; }
   .compare-tv .without .msg { font-size:15px; color:#9a9a9a; max-width:300px; line-height:1.6; }
-  .competitor-logos { display:flex; gap:9px; flex-wrap:wrap; justify-content:center; max-width:380px; }
-  .cl-chip { display:flex; align-items:center; gap:6px; padding:7px 13px; border-radius:10px;
-    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
-    font-size:11px; font-weight:800; letter-spacing:.5px; color:#8a8a8a;
-    filter:grayscale(.6); opacity:.45; animation:clCycle 8s ease-in-out infinite; }
-  .cl-chip .ic { font-size:15px; filter:grayscale(1); opacity:.8; }
-  .cl-chip.cl-1 { animation-delay:0s; } .cl-chip.cl-2 { animation-delay:2s; }
-  .cl-chip.cl-3 { animation-delay:4s; } .cl-chip.cl-4 { animation-delay:6s; }
-  @keyframes clCycle { 0%,68%,100%{opacity:.4; filter:grayscale(.7);} 15%{opacity:1; filter:grayscale(0);} }
+  .fake-logos { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; max-width:420px; }
+  .fake-logo { display:flex; align-items:center; gap:8px; padding:7px 14px 7px 7px; border-radius:12px;
+    background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.12);
+    opacity:.82; animation:flCycle 9s ease-in-out infinite; }
+  .fake-logo svg { width:30px; height:30px; flex:none; border-radius:8px; display:block; }
+  .fake-logo .fl-name { font-family:'Bebas Neue'; font-size:14px; letter-spacing:.6px; color:#c2c2c2; font-weight:400; }
+  .fake-logo.fl-1 { animation-delay:0s; } .fake-logo.fl-2 { animation-delay:2.2s; }
+  .fake-logo.fl-3 { animation-delay:4.4s; } .fake-logo.fl-4 { animation-delay:6.6s; }
+  @keyframes flCycle { 0%,62%,100%{opacity:.8; transform:scale(1);} 15%{opacity:1; transform:scale(1.04);} }
   .compare-tv video { width:100%; height:100%; object-fit:cover; display:block; }
   .compare-toggle { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:20px; }
   .compare-toggle span { font-size:13px; font-weight:700; color:var(--dim); transition:color .2s; }
@@ -359,11 +359,37 @@
     <div class="frame">
       <div class="layer without" id="layerWithout">
         <div class="badge">COMMERCIAL BREAK</div>
-        <div class="competitor-logos">
-          <div class="cl-chip cl-1"><span class="ic">🍔</span>BURGER PIT</div>
-          <div class="cl-chip cl-2"><span class="ic">🍕</span>PIZZA WAVE</div>
-          <div class="cl-chip cl-3"><span class="ic">🍗</span>CHIX HOUSE</div>
-          <div class="cl-chip cl-4"><span class="ic">🌮</span>TACO SUN</div>
+        <div class="fake-logos">
+          <div class="fake-logo fl-1">
+            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#c9453d"/>
+              <path d="M9 18c0-4.5 4.9-8 11-8s11 3.5 11 8z" fill="#f2c879"/>
+              <rect x="8" y="18" width="24" height="3.6" rx="1.8" fill="#7a4326"/>
+              <rect x="8" y="22.4" width="24" height="3.6" rx="1.8" fill="#5f9a4c"/>
+              <rect x="8" y="26.8" width="24" height="5" rx="2.5" fill="#e0a75e"/></svg>
+            <span class="fl-name">BURGER PIT</span>
+          </div>
+          <div class="fake-logo fl-2">
+            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#e0932c"/>
+              <path d="M20 9 L31.5 30.5 L8.5 30.5 Z" fill="#f4d27a" stroke="#c9451f" stroke-width="1.6"/>
+              <circle cx="17.5" cy="21.5" r="2" fill="#c9451f"/>
+              <circle cx="23.5" cy="25" r="2" fill="#c9451f"/>
+              <circle cx="20" cy="16.8" r="1.5" fill="#c9451f"/></svg>
+            <span class="fl-name">PIZZA WAVE</span>
+          </div>
+          <div class="fake-logo fl-3">
+            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#a8672f"/>
+              <ellipse cx="18.5" cy="16.5" rx="8.5" ry="7.5" fill="#f0c27a"/>
+              <rect x="21" y="19" width="5.5" height="13" rx="2.75" fill="#f0c27a" transform="rotate(30 21 19)"/></svg>
+            <span class="fl-name">CHIX HOUSE</span>
+          </div>
+          <div class="fake-logo fl-4">
+            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#5a9e4a"/>
+              <path d="M8 23 A12 10 0 0 1 32 23 Z" fill="#f2c879"/>
+              <path d="M10 23 h20" stroke="#8a4a2a" stroke-width="1.8"/>
+              <path d="M12.5 21 l2 -4.5 M18 21 l1 -5 M24 21 l1 -5 M27.5 21 l2 -4.5"
+                stroke="#3f7a3a" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span class="fl-name">TACO SUN</span>
+          </div>
         </div>
         <div class="msg">Somebody else's fast-food ad is playing on your TV right now — and
           your customers are watching it, not your menu.</div>
@@ -561,16 +587,16 @@
     <div>
       <div class="bubble">
         <div class="who">SHARKY · AdShark SPOKESFISH</div>
-        <div id="bubbleText">Hey! I'm Sharky. Click "Play the tour" and I'll walk you
-          through what AdShark does, why your TV is leaking money, and how we bite back.
-          🔊 Turn your sound on — I actually talk.</div>
+        <div id="bubbleText">Hey! I'm Sharky. Hit "Play the tour" and I'll walk you
+          through exactly what's leaking money on your TVs right now — and how AdShark bites
+          back. 🔊 Turn your sound on, I actually talk.</div>
       </div>
       <div class="sharky-ctl">
         <button class="primary" id="tourBtn">🔊 Play the tour</button>
         <button id="nextBtn">Next tip →</button>
         <button id="stopBtn">Stop</button>
-        <select id="voiceSelect" title="Choose Sharky's voice" aria-label="Choose Sharky's voice"></select>
       </div>
+      <audio id="sharkyAudio" preload="none" style="display:none"></audio>
     </div>
   </div>
 </section>
@@ -724,19 +750,34 @@
 
 <script>
 const LINES = [
-  "Here's the problem. Every commercial break, the TV in your restaurant sells burgers, soft serve, and pizza... for somebody else. Your customers are sitting right there, wallets open.",
-  "Research shows people snack forty five percent more while food ads play, and eight percent go buy the exact thing they saw. That purchase should happen at YOUR register.",
-  "AdShark watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
-  "During the break, your screens show YOUR specials. Real photos of your food, equal airtime for every spot. When the game comes back, I snap back instantly. Nobody misses a play.",
-  "The dashboard counts every play and estimates what the leak was costing you. For a typical room, that's around sixteen thousand dollars a year, and Full Bar costs ninety nine a month.",
-  "Want to see me hunt? Hit the live demo and watch me eat a commercial in real time. Chomp chomp."
+  "Here's what's happening on your T-Vs right now. Every commercial break, you're paying to advertise pizza, burgers, and beer... for somebody else. Your customers are staring right at it.",
+  "The numbers don't lie. Forty five percent of people snack more during food commercials. Eight percent actually get up and go buy the exact thing they just saw, at somebody else's counter. Not yours.",
+  "AdShark is a little box that watches your broadcast the way a bouncer watches a door. Black frames. Dead audio. The rhythm changes. That's a commercial break starting, and I catch it in under a second.",
+  "The second I catch it, your screens flip to your specials. Real food, real prices, equal airtime for every dish. When the game comes back, I snap back just as fast. Nobody in that bar misses a single play.",
+  "One restaurant leaks about sixteen thousand dollars a year in ad time they never even get to use. Full Bar is ninety nine bucks a month. Do that math with me.",
+  "No I-T team, no new remote, nothing for your staff to learn. Plug me in once, and I do this every single break, every single day, forever.",
+  "Right now I've got ten founding spots open. First month free, and your rate locked for life. Hit the live demo below and watch me eat a commercial in real time. Chomp chomp."
+];
+// Pre-recorded narration (consistent, natural voice for every visitor — no dependence
+// on whatever text-to-speech voices happen to be installed on their device). Falls back
+// to the browser's own speechSynthesis (best available voice, auto-scored) only if the
+// audio file fails to load.
+const AUDIO_SRCS = [
+  "static/co/sharky/sharky_01.mp3",
+  "static/co/sharky/sharky_02.mp3",
+  "static/co/sharky/sharky_03.mp3",
+  "static/co/sharky/sharky_04.mp3",
+  "static/co/sharky/sharky_05.mp3",
+  "static/co/sharky/sharky_06.mp3",
+  "static/co/sharky/sharky_07.mp3"
 ];
 let idx = -1, speaking = false;
 const bubble = document.getElementById("bubbleText");
 const sharky = document.getElementById("sharkySvg");
-const voiceSelect = document.getElementById("voiceSelect");
-let voicesList = [], chosenVoice = null;
+const sharkyAudio = document.getElementById("sharkyAudio");
 
+// --- fallback-only: browser speechSynthesis voice scoring (used if an mp3 fails) ---
+let voicesList = [], chosenVoice = null;
 function scoreVoice(v) {
   const n = v.name.toLowerCase();
   let score = 0;
@@ -750,66 +791,62 @@ function scoreVoice(v) {
   if (/compact|whisper|zira/.test(n)) score -= 40;
   return score;
 }
-
 function loadVoices() {
   const all = speechSynthesis.getVoices();
   if (!all.length) return;
   voicesList = all.filter(v => v.lang && v.lang.startsWith("en"));
   if (!voicesList.length) voicesList = all;
   voicesList.sort((a, b) => scoreVoice(b) - scoreVoice(a));
-  voiceSelect.innerHTML = voicesList.map((v, i) =>
-    `<option value="${i}">${v.name.replace(/^Microsoft |^Google /, "")}</option>`).join("");
-  let useIdx = 0;
-  try {
-    const saved = localStorage.getItem("adshark_sharky_voice");
-    if (saved) {
-      const savedIdx = voicesList.findIndex(v => v.name === saved);
-      if (savedIdx >= 0) useIdx = savedIdx;
-    }
-  } catch (e) { }
-  voiceSelect.value = useIdx;
-  chosenVoice = voicesList[useIdx];
+  chosenVoice = voicesList[0];
 }
 loadVoices();
 if ("speechSynthesis" in window) {
   speechSynthesis.addEventListener("voiceschanged", loadVoices);
 }
-voiceSelect.addEventListener("change", () => {
-  chosenVoice = voicesList[+voiceSelect.value];
-  if (chosenVoice) {
-    try { localStorage.setItem("adshark_sharky_voice", chosenVoice.name); } catch (e) { }
-  }
-  speaking = false;
-  say("Hi, I'm Sharky. This is what I sound like now.");
-});
-
-function say(text) {
-  bubble.textContent = text;
+function speakFallback(text) {
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.0; u.pitch = 1.0;
+    u.rate = 1.02; u.pitch = 1.0;
     if (chosenVoice) u.voice = chosenVoice;
     u.onstart = () => sharky.classList.add("talking");
     u.onend = () => { sharky.classList.remove("talking");
-      if (speaking) { setTimeout(nextLine, 600); } };
+      if (speaking) { setTimeout(nextLine, 500); } };
     speechSynthesis.speak(u);
-  } catch (e) { }
+  } catch (e) { sharky.classList.remove("talking"); }
+}
+
+function say(i) {
+  const text = LINES[i];
+  bubble.textContent = text;
+  sharky.classList.add("talking");
+  sharkyAudio.onended = () => {
+    sharky.classList.remove("talking");
+    if (speaking) { setTimeout(nextLine, 450); }
+  };
+  sharkyAudio.onerror = () => { speakFallback(text); };
+  sharkyAudio.src = AUDIO_SRCS[i] || "";
+  const playPromise = sharkyAudio.play();
+  if (playPromise && playPromise.catch) {
+    playPromise.catch(() => { speakFallback(text); });
+  }
 }
 function nextLine() {
   idx++;
   if (idx >= LINES.length) { speaking = false; idx = -1;
     sharky.classList.remove("talking"); return; }
-  say(LINES[idx]);
+  say(idx);
 }
 document.getElementById("tourBtn").addEventListener("click", () => {
   speaking = true; idx = -1; nextLine();
 });
 document.getElementById("nextBtn").addEventListener("click", () => {
-  speaking = false; idx = (idx + 1) % LINES.length; say(LINES[idx]);
+  speaking = false; idx = (idx + 1) % LINES.length; say(idx);
 });
 document.getElementById("stopBtn").addEventListener("click", () => {
-  speaking = false; try { speechSynthesis.cancel(); } catch (e) {}
+  speaking = false;
+  try { sharkyAudio.pause(); sharkyAudio.currentTime = 0; } catch (e) {}
+  try { speechSynthesis.cancel(); } catch (e) {}
   sharky.classList.remove("talking");
 });
 
