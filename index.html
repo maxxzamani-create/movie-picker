@@ -402,6 +402,24 @@
       45vw 125vh rgba(79,182,242,0.20), 43vw 101vh rgba(79,182,242,0.39);
     animation:rise 84s linear infinite; }
   @keyframes rise { to { transform:translateY(-135vh); } }
+
+  /* ── AdShark feeding frenzy: little sharks eat competitor ads ── */
+  #sharkTank { position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+  #sharkTank .shark { position:absolute; width:78px; height:44px; opacity:.24;
+    filter:drop-shadow(0 5px 12px rgba(79,182,242,.30)); will-change:left; }
+  #sharkTank .shark svg { width:100%; height:100%; display:block; }
+  #sharkTank .shark.flip svg { transform:scaleX(-1); }
+  #sharkTank .shark .jaw { transform-box:fill-box; transform-origin:22% 50%; }
+  #sharkTank .shark.chomp .jaw { animation:sharkChomp .24s ease 3; }
+  @keyframes sharkChomp { 50% { transform:scaleY(2) translateY(-.5px); } }
+  #sharkTank .comp-ad { position:absolute; display:inline-flex; align-items:center; gap:4px;
+    font-size:16px; line-height:1; padding:4px 7px; border-radius:9px; opacity:.5;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,120,120,.32);
+    transition:transform .34s cubic-bezier(.5,-0.6,.5,1.6), opacity .34s ease; }
+  #sharkTank .comp-ad i { font-style:normal; font-size:8px; font-weight:800; letter-spacing:.5px;
+    color:#ff9a9a; border:1px solid rgba(255,120,120,.5); border-radius:3px; padding:1px 3px; }
+  #sharkTank .comp-ad.eaten { transform:scale(0) rotate(28deg); opacity:0; }
+  @media (prefers-reduced-motion: reduce) { #sharkTank { display:none; } }
   header nav a.active { color:var(--blue-pale); background:rgba(79,182,242,.12); }
   section h2::after { content:""; display:block; width:66px; height:4px; border-radius:4px; margin-top:12px;
     background:linear-gradient(90deg,var(--blue-pale),var(--blue)); transform:scaleX(0); transform-origin:left;
@@ -425,6 +443,7 @@
 <body>
 <div class="scrollbar-progress" id="scrollProg"></div>
 <div class="rise-layer" aria-hidden="true"></div>
+<div id="sharkTank" aria-hidden="true"></div>
 <header>
   <img class="logo" src="static/brand/icon.png" alt="AdShark shark-fin logo">
   <div class="wordmark">AdShark.tv</div>
@@ -1207,6 +1226,52 @@ if ("IntersectionObserver" in window) {
   }
   pushRow(); pushRow(); pushRow();
   setInterval(pushRow, 3200);
+})();
+</script>
+<script>
+/* AdShark background feeding frenzy — little sharks chomp competitor ads */
+(function(){
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var SHARK = '<svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">'
+    + '<g fill="#4fb6f2">'
+    + '<path d="M16 30 L0 15 L9 30 L0 45 Z"/>'
+    + '<path d="M16 30 Q 44 12 82 16 Q 104 19 116 30 Q 104 41 82 44 Q 44 48 16 30 Z"/>'
+    + '<path d="M58 15 L68 1 L77 17 Z"/>'
+    + '<path d="M64 39 L72 53 L82 40 Z"/>'
+    + '</g>'
+    + '<circle cx="104" cy="27" r="2.6" fill="#031018"/>'
+    + '<path class="jaw" d="M92 33 Q 103 35 113 30 Q 103 41 90 37 Z" fill="#031018"/>'
+    + '</svg>';
+  var FOODS = ['\uD83C\uDF54','\uD83C\uDF55','\uD83C\uDF2E','\uD83C\uDF69','\uD83E\uDD64','\uD83C\uDF66','\uD83C\uDF5F','\uD83C\uDF2D'];
+  function frenzy(){
+    var layer = document.getElementById('sharkTank');
+    if (!layer || document.hidden) return;
+    var right = Math.random() < 0.5;
+    var y = 6 + Math.random()*80;
+    var eatX = 24 + Math.random()*52;
+    var startX = right ? -14 : 114, endX = right ? 118 : -18;
+    var swimTo = right ? (eatX - 4) : eatX;
+    var ad = document.createElement('div');
+    ad.className = 'comp-ad';
+    ad.innerHTML = FOODS[Math.floor(Math.random()*FOODS.length)] + '<i>AD</i>';
+    ad.style.top = (y + 0.3) + 'vh'; ad.style.left = eatX + 'vw';
+    layer.appendChild(ad);
+    var s = document.createElement('div');
+    s.className = 'shark' + (right ? '' : ' flip');
+    s.style.top = y + 'vh'; s.style.left = startX + 'vw';
+    s.innerHTML = SHARK;
+    layer.appendChild(s);
+    requestAnimationFrame(function(){ s.style.transition = 'left 3.3s linear'; s.style.left = swimTo + 'vw'; });
+    setTimeout(function(){
+      ad.classList.add('eaten'); s.classList.add('chomp');
+      s.style.transition = 'left 2.7s linear'; s.style.left = endX + 'vw';
+    }, 3300);
+    setTimeout(function(){ if (ad.parentNode) ad.remove(); }, 3900);
+    setTimeout(function(){ if (s.parentNode) s.remove(); }, 6200);
+  }
+  function start(){ frenzy(); setTimeout(frenzy, 1900); setInterval(frenzy, 3800); }
+  if (document.readyState !== 'loading') start();
+  else document.addEventListener('DOMContentLoaded', start);
 })();
 </script>
 </body>
