@@ -103,7 +103,7 @@
   .filmwrap { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden;
     border:1px solid #223049; background:#000;
     box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(79,182,242,.14); }
-  .filmwrap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .filmwrap iframe, .filmwrap video { position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; background:#000; }
   .kicker { color:var(--blue2); font-weight:800; letter-spacing:3px; font-size:12px;
     text-transform:uppercase; margin-bottom:14px; }
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; }
@@ -168,6 +168,15 @@
   .compare-tv .without .badge { font-size:11px; letter-spacing:2px; font-weight:800; color:#8a8a8a;
     border:1px solid #343434; padding:5px 12px; border-radius:100px; }
   .compare-tv .without .msg { font-size:15px; color:#9a9a9a; max-width:300px; line-height:1.6; }
+  .competitor-logos { display:flex; gap:9px; flex-wrap:wrap; justify-content:center; max-width:380px; }
+  .cl-chip { display:flex; align-items:center; gap:6px; padding:7px 13px; border-radius:10px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
+    font-size:11px; font-weight:800; letter-spacing:.5px; color:#8a8a8a;
+    filter:grayscale(.6); opacity:.45; animation:clCycle 8s ease-in-out infinite; }
+  .cl-chip .ic { font-size:15px; filter:grayscale(1); opacity:.8; }
+  .cl-chip.cl-1 { animation-delay:0s; } .cl-chip.cl-2 { animation-delay:2s; }
+  .cl-chip.cl-3 { animation-delay:4s; } .cl-chip.cl-4 { animation-delay:6s; }
+  @keyframes clCycle { 0%,68%,100%{opacity:.4; filter:grayscale(.7);} 15%{opacity:1; filter:grayscale(0);} }
   .compare-tv video { width:100%; height:100%; object-fit:cover; display:block; }
   .compare-toggle { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:20px; }
   .compare-toggle span { font-size:13px; font-weight:700; color:var(--dim); transition:color .2s; }
@@ -350,8 +359,14 @@
     <div class="frame">
       <div class="layer without" id="layerWithout">
         <div class="badge">COMMERCIAL BREAK</div>
-        <div class="msg">Someone else's ad is playing on your TV right now — and your
-          customers are watching it, not your menu.</div>
+        <div class="competitor-logos">
+          <div class="cl-chip cl-1"><span class="ic">🍔</span>BURGER PIT</div>
+          <div class="cl-chip cl-2"><span class="ic">🍕</span>PIZZA WAVE</div>
+          <div class="cl-chip cl-3"><span class="ic">🍗</span>CHIX HOUSE</div>
+          <div class="cl-chip cl-4"><span class="ic">🌮</span>TACO SUN</div>
+        </div>
+        <div class="msg">Somebody else's fast-food ad is playing on your TV right now — and
+          your customers are watching it, not your menu.</div>
       </div>
       <div class="layer hide" id="layerWith">
         <div class="live-tag" style="position:absolute; top:12px; left:12px;">
@@ -438,9 +453,10 @@
     do during commercial breaks, what it costs you, and how AdShark turns that moment
     into revenue for your business.</p>
   <div class="filmwrap">
-    <iframe src="https://drive.google.com/file/d/1M2NBolP5syLQb-sP7IUCEUJhc9FtfLQu/preview"
-            allow="autoplay; fullscreen" allowfullscreen loading="lazy"
-            title="AdShark — The Future of CTV Advertising"></iframe>
+    <video controls playsinline preload="none" poster="static/co/avatar_poster.jpg"
+           title="AdShark — Your TV. Your ads. Every break.">
+      <source src="static/co/avatar_promo.mp4" type="video/mp4">
+    </video>
   </div>
 </section>
 
