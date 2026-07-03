@@ -226,13 +226,25 @@
     background:var(--surface); border:1px solid rgba(79,182,242,.3); border-radius:22px;
     padding:34px; }
   @media (max-width:800px){ .sharky-zone{grid-template-columns:1fr;} }
-  #sharkySvg { width:100%; max-width:280px; filter:drop-shadow(0 14px 30px rgba(79,182,242,.3)); }
-  #sharkySvg .fin-tail { transform-origin:85% 55%; animation:tail 1.6s ease-in-out infinite; }
-  @keyframes tail { 50% { transform:rotate(6deg); } }
-  #sharkySvg.talking .jaw { animation:jaw .28s ease-in-out infinite; transform-origin:30% 60%; }
-  @keyframes jaw { 50% { transform:rotate(7deg); } }
-  #sharkySvg .eye-lid { animation:blink 4.2s infinite; transform-origin:center; }
-  @keyframes blink { 0%,94%,100%{transform:scaleY(0);} 96%{transform:scaleY(1);} }
+  #sharkySvg { width:100%; max-width:300px; filter:drop-shadow(0 14px 30px rgba(79,182,242,.32)); overflow:visible; }
+  #sharkySvg .shark { transform-box:fill-box; transform-origin:center; animation:swim 5.2s ease-in-out infinite; }
+  @keyframes swim { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-7px) rotate(-1.4deg);} }
+  #sharkySvg .floor-shadow { transform-box:fill-box; transform-origin:center; animation:floorsh 5.2s ease-in-out infinite; }
+  @keyframes floorsh { 0%,100%{transform:scaleX(1); opacity:.14;} 50%{transform:scaleX(.9); opacity:.09;} }
+  #sharkySvg .fin-tail { transform-box:fill-box; transform-origin:0% 55%; animation:tail 2.1s ease-in-out infinite; }
+  @keyframes tail { 0%,100%{transform:rotate(-4deg);} 50%{transform:rotate(6deg);} }
+  #sharkySvg .fin-pec { transform-box:fill-box; transform-origin:50% 0%; animation:pec 2.6s ease-in-out infinite; }
+  @keyframes pec { 0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(6deg);} }
+  #sharkySvg .jaw { transform-box:fill-box; transform-origin:96% 10%; }
+  #sharkySvg.talking .jaw { animation:jaw .26s ease-in-out infinite; }
+  @keyframes jaw { 50% { transform:rotate(9deg) translateY(1.5px); } }
+  #sharkySvg.talking .fin-pec { animation-duration:1.1s; }
+  #sharkySvg .eye-lid { transform-box:fill-box; transform-origin:center; animation:blink 4.6s infinite; }
+  @keyframes blink { 0%,93.5%,100%{transform:scaleY(0);} 95.5%{transform:scaleY(1);} 97.5%{transform:scaleY(0);} }
+  #sharkySvg .bub { animation:bubrise 4.2s ease-in infinite; }
+  #sharkySvg .b2 { animation-delay:1.3s; } #sharkySvg .b3 { animation-delay:2.5s; }
+  @keyframes bubrise { 0%{transform:translateY(6px); opacity:0;} 18%{opacity:.75;}
+    80%{opacity:.5;} 100%{transform:translateY(-34px); opacity:0;} }
   .bubble { position:relative; background:#0a0f1a; border:1px solid rgba(79,182,242,.35);
     border-radius:18px; padding:22px 24px; font-size:16.5px; line-height:1.75;
     min-height:130px; }
@@ -285,8 +297,35 @@
     color:var(--dim); font-size:13px; line-height:1.8; }
   footer img { height:22px; vertical-align:middle; margin-right:8px; opacity:.85; }
 
-  .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal { opacity:0; transform:translateY(26px); transition:opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1); }
   .reveal.in { opacity:1; transform:translateY(0); }
+  /* staggered children: hidden until parent reveals; JS assigns per-card delays */
+  .reveal:not(.in) :is(.card,.step,.trust-card,.tier,.phase,.action-card) { opacity:0; transform:translateY(30px) scale(.985); }
+  :is(.card,.step,.trust-card,.tier,.phase,.action-card) { transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease; }
+
+  /* hero entrance */
+  .hero .kicker,.hero h1,.hero .sub,.hero .ctas,.hero .trust-row,.hero .founding-badge { animation:heroUp .9s cubic-bezier(.16,1,.3,1) both; }
+  .hero h1 { animation-delay:.08s; } .hero .sub { animation-delay:.18s; }
+  .hero .ctas { animation-delay:.28s; } .hero .trust-row { animation-delay:.4s; }
+  .hero .founding-badge { animation-delay:.5s; }
+  .hero .tvframe { animation:heroPop 1.1s cubic-bezier(.16,1,.3,1) .18s both; }
+  @keyframes heroUp { from{opacity:0; transform:translateY(26px);} to{opacity:1; transform:none;} }
+  @keyframes heroPop { from{opacity:0; transform:translateY(30px) scale(.955);} to{opacity:1; transform:none;} }
+
+  /* decorative fin cruising through the leak section */
+  #problem { position:relative; overflow:hidden; }
+  .finswim { position:absolute; bottom:4px; left:0; width:46px; opacity:0; pointer-events:none;
+    animation:finswim 22s linear infinite; animation-delay:2s; }
+  .finswim svg { display:block; width:100%; animation:finbob 1.6s ease-in-out infinite; }
+  @keyframes finswim { 0%{transform:translateX(-70px); opacity:0;} 4%{opacity:.35;}
+    92%{opacity:.35;} 100%{transform:translateX(min(96vw,1080px)); opacity:0;} }
+  @keyframes finbob { 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-3px) rotate(2deg);} }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation:none !important; transition:none !important; }
+    .reveal, .reveal:not(.in) :is(.card,.step,.trust-card,.tier,.phase,.action-card) { opacity:1; transform:none; }
+    .hero .kicker,.hero h1,.hero .sub,.hero .ctas,.hero .trust-row,.hero .founding-badge,.hero .tvframe { opacity:1; transform:none; }
+  }
 </style>
 <!-- P7 ANALYTICS: create a free GA4 property, then uncomment and paste your G-XXXXXXX ID.
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -445,6 +484,10 @@
 </section>
 
 <section id="problem" class="reveal">
+  <div class="finswim" aria-hidden="true"><svg viewBox="0 0 46 26" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#4fb6f2" d="M6 22 C 12 10, 20 3, 30 1 C 27 8, 28 15, 33 22 Z"/>
+    <path fill="none" stroke="#4fb6f2" stroke-width="2" stroke-linecap="round" opacity=".6" d="M2 24 H 44"/>
+  </svg></div>
   <div class="kicker">The problem</div>
   <h2>EVERY BREAK, YOUR TV SELLS FOR SOMEONE ELSE</h2>
   <p class="sub" style="margin-bottom:28px">Your customer just finished dinner and is thinking
@@ -528,19 +571,80 @@
   <div class="kicker">Meet Sharky</div>
   <h2>LET SHARKY EXPLAIN IT</h2>
   <div class="sharky-zone">
-    <svg id="sharkySvg" viewBox="0 0 200 140">
-      <defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#cdeeff"/><stop offset="1" stop-color="#0b5fb0"/></linearGradient></defs>
-      <g class="fin-tail"><path fill="url(#sg)" d="M158 62 L192 34 L186 66 L192 92 Z"/></g>
-      <path fill="url(#sg)" d="M20 70 C 45 30, 120 25, 165 62 C 120 100, 45 105, 20 70 Z"/>
-      <path fill="url(#sg)" d="M85 40 L98 12 L112 42 Z"/>
-      <path fill="#0b5fb0" d="M70 88 L82 106 L92 90 Z"/>
-      <g class="jaw"><path fill="#04101f" d="M22 72 C 40 84, 66 88, 88 84 C 66 96, 38 94, 22 78 Z"/>
-      <path fill="#fff" d="M30 76 l6 6 4-7 5 7 5-7 5 7 5-7 5 6 5-6 4 5"/></g>
-      <circle cx="52" cy="56" r="6" fill="#04101f"/>
-      <circle cx="54" cy="54" r="2" fill="#fff"/>
-      <rect class="eye-lid" x="44" y="50" width="16" height="12" rx="6" fill="url(#sg)"/>
-      <path fill="#9fdcff" d="M118 52 C 130 44, 146 44, 156 52 C 146 58, 130 58, 118 52 Z" opacity=".5"/>
+    <svg id="sharkySvg" viewBox="0 0 340 230" role="img" aria-label="Sharky, the AdShark mascot">
+      <defs>
+        <linearGradient id="sgBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#9fdcff"/>
+          <stop offset=".45" stop-color="#4fb6f2"/>
+          <stop offset="1" stop-color="#0b5fb0"/>
+        </linearGradient>
+        <linearGradient id="sgBelly" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#eef8ff"/>
+          <stop offset="1" stop-color="#bfe2f8"/>
+        </linearGradient>
+        <linearGradient id="sgFin" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#7fcdf9"/>
+          <stop offset="1" stop-color="#0b5fb0"/>
+        </linearGradient>
+      </defs>
+      <ellipse class="floor-shadow" cx="165" cy="216" rx="100" ry="9" fill="#4fb6f2" opacity=".14"/>
+      <g class="shark">
+        <g class="fin-tail">
+          <path fill="url(#sgFin)" d="M262 104 C 284 84, 296 62, 314 44 C 308 74, 310 92, 324 106
+            C 308 112, 296 112, 284 110 C 296 124, 300 140, 298 158 C 282 142, 270 128, 260 116 Z"/>
+        </g>
+        <path fill="url(#sgFin)" d="M148 62 C 146 36, 156 18, 178 8 C 174 32, 180 48, 192 60 Z"/>
+        <path fill="url(#sgBody)" d="M30 126
+          C 44 92, 92 60, 152 57
+          C 200 55, 240 74, 264 108
+          C 246 138, 208 158, 156 160
+          C 106 162, 54 150, 30 126 Z"/>
+        <path fill="url(#sgBelly)" d="M34 130
+          C 70 128, 120 126, 170 130
+          C 210 133, 238 126, 258 114
+          C 242 140, 206 157, 156 159
+          C 108 160, 58 150, 34 130 Z"/>
+        <path fill="#ffffff" opacity=".12" d="M60 84 C 92 62, 150 54, 196 62 C 156 60, 100 68, 60 84 Z"/>
+        <g fill="none" stroke="#0b5fb0" stroke-width="3" stroke-linecap="round" opacity=".55">
+          <path d="M126 88 Q 120 106 126 124"/>
+          <path d="M138 86 Q 132 106 138 126"/>
+          <path d="M150 86 Q 144 106 150 126"/>
+        </g>
+        <path fill="#04101f" d="M36 118 C 62 130, 94 134, 118 128 C 100 150, 60 150, 36 130 Z"/>
+        <g fill="#ffffff">
+          <path d="M46 122 l4.5 9 l4.5 -7.6 Z"/>
+          <path d="M58 125 l4.5 9 l4.5 -7.4 Z"/>
+          <path d="M70 127 l4.5 9 l4.5 -7.4 Z"/>
+          <path d="M82 128 l4.5 9 l4.5 -7.6 Z"/>
+          <path d="M94 128 l4.5 8.4 l4.5 -8 Z"/>
+          <path d="M105 126 l4 7.6 l4 -8.4 Z"/>
+        </g>
+        <g class="jaw">
+          <path fill="url(#sgBelly)" d="M40 136 C 64 148, 96 148, 114 134 C 102 154, 62 156, 40 144 Z"/>
+          <g fill="#ffffff">
+            <path d="M56 143 l3.8 -7 l3.8 8 Z"/>
+            <path d="M68 145 l3.8 -7.4 l3.8 7.8 Z"/>
+            <path d="M80 145 l3.8 -7.4 l3.8 7 Z"/>
+            <path d="M92 143 l3.6 -7 l3.6 6.4 Z"/>
+          </g>
+        </g>
+        <path fill="none" stroke="#04101f" stroke-width="3" stroke-linecap="round" d="M116 128 Q 124 126 128 120"/>
+        <ellipse cx="80" cy="98" rx="9" ry="9.5" fill="#ffffff"/>
+        <circle cx="79" cy="99" r="5.4" fill="#0b3f77"/>
+        <circle cx="78" cy="100" r="2.8" fill="#04101f"/>
+        <circle cx="76.6" cy="96.6" r="1.6" fill="#ffffff"/>
+        <ellipse class="eye-lid" cx="80" cy="98" rx="9.6" ry="10" fill="#2f8fd4"/>
+        <path fill="none" stroke="#0b5fb0" stroke-width="3.5" stroke-linecap="round" d="M67 81 Q 80 74 93 81"/>
+        <g class="fin-pec">
+          <path fill="url(#sgFin)" d="M128 146 C 140 164, 140 184, 124 200 C 112 184, 108 162, 116 146 Z"/>
+        </g>
+        <path fill="url(#sgFin)" d="M206 150 C 214 160, 216 170, 212 180 C 202 170, 198 160, 200 152 Z"/>
+      </g>
+      <g fill="none" stroke="#9fdcff" stroke-width="2" opacity=".7">
+        <circle class="bub b1" cx="28" cy="86" r="5"/>
+        <circle class="bub b2" cx="16" cy="66" r="3.4"/>
+        <circle class="bub b3" cx="34" cy="52" r="2.4"/>
+      </g>
     </svg>
     <div>
       <div class="bubble">
@@ -837,8 +941,19 @@ document.getElementById("stopBtn").addEventListener("click", () => {
 });
 
 if ("IntersectionObserver" in window) {
+  const STAGGER_SEL = ".card,.step,.trust-card,.tier,.phase,.action-card";
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const kids = e.target.querySelectorAll(STAGGER_SEL);
+        kids.forEach((k, i) => {
+          k.style.transitionDelay = (90 + i * 85) + "ms";
+          setTimeout(() => { k.style.transitionDelay = ""; }, 1400 + i * 85);
+        });
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    });
   }, { threshold: 0.12 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 } else {

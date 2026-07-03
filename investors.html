@@ -96,6 +96,19 @@
   .contact p{color:var(--dim);max-width:560px;margin:0 auto 26px}
   footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--dim);font-size:.8rem}
   footer img{height:20px;vertical-align:middle;margin-right:8px;opacity:.85}
+
+  /* motion */
+  .hero .kicker,.hero h1,.hero .sub,.hero .ctas{animation:heroUp .9s cubic-bezier(.16,1,.3,1) both}
+  .hero h1{animation-delay:.08s}.hero .sub{animation-delay:.18s}.hero .ctas{animation-delay:.3s}
+  @keyframes heroUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal:not(.in) :is(.stat,.card,.tstep){opacity:0;transform:translateY(28px) scale(.985)}
+  :is(.stat,.card,.tstep){transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),border-color .3s ease}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal,.reveal:not(.in) :is(.stat,.card,.tstep),.hero .kicker,.hero h1,.hero .sub,.hero .ctas{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
@@ -267,5 +280,25 @@
   detection never modifies the broadcast signal, it only changes what the screen displays
 </footer>
 
+<script>
+document.querySelectorAll("section").forEach(s => s.classList.add("reveal"));
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll(".stat,.card,.tstep").forEach((k, i) => {
+          k.style.transitionDelay = (90 + i * 85) + "ms";
+          setTimeout(() => { k.style.transitionDelay = ""; }, 1400 + i * 85);
+        });
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
+}
+</script>
 </body>
 </html>
