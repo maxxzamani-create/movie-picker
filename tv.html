@@ -67,6 +67,11 @@
   header .biz { margin-left: 10px; padding: 6px 14px; border-radius: 999px;
     border: 1px solid rgba(79,182,242,.35); color: var(--gold2); font-size: 13px;
     background: rgba(79,182,242,.07); }
+  .demo-strip { display: flex; align-items: center; gap: 11px; max-width: 1480px;
+    margin: 0 auto; padding: 12px 28px 0; font-size: 13px; color: var(--dim); }
+  .demo-strip b { color: var(--text); }
+  .demo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red);
+    flex-shrink: 0; box-shadow: 0 0 10px rgba(255,92,92,.7); animation: blink 1.6s infinite; }
   header nav { margin-left: auto; }
   header a {
     color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600;
@@ -84,6 +89,11 @@
 
   /* ── the TV ── */
   .tv-zone { position: relative; }
+  .tv-zone::after {
+    content: ""; position: absolute; left: 50%; bottom: -13px; width: 130px; height: 13px;
+    transform: translateX(-50%); background: linear-gradient(180deg, #232a3a, #0a0d14);
+    border-radius: 0 0 9px 9px; box-shadow: 0 10px 22px rgba(0,0,0,.55); z-index: 0;
+  }
   .tv-glow {
     position: absolute; inset: -6% -4% 2% -4%; z-index: 0; border-radius: 40px;
     background: radial-gradient(60% 55% at 50% 45%, rgba(var(--glow), .35), transparent 70%);
@@ -92,9 +102,9 @@
   .tv {
     position: relative; z-index: 1; aspect-ratio: 16/9;
     background: #04050a; border-radius: 22px; overflow: hidden;
-    border: 1px solid #2a3040;
+    border: 1px solid #333c4d;
     box-shadow: inset 0 0 0 10px #14181f, inset 0 0 0 11px #000,
-                0 30px 80px rgba(0,0,0,.65);
+                0 30px 80px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.03);
   }
   .tv video { position: absolute; inset: 10px; width: calc(100% - 20px);
     height: calc(100% - 20px); object-fit: cover; background: #000;
@@ -125,7 +135,7 @@
     transform: skewX(-14deg);
   }
   .takeover .fin { position: absolute; top: 50%; left: -30%; width: 130px;
-    transform: translateY(-58%); }
+    transform: translateY(-58%); filter: brightness(0); opacity: .88; }
   .takeover .stamp {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(2.4);
     font-family: "Bebas Neue", sans-serif; font-size: 54px; letter-spacing: 8px;
@@ -149,7 +159,7 @@
     color: var(--text); display: grid; place-items: center; gap: 0;
   }
   #startOverlay .inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-  #startOverlay svg { width: 92px; height: 92px;
+  #startOverlay svg, #startOverlay .startIcon { width: 92px; height: 92px;
     filter: drop-shadow(0 8px 30px rgba(79,182,242,.5));
     animation: bob 3s ease-in-out infinite; }
   @keyframes bob { 50% { transform: translateY(-8px); } }
@@ -203,6 +213,11 @@
     background: rgba(46,204,113,.09); color: var(--green);
     border: 1px solid rgba(46,204,113,.35); transition: all .35s;
   }
+  #stateBox::before { content: ""; position: absolute; top: 14px; left: 16px;
+    width: 9px; height: 9px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 10px rgba(46,204,113,.7); transition: all .35s; }
+  #stateBox.break::before { background: var(--red); box-shadow: 0 0 10px rgba(255,92,92,.7); }
+  #stateBox.override::before { background: var(--gold); box-shadow: 0 0 10px rgba(79,182,242,.7); }
   #stateBox.break { background: rgba(255,92,92,.10); color: var(--red);
     border-color: rgba(255,92,92,.4); }
   #stateBox.override {
@@ -312,15 +327,7 @@
 </head>
 <body>
 <header>
-  <svg class="logo" viewBox="0 0 64 64" aria-hidden="true">
-    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#9fdcff"/><stop offset="1" stop-color="#0b5fb0"/>
-    </linearGradient></defs>
-    <path fill="url(#lg)" d="M6 38c10-14 26-20 46-18l6-10 2 14c2 2 3 4 3 6-14 12-34 16-48 12l-9 8-2-14z"/>
-    <path fill="#06080d" d="M30 24l4-9 7 8c-4 0-8 0-11 1z" opacity=".85"/>
-    <circle cx="48" cy="30" r="2.4" fill="#06080d"/>
-    <path fill="#06080d" d="M40 40l3 3-6 2z" opacity=".7"/>
-  </svg>
+  <img class="logo" src="static/brand/icon.png" alt="AdShark logo">
   <div>
     <div class="wordmark">AD-SHARK</div>
     <div class="tagline">the commercial killer</div>
@@ -328,6 +335,10 @@
   <span class="biz" id="bizName"></span>
   <nav><a href="index.html" style="margin-right:8px">← AdShark.tv</a><a href="dashboard.html">Business Dashboard →</a></nav>
 </header>
+
+<div class="demo-strip"><span class="demo-dot"></span>
+  <span><b>Live, interactive demo</b> — real detection running in your browser right now, not a recording. Hit play and watch AdShark take the break.</span>
+</div>
 
 <div class="wrap">
   <div>
@@ -339,22 +350,14 @@
         <div class="glass"></div>
         <div class="takeover" id="takeover">
           <div class="wave"></div>
-          <svg class="fin" viewBox="0 0 64 40" aria-hidden="true">
-            <path fill="#04101f" d="M2 38C14 30 22 16 26 2c10 8 16 20 17 36z"/>
-          </svg>
+          <img class="fin" src="static/brand/icon.png" alt="" aria-hidden="true">
           <div class="stamp" id="stampText">AD-SHARK TAKEOVER</div>
         </div>
         <span class="badge" id="liveBadge">LIVE</span>
         <span class="badge" id="adBadge">🦈 YOUR AD</span>
         <button id="startOverlay">
           <span class="inner">
-            <svg viewBox="0 0 64 64"><use href="#none"/>
-              <defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#9fdcff"/><stop offset="1" stop-color="#0b5fb0"/>
-              </linearGradient></defs>
-              <path fill="url(#lg2)" d="M6 38c10-14 26-20 46-18l6-10 2 14c2 2 3 4 3 6-14 12-34 16-48 12l-9 8-2-14z"/>
-              <circle cx="48" cy="30" r="2.4" fill="#06080d"/>
-            </svg>
+            <img src="static/brand/icon.png" alt="AdShark" class="startIcon">
             <span class="cta">▶ &nbsp;START THE BROADCAST</span>
             <small>simulated live game — the shark strikes when the break hits</small>
           </span>
@@ -378,7 +381,7 @@
     </div>
 
     <div class="card">
-      <h2>DETECTION SIGNALS</h2>
+      <h2>📡 DETECTION SIGNALS</h2>
       <div class="signals">
         <div class="radar" id="radar"><div class="ring"></div><div class="ring r2"></div></div>
         <div>
@@ -396,7 +399,7 @@
     </div>
 
     <div class="card">
-      <h2>AD QUEUE</h2>
+      <h2>🎬 AD QUEUE</h2>
       <ul class="queue" id="adQueue"></ul>
       <label class="switch">
         <span>Override enabled</span>
@@ -406,7 +409,7 @@
     </div>
 
     <div class="card">
-      <h2>THIS SESSION</h2>
+      <h2>📊 THIS SESSION</h2>
       <div class="stats">
         <div class="stat"><b id="statOverrides">0</b><span>OVERRIDES</span></div>
         <div class="stat"><b id="statAirtime">0s</b><span>YOUR AIRTIME</span></div>
