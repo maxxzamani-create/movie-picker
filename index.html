@@ -171,14 +171,20 @@
     border:1px solid #343434; padding:5px 12px; border-radius:100px; }
   .compare-tv .without .msg { font-size:15px; color:#9a9a9a; max-width:340px; line-height:1.6; }
   .compare-tv .without .msg b { color:#c4c4c4; }
-  .compare-tv .without .fakead { display:flex; align-items:center; gap:16px; padding:14px 22px;
-    background:#101010; border:1px solid #2c2c2c; border-radius:14px; animation:adGlow 2.6s ease-in-out infinite; }
-  @keyframes adGlow { 0%,100%{box-shadow:0 0 0 rgba(255,207,92,0);} 50%{box-shadow:0 0 26px rgba(255,207,92,.14);} }
-  .compare-tv .without .fakead-ic { width:54px; height:54px; flex-shrink:0; }
+  .compare-tv .without .fakead { display:flex; align-items:center; gap:18px; padding:18px 28px;
+    background:linear-gradient(160deg,#d3172f,#8f0c20); border:1px solid rgba(255,207,63,.35);
+    border-radius:16px; box-shadow:0 18px 44px rgba(0,0,0,.55); animation:adGlow 2.6s ease-in-out infinite; }
+  @keyframes adGlow { 0%,100%{box-shadow:0 18px 44px rgba(0,0,0,.55), 0 0 0 rgba(255,207,63,0);}
+    50%{box-shadow:0 18px 44px rgba(0,0,0,.55), 0 0 34px rgba(255,207,63,.28);} }
+  .compare-tv .without .fakead-ic { width:64px; height:64px; flex-shrink:0;
+    filter:drop-shadow(0 4px 10px rgba(0,0,0,.4)); }
   .compare-tv .without .fakead-w { text-align:left; }
-  .compare-tv .without .fakead-w b { display:block; font-family:"Bebas Neue"; font-size:28px;
-    letter-spacing:2.5px; line-height:1; color:#ffcf5c; }
-  .compare-tv .without .fakead-w span { font-size:11px; font-weight:800; letter-spacing:1.5px; color:#b8b8b8; }
+  .compare-tv .without .fakead-w b { display:block; font-family:"Bebas Neue"; font-size:36px;
+    letter-spacing:3px; line-height:1; color:#ffcf3f; text-shadow:0 2px 0 rgba(0,0,0,.25); }
+  .compare-tv .without .fakead-w .deal { display:block; margin-top:4px; font-size:12.5px; font-weight:800;
+    letter-spacing:1.5px; color:#fff; }
+  .compare-tv .without .fakead-w .jab { display:block; margin-top:6px; font-size:10.5px; font-weight:800;
+    letter-spacing:1.5px; color:#ffd98a; opacity:.9; }
   .compare-tv video { width:100%; height:100%; object-fit:cover; display:block; }
   .compare-toggle { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:20px; }
   .compare-toggle span { font-size:13px; font-weight:700; color:var(--dim); transition:color .2s; }
@@ -460,16 +466,21 @@
         <div class="badge">COMMERCIAL BREAK</div>
         <div class="fakead" aria-hidden="true">
           <svg class="fakead-ic" viewBox="0 0 64 64">
-            <circle cx="32" cy="32" r="30" fill="#c8102e"/>
-            <path d="M15 30 C 18 18, 46 18, 49 30 L 49 32 L 15 32 Z" fill="#ffcf5c"/>
-            <circle cx="24" cy="24.5" r="1.4" fill="#fff8ea"/><circle cx="32" cy="22.5" r="1.4" fill="#fff8ea"/><circle cx="40" cy="24.5" r="1.4" fill="#fff8ea"/>
-            <path d="M14 34 q4 4 9 0 q4 4 9 0 q4 4 9 0 q4 4 9 0 l0 3 l-36 0 Z" fill="#7ec24a"/>
-            <rect x="14" y="38" width="36" height="6" rx="3" fill="#6b3d1e"/>
-            <path d="M15 46 L 49 46 C 48 52, 41 55, 32 55 C 23 55, 16 52, 15 46 Z" fill="#ffcf5c"/>
+            <g fill="#ffcf3f">
+              <rect x="18" y="12" width="4.6" height="26" rx="2"/>
+              <rect x="24.5" y="8" width="4.6" height="30" rx="2"/>
+              <rect x="31" y="13" width="4.6" height="25" rx="2"/>
+              <rect x="37.5" y="7" width="4.6" height="31" rx="2"/>
+              <rect x="44" y="12" width="4.6" height="26" rx="2"/>
+            </g>
+            <path d="M13 30 L 51 30 L 46.5 58 L 17.5 58 Z" fill="#fff8ea"/>
+            <path d="M13 30 L 51 30 L 49.8 38 L 14.2 38 Z" fill="#f4e9d0"/>
+            <path d="M24 38 l3 20 h-6 Z M40 38 l-3 20 h6 Z" fill="#e9dcc0" opacity=".7"/>
           </svg>
           <div class="fakead-w">
             <b>BURGER&nbsp;PIT</b>
-            <span>2 FOR $6 — TONIGHT ONLY</span>
+            <span class="deal">2 FOR $6 — GAME NIGHT ONLY</span>
+            <span class="jab">99 BILLION SOLD. NONE OF THEM YOURS.</span>
           </div>
         </div>
         <div class="msg">A national chain's ad is playing on <b>your</b> TV right now — and your
