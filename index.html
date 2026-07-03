@@ -103,7 +103,7 @@
   .filmwrap { position:relative; padding-top:56.25%; border-radius:18px; overflow:hidden;
     border:1px solid #223049; background:#000;
     box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(79,182,242,.14); }
-  .filmwrap iframe, .filmwrap video { position:absolute; inset:0; width:100%; height:100%; border:0; object-fit:cover; background:#000; }
+  .filmwrap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
   .kicker { color:var(--blue2); font-weight:800; letter-spacing:3px; font-size:12px;
     text-transform:uppercase; margin-bottom:14px; }
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; }
@@ -168,15 +168,6 @@
   .compare-tv .without .badge { font-size:11px; letter-spacing:2px; font-weight:800; color:#8a8a8a;
     border:1px solid #343434; padding:5px 12px; border-radius:100px; }
   .compare-tv .without .msg { font-size:15px; color:#9a9a9a; max-width:300px; line-height:1.6; }
-  .fake-logos { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; max-width:420px; }
-  .fake-logo { display:flex; align-items:center; gap:8px; padding:7px 14px 7px 7px; border-radius:12px;
-    background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.12);
-    opacity:.82; animation:flCycle 9s ease-in-out infinite; }
-  .fake-logo svg { width:30px; height:30px; flex:none; border-radius:8px; display:block; }
-  .fake-logo .fl-name { font-family:'Bebas Neue'; font-size:14px; letter-spacing:.6px; color:#c2c2c2; font-weight:400; }
-  .fake-logo.fl-1 { animation-delay:0s; } .fake-logo.fl-2 { animation-delay:2.2s; }
-  .fake-logo.fl-3 { animation-delay:4.4s; } .fake-logo.fl-4 { animation-delay:6.6s; }
-  @keyframes flCycle { 0%,62%,100%{opacity:.8; transform:scale(1);} 15%{opacity:1; transform:scale(1.04);} }
   .compare-tv video { width:100%; height:100%; object-fit:cover; display:block; }
   .compare-toggle { display:flex; align-items:center; justify-content:center; gap:14px; margin-top:20px; }
   .compare-toggle span { font-size:13px; font-weight:700; color:var(--dim); transition:color .2s; }
@@ -359,40 +350,8 @@
     <div class="frame">
       <div class="layer without" id="layerWithout">
         <div class="badge">COMMERCIAL BREAK</div>
-        <div class="fake-logos">
-          <div class="fake-logo fl-1">
-            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#c9453d"/>
-              <path d="M9 18c0-4.5 4.9-8 11-8s11 3.5 11 8z" fill="#f2c879"/>
-              <rect x="8" y="18" width="24" height="3.6" rx="1.8" fill="#7a4326"/>
-              <rect x="8" y="22.4" width="24" height="3.6" rx="1.8" fill="#5f9a4c"/>
-              <rect x="8" y="26.8" width="24" height="5" rx="2.5" fill="#e0a75e"/></svg>
-            <span class="fl-name">BURGER PIT</span>
-          </div>
-          <div class="fake-logo fl-2">
-            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#e0932c"/>
-              <path d="M20 9 L31.5 30.5 L8.5 30.5 Z" fill="#f4d27a" stroke="#c9451f" stroke-width="1.6"/>
-              <circle cx="17.5" cy="21.5" r="2" fill="#c9451f"/>
-              <circle cx="23.5" cy="25" r="2" fill="#c9451f"/>
-              <circle cx="20" cy="16.8" r="1.5" fill="#c9451f"/></svg>
-            <span class="fl-name">PIZZA WAVE</span>
-          </div>
-          <div class="fake-logo fl-3">
-            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#a8672f"/>
-              <ellipse cx="18.5" cy="16.5" rx="8.5" ry="7.5" fill="#f0c27a"/>
-              <rect x="21" y="19" width="5.5" height="13" rx="2.75" fill="#f0c27a" transform="rotate(30 21 19)"/></svg>
-            <span class="fl-name">CHIX HOUSE</span>
-          </div>
-          <div class="fake-logo fl-4">
-            <svg viewBox="0 0 40 40"><rect width="40" height="40" rx="10" fill="#5a9e4a"/>
-              <path d="M8 23 A12 10 0 0 1 32 23 Z" fill="#f2c879"/>
-              <path d="M10 23 h20" stroke="#8a4a2a" stroke-width="1.8"/>
-              <path d="M12.5 21 l2 -4.5 M18 21 l1 -5 M24 21 l1 -5 M27.5 21 l2 -4.5"
-                stroke="#3f7a3a" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <span class="fl-name">TACO SUN</span>
-          </div>
-        </div>
-        <div class="msg">Somebody else's fast-food ad is playing on your TV right now — and
-          your customers are watching it, not your menu.</div>
+        <div class="msg">Someone else's ad is playing on your TV right now — and your
+          customers are watching it, not your menu.</div>
       </div>
       <div class="layer hide" id="layerWith">
         <div class="live-tag" style="position:absolute; top:12px; left:12px;">
@@ -479,10 +438,9 @@
     do during commercial breaks, what it costs you, and how AdShark turns that moment
     into revenue for your business.</p>
   <div class="filmwrap">
-    <video controls playsinline preload="none" poster="static/co/avatar_poster.jpg"
-           title="AdShark — Your TV. Your ads. Every break.">
-      <source src="static/co/avatar_promo.mp4" type="video/mp4">
-    </video>
+    <iframe src="https://drive.google.com/file/d/1M2NBolP5syLQb-sP7IUCEUJhc9FtfLQu/preview"
+            allow="autoplay; fullscreen" allowfullscreen loading="lazy"
+            title="AdShark — The Future of CTV Advertising"></iframe>
   </div>
 </section>
 
@@ -587,16 +545,15 @@
     <div>
       <div class="bubble">
         <div class="who">SHARKY · AdShark SPOKESFISH</div>
-        <div id="bubbleText">Hey! I'm Sharky. Hit "Play the tour" and I'll walk you
-          through exactly what's leaking money on your TVs right now — and how AdShark bites
-          back. 🔊 Turn your sound on, I actually talk.</div>
+        <div id="bubbleText">Hey! I'm Sharky. Click "Play the tour" and I'll walk you
+          through what AdShark does, why your TV is leaking money, and how we bite back.
+          🔊 Turn your sound on — I actually talk.</div>
       </div>
       <div class="sharky-ctl">
         <button class="primary" id="tourBtn">🔊 Play the tour</button>
         <button id="nextBtn">Next tip →</button>
         <button id="stopBtn">Stop</button>
       </div>
-      <audio id="sharkyAudio" preload="none" style="display:none"></audio>
     </div>
   </div>
 </section>
@@ -750,85 +707,117 @@
 
 <script>
 const LINES = [
-  "Here's what's happening on your T-Vs right now. Every commercial break, you're paying to advertise pizza, burgers, and beer... for somebody else. Your customers are staring right at it.",
-  "The numbers don't lie. Forty five percent of people snack more during food commercials. Eight percent actually get up and go buy the exact thing they just saw, at somebody else's counter. Not yours.",
-  "AdShark is a little box that watches your broadcast the way a bouncer watches a door. Black frames. Dead audio. The rhythm changes. That's a commercial break starting, and I catch it in under a second.",
-  "The second I catch it, your screens flip to your specials. Real food, real prices, equal airtime for every dish. When the game comes back, I snap back just as fast. Nobody in that bar misses a single play.",
-  "One restaurant leaks about sixteen thousand dollars a year in ad time they never even get to use. Full Bar is ninety nine bucks a month. Do that math with me.",
-  "No I-T team, no new remote, nothing for your staff to learn. Plug me in once, and I do this every single break, every single day, forever.",
-  "Right now I've got ten founding spots open. First month free, and your rate locked for life. Hit the live demo below and watch me eat a commercial in real time. Chomp chomp."
-];
-// Pre-recorded narration (consistent, natural voice for every visitor — no dependence
-// on whatever text-to-speech voices happen to be installed on their device). Falls back
-// to the browser's own speechSynthesis (best available voice, auto-scored) only if the
-// audio file fails to load.
-const AUDIO_SRCS = [
-  "static/co/sharky-audio/sharky_01.mp3",
-  "static/co/sharky-audio/sharky_02.mp3",
-  "static/co/sharky-audio/sharky_03.mp3",
-  "static/co/sharky-audio/sharky_04.mp3",
-  "static/co/sharky-audio/sharky_05.mp3",
-  "static/co/sharky-audio/sharky_06.mp3",
-  "static/co/sharky-audio/sharky_07.mp3"
+  "Here's the problem. Every commercial break, the TV in your restaurant sells burgers, soft serve, and pizza... for somebody else. Your customers are sitting right there, wallets open.",
+  "Research shows people snack forty five percent more while food ads play, and eight percent go buy the exact thing they saw. That purchase should happen at YOUR register.",
+  "AdShark watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
+  "During the break, your screens show YOUR specials. Real photos of your food, equal airtime for every spot. When the game comes back, I snap back instantly. Nobody misses a play.",
+  "The dashboard counts every play and estimates what the leak was costing you. For a typical room, that's around sixteen thousand dollars a year, and Full Bar costs ninety nine a month.",
+  "Want to see me hunt? Hit the live demo and watch me eat a commercial in real time. Chomp chomp."
 ];
 let idx = -1, speaking = false;
 const bubble = document.getElementById("bubbleText");
 const sharky = document.getElementById("sharkySvg");
-const sharkyAudio = document.getElementById("sharkyAudio");
-
-// --- fallback-only: browser speechSynthesis voice scoring (used if an mp3 fails) ---
 let voicesList = [], chosenVoice = null;
+// Recorded narration — Ryan (en-GB neural), baked in so every visitor hears the same voice.
+const AUDIO = [
+  "audio/sharky-1.mp3", "audio/sharky-2.mp3", "audio/sharky-3.mp3",
+  "audio/sharky-4.mp3", "audio/sharky-5.mp3", "audio/sharky-6.mp3"
+];
+let curAudio = null;
+
+// Sharky is a dude. These regexes lock him onto a man's voice and push female
+// voices (which currently win by default in Chrome) to the bottom of the list.
+const MALE_HINTS = /(guy|andrew|christopher|eric|brian|davis|jason|tony|steffan|david|mark|george|ryan|daniel|alex|fred|aaron|arthur|thomas|\btom\b|nathan|rishi|liam|oliver|william|james|john|michael|richard|\bpaul\b|kevin|edward|\bmale\b|\bman\b)/;
+const FEMALE_HINTS = /(zira|susan|hazel|samantha|victoria|karen|moira|tessa|fiona|catherine|linda|heera|sabina|\beva\b|aria|jenny|michelle|\bana\b|amelia|emily|sonia|natasha|clara|libby|maisie|serena|allison|\bava\b|nora|\bkate\b|kathy|vicki|zoe|\bfemale\b|\bwoman\b)/;
+const JUNK_HINTS = /(compact|whisper|novelty|eloquence|zarvox|trinoids|albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|hysterical|pipe|jester|organ|superstar|wobble|grandma|grandpa|reed|rocko|sandy|shelley)/;
+
+function isFemaleVoice(n) {
+  return FEMALE_HINTS.test(n) || n === "google us english" || /google uk english female/.test(n);
+}
+
 function scoreVoice(v) {
-  const n = v.name.toLowerCase();
+  const n = (v.name || "").toLowerCase();
+  const lang = (v.lang || "").toLowerCase();
   let score = 0;
-  if (/natural|neural|premium|enhanced|online/.test(n)) score += 50;
-  if (/google/.test(n)) score += 30;
-  if (/^microsoft (guy|ryan|andrew|christopher|eric|davis|jason)/.test(n)) score += 40;
-  if (/daniel|alex|fred|tom|aaron|nathan/.test(n)) score += 20;
-  if (v.localService) score += 10;
-  if (v.lang && v.lang.startsWith("en")) score += 15;
-  if (v.lang === "en-US" || v.lang === "en-GB") score += 5;
-  if (/compact|whisper|zira/.test(n)) score -= 40;
+  if (lang.startsWith("en")) score += 20; else score -= 50;
+  if (lang === "en-us" || lang === "en-gb") score += 6;
+  if (/natural|neural|premium|enhanced|online/.test(n)) score += 60;   // near-human quality (Edge/Azure)
+  if (/google uk english male/.test(n)) score += 55;                   // best male voice in plain Chrome
+  if (/google/.test(n)) score += 12;
+  if (v.localService) score += 8;
+  const female = isFemaleVoice(n);
+  if (!female && MALE_HINTS.test(n)) score += 45;                      // it's a man's voice
+  if (female) score -= 90;                                             // never auto-pick a female voice for Sharky
+  if (JUNK_HINTS.test(n)) score -= 70;
   return score;
 }
+
 function loadVoices() {
+  if (!("speechSynthesis" in window)) return;
   const all = speechSynthesis.getVoices();
   if (!all.length) return;
   voicesList = all.filter(v => v.lang && v.lang.startsWith("en"));
   if (!voicesList.length) voicesList = all;
   voicesList.sort((a, b) => scoreVoice(b) - scoreVoice(a));
-  chosenVoice = voicesList[0];
+  chosenVoice = voicesList[0];   // best available male voice — used only as audio fallback
 }
 loadVoices();
 if ("speechSynthesis" in window) {
   speechSynthesis.addEventListener("voiceschanged", loadVoices);
+  // Some browsers populate voices late — poll a few times so the dropdown isn't empty.
+  let _vtries = 0;
+  const _vpoll = setInterval(() => {
+    if (voicesList.length || _vtries++ > 12) { clearInterval(_vpoll); return; }
+    loadVoices();
+  }, 250);
 }
-function speakFallback(text) {
+let keepAlive;
+function afterLine() {
+  sharky.classList.remove("talking");
+  if (speaking) { setTimeout(nextLine, 500); }
+}
+function stopSpeech() {
+  try { speechSynthesis.cancel(); } catch (e) {}
+  clearInterval(keepAlive);
+  if (curAudio) { try { curAudio.pause(); } catch (e) {} curAudio = null; }
+  sharky.classList.remove("talking");
+}
+// Fallback only: the device's best male voice, used if a recorded clip can't load/play.
+function speakTTS(text) {
+  if (!("speechSynthesis" in window)) { afterLine(); return; }
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.rate = 1.02; u.pitch = 1.0;
-    if (chosenVoice) u.voice = chosenVoice;
-    u.onstart = () => sharky.classList.add("talking");
-    u.onend = () => { sharky.classList.remove("talking");
-      if (speaking) { setTimeout(nextLine, 500); } };
+    u.rate = 0.97; u.pitch = 0.9; u.volume = 1;
+    if (chosenVoice) { u.voice = chosenVoice; u.lang = chosenVoice.lang; }
+    u.onstart = () => {
+      sharky.classList.add("talking");
+      clearInterval(keepAlive);   // Chrome kills utterances after ~15s — keep them alive.
+      keepAlive = setInterval(() => {
+        try { speechSynthesis.pause(); speechSynthesis.resume(); } catch (e) {}
+      }, 9000);
+    };
+    u.onend = () => { clearInterval(keepAlive); afterLine(); };
+    u.onerror = () => { clearInterval(keepAlive); afterLine(); };
     speechSynthesis.speak(u);
-  } catch (e) { sharky.classList.remove("talking"); }
+  } catch (e) { afterLine(); }
 }
-
+// Primary: play Sharky's recorded voice; fall back to device voice only if a clip fails.
 function say(i) {
-  const text = LINES[i];
-  bubble.textContent = text;
-  sharky.classList.add("talking");
-  sharkyAudio.onended = () => {
-    sharky.classList.remove("talking");
-    if (speaking) { setTimeout(nextLine, 450); }
-  };
-  sharkyAudio.onerror = () => { speakFallback(text); };
-  sharkyAudio.src = AUDIO_SRCS[i] || "";
-  const playPromise = sharkyAudio.play();
-  if (playPromise && playPromise.catch) {
-    playPromise.catch(() => { speakFallback(text); });
+  idx = i;
+  bubble.textContent = LINES[i];
+  stopSpeech();
+  const src = AUDIO[i];
+  if (src) {
+    const a = new Audio(src);
+    curAudio = a;
+    a.onplaying = () => sharky.classList.add("talking");
+    a.onended = () => { curAudio = null; afterLine(); };
+    a.onerror = () => { curAudio = null; speakTTS(LINES[i]); };
+    const p = a.play();
+    if (p && p.catch) p.catch(() => { curAudio = null; speakTTS(LINES[i]); });
+  } else {
+    speakTTS(LINES[i]);
   }
 }
 function nextLine() {
@@ -844,10 +833,7 @@ document.getElementById("nextBtn").addEventListener("click", () => {
   speaking = false; idx = (idx + 1) % LINES.length; say(idx);
 });
 document.getElementById("stopBtn").addEventListener("click", () => {
-  speaking = false;
-  try { sharkyAudio.pause(); sharkyAudio.currentTime = 0; } catch (e) {}
-  try { speechSynthesis.cancel(); } catch (e) {}
-  sharky.classList.remove("talking");
+  speaking = false; stopSpeech();
 });
 
 if ("IntersectionObserver" in window) {
