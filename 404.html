@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a1626">
+<title>404 — Nothing but open water | AdShark.tv</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/brand/favicon-32.png">
+<link rel="shortcut icon" href="/static/brand/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#0a1626; --line:#2b4166; --blue:#3db6ff; --blue-pale:#cdeeff; --blue-deep:#0b5fb0; --white:#f4f8fd; --dim:#9db4d0; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:var(--white);font-family:Inter,system-ui,sans-serif;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    padding:40px 20px;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:-40%;z-index:-1;
+    background:radial-gradient(40% 32% at 30% 20%,rgba(61,182,255,.14),transparent 60%),
+               radial-gradient(46% 38% at 60% 100%,rgba(11,95,176,.14),transparent 60%)}
+  #sharkySvg{width:min(340px,80vw);filter:drop-shadow(0 14px 30px rgba(79,182,242,.32));overflow:visible;margin-bottom:8px}
+  #sharkySvg .shark{transform-box:fill-box;transform-origin:center;animation:swim 5.2s ease-in-out infinite}
+  @keyframes swim{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-1.4deg)}}
+  #sharkySvg .fin-tail{transform-box:fill-box;transform-origin:0% 55%;animation:tail 2.1s ease-in-out infinite}
+  @keyframes tail{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(6deg)}}
+  #sharkySvg .fin-pec{transform-box:fill-box;transform-origin:50% 0%;animation:pec 2.6s ease-in-out infinite}
+  @keyframes pec{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(6deg)}}
+  #sharkySvg .eye-lid{transform-box:fill-box;transform-origin:center;animation:blink 4.6s infinite}
+  @keyframes blink{0%,93.5%,100%{transform:scaleY(0)}95.5%{transform:scaleY(1)}97.5%{transform:scaleY(0)}}
+  #sharkySvg .bub{animation:bubrise 4.2s ease-in infinite}
+  #sharkySvg .b2{animation-delay:1.3s}#sharkySvg .b3{animation-delay:2.5s}
+  @keyframes bubrise{0%{transform:translateY(6px);opacity:0}18%{opacity:.75}80%{opacity:.5}100%{transform:translateY(-34px);opacity:0}}
+  .code{font-family:"Bebas Neue",sans-serif;font-size:clamp(4rem,14vw,7.5rem);line-height:1;letter-spacing:.04em;
+    background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+  h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(1.6rem,5vw,2.6rem);letter-spacing:.05em;margin:6px 0 12px}
+  p{color:var(--dim);max-width:440px;margin:0 auto 28px;line-height:1.6}
+  .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 26px;border-radius:12px;text-decoration:none;font-weight:800;font-size:.95rem;
+    border:1px solid var(--line);color:var(--white);background:rgba(30,46,70,.85);transition:.2s}
+  .btn:hover{transform:translateY(-2px);border-color:var(--blue)}
+  .btn.primary{background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));color:#04101f;border-color:transparent}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+  <svg id="sharkySvg" viewBox="0 0 340 230" role="img" aria-label="Sharky looking for the missing page">
+    <defs>
+      <linearGradient id="sgBody" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#9fdcff"/><stop offset=".45" stop-color="#4fb6f2"/><stop offset="1" stop-color="#0b5fb0"/>
+      </linearGradient>
+      <linearGradient id="sgBelly" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#eef8ff"/><stop offset="1" stop-color="#bfe2f8"/>
+      </linearGradient>
+      <linearGradient id="sgFin" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7fcdf9"/><stop offset="1" stop-color="#0b5fb0"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="165" cy="216" rx="100" ry="9" fill="#4fb6f2" opacity=".14"/>
+    <g class="shark">
+      <g class="fin-tail">
+        <path fill="url(#sgFin)" d="M262 104 C 284 84, 296 62, 314 44 C 308 74, 310 92, 324 106
+          C 308 112, 296 112, 284 110 C 296 124, 300 140, 298 158 C 282 142, 270 128, 260 116 Z"/>
+      </g>
+      <path fill="url(#sgFin)" d="M148 62 C 146 36, 156 18, 178 8 C 174 32, 180 48, 192 60 Z"/>
+      <path fill="url(#sgBody)" d="M30 126 C 44 92, 92 60, 152 57 C 200 55, 240 74, 264 108
+        C 246 138, 208 158, 156 160 C 106 162, 54 150, 30 126 Z"/>
+      <path fill="url(#sgBelly)" d="M34 130 C 70 128, 120 126, 170 130 C 210 133, 238 126, 258 114
+        C 242 140, 206 157, 156 159 C 108 160, 58 150, 34 130 Z"/>
+      <path fill="#ffffff" opacity=".12" d="M60 84 C 92 62, 150 54, 196 62 C 156 60, 100 68, 60 84 Z"/>
+      <g fill="none" stroke="#0b5fb0" stroke-width="3" stroke-linecap="round" opacity=".55">
+        <path d="M126 88 Q 120 106 126 124"/><path d="M138 86 Q 132 106 138 126"/><path d="M150 86 Q 144 106 150 126"/>
+      </g>
+      <path fill="#04101f" d="M36 118 C 62 130, 94 134, 118 128 C 100 150, 60 150, 36 130 Z"/>
+      <g fill="#ffffff">
+        <path d="M46 122 l4.5 9 l4.5 -7.6 Z"/><path d="M58 125 l4.5 9 l4.5 -7.4 Z"/><path d="M70 127 l4.5 9 l4.5 -7.4 Z"/>
+        <path d="M82 128 l4.5 9 l4.5 -7.6 Z"/><path d="M94 128 l4.5 8.4 l4.5 -8 Z"/><path d="M105 126 l4 7.6 l4 -8.4 Z"/>
+      </g>
+      <g class="jaw">
+        <path fill="url(#sgBelly)" d="M40 136 C 64 148, 96 148, 114 134 C 102 154, 62 156, 40 144 Z"/>
+        <g fill="#ffffff">
+          <path d="M56 143 l3.8 -7 l3.8 8 Z"/><path d="M68 145 l3.8 -7.4 l3.8 7.8 Z"/>
+          <path d="M80 145 l3.8 -7.4 l3.8 7 Z"/><path d="M92 143 l3.6 -7 l3.6 6.4 Z"/>
+        </g>
+      </g>
+      <path fill="none" stroke="#04101f" stroke-width="3" stroke-linecap="round" d="M116 128 Q 124 126 128 120"/>
+      <ellipse cx="80" cy="98" rx="9" ry="9.5" fill="#ffffff"/>
+      <circle cx="79" cy="99" r="5.4" fill="#0b3f77"/>
+      <circle cx="78" cy="100" r="2.8" fill="#04101f"/>
+      <circle cx="76.6" cy="96.6" r="1.6" fill="#ffffff"/>
+      <ellipse class="eye-lid" cx="80" cy="98" rx="9.6" ry="10" fill="#2f8fd4"/>
+      <path fill="none" stroke="#0b5fb0" stroke-width="3.5" stroke-linecap="round" d="M67 81 Q 80 74 93 81"/>
+      <g class="fin-pec"><path fill="url(#sgFin)" d="M128 146 C 140 164, 140 184, 124 200 C 112 184, 108 162, 116 146 Z"/></g>
+      <path fill="url(#sgFin)" d="M206 150 C 214 160, 216 170, 212 180 C 202 170, 198 160, 200 152 Z"/>
+    </g>
+    <g fill="none" stroke="#9fdcff" stroke-width="2" opacity=".7">
+      <circle class="bub b1" cx="28" cy="86" r="5"/><circle class="bub b2" cx="16" cy="66" r="3.4"/><circle class="bub b3" cx="34" cy="52" r="2.4"/>
+    </g>
+  </svg>
+  <div class="code">404</div>
+  <h1>NOTHING BUT OPEN WATER OUT HERE</h1>
+  <p>The page you're hunting swam off. Sharky looked everywhere — even behind the coral.
+     Let's get you back to the boat.</p>
+  <div class="ctas">
+    <a class="btn primary" href="/">🦈 Back to home</a>
+    <a class="btn" href="/tv.html">▶ Live demo</a>
+    <a class="btn" href="/founding10.html">Founding 10</a>
+  </div>
+</body>
+</html>

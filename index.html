@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AdShark.tv — Your TV. Your ads. Every break.</title>
 <meta name="description" content="AdShark detects commercial breaks on the TVs in your bar or restaurant and swaps them for your own specials. No more competitor food ads in front of your captive audience.">
-<meta name="theme-color" content="#03050a">
+<meta name="theme-color" content="#0a1626">
 <link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
 <link rel="shortcut icon" href="static/brand/favicon.ico">
@@ -27,7 +27,9 @@
   "url": "https://adshark.tv",
   "logo": "https://adshark.tv/static/brand/og-image.jpg",
   "description": "AdShark detects commercial breaks on TVs in bars and restaurants and automatically switches them to the owner's own promotional content.",
-  "founder": { "@type": "Person", "name": "Maxx Zamani" }
+  "founder": { "@type": "Person", "name": "Maxx Zamani" },
+  "telephone": "+1-916-628-6299",
+  "email": "maxxzamani@gmail.com"
 }
 </script>
 <link rel="canonical" href="https://adshark.tv/">
@@ -35,9 +37,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:#03050a; --bg2:#070b15;
-    --surface:rgba(17,25,39,.62); --surface2:rgba(21,30,46,.9);
-    --line:#1c2740; --text:#eef5fc; --dim:#8ea1ba;
+    --bg:#0a1626; --bg2:#0f1e33;
+    --surface:rgba(40,59,88,.5); --surface2:rgba(44,65,96,.85);
+    --line:#2b4166; --text:#f2f7fd; --dim:#a9bdd8;
     --blue-pale:#cdeeff; --blue2:#9fdcff; --blue:#4fb6f2; --blue-deep:#0b5fb0;
     --navy:#04101f;
     --green:#2ecc71; --red:#ff5c5c;
@@ -46,9 +48,9 @@
   html { scroll-behavior:smooth; }
   body { background:var(--bg); color:var(--text); font-family:"Inter",system-ui,sans-serif; overflow-x:hidden; }
   body::before { content:""; position:fixed; inset:-40%; z-index:-2;
-    background: radial-gradient(40% 32% at 20% 15%, rgba(79,182,242,.16), transparent 60%),
-                radial-gradient(34% 30% at 84% 20%, rgba(159,220,255,.10), transparent 60%),
-                radial-gradient(46% 38% at 50% 100%, rgba(11,95,176,.14), transparent 60%);
+    background: radial-gradient(40% 32% at 20% 15%, rgba(79,182,242,.22), transparent 60%),
+                radial-gradient(34% 30% at 84% 20%, rgba(159,220,255,.14), transparent 60%),
+                radial-gradient(46% 38% at 50% 100%, rgba(11,95,176,.20), transparent 60%);
     animation:drift 30s ease-in-out infinite alternate; }
   @keyframes drift { from{transform:translate(-2%,-1%);} to{transform:translate(2%,2%);} }
   body::after { content:""; position:fixed; inset:0; z-index:-1; opacity:.5; pointer-events:none;
@@ -57,7 +59,7 @@
   a { color:var(--blue2); }
   .btn { display:inline-block; padding:14px 28px; border-radius:12px; text-decoration:none;
     font-weight:800; font-size:15px; border:1px solid var(--line); color:var(--text);
-    background:rgba(16,21,32,.85); transition:.2s; }
+    background:rgba(30,46,70,.85); transition:.2s; }
   .btn:hover { transform:translateY(-2px); border-color:var(--blue); }
   .btn.primary { background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));
     color:var(--navy); border-color:transparent;
@@ -66,7 +68,7 @@
   @keyframes btnPulse { 0%,100%{ box-shadow:0 0 0 rgba(79,182,242,.0);} 50%{ box-shadow:0 0 26px rgba(79,182,242,.35);} }
   header { display:flex; align-items:center; gap:12px; padding:14px 28px;
     border-bottom:1px solid rgba(255,255,255,.06); position:sticky; top:0;
-    background:rgba(3,5,10,.85); backdrop-filter:blur(10px); z-index:50; }
+    background:rgba(10,22,38,.85); backdrop-filter:blur(10px); z-index:50; }
   .logo { width:38px; height:38px; filter:drop-shadow(0 4px 14px rgba(79,182,242,.55)); flex-shrink:0; }
   .wordmark { font-family:"Inter",system-ui,sans-serif; font-weight:800; font-size:21px;
     letter-spacing:.2px; line-height:1;
@@ -241,27 +243,34 @@
   #sharkySvg.talking .fin-pec { animation-duration:1.1s; }
   #sharkySvg .eye-lid { transform-box:fill-box; transform-origin:center; animation:blink 4.6s infinite; }
   @keyframes blink { 0%,93.5%,100%{transform:scaleY(0);} 95.5%{transform:scaleY(1);} 97.5%{transform:scaleY(0);} }
+  #sharkySvg { cursor:pointer; }
+  #sharkySvg.chomp .shark { animation:chompLunge .55s cubic-bezier(.3,1.4,.5,1) 1, swim 5.2s ease-in-out infinite; }
+  @keyframes chompLunge { 30% { transform:translateX(-14px) rotate(-3deg); } 100% { transform:translateX(0) rotate(0); } }
+  #sharkySvg.chomp .jaw { animation:chompJaw .18s ease-in-out 3; }
+  @keyframes chompJaw { 50% { transform:rotate(14deg) translateY(2.5px); } }
+  #sharkySvg.chomp .bub { animation-duration:1.4s; }
+  #sharkyIris { transition:transform .12s ease-out; }
   #sharkySvg .bub { animation:bubrise 4.2s ease-in infinite; }
   #sharkySvg .b2 { animation-delay:1.3s; } #sharkySvg .b3 { animation-delay:2.5s; }
   @keyframes bubrise { 0%{transform:translateY(6px); opacity:0;} 18%{opacity:.75;}
     80%{opacity:.5;} 100%{transform:translateY(-34px); opacity:0;} }
-  .bubble { position:relative; background:#0a0f1a; border:1px solid rgba(79,182,242,.35);
+  .bubble { position:relative; background:#13223b; border:1px solid rgba(79,182,242,.35);
     border-radius:18px; padding:22px 24px; font-size:16.5px; line-height:1.75;
     min-height:130px; }
   .bubble::before { content:""; position:absolute; left:-11px; top:44px; width:20px; height:20px;
-    background:#0a0f1a; border-left:1px solid rgba(79,182,242,.35);
+    background:#13223b; border-left:1px solid rgba(79,182,242,.35);
     border-bottom:1px solid rgba(79,182,242,.35); transform:rotate(45deg); }
   .bubble .who { color:var(--blue2); font-weight:800; font-size:12px; letter-spacing:2px;
     margin-bottom:8px; }
   .sharky-ctl { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
   .sharky-ctl button { padding:10px 18px; border-radius:10px; border:1px solid var(--line);
-    background:rgba(16,21,32,.9); color:var(--text); font-weight:700; cursor:pointer;
+    background:rgba(30,46,70,.9); color:var(--text); font-weight:700; cursor:pointer;
     font-family:inherit; font-size:13px; }
   .sharky-ctl button:hover { border-color:var(--blue); }
   .sharky-ctl button.primary { background:linear-gradient(120deg,var(--blue-pale),var(--blue));
     color:var(--navy); border-color:transparent; }
   .sharky-ctl select { padding:10px 14px; border-radius:10px; border:1px solid var(--line);
-    background:rgba(16,21,32,.9); color:var(--text); font-weight:700; cursor:pointer;
+    background:rgba(30,46,70,.9); color:var(--text); font-weight:700; cursor:pointer;
     font-family:inherit; font-size:13px; max-width:220px; }
   .sharky-ctl select:hover { border-color:var(--blue); }
 
@@ -321,10 +330,36 @@
     92%{opacity:.35;} 100%{transform:translateX(min(96vw,1080px)); opacity:0;} }
   @keyframes finbob { 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-3px) rotate(2deg);} }
 
+  .scrollbar-progress { position:fixed; top:0; left:0; height:3px; width:0; z-index:99;
+    background:linear-gradient(90deg,var(--blue-pale),var(--blue),var(--blue-deep));
+    box-shadow:0 0 12px rgba(79,182,242,.55); }
+  .rise-layer { position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+  .rise-layer::before, .rise-layer::after { content:""; position:absolute; top:0; left:0;
+    width:5px; height:5px; border-radius:50%; background:transparent; }
+  .rise-layer::before { box-shadow:
+    6vw 108vh rgba(159,220,255,.4), 19vw 124vh rgba(79,182,242,.3), 31vw 112vh rgba(205,238,255,.28),
+    44vw 130vh rgba(159,220,255,.34), 58vw 116vh rgba(79,182,242,.3), 71vw 126vh rgba(205,238,255,.26),
+    84vw 110vh rgba(159,220,255,.36), 94vw 121vh rgba(79,182,242,.3);
+    animation:rise 58s linear infinite; }
+  .rise-layer::after { width:3px; height:3px; box-shadow:
+    11vw 118vh rgba(159,220,255,.3), 26vw 106vh rgba(79,182,242,.24), 39vw 127vh rgba(205,238,255,.22),
+    52vw 111vh rgba(159,220,255,.26), 66vw 122vh rgba(79,182,242,.24), 78vw 108vh rgba(205,238,255,.2),
+    90vw 129vh rgba(159,220,255,.26);
+    animation:rise 84s linear infinite; }
+  @keyframes rise { to { transform:translateY(-135vh); } }
+  header nav a.active { color:var(--blue-pale); background:rgba(79,182,242,.12); }
+  section h2::after { content:""; display:block; width:66px; height:4px; border-radius:4px; margin-top:12px;
+    background:linear-gradient(90deg,var(--blue-pale),var(--blue)); transform:scaleX(0); transform-origin:left;
+    transition:transform .8s cubic-bezier(.16,1,.3,1) .2s; }
+  section.reveal.in h2::after { transform:scaleX(1); }
+  #contact h2::after { margin-left:auto; margin-right:auto; transform-origin:center; }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation:none !important; transition:none !important; }
     .reveal, .reveal:not(.in) :is(.card,.step,.trust-card,.tier,.phase,.action-card) { opacity:1; transform:none; }
     .hero .kicker,.hero h1,.hero .sub,.hero .ctas,.hero .trust-row,.hero .founding-badge,.hero .tvframe { opacity:1; transform:none; }
+    section h2::after { transform:none; }
+    .rise-layer, .finswim { display:none; }
   }
 </style>
 <!-- P7 ANALYTICS: create a free GA4 property, then uncomment and paste your G-XXXXXXX ID.
@@ -333,13 +368,15 @@
 -->
 </head>
 <body>
+<div class="scrollbar-progress" id="scrollProg"></div>
+<div class="rise-layer" aria-hidden="true"></div>
 <header>
   <img class="logo" src="static/brand/icon.png" alt="AdShark shark-fin logo">
   <div class="wordmark">AdShark.tv</div>
   <nav>
-    <a href="#film">▶ Watch</a>
-    <a href="#action">Examples</a>
     <a href="#problem">The Leak</a>
+    <a href="#action">Examples</a>
+    <a href="#film">▶ Watch</a>
     <a href="#how">How it works</a>
     <a href="#trust">Why Trust Us</a>
     <a href="#sharky">Meet Sharky</a>
@@ -376,6 +413,29 @@
       <source src="static/co/ad_burger.webm" type="video/webm">
     </video>
   </div>
+</section>
+
+<section id="problem" class="reveal">
+  <div class="finswim" aria-hidden="true"><svg viewBox="0 0 46 26" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#4fb6f2" d="M6 22 C 12 10, 20 3, 30 1 C 27 8, 28 15, 33 22 Z"/>
+    <path fill="none" stroke="#4fb6f2" stroke-width="2" stroke-linecap="round" opacity=".6" d="M2 24 H 44"/>
+  </svg></div>
+  <div class="kicker">The problem</div>
+  <h2>EVERY BREAK, YOUR TV SELLS FOR SOMEONE ELSE</h2>
+  <p class="sub" style="margin-bottom:28px">Your customer just finished dinner and is thinking
+    about something sweet. A soft-serve commercial plays on your TV — and dessert happens on
+    the drive home, at someone else's register. Published research says this isn't a maybe:</p>
+  <div class="cards">
+    <div class="card"><b class="big" data-target="45" data-suffix="%">0%</b><p>more likely to snack or order something extra while food commercials are playing — it happens automatically, whether they're hungry or not</p></div>
+    <div class="card"><b class="big" data-target="14" data-suffix="%">0%</b><p>of your guests will crave the exact dessert, drink, or snack they just saw advertised</p></div>
+    <div class="card"><b class="big" data-target="8" data-suffix="%">0%</b><p>go and actually buy it — right now that purchase happens at someone else's counter, not yours</p></div>
+    <div class="card"><b class="big" data-target="31" data-suffix="%">0%</b><p>of diners are already thinking about dessert before their entrée even arrives — the sale is sitting right there</p></div>
+    <div class="card"><b class="big" data-prefix="$" data-target="16" data-suffix="K/YR">$0K/YR</b><p>estimated add-on sales a typical restaurant leaks every year — desserts, apps, and drinks guests wanted to buy, just not from you</p></div>
+  </div>
+  <p class="sub" style="margin-top:22px; max-width:800px">Put those numbers together and a typical
+    restaurant is leaking an estimated <b style="color:var(--blue2)">$16,000 a year</b> in add-on
+    sales. AdShark turns that same moment into revenue for your business instead. (Try the
+    calculator on the dashboard demo with your own numbers.)</p>
 </section>
 
 <section id="action" class="reveal">
@@ -443,33 +503,6 @@
   </div>
 </section>
 
-<section id="venues" class="reveal">
-  <div class="kicker">Built for anywhere with a TV</div>
-  <h2>ONE SYSTEM. EVERY SCREEN IN THE BUILDING.</h2>
-  <p class="sub">If a commercial break interrupts your customers, AdShark can take that
-    moment back for you.</p>
-  <div class="venue-marquee">
-    <div class="venue-track">
-      <div class="venue-chip">🏈 Sports Bars</div>
-      <div class="venue-chip">🍽️ Restaurants</div>
-      <div class="venue-chip">🍺 Breweries &amp; Taprooms</div>
-      <div class="venue-chip">💪 Gyms &amp; Fitness Studios</div>
-      <div class="venue-chip">☕ Cafés &amp; Coffee Shops</div>
-      <div class="venue-chip">🏨 Hotel Lobbies &amp; Lounges</div>
-      <div class="venue-chip">🎳 Bowling Alleys</div>
-      <div class="venue-chip">✈️ Airport Lounges</div>
-      <div class="venue-chip">🏈 Sports Bars</div>
-      <div class="venue-chip">🍽️ Restaurants</div>
-      <div class="venue-chip">🍺 Breweries &amp; Taprooms</div>
-      <div class="venue-chip">💪 Gyms &amp; Fitness Studios</div>
-      <div class="venue-chip">☕ Cafés &amp; Coffee Shops</div>
-      <div class="venue-chip">🏨 Hotel Lobbies &amp; Lounges</div>
-      <div class="venue-chip">🎳 Bowling Alleys</div>
-      <div class="venue-chip">✈️ Airport Lounges</div>
-    </div>
-  </div>
-</section>
-
 <section id="film" class="reveal">
   <div class="kicker">See it in 90 seconds</div>
   <h2>WATCH THE FILM</h2>
@@ -481,29 +514,6 @@
             allow="autoplay; fullscreen" allowfullscreen loading="lazy"
             title="AdShark — The Future of CTV Advertising"></iframe>
   </div>
-</section>
-
-<section id="problem" class="reveal">
-  <div class="finswim" aria-hidden="true"><svg viewBox="0 0 46 26" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#4fb6f2" d="M6 22 C 12 10, 20 3, 30 1 C 27 8, 28 15, 33 22 Z"/>
-    <path fill="none" stroke="#4fb6f2" stroke-width="2" stroke-linecap="round" opacity=".6" d="M2 24 H 44"/>
-  </svg></div>
-  <div class="kicker">The problem</div>
-  <h2>EVERY BREAK, YOUR TV SELLS FOR SOMEONE ELSE</h2>
-  <p class="sub" style="margin-bottom:28px">Your customer just finished dinner and is thinking
-    about something sweet. A soft-serve commercial plays on your TV — and dessert happens on
-    the drive home, at someone else's register. Published research says this isn't a maybe:</p>
-  <div class="cards">
-    <div class="card"><b class="big" data-target="45" data-suffix="%">0%</b><p>more likely to snack or order something extra while food commercials are playing — it happens automatically, whether they're hungry or not</p></div>
-    <div class="card"><b class="big" data-target="14" data-suffix="%">0%</b><p>of your guests will crave the exact dessert, drink, or snack they just saw advertised</p></div>
-    <div class="card"><b class="big" data-target="8" data-suffix="%">0%</b><p>go and actually buy it — right now that purchase happens at someone else's counter, not yours</p></div>
-    <div class="card"><b class="big" data-target="31" data-suffix="%">0%</b><p>of diners are already thinking about dessert before their entrée even arrives — the sale is sitting right there</p></div>
-    <div class="card"><b class="big" data-prefix="$" data-target="16" data-suffix="K/YR">$0K/YR</b><p>estimated add-on sales a typical restaurant leaks every year — desserts, apps, and drinks guests wanted to buy, just not from you</p></div>
-  </div>
-  <p class="sub" style="margin-top:22px; max-width:800px">Put those numbers together and a typical
-    restaurant is leaking an estimated <b style="color:var(--blue2)">$16,000 a year</b> in add-on
-    sales. AdShark turns that same moment into revenue for your business instead. (Try the
-    calculator on the dashboard demo with your own numbers.)</p>
 </section>
 
 <section id="how" class="reveal">
@@ -533,6 +543,55 @@
   <div class="roi" style="margin-top:22px">📺 <b>Works with what you already have.</b>
     AdShark is compatible with almost every TV and streaming setup on the market today —
     no new hardware headaches, no IT department, no changing how your bar already runs.</div>
+</section>
+
+<section id="compare" class="reveal">
+  <div class="kicker">The alternative</div>
+  <h2>WHAT YOUR SCREENS ARE DOING RIGHT NOW VS. WITH AdShark</h2>
+  <p class="sub" style="margin-bottom:6px">Most bars fall into one of two camps: TVs just run the
+    broadcast (ads and all), or someone bought expensive digital signage that replaces the game
+    entirely. Neither one is selling for you during a commercial break.</p>
+  <div class="compare">
+    <table class="cmp">
+      <thead>
+        <tr><th>&nbsp;</th><th>Doing nothing</th><th>Traditional digital signage</th><th class="hl">AdShark</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Keeps the live game/broadcast on</td><td class="yes">Yes</td><td class="no">No — replaces it</td><td class="hl">Yes, always</td></tr>
+        <tr><td>Who the commercial break sells for</td><td class="no">National brands</td><td class="no">Whoever's on the loop</td><td class="hl">You, automatically</td></tr>
+        <tr><td>New screens or hardware required</td><td class="yes">None</td><td class="no">Usually yes</td><td class="hl">Works with what you have</td></tr>
+        <tr><td>Set up time</td><td class="yes">N/A</td><td class="no">Days</td><td class="hl">Minutes</td></tr>
+        <tr><td>Tracks what it recaptured for you</td><td class="no">No</td><td class="no">Rarely</td><td class="hl">Every play, on your dashboard</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="venues" class="reveal">
+  <div class="kicker">Built for anywhere with a TV</div>
+  <h2>ONE SYSTEM. EVERY SCREEN IN THE BUILDING.</h2>
+  <p class="sub">If a commercial break interrupts your customers, AdShark can take that
+    moment back for you.</p>
+  <div class="venue-marquee">
+    <div class="venue-track">
+      <div class="venue-chip">🏈 Sports Bars</div>
+      <div class="venue-chip">🍽️ Restaurants</div>
+      <div class="venue-chip">🍺 Breweries &amp; Taprooms</div>
+      <div class="venue-chip">💪 Gyms &amp; Fitness Studios</div>
+      <div class="venue-chip">☕ Cafés &amp; Coffee Shops</div>
+      <div class="venue-chip">🏨 Hotel Lobbies &amp; Lounges</div>
+      <div class="venue-chip">🎳 Bowling Alleys</div>
+      <div class="venue-chip">✈️ Airport Lounges</div>
+      <div class="venue-chip">🏈 Sports Bars</div>
+      <div class="venue-chip">🍽️ Restaurants</div>
+      <div class="venue-chip">🍺 Breweries &amp; Taprooms</div>
+      <div class="venue-chip">💪 Gyms &amp; Fitness Studios</div>
+      <div class="venue-chip">☕ Cafés &amp; Coffee Shops</div>
+      <div class="venue-chip">🏨 Hotel Lobbies &amp; Lounges</div>
+      <div class="venue-chip">🎳 Bowling Alleys</div>
+      <div class="venue-chip">✈️ Airport Lounges</div>
+    </div>
+  </div>
 </section>
 
 <section id="trust" class="reveal">
@@ -630,9 +689,11 @@
         </g>
         <path fill="none" stroke="#04101f" stroke-width="3" stroke-linecap="round" d="M116 128 Q 124 126 128 120"/>
         <ellipse cx="80" cy="98" rx="9" ry="9.5" fill="#ffffff"/>
-        <circle cx="79" cy="99" r="5.4" fill="#0b3f77"/>
-        <circle cx="78" cy="100" r="2.8" fill="#04101f"/>
-        <circle cx="76.6" cy="96.6" r="1.6" fill="#ffffff"/>
+        <g id="sharkyIris">
+          <circle cx="79" cy="99" r="5.4" fill="#0b3f77"/>
+          <circle cx="78" cy="100" r="2.8" fill="#04101f"/>
+          <circle cx="76.6" cy="96.6" r="1.6" fill="#ffffff"/>
+        </g>
         <ellipse class="eye-lid" cx="80" cy="98" rx="9.6" ry="10" fill="#2f8fd4"/>
         <path fill="none" stroke="#0b5fb0" stroke-width="3.5" stroke-linecap="round" d="M67 81 Q 80 74 93 81"/>
         <g class="fin-pec">
@@ -659,28 +720,6 @@
         <button id="stopBtn">Stop</button>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="compare" class="reveal">
-  <div class="kicker">The alternative</div>
-  <h2>WHAT YOUR SCREENS ARE DOING RIGHT NOW VS. WITH AdShark</h2>
-  <p class="sub" style="margin-bottom:6px">Most bars fall into one of two camps: TVs just run the
-    broadcast (ads and all), or someone bought expensive digital signage that replaces the game
-    entirely. Neither one is selling for you during a commercial break.</p>
-  <div class="compare">
-    <table class="cmp">
-      <thead>
-        <tr><th>&nbsp;</th><th>Doing nothing</th><th>Traditional digital signage</th><th class="hl">AdShark</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Keeps the live game/broadcast on</td><td class="yes">Yes</td><td class="no">No — replaces it</td><td class="hl">Yes, always</td></tr>
-        <tr><td>Who the commercial break sells for</td><td class="no">National brands</td><td class="no">Whoever's on the loop</td><td class="hl">You, automatically</td></tr>
-        <tr><td>New screens or hardware required</td><td class="yes">None</td><td class="no">Usually yes</td><td class="hl">Works with what you have</td></tr>
-        <tr><td>Set up time</td><td class="yes">N/A</td><td class="no">Days</td><td class="hl">Minutes</td></tr>
-        <tr><td>Tracks what it recaptured for you</td><td class="no">No</td><td class="no">Rarely</td><td class="hl">Every play, on your dashboard</td></tr>
-      </tbody>
-    </table>
   </div>
 </section>
 
@@ -798,9 +837,11 @@
   <p class="sub" style="margin:0 auto 26px">Investors and pilot locations: get in touch and
     watch the demo take its first bite.</p>
   <a class="btn primary" href="founding10.html">🦈 Claim a Founding 10 spot</a>
+  <a class="btn" href="tel:+19166286299" style="margin-left:10px">📞 (916) 628-6299</a>
   <a class="btn" href="mailto:maxxzamani@gmail.com?subject=AdShark" style="margin-left:10px">📧 maxxzamani@gmail.com</a>
   <a class="btn" href="investors.html" style="margin-left:10px">For investors →</a>
-  <p class="sub" style="margin:26px auto 0">Built by Maxx Zamani — Tehachapi, California.</p>
+  <p class="sub" style="margin:26px auto 0">Built by Maxx Zamani — Tehachapi, California.
+    Call or text <a href="tel:+19166286299" style="font-weight:700">(916) 628-6299</a> to talk it through.</p>
 </section>
 
 <footer>
@@ -959,6 +1000,68 @@ if ("IntersectionObserver" in window) {
 } else {
   document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
 }
+
+// ---- Sharky is alive: eye tracks the cursor, click = chomp ----
+(function () {
+  const svg = document.getElementById("sharkySvg");
+  const iris = document.getElementById("sharkyIris");
+  if (!svg || !iris) return;
+  const fine = window.matchMedia("(pointer:fine)").matches;
+  const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (fine && !noMotion) {
+    let raf = null;
+    document.addEventListener("mousemove", (ev) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        const r = svg.getBoundingClientRect();
+        if (r.bottom < -80 || r.top > innerHeight + 80) return;
+        const ex = r.left + r.width * (80 / 340);
+        const ey = r.top + r.height * (98 / 230);
+        const dx = ev.clientX - ex, dy = ev.clientY - ey;
+        const d = Math.hypot(dx, dy) || 1;
+        const m = Math.min(1, d / 220) * 3.2;
+        iris.style.transform = "translate(" + (dx / d * m).toFixed(2) + "px," + (dy / d * m).toFixed(2) + "px)";
+      });
+    });
+  }
+  svg.addEventListener("click", () => {
+    if (svg.classList.contains("chomp")) return;
+    svg.classList.add("chomp");
+    setTimeout(() => svg.classList.remove("chomp"), 700);
+  });
+})();
+
+// ---- scrollspy: highlight the section you're reading ----
+(function () {
+  if (!("IntersectionObserver" in window)) return;
+  const links = document.querySelectorAll("header nav a[href^='#']");
+  const map = {};
+  links.forEach(a => { const sec = document.getElementById(a.getAttribute("href").slice(1)); if (sec) map[sec.id] = a; });
+  const spy = new IntersectionObserver((es) => {
+    es.forEach(e => {
+      const a = map[e.target.id]; if (!a || !e.isIntersecting) return;
+      links.forEach(l => l.classList.remove("active"));
+      a.classList.add("active");
+    });
+  }, { rootMargin: "-38% 0px -55% 0px" });
+  Object.keys(map).forEach(id => spy.observe(document.getElementById(id)));
+})();
+
+// ---- scroll progress bar ----
+(function () {
+  const bar = document.getElementById("scrollProg");
+  if (!bar) return;
+  let raf = null;
+  function upd() {
+    raf = null;
+    const h = document.documentElement;
+    const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+    bar.style.width = (p * 100).toFixed(2) + "%";
+  }
+  addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true });
+  upd();
+})();
 
 function animateCount(el) {
   const target = parseFloat(el.dataset.target);
