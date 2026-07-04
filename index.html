@@ -370,6 +370,17 @@
     92%{opacity:.35;} 100%{transform:translateX(min(96vw,1080px)); opacity:0;} }
   @keyframes finbob { 0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-3px) rotate(2deg);} }
 
+  /* video carousel (reel) */
+  .reel{position:relative;max-width:900px;margin:34px auto 0;border-radius:20px;overflow:hidden;border:1px solid #223049;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(79,182,242,.18);background:#04070e;}
+  .reel-vid{display:block;width:100%;height:auto;background:#04070e;}
+  .reel-cap{position:absolute;left:0;right:0;bottom:0;z-index:5;padding:38px 18px 16px;background:linear-gradient(transparent,rgba(4,10,20,.92) 62%);color:#eef5ff;font-size:15.5px;line-height:1.45;text-align:center;}
+  .reel .mv-sound{top:14px;bottom:auto;right:14px;}
+  .reel-nav{position:absolute;top:44%;transform:translateY(-50%);z-index:6;width:44px;height:44px;border-radius:50%;background:rgba(4,12,24,.55);border:1px solid rgba(120,160,220,.4);color:#fff;font-size:26px;line-height:40px;text-align:center;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:.15s;}
+  .reel-nav:hover{background:rgba(4,12,24,.85);border-color:var(--blue,#4fb6f2);}
+  .reel-nav.prev{left:12px;} .reel-nav.next{right:12px;}
+  .reel-dots{position:absolute;left:0;right:0;bottom:72px;z-index:6;display:flex;gap:9px;justify-content:center;}
+  .reel-dot{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.34);cursor:pointer;padding:0;transition:.15s;}
+  .reel-dot.on{background:var(--blue,#4fb6f2);box-shadow:0 0 8px rgba(79,182,242,.7);transform:scale(1.15);}
   /* live-action video placements */
   .moment-video{position:relative;max-width:900px;margin:34px auto 0;border-radius:20px;overflow:hidden;border:1px solid #223049;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(79,182,242,.18);background:#04070e;}
   .moment-video video{display:block;width:100%;height:auto;}
@@ -651,11 +662,6 @@
     restaurant is leaking an estimated <b style="color:var(--blue2)">$16,000 a year</b> in add-on
     sales. AdShark turns that same moment into revenue for your business instead. (Try the
     calculator on the dashboard demo with your own numbers.)</p>
-  <div class="section-video">
-    <video src="vid/problem-bar.mp4" poster="vid/problem-bar-poster.jpg" autoplay muted loop playsinline preload="none"
-           aria-label="Real footage of a packed sports bar with customers watching the game and the commercials on the wall TVs."></video>
-    <div class="sv-cap">Your captive audience during a break — right now those food ads are selling for someone else.</div>
-  </div>
 </section>
 
 <section id="moment" class="reveal">
@@ -665,12 +671,13 @@
     hits, a dessert fills the screen, somebody points, and the order goes to whoever owns that ad.
     The only question is <b style="color:var(--blue2)">whose sundae is up there</b> — a national
     chain's, or yours.</p>
-  <div class="moment-video">
-    <video src="vid/moment-real.mp4" poster="vid/moment-real-poster.jpg"
-           autoplay muted loop playsinline preload="metadata"
-           aria-label="Real sports-bar footage during a commercial break: the wall TVs show the house's twelve-dollar hot fudge sundae special, a customer points at it and the waitress brings the order over.">
-    </video>
-    <button type="button" class="mv-sound" aria-label="Toggle video sound" onclick="var v=this.previousElementSibling;v.muted=!v.muted;this.textContent=v.muted?'🔊 Tap for sound':'🔈 Sound on';if(!v.muted){v.currentTime=0;v.play();}">🔊 Tap for sound</button>
+  <div class="reel" role="group" aria-label="Real AdShark bar footage carousel">
+    <video id="reelVid" class="reel-vid" autoplay muted playsinline preload="auto" poster="vid/moment-real-poster.jpg" aria-label="Real live-action footage of the AdShark moment in a sports bar"></video>
+    <button type="button" class="mv-sound" id="reelSound" aria-label="Toggle sound">🔊 Tap for sound</button>
+    <button type="button" class="reel-nav prev" id="reelPrev" aria-label="Previous clip">&#8249;</button>
+    <button type="button" class="reel-nav next" id="reelNext" aria-label="Next clip">&#8250;</button>
+    <div class="reel-dots" id="reelDots" aria-hidden="true"></div>
+    <div class="reel-cap" id="reelCap"></div>
   </div>
   <p class="moment-cap">The waitress hears it ten times a night — AdShark just makes sure they're
     pointing at <b style="color:var(--blue2)">your</b> menu when they say it. Watch the wall TV above:
@@ -684,11 +691,6 @@
   <h2>ADSHARK IN ACTION</h2>
   <p class="sub">These aren't mockups — they're the actual promo spots running in the live
     demo below. Watch a commercial break turn into your own advertising in real time.</p>
-  <div class="section-video">
-    <video src="vid/hero-bar.mp4" poster="vid/hero-bar-poster.jpg" autoplay muted loop playsinline preload="none"
-           aria-label="Real footage of friends laughing and enjoying a sports bar during the game."></video>
-    <div class="sv-cap">This is absolutely how orders happen — a real break, a real reaction.</div>
-  </div>
 
   <div class="compare-tv">
     <div class="lead">A commercial break, with and without AdShark</div>
@@ -898,82 +900,32 @@
   <div class="kicker">Meet Sharky</div>
   <h2>LET SHARKY EXPLAIN IT</h2>
   <div class="sharky-zone">
-    <svg id="sharkySvg" viewBox="0 0 340 230" role="img" aria-label="Sharky, the AdShark mascot">
+    <svg id="sharkySvg" viewBox="0 0 340 230" role="img" aria-label="Sharky, the AdShark great white">
       <defs>
-        <linearGradient id="sgBody" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#9fdcff"/>
-          <stop offset=".45" stop-color="#4fb6f2"/>
-          <stop offset="1" stop-color="#0b5fb0"/>
-        </linearGradient>
-        <linearGradient id="sgBelly" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#eef8ff"/>
-          <stop offset="1" stop-color="#bfe2f8"/>
-        </linearGradient>
-        <linearGradient id="sgFin" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#7fcdf9"/>
-          <stop offset="1" stop-color="#0b5fb0"/>
-        </linearGradient>
+        <linearGradient id="sgTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#606d78"/><stop offset=".55" stop-color="#3d4750"/><stop offset="1" stop-color="#28303a"/></linearGradient>
+        <linearGradient id="sgBelly2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2e9ee"/><stop offset="1" stop-color="#a9b4bc"/></linearGradient>
+        <linearGradient id="sgFin2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4b5761"/><stop offset="1" stop-color="#20272e"/></linearGradient>
+        <linearGradient id="sgMouth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1618"/><stop offset="1" stop-color="#120607"/></linearGradient>
       </defs>
-      <ellipse class="floor-shadow" cx="165" cy="216" rx="100" ry="9" fill="#4fb6f2" opacity=".14"/>
+      <ellipse class="floor-shadow" cx="168" cy="216" rx="112" ry="9" fill="#000" opacity=".26"/>
       <g class="shark">
-        <g class="fin-tail">
-          <path fill="url(#sgFin)" d="M262 104 C 284 84, 296 62, 314 44 C 308 74, 310 92, 324 106
-            C 308 112, 296 112, 284 110 C 296 124, 300 140, 298 158 C 282 142, 270 128, 260 116 Z"/>
-        </g>
-        <path fill="url(#sgFin)" d="M148 62 C 146 36, 156 18, 178 8 C 174 32, 180 48, 192 60 Z"/>
-        <path fill="url(#sgBody)" d="M30 126
-          C 44 92, 92 60, 152 57
-          C 200 55, 240 74, 264 108
-          C 246 138, 208 158, 156 160
-          C 106 162, 54 150, 30 126 Z"/>
-        <path fill="url(#sgBelly)" d="M34 130
-          C 70 128, 120 126, 170 130
-          C 210 133, 238 126, 258 114
-          C 242 140, 206 157, 156 159
-          C 108 160, 58 150, 34 130 Z"/>
-        <path fill="#ffffff" opacity=".12" d="M60 84 C 92 62, 150 54, 196 62 C 156 60, 100 68, 60 84 Z"/>
-        <g fill="none" stroke="#0b5fb0" stroke-width="3" stroke-linecap="round" opacity=".55">
-          <path d="M126 88 Q 120 106 126 124"/>
-          <path d="M138 86 Q 132 106 138 126"/>
-          <path d="M150 86 Q 144 106 150 126"/>
-        </g>
-        <path fill="#04101f" d="M36 118 C 62 130, 94 134, 118 128 C 100 150, 60 150, 36 130 Z"/>
-        <g fill="#ffffff">
-          <path d="M46 122 l4.5 9 l4.5 -7.6 Z"/>
-          <path d="M58 125 l4.5 9 l4.5 -7.4 Z"/>
-          <path d="M70 127 l4.5 9 l4.5 -7.4 Z"/>
-          <path d="M82 128 l4.5 9 l4.5 -7.6 Z"/>
-          <path d="M94 128 l4.5 8.4 l4.5 -8 Z"/>
-          <path d="M105 126 l4 7.6 l4 -8.4 Z"/>
-        </g>
-        <g class="jaw">
-          <path fill="url(#sgBelly)" d="M40 136 C 64 148, 96 148, 114 134 C 102 154, 62 156, 40 144 Z"/>
-          <g fill="#ffffff">
-            <path d="M56 143 l3.8 -7 l3.8 8 Z"/>
-            <path d="M68 145 l3.8 -7.4 l3.8 7.8 Z"/>
-            <path d="M80 145 l3.8 -7.4 l3.8 7 Z"/>
-            <path d="M92 143 l3.6 -7 l3.6 6.4 Z"/>
-          </g>
-        </g>
-        <path fill="none" stroke="#04101f" stroke-width="3" stroke-linecap="round" d="M116 128 Q 124 126 128 120"/>
-        <ellipse cx="80" cy="98" rx="9" ry="9.5" fill="#ffffff"/>
-        <g id="sharkyIris">
-          <circle cx="79" cy="99" r="5.4" fill="#0b3f77"/>
-          <circle cx="78" cy="100" r="2.8" fill="#04101f"/>
-          <circle cx="76.6" cy="96.6" r="1.6" fill="#ffffff"/>
-        </g>
-        <ellipse class="eye-lid" cx="80" cy="98" rx="9.6" ry="10" fill="#2f8fd4"/>
-        <path fill="none" stroke="#0b5fb0" stroke-width="3.5" stroke-linecap="round" d="M67 81 Q 80 74 93 81"/>
-        <g class="fin-pec">
-          <path fill="url(#sgFin)" d="M128 146 C 140 164, 140 184, 124 200 C 112 184, 108 162, 116 146 Z"/>
-        </g>
-        <path fill="url(#sgFin)" d="M206 150 C 214 160, 216 170, 212 180 C 202 170, 198 160, 200 152 Z"/>
+        <g class="fin-tail"><path fill="url(#sgFin2)" d="M278 96 C 298 76, 310 52, 320 28 C 316 56, 314 82, 330 100 C 316 106, 302 104, 292 100 C 300 118, 300 142, 296 162 C 282 140, 274 116, 270 100 Z"/></g>
+        <path fill="url(#sgFin2)" d="M150 58 C 158 32, 176 16, 198 12 C 190 32, 192 50, 206 62 C 186 58, 166 58, 150 58 Z"/>
+        <path fill="url(#sgTop)" d="M14 96 C 40 74, 96 58, 152 56 C 208 54, 254 70, 290 94 C 262 114, 214 126, 166 128 C 116 130, 50 120, 14 96 Z"/>
+        <path fill="url(#sgBelly2)" d="M22 102 C 72 120, 132 128, 192 126 C 232 124, 264 116, 288 96 C 272 118, 234 130, 178 132 C 120 134, 56 126, 22 102 Z"/>
+        <path fill="none" stroke="#8b97a1" stroke-width="1.4" opacity=".5" d="M20 98 C 82 112, 152 116, 212 112 C 246 110, 270 104, 288 94"/>
+        <g fill="none" stroke="#1c232a" stroke-width="2.4" stroke-linecap="round" opacity=".72"><path d="M104 78 Q 100 96 108 116"/><path d="M114 76 Q 110 96 118 118"/><path d="M124 76 Q 120 96 128 118"/><path d="M134 78 Q 130 96 138 116"/><path d="M144 80 Q 141 96 148 114"/></g>
+        <path fill="url(#sgMouth)" d="M12 98 C 34 114, 66 120, 100 116 C 78 130, 40 128, 14 110 Z"/>
+        <g fill="#f4f7f8"><path d="M19 104 l3.6 9 l3.8 -7 Z"/><path d="M31 109 l3.6 9 l3.8 -7.4 Z"/><path d="M44 112 l3.6 9 l3.8 -7.6 Z"/><path d="M57 114 l3.6 8.6 l3.8 -7.6 Z"/><path d="M70 114 l3.4 8.4 l3.6 -7.4 Z"/><path d="M83 113 l3.2 8 l3.4 -7.4 Z"/></g>
+        <g class="jaw"><path fill="url(#sgBelly2)" d="M14 112 C 40 126, 74 128, 100 118 C 80 136, 40 136, 14 122 Z"/><g fill="#eef2f4"><path d="M25 120 l3.4 -8 l3.6 8.6 Z"/><path d="M39 124 l3.4 -8 l3.6 8.2 Z"/><path d="M53 125 l3.4 -8 l3.6 7.8 Z"/><path d="M67 124 l3.2 -7.6 l3.4 7.2 Z"/><path d="M80 121 l3 -7 l3.2 6.6 Z"/></g></g>
+        <circle cx="92" cy="80" r="7.6" fill="#0a0d10"/>
+        <g id="sharkyIris"><circle cx="92" cy="80" r="5.2" fill="#000"/><circle cx="94" cy="77.5" r="1.5" fill="#9fb6c9" opacity=".85"/></g>
+        <ellipse class="eye-lid" cx="92" cy="80" rx="8.4" ry="8.6" fill="url(#sgTop)"/>
+        <path fill="none" stroke="#1c232a" stroke-width="3" stroke-linecap="round" opacity=".7" d="M80 71 Q 92 66 104 72"/>
+        <g class="fin-pec"><path fill="url(#sgFin2)" d="M120 116 C 128 144, 120 170, 100 186 C 96 164, 100 136, 112 116 Z"/></g>
+        <path fill="url(#sgFin2)" d="M196 124 C 202 138, 202 150, 196 160 C 188 150, 186 136, 190 126 Z"/>
       </g>
-      <g fill="none" stroke="#9fdcff" stroke-width="2" opacity=".7">
-        <circle class="bub b1" cx="28" cy="86" r="5"/>
-        <circle class="bub b2" cx="16" cy="66" r="3.4"/>
-        <circle class="bub b3" cx="34" cy="52" r="2.4"/>
-      </g>
+      <g fill="none" stroke="#7f97ad" stroke-width="2" opacity=".5"><circle class="bub b1" cx="24" cy="84" r="5"/><circle class="bub b2" cx="14" cy="64" r="3.4"/><circle class="bub b3" cx="30" cy="50" r="2.4"/></g>
     </svg>
     <div>
       <div class="bubble">
@@ -1284,8 +1236,8 @@ if ("IntersectionObserver" in window) {
         raf = null;
         const r = svg.getBoundingClientRect();
         if (r.bottom < -80 || r.top > innerHeight + 80) return;
-        const ex = r.left + r.width * (80 / 340);
-        const ey = r.top + r.height * (98 / 230);
+        const ex = r.left + r.width * (92 / 340);
+        const ey = r.top + r.height * (80 / 230);
         const dx = ev.clientX - ex, dy = ev.clientY - ey;
         const d = Math.hypot(dx, dy) || 1;
         const m = Math.min(1, d / 220) * 3.2;
@@ -1449,6 +1401,26 @@ if ("IntersectionObserver" in window) {
   function start(){ frenzy(); setTimeout(frenzy, 1900); setInterval(frenzy, 3800); }
   if (document.readyState !== 'loading') start();
   else document.addEventListener('DOMContentLoaded', start);
+})();
+</script>
+<script>
+(function(){
+  var V=document.getElementById('reelVid'); if(!V) return;
+  var cap=document.getElementById('reelCap'),sBtn=document.getElementById('reelSound'),dots=document.getElementById('reelDots');
+  var clips=[
+    {src:'vid/moment-real.mp4',poster:'vid/moment-real-poster.jpg',cap:'"I want one of those." - during the break, the order goes to the house, not a national chain.'},
+    {src:'vid/hero-bar.mp4',poster:'vid/hero-bar-poster.jpg',cap:'This is absolutely how orders happen - a real break, a real reaction.'},
+    {src:'vid/problem-bar.mp4',poster:'vid/problem-bar-poster.jpg',cap:'Your captive audience during a break - right now those food ads are selling for someone else.'}
+  ];
+  var i=0,soundOn=false;
+  clips.forEach(function(c,k){var b=document.createElement('button');b.type='button';b.className='reel-dot'+(k===0?' on':'');b.setAttribute('aria-label','Clip '+(k+1));b.onclick=function(){go(k);};dots.appendChild(b);});
+  function render(){V.src=clips[i].src;V.poster=clips[i].poster;cap.textContent=clips[i].cap;V.muted=!soundOn;var p=V.play();if(p&&p.catch)p.catch(function(){});var ds=dots.children;for(var k=0;k<ds.length;k++){ds[k].className='reel-dot'+(k===i?' on':'');}}
+  function go(k){i=(k%clips.length+clips.length)%clips.length;render();}
+  V.addEventListener('ended',function(){go(i+1);});
+  document.getElementById('reelNext').onclick=function(){go(i+1);};
+  document.getElementById('reelPrev').onclick=function(){go(i-1);};
+  sBtn.onclick=function(){soundOn=!soundOn;V.muted=!soundOn;sBtn.textContent=soundOn?'🔈 Sound on':'🔊 Tap for sound';if(soundOn){var p=V.play();if(p&&p.catch)p.catch(function(){});}};
+  render();
 })();
 </script>
 </body>
