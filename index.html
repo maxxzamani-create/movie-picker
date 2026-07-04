@@ -231,11 +231,15 @@
   .action-card .cap { padding:14px 16px 16px; }
   .action-card .cap b { display:block; font-size:15px; margin-bottom:2px; }
   .action-card .cap span { color:var(--dim); font-size:12.5px; }
-  .action-card .ad-poster { position:relative; aspect-ratio:16/9; overflow:hidden; background:#0a0712; }
-  .ad-poster-svg { position:absolute; inset:0; width:100%; height:100%; }
-  .ad-poster-txt { position:absolute; right:16px; top:0; bottom:0; display:flex; flex-direction:column; justify-content:center; text-align:right; }
-  .ad-poster-txt b { font-family:"Bebas Neue"; color:#fff; font-size:clamp(18px,3.4vw,30px); line-height:.92; letter-spacing:.02em; text-shadow:0 2px 10px rgba(0,0,0,.5); }
-  .ad-poster-txt i { font-style:normal; font-family:"Bebas Neue"; color:#ffc93d; font-size:clamp(11px,2vw,16px); letter-spacing:.05em; margin-top:5px; }
+  /* photo ad cards */
+  .action-gallery { grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); }
+  .action-card .ad-photo { position:relative; aspect-ratio:16/9; background-size:cover; background-position:center; overflow:hidden; }
+  .ad-photo .ad-grad { position:absolute; inset:0; background:linear-gradient(180deg,rgba(3,7,14,.72),rgba(3,7,14,.06) 34%,rgba(3,7,14,.12) 58%,rgba(3,7,14,.9)); }
+  .ad-photo .ad-brand { position:absolute; top:6%; left:0; right:0; text-align:center; font-size:clamp(8px,1.4vw,11px); letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.78); font-weight:800; }
+  .ad-photo .ad-title { position:absolute; top:13%; left:0; right:0; text-align:center; font-family:"Bebas Neue"; color:#fff; font-size:clamp(20px,4vw,32px); line-height:.95; letter-spacing:.02em; text-shadow:0 2px 14px rgba(0,0,0,.92); padding:0 12px; }
+  .ad-photo .ad-sub { position:absolute; top:31%; left:0; right:0; text-align:center; color:#fff; font-size:clamp(11px,2vw,14.5px); font-weight:600; text-shadow:0 1px 10px rgba(0,0,0,.95); padding:0 20px; }
+  .ad-photo .ad-badge { position:absolute; top:8%; right:6%; width:clamp(46px,9vw,62px); height:clamp(46px,9vw,62px); border-radius:50%; display:flex; align-items:center; justify-content:center; text-align:center; background:var(--ac); color:#17130a; font-family:"Bebas Neue"; font-size:clamp(12px,2vw,17px); line-height:.9; box-shadow:0 6px 18px rgba(0,0,0,.55); border:2px solid rgba(255,255,255,.4); padding:4px; }
+  .ad-photo .ad-cta { position:absolute; bottom:7%; left:50%; transform:translateX(-50%); background:var(--ac); color:#14110a; font-weight:800; font-size:clamp(9px,1.5vw,12px); letter-spacing:.05em; text-transform:uppercase; padding:7px 16px; border-radius:100px; white-space:nowrap; box-shadow:0 8px 20px rgba(0,0,0,.5); }
   .gallery-cta { text-align:center; margin-top:30px; }
 
   .venue-marquee { margin-top:30px; overflow:hidden;
@@ -742,52 +746,55 @@
   </div>
 
   <div style="margin-top:54px">
-    <div class="kicker" style="margin-bottom:6px">Real promo spots from the live demo</div>
+    <div class="kicker" style="margin-bottom:6px">Examples of your on-screen specials</div>
     <h3 style="font-family:'Bebas Neue'; font-size:24px; letter-spacing:1.5px; color:var(--dim); font-weight:400;">YOUR FOOD &amp; DRINKS, ONE SCREEN — ROTATED AUTOMATICALLY</h3>
   </div>
   <div class="action-gallery">
     <div class="action-card">
       <div class="tag">🍔 RESTAURANT</div>
-      <video autoplay muted loop playsinline>
-        <source src="static/co/ad_burger.mp4" type="video/mp4">
-        <source src="static/co/ad_burger.webm" type="video/webm">
-      </video>
+      <div class="ad-photo" style="background-image:url('img/ads/burger.jpg')" role="img" aria-label="The Zenie Burger — half price during game time">
+        <div class="ad-grad"></div>
+        <div class="ad-brand">Your Bar &amp; Grill</div>
+        <div class="ad-title">THE ZENIE BURGER</div>
+        <div class="ad-sub">Half price — game time only</div>
+        <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
+        <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
+      </div>
       <div class="cap"><b>Zenie Burger — ½ Price</b><span>Plays during every commercial break</span></div>
     </div>
     <div class="action-card">
       <div class="tag">🍗 SPORTS BAR</div>
-      <video autoplay muted loop playsinline>
-        <source src="static/co/ad_wings.mp4" type="video/mp4">
-        <source src="static/co/ad_wings.webm" type="video/webm">
-      </video>
+      <div class="ad-photo" style="background-image:url('img/ads/wings.jpg')" role="img" aria-label="Dollar Wing Night — every Wednesday, all flavors">
+        <div class="ad-grad"></div>
+        <div class="ad-brand">Your Bar &amp; Grill</div>
+        <div class="ad-title">$1 WING NIGHT</div>
+        <div class="ad-sub">Every Wednesday — all flavors</div>
+        <div class="ad-badge" style="--ac:#ff7a2f">$1</div>
+        <div class="ad-cta" style="--ac:#ff7a2f">Dine-in · ask your server</div>
+      </div>
       <div class="cap"><b>$1 Wing Night</b><span>Game-day special, rotated automatically</span></div>
     </div>
     <div class="action-card">
       <div class="tag">🍫 DESSERT</div>
-      <video autoplay muted loop playsinline>
-        <source src="static/co/ad_dessert.mp4" type="video/mp4">
-        <source src="static/co/ad_dessert.webm" type="video/webm">
-      </video>
+      <div class="ad-photo" style="background-image:url('img/ads/dessert.jpg')" role="img" aria-label="Save room for dessert — molten chocolate cake, twelve dollars tonight">
+        <div class="ad-grad"></div>
+        <div class="ad-brand">Your Bar &amp; Grill</div>
+        <div class="ad-title">SAVE ROOM FOR DESSERT</div>
+        <div class="ad-sub">Molten chocolate cake — made here</div>
+        <div class="ad-badge" style="--ac:#e879c9">$12</div>
+        <div class="ad-cta" style="--ac:#e879c9">Ask for the dessert menu</div>
+      </div>
       <div class="cap"><b>Molten Chocolate Cake — $12</b><span>Captures the impulse buy before they leave</span></div>
     </div>
     <div class="action-card">
       <div class="tag">🍸 BAR · DRINKS</div>
-      <div class="ad-poster" aria-hidden="true">
-        <svg class="ad-poster-svg" viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="ckBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b1533"/><stop offset="1" stop-color="#0a0712"/></linearGradient>
-            <linearGradient id="ckDrink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb15a"/><stop offset="1" stop-color="#e0552f"/></linearGradient>
-          </defs>
-          <rect width="300" height="170" fill="url(#ckBg)"/>
-          <ellipse cx="92" cy="86" rx="66" ry="66" fill="#ff9a3c" opacity=".16"/>
-          <path d="M64 52 L124 52 L98 84 L90 84 Z" fill="url(#ckDrink)"/>
-          <g fill="none" stroke="#eaf0f4" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-            <path d="M60 48 L128 48 L98 86 L90 86 Z"/><path d="M94 86 V120"/><path d="M78 122 H110"/>
-          </g>
-          <line x1="112" y1="40" x2="99" y2="62" stroke="#cfe3a0" stroke-width="2.4"/>
-          <circle cx="114" cy="38" r="5.5" fill="#9ccf4b"/><circle cx="112.5" cy="36.5" r="1.6" fill="#c8e88a"/>
-        </svg>
-        <div class="ad-poster-txt"><b>CRAFT<br>COCKTAILS</b><i>2-FOR-1 · HAPPY HOUR</i></div>
+      <div class="ad-photo" style="background-image:url('img/ads/cocktail.jpg')" role="img" aria-label="Craft cocktails — two for one, every happy hour">
+        <div class="ad-grad"></div>
+        <div class="ad-brand">Your Bar &amp; Grill</div>
+        <div class="ad-title">CRAFT COCKTAILS</div>
+        <div class="ad-sub">2-for-1 · every happy hour</div>
+        <div class="ad-badge" style="--ac:#ffc93d">2-4-1</div>
+        <div class="ad-cta" style="--ac:#ffc93d">Ask your bartender</div>
       </div>
       <div class="cap"><b>Signature Cocktails &amp; Draft Beer</b><span>Your highest-margin pour — pushed on every break</span></div>
     </div>
