@@ -68,6 +68,7 @@
     --blue-pale:#cdeeff; --blue2:#9fdcff; --blue:#4fb6f2; --blue-deep:#0b5fb0;
     --navy:#04101f;
     --green:#2ecc71; --red:#ff5c5c;
+    --money:#22e08a; --money-pale:#b9ffe0;
   }
   * { box-sizing:border-box; margin:0; padding:0; }
   html { scroll-behavior:smooth; }
@@ -75,7 +76,8 @@
   body::before { content:""; position:fixed; inset:-40%; z-index:-2;
     background: radial-gradient(40% 32% at 20% 15%, rgba(79,182,242,.22), transparent 60%),
                 radial-gradient(34% 30% at 84% 20%, rgba(159,220,255,.14), transparent 60%),
-                radial-gradient(46% 38% at 50% 100%, rgba(11,95,176,.20), transparent 60%);
+                radial-gradient(46% 38% at 50% 100%, rgba(11,95,176,.20), transparent 60%),
+                radial-gradient(30% 26% at 90% 78%, rgba(34,224,138,.09), transparent 62%);
     animation:drift 30s ease-in-out infinite alternate; }
   @keyframes drift { from{transform:translate(-2%,-1%);} to{transform:translate(2%,2%);} }
   body::after { content:""; position:fixed; inset:0; z-index:-1; opacity:.5; pointer-events:none;
@@ -144,6 +146,7 @@
   .card b.big { display:block; font-family:"Bebas Neue"; font-size:44px; line-height:1;
     background:linear-gradient(120deg,var(--blue-pale),var(--blue));
     -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:8px; }
+  .card b.big.money { background:linear-gradient(120deg,var(--money-pale),var(--money)); -webkit-background-clip:text; background-clip:text; }
   .card p { color:var(--dim); font-size:13.5px; line-height:1.6; }
   .steps { counter-reset:s; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
   .step { position:relative; background:var(--surface); border:1px solid rgba(255,255,255,.07);
@@ -160,14 +163,14 @@
     padding:18px 20px; margin-top:22px; }
   .ticker-panel .thead { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px; }
   .ticker-panel .thead b { font-size:12px; letter-spacing:1.5px; color:var(--dim); text-transform:uppercase; }
-  .ticker-panel .live { display:flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:var(--red); }
-  .ticker-panel .live .dot { width:6px; height:6px; border-radius:50%; background:var(--red); animation:pulseDot 1.4s infinite; }
+  .ticker-panel .live { display:flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:var(--money); }
+  .ticker-panel .live .dot { width:6px; height:6px; border-radius:50%; background:var(--money); box-shadow:0 0 8px var(--money); animation:pulseDot 1.4s infinite; }
   .ticker-rows { display:flex; flex-direction:column; gap:8px; }
   .ticker-row { display:flex; justify-content:space-between; gap:10px; font-size:13px; padding:10px 12px;
     border-radius:10px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05);
     animation:rowIn .5s ease; }
   .ticker-row .t { color:var(--dim); font-variant-numeric:tabular-nums; flex-shrink:0; }
-  .ticker-row .amt { color:var(--blue-pale); font-weight:700; flex-shrink:0; }
+  .ticker-row .amt { color:var(--money); font-weight:700; flex-shrink:0; }
   @keyframes rowIn { from{opacity:0; transform:translateY(-8px);} to{opacity:1; transform:translateY(0);} }
   .ticker-note { color:var(--dim); font-size:11.5px; margin-top:10px; opacity:.8; }
 
@@ -689,10 +692,10 @@
     <div class="card"><b class="big" data-target="14" data-suffix="%">0%</b><p>of your guests will crave the exact dessert, drink, or snack they just saw advertised</p></div>
     <div class="card"><b class="big" data-target="8" data-suffix="%">0%</b><p>go and actually buy it — right now that purchase happens at someone else's counter, not yours</p></div>
     <div class="card"><b class="big" data-target="31" data-suffix="%">0%</b><p>of diners are already thinking about dessert before their entrée even arrives — the sale is sitting right there</p></div>
-    <div class="card"><b class="big" data-prefix="$" data-target="16" data-suffix="K/YR">$0K/YR</b><p>estimated add-on sales a typical restaurant leaks every year — desserts, apps, and drinks guests wanted to buy, just not from you</p></div>
+    <div class="card"><b class="big money" data-prefix="$" data-target="16" data-suffix="K/YR">$0K/YR</b><p>estimated add-on sales a typical restaurant leaks every year — desserts, apps, and drinks guests wanted to buy, just not from you</p></div>
   </div>
   <p class="sub" style="margin-top:22px; max-width:800px">Put those numbers together and a typical
-    restaurant is leaking an estimated <b style="color:var(--blue2)">$16,000 a year</b> in add-on
+    restaurant is leaking an estimated <b style="color:var(--money)">$16,000 a year</b> in add-on
     sales. AdShark turns that same moment into revenue for your business instead. (Try the
     calculator on the dashboard demo with your own numbers.)</p>
 </section>
