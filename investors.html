@@ -11,6 +11,9 @@
 <meta property="og:image" content="https://adshark.tv/static/brand/og-image.jpg">
 <meta property="og:url" content="https://adshark.tv/investors.html">
 <link rel="canonical" href="https://adshark.tv/investors.html">
+<!-- Google tag (gtag.js) — GA4 property "AdShark.tv" -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPSCL18MG6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JPSCL18MG6');</script>
 <link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
 <link rel="shortcut icon" href="static/brand/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,6 +97,26 @@
     padding:44px 30px;text-align:center;margin:20px 0 60px}
   .contact h2{margin-bottom:10px}
   .contact p{color:var(--dim);max-width:560px;margin:0 auto 26px}
+  /* the consumer moment visual */
+  .moment-mini{position:relative;max-width:760px;margin:30px auto 0;border-radius:16px;overflow:hidden;
+    border:1px solid #223049;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+  .moment-mini>img{display:block;width:100%;height:auto}
+  .moment-mini .tvad{position:absolute;left:36.6%;top:22.7%;width:20.9%;height:20.6%;
+    transform:rotate(4.2deg);transform-origin:top left;
+    clip-path:polygon(0 0,100% 0,100% 100%,9% 100%,0 82%);
+    background:radial-gradient(120% 90% at 30% 20%,#1c2a3f,#05080f 70%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+  .moment-mini .tvad::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(112deg,rgba(255,255,255,.13),rgba(255,255,255,.04) 18%,transparent 33%)}
+  .moment-mini .tvad b{font-family:"Bebas Neue";letter-spacing:.06em;color:#fff;font-size:clamp(8px,1.5vw,15px);line-height:1.05}
+  .moment-mini .tvad i{font-style:normal;font-family:"Bebas Neue";color:var(--gold);font-size:clamp(9px,1.8vw,18px);line-height:1;margin-top:3%}
+  .moment-mini .tvad u{text-decoration:none;font-weight:800;color:#9fdcff;font-size:clamp(5px,.7vw,8px);letter-spacing:.12em;margin-top:4%;text-transform:uppercase}
+  .moment-mini .want{position:absolute;left:58%;top:11%;background:#fff;color:#0a1626;font-family:"Bebas Neue";
+    letter-spacing:.05em;font-size:clamp(10px,1.9vw,20px);padding:1.2% 1.8%;border-radius:12px;line-height:1;
+    box-shadow:0 12px 30px rgba(0,0,0,.45)}
+  .moment-mini .want::after{content:"";position:absolute;left:16%;bottom:-5px;width:10px;height:10px;background:#fff;transform:rotate(45deg)}
+  .moment-mini .cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(4,10,20,.88) 40%);
+    padding:26px 16px 10px;text-align:center;color:#cfe0f2;font-size:.78rem}
   footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--dim);font-size:.8rem}
   footer img{height:20px;vertical-align:middle;margin-right:8px;opacity:.85}
 
@@ -152,6 +175,12 @@
       <div class="stat"><b>8%</b><p>leave and buy it somewhere else</p></div>
       <div class="stat"><b>~$16K</b><p>estimated revenue leaked per venue, every year</p></div>
     </div>
+    <div class="moment-mini">
+      <img src="img/bar-moment.jpg" alt="Bar customers pointing at a TV where AdShark is showing the venue's own sundae ad during the commercial break" loading="lazy" decoding="async">
+      <div class="tvad" aria-hidden="true"><b>HOT FUDGE SUNDAE</b><i>$6 · TONIGHT</i><u>AdShark · house ad</u></div>
+      <div class="want" aria-hidden="true">I WANT ONE OF THOSE!</div>
+      <div class="cap">The consumer moment AdShark monetizes: break hits → house ad takes the screen → the impulse purchase stays in the building.</div>
+    </div>
   </div>
 </section>
 
@@ -206,6 +235,18 @@
     </table>
     <p class="note">Upside layer: once density exists, local advertisers buy the reclaimed break inventory
     across venues (rev-share with the house) — the step from SaaS multiples toward media-network multiples.</p>
+    <div class="cardgrid">
+      <div class="card"><h3>WHAT CAPITAL UNLOCKS · 1</h3>
+        <p><b>Production hardware.</b> Move from retail-parts prototype to an ODM manufacturing run
+        (~$130–170/unit at volume) with FCC certification — the step that makes installs repeatable
+        and margins real.</p></div>
+      <div class="card"><h3>WHAT CAPITAL UNLOCKS · 2</h3>
+        <p><b>Pilot → proof → pipeline.</b> Complete the Founding 10, convert measured check-size lift
+        into case studies, and run the outbound motion to sports bars and franchise groups.</p></div>
+      <div class="card"><h3>WHAT CAPITAL UNLOCKS · 3</h3>
+        <p><b>The network layer.</b> Fleet dashboard, channel partnerships (AV integrators, TV dealers),
+        and the local-ad marketplace that turns reclaimed breaks into media-network economics.</p></div>
+    </div>
   </div>
 </section>
 
