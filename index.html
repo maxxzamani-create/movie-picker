@@ -118,10 +118,10 @@
   .trust-chip { display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700;
     color:var(--dim); background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
     padding:8px 13px; border-radius:100px; }
-  .tvframe { position:relative; border-radius:18px; overflow:hidden; border:1px solid #223049;
+  .tvframe { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; border:1px solid #223049;
     box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(79,182,242,.18); }
   .tvframe video { display:block; width:100%; }
-  .live-tag { position:absolute; top:12px; left:12px; background:rgba(4,16,31,.85); backdrop-filter:blur(6px);
+  .live-tag { position:absolute; top:12px; left:12px; z-index:5; background:rgba(4,16,31,.85); backdrop-filter:blur(6px);
     border:1px solid rgba(79,182,242,.45); color:var(--blue-pale); font-size:11px; font-weight:800;
     letter-spacing:1px; padding:6px 12px; border-radius:100px; display:flex; align-items:center; gap:6px; }
   .live-tag .dot { width:6px; height:6px; border-radius:50%; background:var(--red); box-shadow:0 0 8px var(--red);
@@ -244,6 +244,8 @@
   .ad-photo .ad-sub { position:absolute; top:31%; left:0; right:0; text-align:center; color:#fff; font-size:clamp(11px,2vw,14.5px); font-weight:600; text-shadow:0 1px 10px rgba(0,0,0,.95); padding:0 20px; }
   .ad-photo .ad-badge { position:absolute; top:8%; right:6%; width:clamp(46px,9vw,62px); height:clamp(46px,9vw,62px); border-radius:50%; display:flex; align-items:center; justify-content:center; text-align:center; background:var(--ac); color:#17130a; font-family:"Bebas Neue"; font-size:clamp(12px,2vw,17px); line-height:.9; box-shadow:0 6px 18px rgba(0,0,0,.55); border:2px solid rgba(255,255,255,.4); padding:4px; }
   .ad-photo .ad-cta { position:absolute; bottom:7%; left:50%; transform:translateX(-50%); background:var(--ac); color:#14110a; font-weight:800; font-size:clamp(9px,1.5vw,12px); letter-spacing:.05em; text-transform:uppercase; padding:7px 16px; border-radius:100px; white-space:nowrap; box-shadow:0 8px 20px rgba(0,0,0,.5); }
+  .adrot { position:absolute; inset:0; aspect-ratio:auto; background-size:cover; background-position:center; transition:opacity .3s ease; }
+  .adrot.fade { opacity:0; }
   .gallery-cta { text-align:center; margin-top:30px; }
 
   .venue-marquee { margin-top:30px; overflow:hidden;
@@ -647,10 +649,14 @@
   </div>
   <div class="tvframe">
     <div class="live-tag"><span class="dot"></span> ADSHARK LIVE</div>
-    <video autoplay muted loop playsinline>
-      <source src="static/co/ad_burger.mp4" type="video/mp4">
-      <source src="static/co/ad_burger.webm" type="video/webm">
-    </video>
+    <div class="ad-photo adrot" data-adrot role="img" aria-label="AdShark rotating house specials on your screen">
+      <div class="ad-grad"></div>
+      <div class="ad-brand">Your Bar &amp; Grill</div>
+      <div class="ad-title">THE ZENIE BURGER</div>
+      <div class="ad-sub">Half price — game time only</div>
+      <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
+      <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
+    </div>
   </div>
 </section>
 
@@ -749,10 +755,14 @@
       <div class="layer hide" id="layerWith">
         <div class="live-tag" style="position:absolute; top:12px; left:12px;">
           <span class="dot"></span> ADSHARK LIVE</div>
-        <video autoplay muted loop playsinline>
-          <source src="static/co/ad_burger.mp4" type="video/mp4">
-          <source src="static/co/ad_burger.webm" type="video/webm">
-        </video>
+        <div class="ad-photo adrot" data-adrot role="img" aria-label="AdShark rotating house specials on your screen">
+          <div class="ad-grad"></div>
+          <div class="ad-brand">Your Bar &amp; Grill</div>
+          <div class="ad-title">THE ZENIE BURGER</div>
+          <div class="ad-sub">Half price — game time only</div>
+          <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
+          <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
+        </div>
       </div>
     </div>
     <div class="compare-toggle">
@@ -828,11 +838,11 @@
   <p class="sub" style="margin-bottom:26px">Our spokesperson breaks down what your guests
     do during commercial breaks, what it costs you, and how AdShark turns that moment
     into revenue for your business.</p>
-  <div class="vframe">
-    <video controls playsinline preload="metadata" poster="vid/adshark-explainer-poster.jpg"
+  <div class="filmwrap">
+    <video controls playsinline preload="metadata" poster="promo/adshark-promo-poster.jpg"
            title="AdShark — the film">
-      <source src="vid/adshark-explainer.mp4" type="video/mp4">
-      Your browser can't play this video. <a href="vid/adshark-explainer.mp4">Download it instead.</a>
+      <source src="promo/adshark-promo.mp4" type="video/mp4">
+      Your browser can't play this video. <a href="promo/adshark-promo.mp4">Download it instead.</a>
     </video>
   </div>
 </section>
@@ -1472,6 +1482,33 @@ if ("IntersectionObserver" in window) {
   document.getElementById('reelPrev').onclick=function(){go(i-1);};
   sBtn.onclick=function(){soundOn=!soundOn;V.muted=!soundOn;sBtn.textContent=soundOn?'🔈 Sound on':'🔊 Tap for sound';if(soundOn){var p=V.play();if(p&&p.catch)p.catch(function(){});}};
   render();
+})();
+</script>
+<script>
+(function(){
+  var ads=[
+    {img:'img/ads/burger.jpg',title:'THE ZENIE BURGER',sub:'Half price — game time only',badge:'½ OFF',cta:'Order at the bar · tonight',ac:'#ffc93d'},
+    {img:'img/ads/wings.jpg',title:'$1 WING NIGHT',sub:'Every Wednesday — all flavors',badge:'$1',cta:'Dine-in · ask your server',ac:'#ff7a2f'},
+    {img:'img/ads/dessert.jpg',title:'SAVE ROOM FOR DESSERT',sub:'Molten chocolate cake — made here',badge:'$12',cta:'Ask for the dessert menu',ac:'#e879c9'},
+    {img:'img/ads/cocktail.jpg',title:'CRAFT COCKTAILS',sub:'2-for-1 · every happy hour',badge:'2-4-1',cta:'Ask your bartender',ac:'#ffc93d'}
+  ];
+  var els=document.querySelectorAll('[data-adrot]');
+  els.forEach(function(el,ei){
+    var i=ei%ads.length;
+    function paint(){
+      var a=ads[i];
+      el.style.backgroundImage="url('"+a.img+"')";
+      el.querySelector('.ad-title').textContent=a.title;
+      el.querySelector('.ad-sub').textContent=a.sub;
+      var b=el.querySelector('.ad-badge'); b.textContent=a.badge; b.style.setProperty('--ac',a.ac);
+      var c=el.querySelector('.ad-cta'); c.textContent=a.cta; c.style.setProperty('--ac',a.ac);
+    }
+    paint();
+    setInterval(function(){
+      el.classList.add('fade');
+      setTimeout(function(){ i=(i+1)%ads.length; paint(); el.classList.remove('fade'); }, 300);
+    }, 3600 + ei*600);
+  });
 })();
 </script>
 </body>
