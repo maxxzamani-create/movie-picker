@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BreakShark.com — Your TV. Your ads. Every break.</title>
-<meta name="description" content="BreakShark detects commercial breaks on the TVs in your bar or restaurant and swaps them for your own specials. No more competitor food ads in front of your captive audience.">
+<meta name="description" content="BreakShark detects commercial breaks on your sports bar or restaurant TVs and fills them with your own specials — 100% of every break, every screen. Industry case study: self-promos lift food & drink sales 6.5%.">
 <meta name="theme-color" content="#0a1626">
 <link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
@@ -52,8 +52,12 @@
       "acceptedAnswer": { "@type": "Answer", "text": "Every takeover is logged on your owner dashboard — play counts, timing, and an estimate of what each play was worth." } },
     { "@type": "Question", "name": "Is it legal — does it mess with my cable or streaming feed?",
       "acceptedAnswer": { "@type": "Answer", "text": "BreakShark's detection never modifies the broadcast signal. It only changes what your local screen displays, and only during a commercial break that's already playing. Your cable box, streaming device, and the underlying feed are untouched." } },
+    { "@type": "Question", "name": "What about the free TV boxes that pay me to run ads?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Those companies sell your commercial-break time to their advertisers and mail you a cut, typically $1–2K a year, while your own specials share the break with ads you didn't choose. BreakShark flips the model: every second of every break sells your menu, and you keep 100% of the upside. The industry's own published case study showed venue self-promos lift food and drink sales 6.5%." } },
+    { "@type": "Question", "name": "What does BreakShark cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Starter is $99/month for one screen plus a one-time $199 box. Full Bar is $199/month for up to four screens with boxes included on a 12-month term. The Founding 10 lock legacy rates of $49/$99 for life — half the standard pricing." } },
     { "@type": "Question", "name": "What is the Founding 10 offer?",
-      "acceptedAnswer": { "@type": "Answer", "text": "BreakShark is taking ten founding restaurants and bars through Phase 2 of the rollout — first month free, with founding pricing locked for life as an early partner." } }
+      "acceptedAnswer": { "@type": "Answer", "text": "BreakShark is taking ten founding restaurants and bars through Phase 2 of the rollout — first month free, with founding rates of $49 Starter / $99 Full Bar locked for life. That's half the standard pricing, forever." } }
   ]
 }
 </script>
@@ -632,6 +636,7 @@
     <a href="#action">Examples</a>
     <a href="#explainer">▶ Watch</a>
     <a href="#how">How it works</a>
+    <a href="#proof" style="color:var(--money)">The $65K Math</a>
     <a href="#trust">Why Trust Us</a>
     <a href="#sharky">Meet Sharky</a>
     <a href="#pricing">Pricing</a>
@@ -1144,6 +1149,16 @@
         and the broadcast signal itself is never modified.</p>
     </details>
     <details>
+      <summary>What about those "free" TV boxes that pay me to run ads?</summary>
+      <p>Those companies sell your commercial-break time to <em>their</em> advertisers — national
+        beverage brands, sportsbooks — and mail you a cut, typically $1–2K a year. Your own
+        specials share the break with ads you didn't choose. BreakShark flips the model: every
+        second of every break sells <em>your</em> menu, and you keep 100% of the upside. Their own
+        published case study showed venue self-promos lift food &amp; drink sales 6.5% — worth
+        about $65K a year in a $1M room. We think you should keep that, not rent it out for
+        $1,500.</p>
+    </details>
+    <details>
       <summary>Do I need new TVs or complicated hardware?</summary>
       <p>No. BreakShark is compatible with almost every TV and streaming setup already running in
         your bar. The Starter plan includes a one-time $199 BreakShark box; Full Bar includes the
@@ -1166,16 +1181,6 @@
       <p>BreakShark's detection never modifies the broadcast signal. It only changes what your local
         screen displays, and only during a commercial break that's already playing. Your cable
         box, streaming device, and the underlying feed are untouched.</p>
-    </details>
-    <details>
-      <summary>What about those "free" TV boxes that pay me to run ads?</summary>
-      <p>Those companies sell your commercial-break time to <em>their</em> advertisers — national
-        beverage brands, sportsbooks — and mail you a cut, typically $1–2K a year. Your own
-        specials share the break with ads you didn't choose. BreakShark flips the model: every
-        second of every break sells <em>your</em> menu, and you keep 100% of the upside. Their own
-        published case study showed venue self-promos lift food &amp; drink sales 6.5% — worth
-        about $65K a year in a $1M room. We think you should keep that, not rent it out for
-        $1,500.</p>
     </details>
     <details>
       <summary>What's the "10 founding spots" offer?</summary>
@@ -1235,7 +1240,7 @@ const LINES = [
   "Research shows people snack forty five percent more while food ads play, and eight percent go buy the exact thing they saw. That purchase should happen at YOUR register.",
   "BreakShark watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
   "During the break, your screens show YOUR specials. Real photos of your food, equal airtime for every spot. When the game comes back, I snap back instantly. Nobody misses a play.",
-  "The dashboard counts every play and estimates what the leak was costing you. For a typical room, that's around sixteen thousand dollars a year, and Full Bar costs ninety nine a month.",
+  "The dashboard counts every play and estimates what the leak was costing you. For a typical room, that's around sixteen thousand dollars a year, and Full Bar costs one ninety nine a month.",
   "Want to see me hunt? Hit the live demo and watch me eat a commercial in real time. Chomp chomp."
 ];
 let idx = -1, speaking = false;
