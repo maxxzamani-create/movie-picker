@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AdShark — Live TV</title>
+<title>BreakShark — Live TV</title>
 <meta name="theme-color" content="#03050a">
 <link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
@@ -343,17 +343,17 @@
 </head>
 <body>
 <header>
-  <img class="logo" src="static/brand/icon.png" alt="AdShark logo">
+  <img class="logo" src="static/brand/icon.png" alt="BreakShark logo">
   <div>
-    <div class="wordmark">AdShark.tv</div>
+    <div class="wordmark">BreakShark.com</div>
     <div class="tagline">the commercial killer</div>
   </div>
   <span class="biz" id="bizName"></span>
-  <nav><a href="index.html" style="margin-right:8px">← AdShark.tv</a><a href="dashboard.html">Business Dashboard →</a></nav>
+  <nav><a href="index.html" style="margin-right:8px">← BreakShark.com</a><a href="dashboard.html">Business Dashboard →</a></nav>
 </header>
 
 <div class="demo-strip"><span class="demo-dot"></span>
-  <span><b>Live, interactive demo</b> — real detection running in your browser right now, not a recording. Hit play and watch AdShark take the break.</span>
+  <span><b>Live, interactive demo</b> — real detection running in your browser right now, not a recording. Hit play and watch BreakShark take the break.</span>
 </div>
 
 <div class="wrap">
@@ -367,14 +367,14 @@
         <div class="takeover" id="takeover">
           <div class="wave"></div>
           <img class="fin" src="static/brand/icon.png" alt="" aria-hidden="true">
-          <div class="stamp" id="stampText">ADSHARK TAKEOVER</div>
+          <div class="stamp" id="stampText">BREAKSHARK TAKEOVER</div>
         </div>
         <span class="badge" id="liveBadge">LIVE</span>
         <span class="badge" id="adBadge">🦈 YOUR AD</span>
         <button class="tv-mute" id="muteBtn" title="Mute game audio" aria-label="Mute game audio">🔊</button>
         <button id="startOverlay">
           <span class="inner">
-            <img src="static/brand/icon.png" alt="AdShark" class="startIcon">
+            <img src="static/brand/icon.png" alt="BreakShark" class="startIcon">
             <span class="cta">▶ &nbsp;START THE BROADCAST</span>
             <small>simulated live game — the shark strikes when the break hits</small>
           </span>
@@ -521,7 +521,7 @@ function setupAudio() {
     analyser.fftSize = 512;
     src.connect(analyser);
     // Route the broadcast to the speakers through a gain node so the crowd is audible
-    // during the game and can be ducked to silence the instant AdShark takes the break.
+    // during the game and can be ducked to silence the instant BreakShark takes the break.
     // The detector still reads real audio levels off the analyser. Sound only ever starts
     // after the START click (a user gesture) — nothing autoplays anywhere on the site.
     feedGain = ctx.createGain();
@@ -618,7 +618,7 @@ function startOverride(win) {
   $("statOverrides").textContent = sessionOverrides;
   feed.muted = true;
   applyAudio();   // silence the crowd — the ad carries the break
-  takeover("ADSHARK TAKEOVER");
+  takeover("BREAKSHARK TAKEOVER");
   // split the whole break evenly across the enabled spots
   adSlice = Math.max(3, (win.end - win.start - 0.8) / ads.length);
   breakAdsPlayed = 0;
