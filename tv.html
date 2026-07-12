@@ -78,7 +78,7 @@
   .demo-strip b { color: var(--text); }
   .demo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red);
     flex-shrink: 0; box-shadow: 0 0 10px rgba(255,92,92,.7); animation: blink 1.6s infinite; }
-  header nav { margin-left: auto; }
+  header nav { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
   header a {
     color: var(--text); text-decoration: none; font-size: 13px; font-weight: 600;
     padding: 10px 18px; border-radius: 12px; border: 1px solid var(--line);
@@ -86,6 +86,11 @@
   }
   header a:hover { border-color: var(--gold); transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(79,182,242,.18); }
+  header a.cta { background: linear-gradient(120deg, #cdeeff, #0b5fb0); color: #04101f;
+    border-color: transparent; font-weight: 800; border-radius: 999px;
+    box-shadow: 0 6px 20px rgba(79,182,242,.25); }
+  header a.cta:hover { box-shadow: 0 10px 28px rgba(79,182,242,.4); }
+  @media (max-width: 760px) { header { flex-wrap: wrap; } header nav { margin-left: 0; } }
 
   .wrap {
     display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(320px, 1fr);
@@ -345,11 +350,15 @@
 <header>
   <img class="logo" src="static/brand/icon.png" alt="BreakShark logo">
   <div>
-    <div class="wordmark">BreakShark.com</div>
-    <div class="tagline">the commercial killer</div>
+    <div class="wordmark">BreakShark</div>
+    <div class="tagline">live demo · the commercial killer</div>
   </div>
   <span class="biz" id="bizName"></span>
-  <nav><a href="index.html" style="margin-right:8px">← BreakShark.com</a><a href="dashboard.html">Business Dashboard →</a></nav>
+  <nav>
+    <a href="index.html">← Home</a>
+    <a href="dashboard.html">Owner Dashboard</a>
+    <a href="founding10.html" class="cta">Claim a Founding Spot</a>
+  </nav>
 </header>
 
 <div class="demo-strip"><span class="demo-dot"></span>
