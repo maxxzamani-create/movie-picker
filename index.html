@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BreakShark.com — Your TV. Your ads. Every break.</title>
-<meta name="description" content="BreakShark detects commercial breaks on your sports bar or restaurant TVs and fills them with your own specials — 100% of every break, every screen. Industry case study: self-promos lift food & drink sales 6.5%.">
+<meta name="description" content="BreakShark detects commercial breaks on the TVs in your bar or restaurant and swaps them for your own specials. No more competitor food ads in front of your captive audience.">
 <meta name="theme-color" content="#0a1626">
 <link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
@@ -52,12 +52,8 @@
       "acceptedAnswer": { "@type": "Answer", "text": "Every takeover is logged on your owner dashboard — play counts, timing, and an estimate of what each play was worth." } },
     { "@type": "Question", "name": "Is it legal — does it mess with my cable or streaming feed?",
       "acceptedAnswer": { "@type": "Answer", "text": "BreakShark's detection never modifies the broadcast signal. It only changes what your local screen displays, and only during a commercial break that's already playing. Your cable box, streaming device, and the underlying feed are untouched." } },
-    { "@type": "Question", "name": "Where does the 6.5% sales-lift number come from?",
-      "acceptedAnswer": { "@type": "Answer", "text": "A published industry case study measured a 6.5% lift in food and drink sales when a four-location pub group's TVs promoted the house menu during commercial breaks — about $65,000 a year on a $1M room. Those are the study's results, not BreakShark's; our founding 10-bar pilot will publish first-party numbers." } },
-    { "@type": "Question", "name": "What does BreakShark cost?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Starter is $99/month for one screen plus a one-time $199 box. Full Bar is $199/month for up to four screens with boxes included on a 12-month term. The Founding 10 lock legacy rates of $49/$99 for life — half the standard pricing." } },
     { "@type": "Question", "name": "What is the Founding 10 offer?",
-      "acceptedAnswer": { "@type": "Answer", "text": "BreakShark is taking ten founding restaurants and bars through Phase 2 of the rollout — first month free, with founding rates of $49 Starter / $99 Full Bar locked for life. That's half the standard pricing, forever." } }
+      "acceptedAnswer": { "@type": "Answer", "text": "BreakShark is taking ten founding restaurants and bars through Phase 2 of the rollout — first month free, with founding pricing locked for life as an early partner." } }
   ]
 }
 </script>
@@ -381,8 +377,8 @@
   .reveal { opacity:0; transform:translateY(26px); transition:opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1); }
   .reveal.in { opacity:1; transform:translateY(0); }
   /* staggered children: hidden until parent reveals; JS assigns per-card delays */
-  .reveal:not(.in) :is(.card,.step,.trust-card,.tier,.phase,.action-card) { opacity:0; transform:translateY(30px) scale(.985); }
-  :is(.card,.step,.trust-card,.tier,.phase,.action-card) { transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease; }
+  .reveal:not(.in) :is(.card,.step,.trust-card,.tier,.phase,.action-card,.stat,.choose-card) { opacity:0; transform:translateY(30px) scale(.985); }
+  :is(.card,.step,.trust-card,.tier,.phase,.action-card,.stat,.choose-card) { transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease; }
 
   /* hero entrance */
   .hero .kicker,.hero h1,.hero .sub,.hero .ctas,.hero .trust-row,.hero .founding-badge { animation:heroUp .9s cubic-bezier(.16,1,.3,1) both; }
@@ -612,11 +608,154 @@
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation:none !important; transition:none !important; }
-    .reveal, .reveal:not(.in) :is(.card,.step,.trust-card,.tier,.phase,.action-card) { opacity:1; transform:none; }
+    .reveal, .reveal:not(.in) :is(.card,.step,.trust-card,.tier,.phase,.action-card,.stat,.choose-card) { opacity:1; transform:none; }
     .hero .kicker,.hero h1,.hero .sub,.hero .ctas,.hero .trust-row,.hero .founding-badge,.hero .tvframe { opacity:1; transform:none; }
     section h2::after { transform:none; }
     .rise-layer, .finswim { display:none; }
     .say, .recap-toast { opacity:1; transform:none; }
+  }
+
+  /* ═══════════ PRO LAYER v2 — Taiv-class polish ═══════════ */
+  /* ── nav 2.0 ── */
+  header { padding:12px 24px; gap:14px; }
+  header nav { gap:2px; align-items:center; }
+  header nav a { font-size:13.5px; padding:9px 12px; letter-spacing:.01em; }
+  .nav-cta { display:inline-block; margin-left:10px; padding:10px 18px; border-radius:100px;
+    background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep)); color:var(--navy) !important;
+    font-weight:800; font-size:13px; text-decoration:none; letter-spacing:.02em;
+    box-shadow:0 6px 20px rgba(79,182,242,.25); transition:transform .2s ease, box-shadow .2s ease; }
+  .nav-cta:hover { transform:translateY(-1px); box-shadow:0 10px 28px rgba(79,182,242,.4); background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep)) !important; }
+  .nav-demo { color:var(--blue-pale) !important; border:1px solid rgba(79,182,242,.35); border-radius:100px; }
+  .nav-burger { display:none; margin-left:auto; width:44px; height:40px; border-radius:10px;
+    border:1px solid var(--line); background:rgba(30,46,70,.85); cursor:pointer; padding:0;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px; }
+  .nav-burger span { display:block; width:20px; height:2px; border-radius:2px; background:var(--blue-pale);
+    transition:transform .25s ease, opacity .2s ease; }
+  .nav-burger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2){ opacity:0; }
+  .nav-burger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  @media (max-width:1080px){
+    .nav-burger { display:flex; }
+    header nav { position:fixed; top:64px; left:0; right:0; z-index:49; flex-direction:column;
+      align-items:stretch; gap:4px; padding:14px 20px 20px; background:rgba(8,18,32,.97);
+      backdrop-filter:blur(14px); border-bottom:1px solid var(--line);
+      transform:translateY(-12px); opacity:0; pointer-events:none;
+      transition:transform .3s cubic-bezier(.16,1,.3,1), opacity .25s ease; }
+    header nav.open { transform:translateY(0); opacity:1; pointer-events:auto; }
+    header nav a { font-size:15px; padding:13px 14px; }
+    .nav-cta { margin:10px 0 0; text-align:center; padding:14px; }
+  }
+
+  /* ── hero 2.0: line stagger + floating ad chips ── */
+  .hero h1 { animation:none; }
+  .hero h1 .hline { display:inline-block; opacity:0; animation:hlineUp .85s cubic-bezier(.16,1,.3,1) forwards; }
+  .hero h1 .hline:nth-child(1){ animation-delay:.05s; }
+  .hero h1 .hline:nth-child(3){ animation-delay:.20s; }
+  .hero h1 .hline:nth-child(5){ animation-delay:.35s; }
+  @keyframes hlineUp { from{opacity:0; transform:translateY(38px); clip-path:inset(0 0 100% 0);}
+    to{opacity:1; transform:none; clip-path:inset(-20% -5% -20% -5%);} }
+  .hero-right { position:relative; }
+  .float-ad { position:absolute; z-index:6; display:inline-flex; align-items:center; gap:7px;
+    background:rgba(9,22,40,.92); border:1px solid rgba(79,182,242,.4); border-radius:12px;
+    padding:9px 14px; font-size:12px; font-weight:800; letter-spacing:.04em; color:var(--blue-pale);
+    box-shadow:0 14px 34px rgba(0,0,0,.5), 0 0 24px rgba(79,182,242,.12);
+    backdrop-filter:blur(6px); pointer-events:none; will-change:transform;
+    animation:floatDrift 6s ease-in-out infinite, heroPop 1s cubic-bezier(.16,1,.3,1) both; }
+  .float-ad b { font-family:"Bebas Neue"; font-size:17px; letter-spacing:.06em; color:#ffc93d; }
+  .float-ad.f1 { top:-22px; right:-14px; animation-delay:.2s,.55s; }
+  .float-ad.f2 { bottom:-20px; left:-18px; animation-delay:1.4s,.7s; }
+  .float-ad.f3 { top:38%; left:-34px; animation-delay:2.6s,.85s; }
+  .float-ad.f2 b { color:var(--money); } .float-ad.f3 b { color:#ff8a5c; }
+  @keyframes floatDrift { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-9px);} }
+  @media (max-width:900px){ .float-ad.f3 { display:none; } .float-ad.f1{right:2px;} .float-ad.f2{left:2px;} }
+
+  /* ── stats band (the network behind the shark) ── */
+  .stats-band { max-width:1100px; margin:0 auto; padding:10px 28px 26px; }
+  .stats-inner { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px;
+    background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.09); border-radius:20px; overflow:hidden; }
+  .stat { background:rgba(13,26,45,.92); padding:30px 26px 26px; position:relative; overflow:hidden; }
+  .stat::before { content:""; position:absolute; inset:0; opacity:0;
+    background:radial-gradient(60% 80% at 50% 0%, rgba(79,182,242,.14), transparent 70%);
+    transition:opacity .4s ease; }
+  .stat:hover::before { opacity:1; }
+  .statnum { display:block; font-family:"Bebas Neue"; font-size:clamp(40px,4.6vw,56px); line-height:1;
+    background:linear-gradient(120deg,var(--blue-pale),var(--blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    font-variant-numeric:tabular-nums; }
+  .stat.money .statnum { background:linear-gradient(120deg,var(--money-pale),var(--money));
+    -webkit-background-clip:text; background-clip:text; }
+  .stat p { margin-top:9px; color:var(--dim); font-size:13px; line-height:1.55; }
+
+  /* ── drag-to-compare slider ── */
+  .cmpframe { position:relative; touch-action:none; cursor:ew-resize; user-select:none; -webkit-user-select:none; }
+  .cmpframe .layer { transition:none; }
+  .cmpframe .layer.topclip { clip-path:inset(0 0 0 var(--cut,50%)); }
+  .cmp-handle { position:absolute; top:0; bottom:0; left:var(--cut,50%); z-index:12; width:0; }
+  .cmp-handle::before { content:""; position:absolute; top:0; bottom:0; left:-1.5px; width:3px;
+    background:linear-gradient(180deg,var(--blue-pale),var(--blue),var(--blue-deep));
+    box-shadow:0 0 18px rgba(79,182,242,.75); }
+  .cmp-grip { position:absolute; top:50%; left:0; transform:translate(-50%,-50%); width:46px; height:46px;
+    border-radius:50%; background:rgba(6,16,30,.9); border:2px solid var(--blue);
+    box-shadow:0 8px 26px rgba(0,0,0,.6), 0 0 22px rgba(79,182,242,.45);
+    display:flex; align-items:center; justify-content:center; gap:3px;
+    color:var(--blue-pale); font-size:15px; font-weight:800; backdrop-filter:blur(4px); }
+  .cmpframe:not(.dragging) .cmp-grip { animation:gripNudge 2.6s ease-in-out infinite; }
+  @keyframes gripNudge { 0%,100%{transform:translate(-50%,-50%);} 50%{transform:translate(calc(-50% + 5px),-50%);} }
+  .cmp-chip { position:absolute; bottom:12px; z-index:11; font-size:11px; font-weight:800;
+    letter-spacing:.12em; padding:6px 13px; border-radius:100px; backdrop-filter:blur(6px); pointer-events:none; }
+  .cmp-chip.cl { left:12px; background:rgba(20,20,20,.8); border:1px solid #3c3c3c; color:#b9b9b9; }
+  .cmp-chip.cr { right:12px; background:rgba(6,26,20,.85); border:1px solid rgba(34,224,138,.5); color:var(--money-pale); }
+  .cmp-hint { text-align:center; margin-top:14px; color:var(--dim); font-size:12.5px; font-weight:700;
+    letter-spacing:.06em; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .cmp-hint::before, .cmp-hint::after { content:""; width:34px; height:1px; background:var(--line); }
+
+  /* ── chooser: pick your side ── */
+  .chooser { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:30px; }
+  @media (max-width:820px){ .chooser{ grid-template-columns:1fr; } }
+  .choose-card { position:relative; overflow:hidden; border-radius:22px; padding:38px 34px;
+    border:1px solid rgba(255,255,255,.09); background:linear-gradient(160deg,rgba(19,36,60,.9),rgba(9,20,36,.95));
+    transition:transform .35s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .35s ease; }
+  .choose-card::before { content:""; position:absolute; inset:0; opacity:0; transition:opacity .4s ease;
+    background:radial-gradient(90% 70% at 80% 0%, rgba(79,182,242,.16), transparent 70%); }
+  .choose-card.inv::before { background:radial-gradient(90% 70% at 80% 0%, rgba(34,224,138,.14), transparent 70%); }
+  .choose-card:hover { transform:translateY(-6px); border-color:rgba(79,182,242,.45);
+    box-shadow:0 26px 60px rgba(0,0,0,.5), 0 0 44px rgba(79,182,242,.14); }
+  .choose-card.inv:hover { border-color:rgba(34,224,138,.45); box-shadow:0 26px 60px rgba(0,0,0,.5), 0 0 44px rgba(34,224,138,.12); }
+  .choose-card:hover::before { opacity:1; }
+  .choose-card .ck { font-size:11px; font-weight:800; letter-spacing:.22em; color:var(--blue2); text-transform:uppercase; }
+  .choose-card.inv .ck { color:var(--money); }
+  .choose-card h3 { font-family:"Bebas Neue"; font-size:34px; letter-spacing:1.5px; margin:12px 0 10px; }
+  .choose-card p { color:var(--dim); font-size:14.5px; line-height:1.7; margin-bottom:22px; }
+  .choose-card .row { display:flex; gap:12px; flex-wrap:wrap; }
+
+  /* ── pricing: founding strike ── */
+  .tier .founding-line { margin:-6px 0 14px; font-size:12.5px; font-weight:800; color:#ffc93d; letter-spacing:.03em; }
+  .tier .founding-line s { color:var(--dim); font-weight:600; margin-right:6px; }
+
+  /* ── footer 2.0 ── */
+  footer.pro { text-align:left; padding:54px 28px 30px; }
+  .foot-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:34px; }
+  @media (max-width:820px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .foot-grid{ grid-template-columns:1fr; } }
+  .foot-brand img { height:34px; margin:0 0 12px; opacity:1; }
+  .foot-brand .fw { font-weight:800; font-size:18px; color:var(--text); margin-bottom:8px;
+    background:linear-gradient(100deg,var(--blue-pale),var(--blue-deep)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .foot-brand p { font-size:13px; line-height:1.7; color:var(--dim); max-width:280px; }
+  .foot-col b { display:block; font-size:11px; font-weight:800; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--text); margin-bottom:14px; }
+  .foot-col a { display:block; color:var(--dim); text-decoration:none; font-size:13.5px; padding:5px 0; transition:color .2s; }
+  .foot-col a:hover { color:var(--blue-pale); }
+  .foot-legal { max-width:1100px; margin:36px auto 0; padding-top:20px; border-top:1px solid rgba(255,255,255,.07);
+    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--dim); }
+
+  /* ── micro-interactions ── */
+  .action-card, .choose-card, .tier { transform-style:preserve-3d; }
+  .tilting { transition:transform .1s ease-out !important; }
+  h2 { font-size:clamp(32px,4.2vw,44px); }
+  :focus-visible { outline:2px solid var(--blue); outline-offset:3px; border-radius:6px; }
+  @media (prefers-reduced-motion:reduce){
+    .float-ad, .cmp-grip { animation:none !important; }
+    .hero h1 .hline { opacity:1; animation:none; }
   }
 </style>
 <!-- Google tag (gtag.js) — GA4 property "BreakShark.com" -->
@@ -629,28 +768,26 @@
 <div id="sharkTank" aria-hidden="true"></div>
 <header>
   <img class="logo" src="static/brand/icon.png" alt="BreakShark shark-fin logo">
-  <div class="wordmark">BreakShark.com</div>
-  <nav aria-label="Main">
-    <a href="#problem">The Leak</a>
-    <a href="#moment">The Moment</a>
-    <a href="#action">Examples</a>
-    <a href="#explainer">▶ Watch</a>
-    <a href="#how">How it works</a>
-    <a href="#proof" style="color:var(--money)">The $65K Math</a>
-    <a href="#trust">Why Trust Us</a>
-    <a href="#sharky">Meet Sharky</a>
+  <div class="wordmark">BreakShark</div>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+    <span></span><span></span><span></span>
+  </button>
+  <nav aria-label="Main" id="mainNav">
+    <a href="#problem">The Problem</a>
+    <a href="#action">See It Work</a>
+    <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
-    <a href="founding10.html" style="color:#ffc93d">🦈 Founding 10</a>
-    <a href="tv.html" style="color:var(--blue2)">▶ Live Demo</a>
-    <a href="investors.html" style="color:var(--blue2)">For Investors</a>
+    <a href="investors.html">Investors</a>
+    <a href="tv.html" class="nav-demo">▶ Live Demo</a>
+    <a href="founding10.html" class="nav-cta">Claim a Founding Spot</a>
   </nav>
 </header>
 
 <section class="hero">
   <div>
     <div class="kicker">For bars · restaurants · anywhere with a TV</div>
-    <h1>YOUR TV.<br><span class="accent">YOUR ADS.</span><br>EVERY BREAK.</h1>
+    <h1><span class="hline">YOUR TV.</span><br><span class="hline accent">YOUR ADS.</span><br><span class="hline">EVERY BREAK.</span></h1>
     <p class="sub" style="margin-top:22px">BreakShark watches the game with you. The moment
       the broadcast cuts to commercials, your screens switch to <b>your</b> specials —
       your burger, your wings, your craft cocktails, your dessert — then snap back the instant the game returns.
@@ -660,24 +797,41 @@
       <a class="btn" href="dashboard.html">See the owner dashboard</a>
     </div>
     <div class="trust-row">
-      <div class="trust-chip">📈 Self-promos lift food &amp; drink sales <b>6.5%</b> — published industry case study</div>
       <div class="trust-chip">🔒 Never touches your broadcast signal</div>
       <div class="trust-chip">📺 Works with your TV & streaming setup</div>
       <div class="trust-chip">🎯 10 founding spots · price locked for life</div>
     </div>
   </div>
-  <div class="tvframe">
-    <div class="live-tag"><span class="dot"></span> BREAKSHARK LIVE</div>
-    <div class="ad-photo adrot" data-adrot role="img" aria-label="BreakShark rotating house specials on your screen">
-      <div class="ad-grad"></div>
-      <div class="ad-brand">Your Bar &amp; Grill</div>
-      <div class="ad-title">THE ZENIE BURGER</div>
-      <div class="ad-sub">Half price — game time only</div>
-      <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
-      <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
+  <div class="hero-right" id="heroRight">
+    <div class="float-ad f1" aria-hidden="true"><b>½ OFF</b> ZENIE BURGER</div>
+    <div class="float-ad f2" aria-hidden="true"><b>$1</b> WING NIGHT · WED</div>
+    <div class="float-ad f3" aria-hidden="true"><b>2-4-1</b> COCKTAILS</div>
+    <div class="tvframe">
+      <div class="live-tag"><span class="dot"></span> BREAKSHARK LIVE</div>
+      <div class="ad-photo adrot" data-adrot role="img" aria-label="BreakShark rotating house specials on your screen">
+        <div class="ad-grad"></div>
+        <div class="ad-brand">Your Bar &amp; Grill</div>
+        <div class="ad-title">THE ZENIE BURGER</div>
+        <div class="ad-sub">Half price — game time only</div>
+        <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
+        <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="stats-band reveal" aria-label="BreakShark by the numbers">
+  <div class="stats-inner">
+    <div class="stat"><span class="statnum" data-prefix="&lt;" data-target="1" data-suffix="s">&lt;1s</span>
+      <p>from the broadcast cutting to commercials to your ad on screen</p></div>
+    <div class="stat"><span class="statnum" data-target="100" data-suffix="%">100%</span>
+      <p>of commercial breaks recaptured — every break, every screen, automatically</p></div>
+    <div class="stat money"><span class="statnum" data-prefix="$" data-target="16" data-suffix="K/yr">$16K/yr</span>
+      <p>estimated add-on sales the typical venue leaks to competitor ads today</p></div>
+    <div class="stat money"><span class="statnum" data-target="4" data-suffix="×">4×</span>
+      <p>payback at founding pricing if you recapture just one dessert a day</p></div>
+  </div>
+</div>
 
 <section id="explainer" class="reveal" style="text-align:center; padding-top:44px;">
   <div class="kicker">See it in 90 seconds</div>
@@ -708,14 +862,12 @@
     <div class="card"><b class="big" data-target="14" data-suffix="%">0%</b><p>of your guests will crave the exact dessert, drink, or snack they just saw advertised</p></div>
     <div class="card"><b class="big" data-target="8" data-suffix="%">0%</b><p>go and actually buy it — right now that purchase happens at someone else's counter, not yours</p></div>
     <div class="card"><b class="big" data-target="31" data-suffix="%">0%</b><p>of diners are already thinking about dessert before their entrée even arrives — the sale is sitting right there</p></div>
-    <div class="card"><b class="big money" data-prefix="$" data-target="65" data-suffix="K/YR">$0K/YR</b><p>what a <b>6.5% food &amp; drink lift</b> is worth on a $1M/yr restaurant — a published industry case-study result when the breaks sell the house menu instead</p></div>
+    <div class="card"><b class="big money" data-prefix="$" data-target="16" data-suffix="K/YR">$0K/YR</b><p>estimated add-on sales a typical restaurant leaks every year — desserts, apps, and drinks guests wanted to buy, just not from you</p></div>
   </div>
-  <p class="sub" style="margin-top:22px; max-width:800px">Here's the number to remember: a
-    published industry case study measured a <b style="color:var(--money)">6.5% lift in food &amp;
-    drink sales</b> when a pub group's breaks promoted their own menu. On a million-dollar-a-year
-    restaurant, that's <b style="color:var(--money)">$65,000 a year</b>. BreakShark puts 100% of
-    every break to work earning it for you. (Try the calculator on the dashboard demo with your
-    own numbers.)</p>
+  <p class="sub" style="margin-top:22px; max-width:800px">Put those numbers together and a typical
+    restaurant is leaking an estimated <b style="color:var(--money)">$16,000 a year</b> in add-on
+    sales. BreakShark turns that same moment into revenue for your business instead. (Try the
+    calculator on the dashboard demo with your own numbers.)</p>
 </section>
 
 <section id="moment" class="reveal">
@@ -748,7 +900,7 @@
 
   <div class="compare-tv">
     <div class="lead">A commercial break, with and without BreakShark</div>
-    <div class="frame">
+    <div class="frame cmpframe" id="cmpFrame" role="slider" tabindex="0" aria-label="Drag to compare your TV with and without BreakShark" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
       <div class="layer without" id="layerWithout">
         <div class="badge">COMMERCIAL BREAK</div>
         <div class="fakead" aria-hidden="true">
@@ -773,7 +925,7 @@
         <div class="msg">A national chain's ad is playing on <b>your</b> TV right now — and your
           customers are watching it, not your menu.</div>
       </div>
-      <div class="layer hide" id="layerWith">
+      <div class="layer topclip" id="layerWith">
         <div class="live-tag" style="position:absolute; top:12px; left:12px;">
           <span class="dot"></span> BREAKSHARK LIVE</div>
         <div class="ad-photo adrot" data-adrot role="img" aria-label="BreakShark rotating house specials on your screen">
@@ -785,13 +937,11 @@
           <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
         </div>
       </div>
+      <div class="cmp-chip cl">WITHOUT</div>
+      <div class="cmp-chip cr">WITH BREAKSHARK</div>
+      <div class="cmp-handle" id="cmpHandle" aria-hidden="true"><div class="cmp-grip">⟨&nbsp;⟩</div></div>
     </div>
-    <div class="compare-toggle">
-      <span id="lblWithout" class="active">Without BreakShark</span>
-      <div class="switch" id="compareSwitch" role="switch" aria-checked="false" tabindex="0"
-           aria-label="Toggle between the screen with and without BreakShark"><div class="knob"></div></div>
-      <span id="lblWith">With BreakShark</span>
-    </div>
+    <div class="cmp-hint">Drag the handle to compare</div>
   </div>
 
   <div style="margin-top:54px">
@@ -911,7 +1061,7 @@
   <h2>WHAT YOUR SCREENS ARE DOING RIGHT NOW VS. WITH BreakShark</h2>
   <p class="sub" style="margin-bottom:6px">Most bars fall into one of two camps: TVs just run the
     broadcast (ads and all), or someone bought expensive digital signage that replaces the game
-    entirely. Neither one puts every commercial break to work selling your menu.</p>
+    entirely. Neither one is selling for you during a commercial break.</p>
   <div class="compare">
     <table class="cmp">
       <thead>
@@ -919,63 +1069,13 @@
       </thead>
       <tbody>
         <tr><td>Keeps the live game/broadcast on</td><td class="yes">Yes</td><td class="no">No — replaces it</td><td class="hl">Yes, always</td></tr>
-        <tr><td>Who the commercial break sells for</td><td class="no">National brands</td><td class="no">Whoever's on the loop</td><td class="hl">You — 100% of every break</td></tr>
-        <tr><td>Who keeps the upside</td><td class="no">Nobody</td><td class="no">Unclear</td><td class="hl">You keep every extra order</td></tr>
+        <tr><td>Who the commercial break sells for</td><td class="no">National brands</td><td class="no">Whoever's on the loop</td><td class="hl">You, automatically</td></tr>
         <tr><td>New screens or hardware required</td><td class="yes">None</td><td class="no">Usually yes</td><td class="hl">Works with what you have</td></tr>
         <tr><td>Set up time</td><td class="yes">N/A</td><td class="no">Days</td><td class="hl">Minutes</td></tr>
         <tr><td>Tracks what it recaptured for you</td><td class="no">No</td><td class="no">Rarely</td><td class="hl">Every play, on your dashboard</td></tr>
       </tbody>
     </table>
   </div>
-</section>
-
-<section id="proof" class="reveal">
-  <div class="kicker">The data behind the math</div>
-  <h2>YOUR SCREENS ARE YOUR BEST SALESPERSON.<br>THE INDUSTRY ALREADY MEASURED IT.</h2>
-  <p class="sub" style="margin-bottom:10px">A published industry case study followed a
-    four-location Irish pub group whose TVs began promoting the pubs' <b>own menu and events</b>
-    during commercial breaks. Here's what happened to their sales:</p>
-  <div class="trust-grid">
-    <div class="trust-card">
-      <span class="ic">🍽️</span>
-      <h3 style="font-size:34px;color:var(--money)">+6.5%</h3>
-      <p>Lift in total food &amp; drink sales — from their screens promoting their own menu
-        during breaks.</p>
-    </div>
-    <div class="trust-card">
-      <span class="ic">🍺</span>
-      <h3 style="font-size:34px;color:var(--money)">+14.8%</h3>
-      <p>More pours of the one stout they promoted on screen. One item, one promo, double-digit
-        lift.</p>
-    </div>
-    <div class="trust-card">
-      <span class="ic">🎉</span>
-      <h3 style="font-size:34px;color:var(--money)">+70%</h3>
-      <p>More turnout at the holiday event they advertised on their own TVs instead of paper
-        flyers.</p>
-    </div>
-  </div>
-  <p class="sub" style="font-size:13px;margin-top:14px;color:var(--dim)">Source: a published
-    venue case study (four-location pub group; their measured results, not BreakShark's — our
-    founding 10-bar pilot will publish our own numbers). And here's the kicker: that lift came
-    from house promos filling only <b>part</b> of each break's airtime. BreakShark puts your menu
-    in <b>all of it</b>.</p>
-  <div class="compare" style="margin-top:22px">
-    <table class="cmp">
-      <thead>
-        <tr><th>Your annual revenue</th><th class="hl">That 6.5% lift is worth</th><th>Even a 1% lift is worth</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>$500K room</td><td class="hl">$32,500 / yr</td><td class="yes">$5,000 / yr</td></tr>
-        <tr><td>$1M room</td><td class="hl">$65,000 / yr</td><td class="yes">$10,000 / yr</td></tr>
-        <tr><td>$2M room</td><td class="hl">$130,000 / yr</td><td class="yes">$20,000 / yr</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="roi">🦈 <b>The bottom line:</b> a 6.5% lift is worth <b>$32K–$130K a year</b>
-    depending on your volume. BreakShark Full Bar runs $2,388/yr — a 1% lift in a $1M room pays
-    for it <b>4× over</b>, and the case-study lift pays for it <b>27× over</b>. Every break,
-    every screen, working for your register.</div>
 </section>
 
 <section id="venues" class="reveal">
@@ -1016,13 +1116,6 @@
       <h3>Your broadcast is never touched</h3>
       <p>BreakShark only changes what your local screen displays during a break. Your cable box,
         streaming device, and the actual game feed are never modified, recorded, or interfered with.</p>
-    </div>
-    <div class="trust-card">
-      <span class="ic">🗽</span>
-      <h3>No fine-print traps</h3>
-      <p>Cancel anytime — no long-term lock-in, no exit penalties. Your promos are guaranteed to
-        run; that's the whole product. Your data stays on your dashboard, never sold. Your
-        screens, your equipment, your rules. Always.</p>
     </div>
     <div class="trust-card">
       <span class="ic">🛠️</span>
@@ -1096,13 +1189,14 @@
   <h2>COSTS LESS THAN ONE LOST TABLE A WEEK</h2>
   <div style="margin:20px auto 0;max-width:780px;text-align:center;background:rgba(255,201,61,.08);border:1px solid rgba(255,201,61,.45);border-radius:14px;padding:14px 22px">
     <b style="color:#ffc93d;letter-spacing:.12em">🦈 THE FOUNDING 10 — LIMITED OFFER</b><br>
-    <span style="color:var(--dim)">First month free · lock founding rates of <b style="color:#ffc93d">$49 Starter / $99 Full Bar</b> for life — half the standard pricing below · ten locations only.</span>
+    <span style="color:var(--dim)">First month free · lock founding pricing for life — <b style="color:#ffc93d">$49 Starter / $99 Full Bar</b> · ten locations only.</span>
     <a href="founding10.html" style="color:var(--blue2);font-weight:700">&nbsp;Claim a spot →</a>
   </div>
   <div class="tiers" style="margin-top:26px">
     <div class="tier">
       <div class="name">STARTER</div>
       <div class="price">$99<span style="font-size:22px">/mo</span></div>
+      <div class="founding-line"><s>$99</s>$49/mo for life as a Founding 10 partner</div>
       <div class="per">per location · 1 screen · + $199 one-time BreakShark box</div>
       <ul><li>Automatic commercial takeover</li><li>3 promo spots in rotation</li>
         <li>Owner dashboard &amp; play counts</li><li>Email support</li></ul>
@@ -1111,6 +1205,7 @@
     <div class="tier hot">
       <div class="name">FULL BAR · MOST POPULAR</div>
       <div class="price">$199<span style="font-size:22px">/mo</span></div>
+      <div class="founding-line"><s>$199</s>$99/mo for life as a Founding 10 partner</div>
       <div class="per">per location · up to 4 screens · boxes included on 12-mo term</div>
       <ul><li>Everything in Starter</li><li>Unlimited promo spots + scheduling
         (wing night on Wednesdays, brunch on weekends)</li><li>We produce 3 pro spots from
@@ -1126,11 +1221,10 @@
       <a class="btn" href="founding10.html">Book a call</a>
     </div>
   </div>
-  <div class="roi">💰 <b>The math for an owner:</b> a published industry case study
-    showed a <b>6.5% food &amp; drink lift</b> when a pub group's screens promoted their own menu
-    during breaks — that's <b>$65,000/year in a $1M room</b>. Full Bar costs $2,388/year. If
-    BreakShark recaptures even <b>one dessert a day</b>, it pays for itself — a 1% lift pays for
-    it <b>4× over</b>, and everything after that is new margin.</div>
+  <div class="roi">💰 <b>The math for an owner:</b> a typical 800-guest/week room leaks an
+    estimated <b>$16,000/year</b> in ad-driven walkout purchases. Recapture even
+    <b>one dessert a day</b> (~$4,400/year) and Full Bar pays for itself nearly 2× at list —
+    and about <b>4×</b> at Founding 10 pricing. Everything after that is new margin.</div>
 </section>
 
 <section id="faq" class="reveal">
@@ -1142,15 +1236,6 @@
       <p>No. BreakShark only takes over during the commercial break that's already happening —
         it snaps back to the live broadcast the instant programming resumes. Nobody misses a play,
         and the broadcast signal itself is never modified.</p>
-    </details>
-    <details>
-      <summary>Where does the 6.5% sales-lift number come from?</summary>
-      <p>A published industry case study measured what happened when a four-location pub group's
-        TVs promoted the house menu and events during commercial breaks: food &amp; drink sales
-        rose 6.5%, a single promoted draft rose 14.8%, and event turnout jumped 70%. On a
-        $1M/year room, 6.5% is about $65,000. Those are the study's results, not ours — our
-        founding 10-bar pilot will publish first-party numbers. BreakShark is built to put
-        <em>100%</em> of your break time behind results like these.</p>
     </details>
     <details>
       <summary>Do I need new TVs or complicated hardware?</summary>
@@ -1194,10 +1279,14 @@
       <p>Live commercial-break takeover, promo rotation with equal airtime for every spot, and
       an owner dashboard with play counts and the revenue-leak calculator. Try it right now
       in this browser.</p></div>
-    <div class="phase"><span class="tag">IN PROGRESS · PROTOTYPE PARTS ORDERED JULY 2026</span>
+    <div class="phase"><span class="tag">BENCH PROTOTYPE WORKING — JULY 6, 2026</span>
       <h3>Phase 2 · The box + 10-bar pilot</h3>
       <p>A simple plug-in device that works with almost any TV or streaming setup, no rewiring
-      and no IT department. Installed in 10 friendly locations to measure real check-size lift.</p></div>
+      and no IT department. Installed in 10 friendly locations to measure real check-size lift.</p>
+      <figure style="margin:16px 0 0">
+        <img src="static/rig-victory.jpg" alt="The BreakShark bench prototype: a live house ad on the screen while the terminal reads Phase 1 complete — the shark flips on command" loading="lazy" style="width:100%;border-radius:12px;display:block">
+        <figcaption style="margin-top:8px;font-size:.85rem;opacity:.7">The real bench rig — house ad on screen, terminal reading <em>“PHASE 1 COMPLETE — the shark flips on command.”</em></figcaption>
+      </figure></div>
     <div class="phase"><span class="tag">MONTHS 4–9</span>
       <h3>Phase 3 · Sell &amp; scale</h3>
       <p>Pilot case studies → outbound to sports bars &amp; franchise groups. Fleet dashboard,
@@ -1207,6 +1296,37 @@
       <p>Every screen is local ad inventory. Let the pizza shop next door pay to appear during
       breaks at the gym — BreakShark takes the margin. This is how Atmosphere TV reached a
       $1B valuation, without our "keep the game on" advantage.</p></div>
+  </div>
+</section>
+
+<section id="sides" class="reveal">
+  <div class="kicker">Pick your side</div>
+  <h2>TWO WAYS INTO THE WATER</h2>
+  <p class="sub">Whether you run the room or want to back the company taking the commercial
+    break back, there's a door for you.</p>
+  <div class="chooser">
+    <div class="choose-card">
+      <div class="ck">For venue owners</div>
+      <h3>OWN YOUR SCREENS</h3>
+      <p>Stop advertising your competitors. BreakShark flips every commercial break to your
+        own specials — your food, your drinks, your margin — and logs what it recaptured
+        on your dashboard.</p>
+      <div class="row">
+        <a class="btn primary" href="founding10.html">Claim a Founding 10 spot</a>
+        <a class="btn" href="tv.html">▶ Watch the live demo</a>
+      </div>
+    </div>
+    <div class="choose-card inv">
+      <div class="ck">For investors</div>
+      <h3>BACK THE SHARK</h3>
+      <p>Working software, a bench-proven prototype, provisional patent drafted, and a
+        10-venue pilot spinning up. See the plan, the market math, and the roadmap to the
+        local ad network.</p>
+      <div class="row">
+        <a class="btn primary" href="investors.html">See the investor hub</a>
+        <a class="btn" href="mailto:maxxzamani@gmail.com?subject=BreakShark%20Investor">📧 Email Maxx</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1222,10 +1342,40 @@
     Call or text <a href="tel:+19166286299" style="font-weight:700">(916) 628-6299</a> to talk it through.</p>
 </section>
 
-<footer>
-  <img src="static/brand/icon.png" alt="">
-  BreakShark.com — the commercial killer · demo built with licensed Adobe Stock photography ·
-  detection never modifies the broadcast signal, it only changes what the screen displays
+<footer class="pro">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img src="static/brand/icon.png" alt="BreakShark logo">
+      <div class="fw">BreakShark</div>
+      <p>The commercial killer. Your TV, your ads, every break — detection never modifies
+        the broadcast signal, it only changes what your screen displays.</p>
+    </div>
+    <div class="foot-col">
+      <b>Product</b>
+      <a href="tv.html">Live demo</a>
+      <a href="dashboard.html">Owner dashboard</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="foot-col">
+      <b>Company</b>
+      <a href="founding10.html">The Founding 10</a>
+      <a href="investors.html">For investors</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#trust">Why trust us</a>
+    </div>
+    <div class="foot-col">
+      <b>Contact</b>
+      <a href="tel:+19166286299">📞 (916) 628-6299</a>
+      <a href="mailto:maxxzamani@gmail.com?subject=BreakShark">📧 maxxzamani@gmail.com</a>
+      <a href="#contact">Get in touch</a>
+    </div>
+  </div>
+  <div class="foot-legal">
+    <span>© 2026 BreakShark · Built by Maxx Zamani — Orange County, California</span>
+    <span>Demo imagery: licensed Adobe Stock photography</span>
+  </div>
 </footer>
 
 <script>
@@ -1234,7 +1384,7 @@ const LINES = [
   "Research shows people snack forty five percent more while food ads play, and eight percent go buy the exact thing they saw. That purchase should happen at YOUR register.",
   "BreakShark watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
   "During the break, your screens show YOUR specials. Real photos of your food, equal airtime for every spot. When the game comes back, I snap back instantly. Nobody misses a play.",
-  "The dashboard counts every play and shows what your breaks are earning you. The industry's own case study says self promos lift food and drink sales six and a half percent. On a million dollar room, that's sixty five thousand a year... and Full Bar costs one ninety nine a month.",
+  "The dashboard counts every play and estimates what the leak was costing you. For a typical room, that's around sixteen thousand dollars a year, and Full Bar costs ninety nine a month.",
   "Want to see me hunt? Hit the live demo and watch me eat a commercial in real time. Chomp chomp."
 ];
 let idx = -1, speaking = false;
@@ -1360,7 +1510,7 @@ document.getElementById("stopBtn").addEventListener("click", () => {
 });
 
 if ("IntersectionObserver" in window) {
-  const STAGGER_SEL = ".card,.step,.trust-card,.tier,.phase,.action-card";
+  const STAGGER_SEL = ".card,.step,.trust-card,.tier,.phase,.action-card,.stat,.choose-card";
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1456,39 +1606,129 @@ function animateCount(el) {
   requestAnimationFrame(tick);
 }
 if ("IntersectionObserver" in window) {
-  const counters = document.querySelectorAll(".card b.big[data-target]");
+  const counters = document.querySelectorAll(".card b.big[data-target], .statnum[data-target]");
   const cio = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); } });
   }, { threshold: 0.4 });
   counters.forEach(el => cio.observe(el));
 }
 
+// ---- Taiv-killer: drag-to-compare slider (auto-sweeps until you grab it) ----
 (function () {
-  const sw = document.getElementById("compareSwitch");
-  const layerWithout = document.getElementById("layerWithout");
-  const layerWith = document.getElementById("layerWith");
-  const lblWithout = document.getElementById("lblWithout");
-  const lblWith = document.getElementById("lblWith");
-  let on = false, timer;
-  function render() {
-    sw.classList.toggle("on", on);
-    sw.setAttribute("aria-checked", on ? "true" : "false");
-    layerWithout.classList.toggle("hide", on);
-    layerWith.classList.toggle("hide", !on);
-    lblWithout.classList.toggle("active", !on);
-    lblWith.classList.toggle("active", on);
+  const frame = document.getElementById("cmpFrame");
+  const handle = document.getElementById("cmpHandle");
+  if (!frame || !handle) return;
+  let cut = 50, dragging = false, interacted = false, autoRaf = null;
+  const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function apply() {
+    const v = Math.max(0, Math.min(100, cut));
+    frame.style.setProperty("--cut", v + "%");
+    frame.setAttribute("aria-valuenow", Math.round(v));
   }
-  function setState(v) { on = v; render(); }
-  function resetTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => setState(!on), 4000);
+  function fromEvent(e) {
+    const r = frame.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    cut = (x / r.width) * 100;
+    apply();
   }
-  sw.addEventListener("click", () => { setState(!on); resetTimer(); });
-  sw.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setState(!on); resetTimer(); }
+  // idle auto-sweep: a slow, elegant ping-pong so the effect sells itself
+  function autoSweep(t0) {
+    if (interacted || noMotion) return;
+    function step(t) {
+      if (interacted) return;
+      cut = 50 + Math.sin((t - t0) / 1900) * 34;
+      apply();
+      autoRaf = requestAnimationFrame(step);
+    }
+    autoRaf = requestAnimationFrame(step);
+  }
+  function stopAuto() {
+    interacted = true;
+    if (autoRaf) cancelAnimationFrame(autoRaf);
+  }
+  frame.addEventListener("pointerdown", (e) => {
+    stopAuto(); dragging = true; frame.classList.add("dragging");
+    frame.setPointerCapture(e.pointerId); fromEvent(e);
   });
-  render();
-  resetTimer();
+  frame.addEventListener("pointermove", (e) => { if (dragging) fromEvent(e); });
+  ["pointerup", "pointercancel"].forEach(ev =>
+    frame.addEventListener(ev, () => { dragging = false; frame.classList.remove("dragging"); }));
+  frame.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      e.preventDefault(); stopAuto();
+      cut += (e.key === "ArrowRight" ? 4 : -4); apply();
+    }
+  });
+  apply();
+  // start sweeping only when it scrolls into view
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((es) => {
+      es.forEach(en => { if (en.isIntersecting) { autoSweep(performance.now()); io.disconnect(); } });
+    }, { threshold: 0.4 });
+    io.observe(frame);
+  } else { autoSweep(performance.now()); }
+})();
+
+// ---- mobile nav ----
+(function () {
+  const burger = document.getElementById("navBurger");
+  const nav = document.getElementById("mainNav");
+  if (!burger || !nav) return;
+  function setOpen(v) {
+    nav.classList.toggle("open", v);
+    burger.classList.toggle("open", v);
+    burger.setAttribute("aria-expanded", v ? "true" : "false");
+  }
+  burger.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
+  nav.addEventListener("click", (e) => { if (e.target.tagName === "A") setOpen(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+})();
+
+// ---- hero parallax: floating ad chips + TV drift with the cursor ----
+(function () {
+  const zone = document.getElementById("heroRight");
+  if (!zone) return;
+  if (!window.matchMedia("(pointer:fine)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const chips = zone.querySelectorAll(".float-ad");
+  const tv = zone.querySelector(".tvframe");
+  let raf = null;
+  document.addEventListener("mousemove", (e) => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = null;
+      const r = zone.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+      const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+      chips.forEach((c, i) => {
+        const depth = 14 + i * 8;
+        c.style.translate = (dx * depth).toFixed(1) + "px " + (dy * depth).toFixed(1) + "px";
+      });
+      if (tv) tv.style.transform = "perspective(900px) rotateY(" + (dx * 3.2).toFixed(2) +
+        "deg) rotateX(" + (-dy * 2.4).toFixed(2) + "deg)";
+    });
+  });
+})();
+
+// ---- 3D tilt on showcase + chooser cards ----
+(function () {
+  if (!window.matchMedia("(pointer:fine)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".action-card, .choose-card").forEach((card) => {
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const rx = ((e.clientY - r.top) / r.height - 0.5) * -5;
+      const ry = ((e.clientX - r.left) / r.width - 0.5) * 5;
+      card.classList.add("tilting");
+      card.style.transform = "perspective(800px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" +
+        ry.toFixed(2) + "deg) translateY(-4px)";
+    });
+    card.addEventListener("pointerleave", () => {
+      card.classList.remove("tilting");
+      card.style.transform = "";
+    });
+  });
 })();
 
 (function () {
@@ -1617,10 +1857,6 @@ if ("IntersectionObserver" in window) {
     }, 3600 + ei*600);
   });
 })();
-</script>
-<script>
-/* Pause any video that scrolls off screen; resume only muted autoplay loops */
-(function(){var vs=document.querySelectorAll('video');if(!('IntersectionObserver'in window)||!vs.length)return;var io=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(en.intersectionRatio<0.25){if(!v.paused)v.pause();}else if(v.muted&&v.loop&&v.autoplay&&v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){});}});},{threshold:[0,0.25,0.5]});vs.forEach(function(v){io.observe(v);});})();
 </script>
 </body>
 </html>
