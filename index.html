@@ -292,55 +292,22 @@
   .faq details[open] summary::after { content:"−"; }
   .faq p { color:var(--dim); font-size:14px; line-height:1.7; margin-top:14px; }
 
-  .sharky-zone { display:grid; grid-template-columns:280px 1fr; gap:34px; align-items:center;
-    background:var(--surface); border:1px solid rgba(79,182,242,.3); border-radius:22px;
-    padding:34px; }
-  @media (max-width:800px){ .sharky-zone{grid-template-columns:1fr;} }
-  #sharkySvg { width:100%; max-width:300px; filter:drop-shadow(0 14px 30px rgba(79,182,242,.32)); overflow:visible; }
-  #sharkySvg .shark { transform-box:fill-box; transform-origin:center; animation:swim 5.2s ease-in-out infinite; }
-  @keyframes swim { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-7px) rotate(-1.4deg);} }
-  #sharkySvg .floor-shadow { transform-box:fill-box; transform-origin:center; animation:floorsh 5.2s ease-in-out infinite; }
-  @keyframes floorsh { 0%,100%{transform:scaleX(1); opacity:.14;} 50%{transform:scaleX(.9); opacity:.09;} }
-  #sharkySvg .fin-tail { transform-box:fill-box; transform-origin:0% 55%; animation:tail 2.1s ease-in-out infinite; }
-  @keyframes tail { 0%,100%{transform:rotate(-4deg);} 50%{transform:rotate(6deg);} }
-  #sharkySvg .fin-pec { transform-box:fill-box; transform-origin:50% 0%; animation:pec 2.6s ease-in-out infinite; }
-  @keyframes pec { 0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(6deg);} }
-  #sharkySvg .jaw { transform-box:fill-box; transform-origin:96% 10%; }
-  #sharkySvg.talking .jaw { animation:jaw .26s ease-in-out infinite; }
-  @keyframes jaw { 50% { transform:rotate(9deg) translateY(1.5px); } }
-  #sharkySvg.talking .fin-pec { animation-duration:1.1s; }
-  #sharkySvg .eye-lid { transform-box:fill-box; transform-origin:center; animation:blink 4.6s infinite; }
-  @keyframes blink { 0%,93.5%,100%{transform:scaleY(0);} 95.5%{transform:scaleY(1);} 97.5%{transform:scaleY(0);} }
-  #sharkySvg { cursor:pointer; }
-  #sharkySvg.chomp .shark { animation:chompLunge .55s cubic-bezier(.3,1.4,.5,1) 1, swim 5.2s ease-in-out infinite; }
-  @keyframes chompLunge { 30% { transform:translateX(-14px) rotate(-3deg); } 100% { transform:translateX(0) rotate(0); } }
-  #sharkySvg.chomp .jaw { animation:chompJaw .18s ease-in-out 3; }
-  @keyframes chompJaw { 50% { transform:rotate(14deg) translateY(2.5px); } }
-  #sharkySvg.chomp .bub { animation-duration:1.4s; }
-  #sharkyIris { transition:transform .12s ease-out; }
-  #sharkySvg .bub { animation:bubrise 4.2s ease-in infinite; }
-  #sharkySvg .b2 { animation-delay:1.3s; } #sharkySvg .b3 { animation-delay:2.5s; }
-  @keyframes bubrise { 0%{transform:translateY(6px); opacity:0;} 18%{opacity:.75;}
-    80%{opacity:.5;} 100%{transform:translateY(-34px); opacity:0;} }
-  .bubble { position:relative; background:#13223b; border:1px solid rgba(79,182,242,.35);
-    border-radius:18px; padding:22px 24px; font-size:16.5px; line-height:1.75;
-    min-height:130px; }
-  .bubble::before { content:""; position:absolute; left:-11px; top:44px; width:20px; height:20px;
-    background:#13223b; border-left:1px solid rgba(79,182,242,.35);
-    border-bottom:1px solid rgba(79,182,242,.35); transform:rotate(45deg); }
-  .bubble .who { color:var(--blue2); font-weight:800; font-size:12px; letter-spacing:2px;
-    margin-bottom:8px; }
-  .sharky-ctl { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
-  .sharky-ctl button { padding:10px 18px; border-radius:10px; border:1px solid var(--line);
-    background:rgba(30,46,70,.9); color:var(--text); font-weight:700; cursor:pointer;
-    font-family:inherit; font-size:13px; }
-  .sharky-ctl button:hover { border-color:var(--blue); }
-  .sharky-ctl button.primary { background:linear-gradient(120deg,var(--blue-pale),var(--blue));
-    color:var(--navy); border-color:transparent; }
-  .sharky-ctl select { padding:10px 14px; border-radius:10px; border:1px solid var(--line);
-    background:rgba(30,46,70,.9); color:var(--text); font-weight:700; cursor:pointer;
-    font-family:inherit; font-size:13px; max-width:220px; }
-  .sharky-ctl select:hover { border-color:var(--blue); }
+  /* ═══════════ Who-your-breaks-work-for (serious per-slot contrast) ═══════════ */
+  .whofor-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:24px 0 6px; }
+  @media (max-width:760px){ .whofor-grid{grid-template-columns:1fr;} }
+  .whofor-card { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:24px 24px 22px; }
+  .whofor-card.us { border-color:rgba(34,224,138,.5); background:rgba(34,224,138,.05); }
+  .whofor-card .tag { font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:800; color:var(--dim); margin-bottom:4px; }
+  .whofor-card.us .tag { color:var(--money); }
+  .whofor-card h3 { font-size:19px; line-height:1.3; margin-bottom:14px; }
+  .slots { display:flex; gap:6px; margin:4px 0 12px; }
+  .slot { flex:1; height:48px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-size:9px; font-weight:800; letter-spacing:.4px; text-align:center; padding:2px; line-height:1.15; }
+  .slot.theirs { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.13); color:var(--dim); }
+  .slot.yours { background:rgba(34,224,138,.16); border:1px solid rgba(34,224,138,.55); color:var(--money-pale); }
+  .whofor-card p { font-size:13.5px; color:var(--dim); line-height:1.6; }
+  .whofor-card p b { color:var(--text); }
+  .whofor-card.us p b { color:var(--money); }
 
   .tiers { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
   .tier { background:var(--surface); border:1px solid rgba(255,255,255,.08);
@@ -1174,51 +1141,58 @@
   <div class="founding-badge">🎯 10 FOUNDING SPOTS · FIRST MONTH FREE · PRICING LOCKED IN</div>
 </section>
 
-<section id="sharky" class="reveal">
-  <div class="kicker">Meet Sharky</div>
-  <h2>LET SHARKY EXPLAIN IT</h2>
-  <div class="sharky-zone">
-    <svg id="sharkySvg" viewBox="0 0 340 230" role="img" aria-label="Sharky, the BreakShark great white">
-      <defs>
-        <linearGradient id="sgTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#606d78"/><stop offset=".55" stop-color="#3d4750"/><stop offset="1" stop-color="#28303a"/></linearGradient>
-        <linearGradient id="sgBelly2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2e9ee"/><stop offset="1" stop-color="#a9b4bc"/></linearGradient>
-        <linearGradient id="sgFin2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4b5761"/><stop offset="1" stop-color="#20272e"/></linearGradient>
-        <linearGradient id="sgMouth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1618"/><stop offset="1" stop-color="#120607"/></linearGradient>
-      </defs>
-      <ellipse class="floor-shadow" cx="168" cy="216" rx="112" ry="9" fill="#000" opacity=".26"/>
-      <g class="shark">
-        <g class="fin-tail"><path fill="url(#sgFin2)" d="M278 96 C 298 76, 310 52, 320 28 C 316 56, 314 82, 330 100 C 316 106, 302 104, 292 100 C 300 118, 300 142, 296 162 C 282 140, 274 116, 270 100 Z"/></g>
-        <path fill="url(#sgFin2)" d="M150 58 C 158 32, 176 16, 198 12 C 190 32, 192 50, 206 62 C 186 58, 166 58, 150 58 Z"/>
-        <path fill="url(#sgTop)" d="M14 96 C 40 74, 96 58, 152 56 C 208 54, 254 70, 290 94 C 262 114, 214 126, 166 128 C 116 130, 50 120, 14 96 Z"/>
-        <path fill="url(#sgBelly2)" d="M22 102 C 72 120, 132 128, 192 126 C 232 124, 264 116, 288 96 C 272 118, 234 130, 178 132 C 120 134, 56 126, 22 102 Z"/>
-        <path fill="none" stroke="#8b97a1" stroke-width="1.4" opacity=".5" d="M20 98 C 82 112, 152 116, 212 112 C 246 110, 270 104, 288 94"/>
-        <g fill="none" stroke="#1c232a" stroke-width="2.4" stroke-linecap="round" opacity=".72"><path d="M104 78 Q 100 96 108 116"/><path d="M114 76 Q 110 96 118 118"/><path d="M124 76 Q 120 96 128 118"/><path d="M134 78 Q 130 96 138 116"/><path d="M144 80 Q 141 96 148 114"/></g>
-        <path fill="url(#sgMouth)" d="M12 98 C 34 114, 66 120, 100 116 C 78 130, 40 128, 14 110 Z"/>
-        <g fill="#f4f7f8"><path d="M19 104 l3.6 9 l3.8 -7 Z"/><path d="M31 109 l3.6 9 l3.8 -7.4 Z"/><path d="M44 112 l3.6 9 l3.8 -7.6 Z"/><path d="M57 114 l3.6 8.6 l3.8 -7.6 Z"/><path d="M70 114 l3.4 8.4 l3.6 -7.4 Z"/><path d="M83 113 l3.2 8 l3.4 -7.4 Z"/></g>
-        <g class="jaw"><path fill="url(#sgBelly2)" d="M14 112 C 40 126, 74 128, 100 118 C 80 136, 40 136, 14 122 Z"/><g fill="#eef2f4"><path d="M25 120 l3.4 -8 l3.6 8.6 Z"/><path d="M39 124 l3.4 -8 l3.6 8.2 Z"/><path d="M53 125 l3.4 -8 l3.6 7.8 Z"/><path d="M67 124 l3.2 -7.6 l3.4 7.2 Z"/><path d="M80 121 l3 -7 l3.2 6.6 Z"/></g></g>
-        <circle cx="92" cy="80" r="7.6" fill="#0a0d10"/>
-        <g id="sharkyIris"><circle cx="92" cy="80" r="5.2" fill="#000"/><circle cx="94" cy="77.5" r="1.5" fill="#9fb6c9" opacity=".85"/></g>
-        <ellipse class="eye-lid" cx="92" cy="80" rx="8.4" ry="8.6" fill="url(#sgTop)"/>
-        <path fill="none" stroke="#1c232a" stroke-width="3" stroke-linecap="round" opacity=".7" d="M80 71 Q 92 66 104 72"/>
-        <g class="fin-pec"><path fill="url(#sgFin2)" d="M120 116 C 128 144, 120 170, 100 186 C 96 164, 100 136, 112 116 Z"/></g>
-        <path fill="url(#sgFin2)" d="M196 124 C 202 138, 202 150, 196 160 C 188 150, 186 136, 190 126 Z"/>
-      </g>
-      <g fill="none" stroke="#7f97ad" stroke-width="2" opacity=".5"><circle class="bub b1" cx="24" cy="84" r="5"/><circle class="bub b2" cx="14" cy="64" r="3.4"/><circle class="bub b3" cx="30" cy="50" r="2.4"/></g>
-    </svg>
-    <div>
-      <div class="bubble">
-        <div class="who">SHARKY · BreakShark SPOKESFISH</div>
-        <div id="bubbleText">Hey! I'm Sharky. Click "Play the tour" and I'll walk you
-          through what BreakShark does, why your TV is leaking money, and how we bite back.
-          🔊 Turn your sound on — I actually talk.</div>
+<section id="whofor" class="reveal">
+  <div class="kicker">Who your breaks really work for</div>
+  <h2>ON THE "FREE" BOX, YOU'RE NOT THE CUSTOMER — YOU'RE THE INVENTORY.</h2>
+  <p class="sub" style="margin-bottom:6px">A whole industry is built on the exact moment BreakShark
+    owns: the commercial break on your TVs. The difference between them and us isn't the technology —
+    it's who the screen answers to. Once you see it, the choice makes itself.</p>
+
+  <div class="whofor-grid">
+    <div class="whofor-card">
+      <div class="tag">The "free" ad-network box</div>
+      <h3>Six ad slots per break. You get <span style="color:var(--red)">one</span>. They sell five.</h3>
+      <div class="slots">
+        <div class="slot yours">YOUR<br>PROMO</div>
+        <div class="slot theirs">THEIR<br>ADVERTISER</div>
+        <div class="slot theirs">THEIR<br>ADVERTISER</div>
+        <div class="slot theirs">THEIR<br>ADVERTISER</div>
+        <div class="slot theirs">THEIR<br>ADVERTISER</div>
+        <div class="slot theirs">THEIR<br>ADVERTISER</div>
       </div>
-      <div class="sharky-ctl">
-        <button class="primary" id="tourBtn">🔊 Play the tour</button>
-        <button id="nextBtn">Next tip →</button>
-        <button id="stopBtn">Stop</button>
+      <p>Their customer is <b>the advertiser</b> — the soda giants, the liquor brands, the
+        sportsbooks, the national chains. Your bar is the inventory they sell. The screen answers to
+        whoever wrote the check, and you get a small rent check (~$1&ndash;2K/yr) for the room.</p>
+    </div>
+    <div class="whofor-card us">
+      <div class="tag">BreakShark</div>
+      <h3>All six slots. Every one of them selling <span style="color:var(--money)">your</span> menu.</h3>
+      <div class="slots">
+        <div class="slot yours">YOUR<br>PROMO</div>
+        <div class="slot yours">YOUR<br>PROMO</div>
+        <div class="slot yours">YOUR<br>PROMO</div>
+        <div class="slot yours">YOUR<br>PROMO</div>
+        <div class="slot yours">YOUR<br>PROMO</div>
+        <div class="slot yours">YOUR<br>PROMO</div>
       </div>
+      <p>The only customer is <b>you</b>. Nobody else pays us, so nobody else's brand competes for
+        your customers' attention. Every break, every screen works your specials — and you keep
+        <b>100% of the upside</b> at your own register.</p>
     </div>
   </div>
+
+  <div class="roi" style="margin-top:16px">📈 <b>Here's the part they don't put on the pricing page:</b>
+    the people who built the "free" model admit it works — their own CEO says the <b>single</b>
+    house-ad slot a bar gets lifts sales <b>3&ndash;5%</b>. Sit with that: <b>one</b> slot out of six
+    — a sliver of your own break time — already moves the register 3&ndash;5%. That one slot is all
+    the free plan gives you; the other five are sold to advertisers. If a single slot is worth
+    3&ndash;5%, then <b>six slots of your own specials is the whole machine</b> — running for you,
+    every break, instead of a fraction of it running for someone else.</div>
+
+  <div class="roi" style="margin-top:14px">🍸 <b>And the screen serves whoever pays.</b> On their
+    model a brand can pay to steer your customers toward its product — even one you don't carry,
+    even against something you make better margin on (it's in their own published case studies).
+    Their box works for the advertiser. <b>BreakShark only ever works for you.</b></div>
 </section>
 
 <section id="pricing" class="reveal">
@@ -1425,136 +1399,6 @@
 </footer>
 
 <script>
-const LINES = [
-  "Here's the problem. Every commercial break, the TV in your restaurant sells burgers, soft serve, and pizza... for somebody else. Your customers are sitting right there, wallets open.",
-  "Research shows people snack forty five percent more while food ads play, and eight percent go buy the exact thing they saw. That purchase should happen at YOUR register.",
-  "BreakShark watches the broadcast signals. Black frames, dead audio, rapid cuts... that's a commercial break starting. I strike in under a second.",
-  "During the break, your screens show YOUR specials. Real photos of your food, equal airtime for every spot. When the game comes back, I snap back instantly. Nobody misses a play.",
-  "The dashboard counts every play and estimates what the leak was costing you. The industry's own case study puts a six and a half percent lift at sixty five thousand dollars a year in a million dollar room. Full Bar runs one ninety nine a month.",
-  "Want to see me hunt? Hit the live demo and watch me eat a commercial in real time. Chomp chomp."
-];
-let idx = -1, speaking = false;
-const bubble = document.getElementById("bubbleText");
-const sharky = document.getElementById("sharkySvg");
-let voicesList = [], chosenVoice = null;
-// Recorded narration — Ryan (en-GB neural), baked in so every visitor hears the same voice.
-const AUDIO = [
-  "audio/sharky-1.mp3", "audio/sharky-2.mp3", "audio/sharky-3.mp3",
-  "audio/sharky-4.mp3", "audio/sharky-5.mp3", "audio/sharky-6.mp3"
-];
-let curAudio = null;
-
-// Sharky is a dude. These regexes lock him onto a man's voice and push female
-// voices (which currently win by default in Chrome) to the bottom of the list.
-const MALE_HINTS = /(guy|andrew|christopher|eric|brian|davis|jason|tony|steffan|david|mark|george|ryan|daniel|alex|fred|aaron|arthur|thomas|\btom\b|nathan|rishi|liam|oliver|william|james|john|michael|richard|\bpaul\b|kevin|edward|\bmale\b|\bman\b)/;
-const FEMALE_HINTS = /(zira|susan|hazel|samantha|victoria|karen|moira|tessa|fiona|catherine|linda|heera|sabina|\beva\b|aria|jenny|michelle|\bana\b|amelia|emily|sonia|natasha|clara|libby|maisie|serena|allison|\bava\b|nora|\bkate\b|kathy|vicki|zoe|\bfemale\b|\bwoman\b)/;
-const JUNK_HINTS = /(compact|whisper|novelty|eloquence|zarvox|trinoids|albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|hysterical|pipe|jester|organ|superstar|wobble|grandma|grandpa|reed|rocko|sandy|shelley)/;
-
-function isFemaleVoice(n) {
-  return FEMALE_HINTS.test(n) || n === "google us english" || /google uk english female/.test(n);
-}
-
-function scoreVoice(v) {
-  const n = (v.name || "").toLowerCase();
-  const lang = (v.lang || "").toLowerCase();
-  let score = 0;
-  if (lang.startsWith("en")) score += 20; else score -= 50;
-  if (lang === "en-us" || lang === "en-gb") score += 6;
-  if (/natural|neural|premium|enhanced|online/.test(n)) score += 60;   // near-human quality (Edge/Azure)
-  if (/google uk english male/.test(n)) score += 55;                   // best male voice in plain Chrome
-  if (/google/.test(n)) score += 12;
-  if (v.localService) score += 8;
-  const female = isFemaleVoice(n);
-  if (!female && MALE_HINTS.test(n)) score += 45;                      // it's a man's voice
-  if (female) score -= 90;                                             // never auto-pick a female voice for Sharky
-  if (JUNK_HINTS.test(n)) score -= 70;
-  return score;
-}
-
-function loadVoices() {
-  if (!("speechSynthesis" in window)) return;
-  const all = speechSynthesis.getVoices();
-  if (!all.length) return;
-  voicesList = all.filter(v => v.lang && v.lang.startsWith("en"));
-  if (!voicesList.length) voicesList = all;
-  voicesList.sort((a, b) => scoreVoice(b) - scoreVoice(a));
-  chosenVoice = voicesList[0];   // best available male voice — used only as audio fallback
-}
-loadVoices();
-if ("speechSynthesis" in window) {
-  speechSynthesis.addEventListener("voiceschanged", loadVoices);
-  // Some browsers populate voices late — poll a few times so the dropdown isn't empty.
-  let _vtries = 0;
-  const _vpoll = setInterval(() => {
-    if (voicesList.length || _vtries++ > 12) { clearInterval(_vpoll); return; }
-    loadVoices();
-  }, 250);
-}
-let keepAlive;
-function afterLine() {
-  sharky.classList.remove("talking");
-  if (speaking) { setTimeout(nextLine, 500); }
-}
-function stopSpeech() {
-  try { speechSynthesis.cancel(); } catch (e) {}
-  clearInterval(keepAlive);
-  if (curAudio) { try { curAudio.pause(); } catch (e) {} curAudio = null; }
-  sharky.classList.remove("talking");
-}
-// Fallback only: the device's best male voice, used if a recorded clip can't load/play.
-function speakTTS(text) {
-  if (!("speechSynthesis" in window)) { afterLine(); return; }
-  try {
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.97; u.pitch = 0.9; u.volume = 1;
-    if (chosenVoice) { u.voice = chosenVoice; u.lang = chosenVoice.lang; }
-    u.onstart = () => {
-      sharky.classList.add("talking");
-      clearInterval(keepAlive);   // Chrome kills utterances after ~15s — keep them alive.
-      keepAlive = setInterval(() => {
-        try { speechSynthesis.pause(); speechSynthesis.resume(); } catch (e) {}
-      }, 9000);
-    };
-    u.onend = () => { clearInterval(keepAlive); afterLine(); };
-    u.onerror = () => { clearInterval(keepAlive); afterLine(); };
-    speechSynthesis.speak(u);
-  } catch (e) { afterLine(); }
-}
-// Primary: play Sharky's recorded voice; fall back to device voice only if a clip fails.
-function say(i) {
-  idx = i;
-  bubble.textContent = LINES[i];
-  stopSpeech();
-  const src = AUDIO[i];
-  if (src) {
-    const a = new Audio(src);
-    curAudio = a;
-    a.onplaying = () => sharky.classList.add("talking");
-    a.onended = () => { curAudio = null; afterLine(); };
-    a.onerror = () => { curAudio = null; speakTTS(LINES[i]); };
-    const p = a.play();
-    if (p && p.catch) p.catch(() => { curAudio = null; speakTTS(LINES[i]); });
-  } else {
-    speakTTS(LINES[i]);
-  }
-}
-function nextLine() {
-  idx++;
-  if (idx >= LINES.length) { speaking = false; idx = -1;
-    sharky.classList.remove("talking"); return; }
-  say(idx);
-}
-document.getElementById("tourBtn").addEventListener("click", () => {
-  speaking = true; idx = -1; nextLine();
-});
-document.getElementById("nextBtn").addEventListener("click", () => {
-  speaking = false; idx = (idx + 1) % LINES.length; say(idx);
-});
-document.getElementById("stopBtn").addEventListener("click", () => {
-  speaking = false; stopSpeech();
-});
-
 if ("IntersectionObserver" in window) {
   const STAGGER_SEL = ".card,.step,.trust-card,.tier,.phase,.action-card,.stat,.choose-card";
   const io = new IntersectionObserver((entries) => {
@@ -1574,37 +1418,6 @@ if ("IntersectionObserver" in window) {
 } else {
   document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
 }
-
-// ---- Sharky is alive: eye tracks the cursor, click = chomp ----
-(function () {
-  const svg = document.getElementById("sharkySvg");
-  const iris = document.getElementById("sharkyIris");
-  if (!svg || !iris) return;
-  const fine = window.matchMedia("(pointer:fine)").matches;
-  const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (fine && !noMotion) {
-    let raf = null;
-    document.addEventListener("mousemove", (ev) => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = null;
-        const r = svg.getBoundingClientRect();
-        if (r.bottom < -80 || r.top > innerHeight + 80) return;
-        const ex = r.left + r.width * (92 / 340);
-        const ey = r.top + r.height * (80 / 230);
-        const dx = ev.clientX - ex, dy = ev.clientY - ey;
-        const d = Math.hypot(dx, dy) || 1;
-        const m = Math.min(1, d / 220) * 3.2;
-        iris.style.transform = "translate(" + (dx / d * m).toFixed(2) + "px," + (dy / d * m).toFixed(2) + "px)";
-      });
-    });
-  }
-  svg.addEventListener("click", () => {
-    if (svg.classList.contains("chomp")) return;
-    svg.classList.add("chomp");
-    setTimeout(() => svg.classList.remove("chomp"), 700);
-  });
-})();
 
 // ---- scrollspy: highlight the section you're reading ----
 (function () {
