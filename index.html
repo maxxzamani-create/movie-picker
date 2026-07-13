@@ -781,7 +781,7 @@
   .bsw-stage[data-phase="takeover"] .bsw-flash,
   .bsw-stage[data-phase="snap"] .bsw-flash { animation:bswFlash .5s ease-out; }
   /* steps */
-  .bsw-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px; }
+  .bsw-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:24px; }
   .bsw-step { position:relative; text-align:left; background:var(--surface); border:1px solid rgba(255,255,255,.08);
     border-radius:14px; padding:20px 16px 16px; cursor:pointer; color:var(--text); font-family:inherit; overflow:hidden;
     transition:transform .3s, border-color .3s, box-shadow .3s; }
@@ -790,6 +790,13 @@
   .bsw-step .n { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:8px;
     font-weight:800; font-size:13px; color:#04101d; background:linear-gradient(120deg,var(--blue-pale),var(--blue)); margin-bottom:10px; }
   .bsw-step.active .n { background:linear-gradient(120deg,var(--money-pale),var(--money)); }
+  /* opening "the game's on" — start state, not a clickable progression */
+  .bsw-step.start { cursor:default; border-style:dashed; border-color:rgba(159,220,255,.28); }
+  .bsw-step.start:hover { transform:none; border-color:rgba(159,220,255,.28); }
+  .bsw-step.start .n { background:linear-gradient(120deg,var(--blue-pale),var(--blue)); font-size:12px; }
+  .bsw-step.start.active { border-style:solid; border-color:var(--blue2); box-shadow:0 0 0 1px var(--blue2), 0 14px 30px rgba(79,182,242,.16); }
+  .bsw-step.start.active .bsw-bar { background:linear-gradient(90deg,var(--blue-pale),var(--blue)); }
+  .bsw-step .starttag { position:absolute; top:12px; right:12px; font:800 8.5px/1 "Inter"; letter-spacing:1.5px; color:var(--blue2); opacity:.85; }
   .bsw-step h3 { font-size:15px; margin:0 0 6px; }
   .bsw-step p { color:var(--dim); font-size:13px; line-height:1.6; margin:0; }
   .bsw-bar { position:absolute; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,var(--money-pale),var(--money)); }
@@ -1070,8 +1077,9 @@
 <section id="how" class="reveal">
   <div class="kicker">How it works</div>
   <h2>WATCH IT HAPPEN — DETECT. TAKE OVER. SNAP BACK.</h2>
-  <p class="sub" style="margin:2px auto 0; max-width:730px">No slideshow, no sales call — the whole loop plays
-    on one screen, exactly what your TVs do the moment a break hits. It runs on its own; tap any step to jump to it.</p>
+  <p class="sub" style="margin:2px auto 0; max-width:740px">No slideshow, no sales call — it opens on the live game, then
+    walks the whole loop A→Z: a break hits, BreakShark blocks it, your special takes over, and the game snaps right back.
+    It plays on its own — tap any step to jump to that moment.</p>
 
   <div class="bsw">
     <div class="bsw-stage" id="bswStage" data-phase="game" role="img"
@@ -1138,25 +1146,30 @@
     </div>
 
     <div class="bsw-steps" aria-label="How BreakShark works, step by step">
-      <button type="button" class="bsw-step" data-step="0">
+      <div class="bsw-step start" data-phase="game">
+        <span class="bsw-bar"></span><span class="n">▶</span><span class="starttag">START</span>
+        <h3>The game's on</h3>
+        <p>Your normal broadcast, untouched — exactly what your crowd is already watching. Then a break hits…</p>
+      </div>
+      <button type="button" class="bsw-step" data-phase="break">
         <span class="bsw-bar"></span><span class="n">1</span>
-        <h3>Detects the break</h3>
-        <p>BreakShark watches the broadcast with your crowd and knows the instant it cuts to commercials — under a second, no lag.</p>
+        <h3>A break hits</h3>
+        <p>The broadcast cuts to a commercial — it could be a competitor's — running across every screen you own.</p>
       </button>
-      <button type="button" class="bsw-step" data-step="1">
+      <button type="button" class="bsw-step" data-phase="takeover">
         <span class="bsw-bar"></span><span class="n">2</span>
-        <h3>Takes over instantly</h3>
-        <p>It blocks the ad and takes over every screen at once — the competitor's spot never gets in front of your customers.</p>
+        <h3>BreakShark blocks it</h3>
+        <p>It catches the break in under a second and blocks the ad on every screen at once.</p>
       </button>
-      <button type="button" class="bsw-step" data-step="2">
+      <button type="button" class="bsw-step" data-phase="ad">
         <span class="bsw-bar"></span><span class="n">3</span>
-        <h3>Your menu runs</h3>
-        <p>Your own promo spots play instead — real ads for your food, built from your photos, each getting equal airtime.</p>
+        <h3>Your special runs</h3>
+        <p>Your own promo takes over instead — your food, your drinks, each getting equal airtime.</p>
       </button>
-      <button type="button" class="bsw-step" data-step="3">
+      <button type="button" class="bsw-step" data-phase="snap">
         <span class="bsw-bar"></span><span class="n">4</span>
-        <h3>Snaps back to the game</h3>
-        <p>The instant programming resumes, the game is back on. You never lose the broadcast — you just get the breaks back.</p>
+        <h3>Back to the game</h3>
+        <p>The instant the game returns, your screens snap right back. Nobody misses a play.</p>
       </button>
     </div>
   </div>
@@ -1620,17 +1633,17 @@ if ("IntersectionObserver" in window) {
 (function () {
   const stage = document.getElementById("bswStage");
   if (!stage) return;
-  const steps = Array.prototype.slice.call(stage.parentNode.querySelectorAll(".bsw-step"));
+  const cards = Array.prototype.slice.call(stage.parentNode.querySelectorAll(".bsw-step"));
   const phaseEl = document.getElementById("bswPhase");
   const boxEl = document.getElementById("bswBoxLabel");
   const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
-  // step index -> visual state. -1 = resting game (not tied to a numbered step)
+  // A→Z: opens on the game (no button), then 4 clickable progression steps
   var seq = [
-    { phase:"game",     step:-1, plabel:"● LIVE GAME ON",                box:"WATCHING",       dur:2400 },
-    { phase:"break",    step:0,  plabel:"◆ COMMERCIAL DETECTED",         box:"BREAK · &lt;1s", dur:2900 },
-    { phase:"takeover", step:1,  plabel:"▶ BREAKSHARK TAKING OVER",      box:"TAKING OVER",    dur:2100 },
-    { phase:"ad",       step:2,  plabel:"★ YOUR SPECIAL LIVE",           box:"YOUR MENU LIVE", dur:3300 },
-    { phase:"snap",     step:3,  plabel:"⚡ SNAPPED BACK TO THE GAME",    box:"GAME'S BACK",    dur:2300 }
+    { phase:"game",     plabel:"● THE GAME'S ON",              box:"WATCHING",       dur:3200 },
+    { phase:"break",    plabel:"◆ A BREAK HITS",               box:"BREAK · &lt;1s", dur:2900 },
+    { phase:"takeover", plabel:"▶ BREAKSHARK BLOCKS THE AD",   box:"BLOCKING",       dur:2100 },
+    { phase:"ad",       plabel:"★ YOUR SPECIAL RUNS",          box:"YOUR MENU LIVE", dur:3300 },
+    { phase:"snap",     plabel:"⚡ BACK TO THE GAME",           box:"GAME'S BACK",    dur:2400 }
   ];
   var i = 0, timer = null, paused = false, started = false;
   function paint(idx) {
@@ -1638,8 +1651,8 @@ if ("IntersectionObserver" in window) {
     stage.dataset.phase = s.phase;
     phaseEl.innerHTML = s.plabel;
     boxEl.innerHTML = s.box;
-    steps.forEach(function (el, k) {
-      var on = (k === s.step);
+    cards.forEach(function (el) {
+      var on = (el.getAttribute("data-phase") === s.phase);
       el.classList.toggle("active", on);
       var bar = el.querySelector(".bsw-bar");
       if (bar) { bar.style.transition = "none"; bar.style.width = "0%"; }
@@ -1653,23 +1666,23 @@ if ("IntersectionObserver" in window) {
   }
   function schedule() { clearTimeout(timer); if (reduce || paused) return; timer = setTimeout(advance, seq[i].dur); }
   function advance() { i = (i + 1) % seq.length; paint(i); schedule(); }
-  function jumpToStep(stepIdx) {
-    var idx = -1;
-    for (var k = 0; k < seq.length; k++) { if (seq[k].step === stepIdx) { idx = k; break; } }
-    if (idx < 0) return;
-    i = idx; paint(i); schedule();
+  function jumpToPhase(phase) {
+    for (var k = 0; k < seq.length; k++) { if (seq[k].phase === phase) { i = k; paint(i); schedule(); return; } }
   }
-  steps.forEach(function (el) {
-    el.addEventListener("click", function () { jumpToStep(parseInt(el.getAttribute("data-step"), 10)); });
+  // only the <button> cards are clickable (the opening "game" card is a non-clickable start marker)
+  cards.forEach(function (el) {
+    if (el.tagName === "BUTTON") {
+      el.addEventListener("click", function () { jumpToPhase(el.getAttribute("data-phase")); });
+    }
   });
   stage.addEventListener("mouseenter", function () { paused = true; clearTimeout(timer); });
   stage.addEventListener("mouseleave", function () { paused = false; schedule(); });
   paint(0);
-  if (reduce) { paint(3); return; } // static: show "your special live" state
+  if (reduce) { return; } // static: rest on "the game's on"
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting && !started) { started = true; schedule(); io.disconnect(); }
+        if (e.isIntersecting && !started) { started = true; i = 0; paint(0); schedule(); io.disconnect(); }
       });
     }, { threshold: 0.3 });
     io.observe(stage);
