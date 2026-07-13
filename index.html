@@ -701,6 +701,118 @@
     .float-ad, .cmp-grip { animation:none !important; }
     .hero h1 .hline { opacity:1; animation:none; }
   }
+
+  /* ===== "How it works" interactive walkthrough ===== */
+  .bsw { margin-top:30px; }
+  .bsw-stage { position:relative; display:grid; grid-template-columns:150px 56px minmax(0,1fr);
+    align-items:center; gap:0 18px; background:linear-gradient(160deg,#0c1c31,#0a1626 72%);
+    border:1px solid var(--line); border-radius:22px; padding:30px; overflow:hidden; }
+  .bsw-stage::before { content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(120% 90% at 82% 0%, rgba(79,182,242,.10), transparent 60%); }
+  .bsw-box-col { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:9px; }
+  .bsw-phase { font:800 11px/1.2 "Inter"; letter-spacing:1px; color:var(--money); text-align:center; min-height:14px; }
+  .bsw-box { position:relative; width:118px; height:72px; border-radius:12px;
+    background:linear-gradient(155deg,#17263e,#0c1626); border:1px solid #2b4166;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 12px 26px rgba(0,0,0,.5); }
+  .bsw-fin { position:absolute; top:8px; left:11px; font-size:16px; filter:drop-shadow(0 0 6px rgba(79,182,242,.55)); }
+  .bsw-led { position:absolute; top:12px; right:12px; width:9px; height:9px; border-radius:50%;
+    background:var(--green); box-shadow:0 0 10px var(--green); animation:bswLed 1.4s infinite; }
+  .bsw-stage[data-phase="break"] .bsw-led,.bsw-stage[data-phase="takeover"] .bsw-led { background:#ff5c5c; box-shadow:0 0 12px #ff5c5c; }
+  .bsw-stage[data-phase="ad"] .bsw-led { background:var(--blue2); box-shadow:0 0 12px var(--blue2); }
+  .bsw-ports { position:absolute; bottom:9px; left:11px; display:flex; gap:5px; }
+  .bsw-ports i { width:12px; height:7px; border-radius:2px; background:#0a1220; border:1px solid #2b4166; display:block; }
+  .bsw-box-label { font:800 12px/1 "Inter"; letter-spacing:1px; color:var(--blue2); text-align:center; }
+  .bsw-box-name { font-size:10.5px; color:var(--dim); letter-spacing:.5px; }
+  .bsw-wire { position:relative; height:4px; border-radius:4px; background:linear-gradient(90deg,#20507e,#2c4166); z-index:2; }
+  .bsw-pulse { position:absolute; top:50%; left:0; width:13px; height:13px; margin-top:-6.5px; border-radius:50%;
+    background:var(--blue2); box-shadow:0 0 14px var(--blue2); opacity:0; }
+  .bsw-stage[data-phase="break"] .bsw-pulse { animation:bswPulseIn 1s linear infinite; }
+  .bsw-stage[data-phase="takeover"] .bsw-pulse,.bsw-stage[data-phase="ad"] .bsw-pulse { animation:bswPulseOut 1s linear infinite; }
+  .bsw-tv { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
+  .bsw-tv-set { width:100%; aspect-ratio:16/9; background:#04060b; border:10px solid #0e1830; border-radius:14px;
+    overflow:hidden; position:relative;
+    box-shadow:0 30px 60px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.05), 0 0 44px rgba(79,182,242,.10); }
+  .bsw-tv-stand { width:120px; height:10px; background:linear-gradient(180deg,#0e1830,#0a1220); border-radius:0 0 9px 9px; }
+  .bsw-screen { position:absolute; inset:0; }
+  .bsw-scene { position:absolute; inset:0; opacity:0; transition:opacity .45s ease;
+    display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .bsw-stage[data-phase="game"] .bsw-scene.game,
+  .bsw-stage[data-phase="snap"] .bsw-scene.game { opacity:1; }
+  .bsw-stage[data-phase="break"] .bsw-scene.break { opacity:1; }
+  .bsw-stage[data-phase="takeover"] .bsw-scene.takeover { opacity:1; }
+  .bsw-stage[data-phase="ad"] .bsw-scene.ad { opacity:1; }
+  .bsw-scene.ad .ad-photo { background-size:cover; background-position:center; background-color:#1a1206; }
+  /* game scene */
+  .bsw-scene.game { background:linear-gradient(180deg,#0a2c14,#0e3d1c 55%,#0a2c14); }
+  .bsw-field { position:absolute; inset:0;
+    background:repeating-linear-gradient(90deg, transparent 0 44px, rgba(255,255,255,.06) 44px 46px),
+               linear-gradient(180deg, rgba(255,255,255,.05), transparent 42%); }
+  .bsw-scorebug { position:absolute; top:10px; left:10px; display:flex; align-items:center; gap:5px;
+    background:rgba(6,12,22,.82); border:1px solid rgba(255,255,255,.14); border-radius:6px;
+    padding:5px 9px; font:800 11px/1 "Inter"; letter-spacing:.5px; color:#fff; }
+  .bsw-scorebug b { color:var(--blue2); } .bsw-scorebug em { color:#ffd23f; font-style:normal; margin-left:4px; }
+  .bsw-livechip { position:absolute; top:10px; right:10px; display:flex; align-items:center; gap:5px;
+    background:rgba(209,42,42,.85); color:#fff; font:800 10px/1 "Inter"; letter-spacing:1px; padding:5px 8px; border-radius:5px; }
+  .bsw-livechip .dot { width:6px; height:6px; border-radius:50%; background:#fff; }
+  /* break / competitor ad */
+  .bsw-scene.break { background:linear-gradient(135deg,#2a1207,#3a1a0a); }
+  .bsw-badge.red { position:absolute; top:10px; left:10px; background:#d13a2f; color:#fff;
+    font:800 10px/1 "Inter"; letter-spacing:1px; padding:5px 9px; border-radius:5px; }
+  .bsw-compad { text-align:center; padding:0 18px; }
+  .bsw-compad-name { font-family:"Bebas Neue"; font-size:clamp(30px,6vw,56px); letter-spacing:2px; color:#ffcf3f; line-height:.9; }
+  .bsw-compad-deal { color:#fff; font-weight:800; font-size:clamp(11px,2vw,15px); margin-top:8px; letter-spacing:1px; }
+  .bsw-compad-jab { color:#ffb0a4; font-size:clamp(9px,1.6vw,11px); margin-top:9px; letter-spacing:1px; opacity:.9; }
+  .bsw-detect { position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+    background:rgba(209,58,47,.18); border:1px solid #ff6a5c; color:#ff9a90;
+    font:800 10px/1 "Inter"; padding:6px 10px; border-radius:6px; letter-spacing:1px; animation:bswBlink 1s steps(1) infinite; }
+  /* takeover */
+  .bsw-scene.takeover { background:radial-gradient(120% 120% at 50% 40%, #0b2f4e, #061726); }
+  .bsw-sweep { position:absolute; inset:0; transform:translateX(-130%);
+    background:linear-gradient(115deg, transparent 42%, rgba(159,220,255,.85) 50%, transparent 58%); }
+  .bsw-stage[data-phase="takeover"] .bsw-sweep { animation:bswSweep .8s ease-out; }
+  .bsw-takeover-txt { text-align:center; font-family:"Bebas Neue"; color:#eaf7ff;
+    font-size:clamp(26px,5vw,48px); letter-spacing:2px; line-height:.95; text-shadow:0 0 22px rgba(79,182,242,.55); }
+  .bsw-takeover-txt span { display:block; font-family:"Inter"; font-size:clamp(11px,2vw,14px);
+    letter-spacing:1px; color:var(--blue2); margin-top:8px; font-weight:700; }
+  /* snap-back chip + flash */
+  .bsw-snapchip { position:absolute; bottom:12px; left:50%; transform:translateX(-50%); z-index:4;
+    background:rgba(34,224,138,.16); border:1px solid var(--money); color:var(--money-pale);
+    font:800 10px/1 "Inter"; padding:6px 10px; border-radius:6px; letter-spacing:1px; opacity:0; }
+  .bsw-stage[data-phase="snap"] .bsw-snapchip { opacity:1; animation:bswBlink 1s steps(1) 2; }
+  .bsw-flash { position:absolute; inset:0; z-index:5; background:#eaf7ff; opacity:0; pointer-events:none; }
+  .bsw-stage[data-phase="takeover"] .bsw-flash,
+  .bsw-stage[data-phase="snap"] .bsw-flash { animation:bswFlash .5s ease-out; }
+  /* steps */
+  .bsw-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:24px; }
+  .bsw-step { position:relative; text-align:left; background:var(--surface); border:1px solid rgba(255,255,255,.08);
+    border-radius:14px; padding:20px 16px 16px; cursor:pointer; color:var(--text); font-family:inherit; overflow:hidden;
+    transition:transform .3s, border-color .3s, box-shadow .3s; }
+  .bsw-step:hover { transform:translateY(-3px); border-color:rgba(159,220,255,.4); }
+  .bsw-step.active { border-color:var(--money); box-shadow:0 0 0 1px var(--money), 0 14px 30px rgba(34,224,138,.14); }
+  .bsw-step .n { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:8px;
+    font-weight:800; font-size:13px; color:#04101d; background:linear-gradient(120deg,var(--blue-pale),var(--blue)); margin-bottom:10px; }
+  .bsw-step.active .n { background:linear-gradient(120deg,var(--money-pale),var(--money)); }
+  .bsw-step h3 { font-size:15px; margin:0 0 6px; }
+  .bsw-step p { color:var(--dim); font-size:13px; line-height:1.6; margin:0; }
+  .bsw-bar { position:absolute; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,var(--money-pale),var(--money)); }
+  .bsw-payoff-h { font-family:"Bebas Neue"; font-size:24px; letter-spacing:1.5px; color:var(--dim); font-weight:400; margin-top:4px; }
+  @keyframes bswSweep { from{transform:translateX(-130%)} to{transform:translateX(130%)} }
+  @keyframes bswFlash { 0%{opacity:0} 28%{opacity:.85} 100%{opacity:0} }
+  @keyframes bswBlink { 50%{opacity:.35} }
+  @keyframes bswLed { 50%{opacity:.5} }
+  @keyframes bswPulseIn { 0%{left:100%;opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{left:0;opacity:0} }
+  @keyframes bswPulseOut { 0%{left:0;opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{left:100%;opacity:0} }
+  @media (max-width:760px){
+    .bsw-stage { grid-template-columns:1fr; gap:16px; padding:20px; }
+    .bsw-wire { display:none; }
+    .bsw-box-col { flex-direction:row; flex-wrap:wrap; justify-content:center; gap:8px 14px; }
+    .bsw-phase { flex-basis:100%; }
+    .bsw-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:460px){ .bsw-steps { grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion:reduce){
+    .bsw-led,.bsw-pulse,.bsw-detect,.bsw-snapchip,.bsw-sweep,.bsw-flash { animation:none !important; }
+  }
 </style>
 <!-- Google tag (gtag.js) — GA4 property "BreakShark.com" -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPSCL18MG6"></script>
@@ -722,7 +834,6 @@
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
     <a href="investors.html">Investors</a>
-    <a href="tv.html" class="nav-demo">▶ Live Demo</a>
     <a href="founding10.html" class="nav-cta">Claim a Founding Spot</a>
   </nav>
 </header>
@@ -736,7 +847,7 @@
       your burger, your wings, your craft cocktails, your dessert — then snap back the instant the game returns.
       No more competitor food ads in front of your captive audience.</p>
     <div class="ctas">
-      <a class="btn primary" href="tv.html">▶ Watch the live demo</a>
+      <a class="btn primary" href="#how">▶ See how it works</a>
       <a class="btn" href="dashboard.html">See the owner dashboard</a>
     </div>
     <div class="trust-row">
@@ -835,8 +946,8 @@
 <section id="action" class="reveal">
   <div class="kicker">See it work</div>
   <h2>BREAKSHARK IN ACTION</h2>
-  <p class="sub">These aren't mockups — they're the actual promo spots running in the live
-    demo below. Watch a commercial break turn into your own advertising in real time.</p>
+  <p class="sub">These aren't mockups — they're the actual promo spots BreakShark runs on your screens.
+    Watch a commercial break turn into your own advertising in real time.</p>
 
   <div class="compare-tv">
     <div class="lead">A commercial break, with and without BreakShark</div>
@@ -939,7 +1050,7 @@
     </div>
   </div>
   <div class="gallery-cta">
-    <a class="btn primary" href="tv.html">▶ Try the full live demo →</a>
+    <a class="btn primary" href="#how">▶ Watch it work, step by step →</a>
   </div>
 </section>
 
@@ -960,19 +1071,97 @@
 
 <section id="how" class="reveal">
   <div class="kicker">How it works</div>
-  <h2>DETECT. TAKE OVER. SNAP BACK.</h2>
-  <div class="steps" style="margin-top:30px">
-    <div class="step"><h3>Notices the break</h3><p>BreakShark watches the broadcast right along
-      with your customers and knows the instant it cuts to commercials — no waiting, no lag.</p></div>
-    <div class="step"><h3>Puts your menu on screen</h3><p>Your own promo spots play instead:
-      real ads for your food, built from your photos, each getting equal airtime.
-      Your customers stay your customers.</p></div>
-    <div class="step"><h3>Snaps back to the game</h3><p>The instant programming resumes,
-      the game is back on. Nobody misses a play — you never lose the broadcast, you just get
-      the commercial breaks back.</p></div>
-    <div class="step"><h3>Shows you the payoff</h3><p>Your dashboard logs every play and
-      every second your screens spent selling for you, so you can watch it turn into bigger checks.</p></div>
+  <h2>WATCH IT HAPPEN — DETECT. TAKE OVER. SNAP BACK.</h2>
+  <p class="sub" style="margin:2px auto 0; max-width:730px">No slideshow, no sales call — the whole loop plays
+    on one screen, exactly what your TVs do the moment a break hits. It runs on its own; tap any step to jump to it.</p>
+
+  <div class="bsw">
+    <div class="bsw-stage" id="bswStage" data-phase="game" role="img"
+      aria-label="Animated walkthrough: BreakShark detects a commercial break and switches the TV to the bar's own special, then snaps back to the game">
+      <div class="bsw-box-col">
+        <div class="bsw-phase" id="bswPhase">● LIVE GAME ON</div>
+        <div class="bsw-box" aria-hidden="true">
+          <span class="bsw-fin">🦈</span>
+          <span class="bsw-led"></span>
+          <span class="bsw-ports"><i></i><i></i><i></i></span>
+        </div>
+        <div class="bsw-box-label" id="bswBoxLabel">WATCHING</div>
+        <div class="bsw-box-name">BreakShark box</div>
+      </div>
+
+      <div class="bsw-wire" aria-hidden="true"><span class="bsw-pulse"></span></div>
+
+      <div class="bsw-tv">
+        <div class="bsw-tv-set">
+          <div class="bsw-screen">
+            <!-- 1 · live game -->
+            <div class="bsw-scene game" aria-hidden="true">
+              <div class="bsw-field"></div>
+              <div class="bsw-scorebug"><b>HOME</b> 21 · 17 <b>AWY</b> <em>3RD&nbsp;·&nbsp;04:12</em></div>
+              <div class="bsw-livechip"><span class="dot"></span> LIVE</div>
+              <div class="bsw-snapchip">⚡ SNAPPED BACK — NOBODY MISSED A PLAY</div>
+            </div>
+            <!-- 2 · competitor commercial -->
+            <div class="bsw-scene break" aria-hidden="true">
+              <div class="bsw-badge red">COMMERCIAL BREAK</div>
+              <div class="bsw-compad">
+                <div class="bsw-compad-name">BURGER&nbsp;PIT</div>
+                <div class="bsw-compad-deal">2 FOR $12 · GAME NIGHT ONLY</div>
+                <div class="bsw-compad-jab">99 BILLION SOLD. NONE OF THEM YOURS.</div>
+              </div>
+              <div class="bsw-detect">◆ COMMERCIAL DETECTED · &lt;1s</div>
+            </div>
+            <!-- 3 · takeover -->
+            <div class="bsw-scene takeover" aria-hidden="true">
+              <div class="bsw-sweep"></div>
+              <div class="live-tag" style="position:absolute;top:12px;left:12px"><span class="dot"></span> BREAKSHARK LIVE</div>
+              <div class="bsw-takeover-txt">BLOCKING THE AD<span>on every screen at once</span></div>
+            </div>
+            <!-- 4 · your special -->
+            <div class="bsw-scene ad" aria-hidden="true">
+              <div class="ad-photo" style="position:absolute;inset:0;background-image:url('img/ads/burger.jpg')" role="img" aria-label="Your Zenie Burger half-price special on screen">
+                <div class="ad-grad"></div>
+                <div class="live-tag" style="position:absolute;top:12px;left:12px"><span class="dot"></span> BREAKSHARK LIVE</div>
+                <div class="ad-brand">Your Bar &amp; Grill</div>
+                <div class="ad-title">THE ZENIE BURGER</div>
+                <div class="ad-sub">Half price — game time only</div>
+                <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
+                <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
+              </div>
+            </div>
+            <div class="bsw-flash" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="bsw-tv-stand" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="bsw-steps" aria-label="How BreakShark works, step by step">
+      <button type="button" class="bsw-step" data-step="0">
+        <span class="bsw-bar"></span><span class="n">1</span>
+        <h3>Detects the break</h3>
+        <p>BreakShark watches the broadcast with your crowd and knows the instant it cuts to commercials — under a second, no lag.</p>
+      </button>
+      <button type="button" class="bsw-step" data-step="1">
+        <span class="bsw-bar"></span><span class="n">2</span>
+        <h3>Takes over instantly</h3>
+        <p>It blocks the ad and takes over every screen at once — the competitor's spot never gets in front of your customers.</p>
+      </button>
+      <button type="button" class="bsw-step" data-step="2">
+        <span class="bsw-bar"></span><span class="n">3</span>
+        <h3>Your menu runs</h3>
+        <p>Your own promo spots play instead — real ads for your food, built from your photos, each getting equal airtime.</p>
+      </button>
+      <button type="button" class="bsw-step" data-step="3">
+        <span class="bsw-bar"></span><span class="n">4</span>
+        <h3>Snaps back to the game</h3>
+        <p>The instant programming resumes, the game is back on. You never lose the broadcast — you just get the breaks back.</p>
+      </button>
+    </div>
   </div>
+
+  <div class="kicker" style="margin-top:46px">And it logs the payoff</div>
+  <h3 class="bsw-payoff-h">EVERY TAKEOVER, COUNTED — ON YOUR OWNER DASHBOARD</h3>
   <div class="ticker-panel">
     <div class="thead">
       <b>Sample Owner Dashboard Feed</b>
@@ -1131,7 +1320,7 @@
     <div class="trust-card">
       <span class="ic">▶</span>
       <h3>Try it before you talk to anyone</h3>
-      <p>The live demo and owner dashboard are open right now, in your browser — no sales call,
+      <p>The how-it-works walkthrough and owner dashboard are open right now, in your browser — no sales call,
         no signup wall, no "book a demo" form required to see exactly what you'd be buying.</p>
     </div>
     <div class="trust-card">
@@ -1340,7 +1529,7 @@
         on your dashboard.</p>
       <div class="row">
         <a class="btn primary" href="founding10.html">Claim a Founding 10 spot</a>
-        <a class="btn" href="tv.html">▶ Watch the live demo</a>
+        <a class="btn" href="#how">▶ See how it works</a>
       </div>
     </div>
     <div class="choose-card inv">
@@ -1379,7 +1568,7 @@
     </div>
     <div class="foot-col">
       <b>Product</b>
-      <a href="tv.html">Live demo</a>
+      <a href="#action">See it in action</a>
       <a href="dashboard.html">Owner dashboard</a>
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
@@ -1425,6 +1614,66 @@ if ("IntersectionObserver" in window) {
 } else {
   document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
 }
+
+// ---- "How it works" interactive walkthrough ----
+(function () {
+  const stage = document.getElementById("bswStage");
+  if (!stage) return;
+  const steps = Array.prototype.slice.call(stage.parentNode.querySelectorAll(".bsw-step"));
+  const phaseEl = document.getElementById("bswPhase");
+  const boxEl = document.getElementById("bswBoxLabel");
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
+  // step index -> visual state. -1 = resting game (not tied to a numbered step)
+  var seq = [
+    { phase:"game",     step:-1, plabel:"● LIVE GAME ON",                box:"WATCHING",       dur:2400 },
+    { phase:"break",    step:0,  plabel:"◆ COMMERCIAL DETECTED",         box:"BREAK · &lt;1s", dur:2900 },
+    { phase:"takeover", step:1,  plabel:"▶ BREAKSHARK TAKING OVER",      box:"TAKING OVER",    dur:2100 },
+    { phase:"ad",       step:2,  plabel:"★ YOUR SPECIAL LIVE",           box:"YOUR MENU LIVE", dur:3300 },
+    { phase:"snap",     step:3,  plabel:"⚡ SNAPPED BACK TO THE GAME",    box:"GAME'S BACK",    dur:2300 }
+  ];
+  var i = 0, timer = null, paused = false, started = false;
+  function paint(idx) {
+    var s = seq[idx];
+    stage.dataset.phase = s.phase;
+    phaseEl.innerHTML = s.plabel;
+    boxEl.innerHTML = s.box;
+    steps.forEach(function (el, k) {
+      var on = (k === s.step);
+      el.classList.toggle("active", on);
+      var bar = el.querySelector(".bsw-bar");
+      if (bar) { bar.style.transition = "none"; bar.style.width = "0%"; }
+      if (on && bar && !reduce) {
+        requestAnimationFrame(function () {
+          bar.style.transition = "width " + s.dur + "ms linear";
+          bar.style.width = "100%";
+        });
+      }
+    });
+  }
+  function schedule() { clearTimeout(timer); if (reduce || paused) return; timer = setTimeout(advance, seq[i].dur); }
+  function advance() { i = (i + 1) % seq.length; paint(i); schedule(); }
+  function jumpToStep(stepIdx) {
+    var idx = -1;
+    for (var k = 0; k < seq.length; k++) { if (seq[k].step === stepIdx) { idx = k; break; } }
+    if (idx < 0) return;
+    i = idx; paint(i); schedule();
+  }
+  steps.forEach(function (el) {
+    el.addEventListener("click", function () { jumpToStep(parseInt(el.getAttribute("data-step"), 10)); });
+  });
+  stage.addEventListener("mouseenter", function () { paused = true; clearTimeout(timer); });
+  stage.addEventListener("mouseleave", function () { paused = false; schedule(); });
+  paint(0);
+  if (reduce) { paint(3); return; } // static: show "your special live" state
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !started) { started = true; schedule(); io.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    io.observe(stage);
+  } else { schedule(); }
+})();
 
 // ---- scrollspy: highlight the section you're reading ----
 (function () {
