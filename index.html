@@ -742,11 +742,9 @@
   .bsw-stage[data-phase="takeover"] .bsw-scene.takeover { opacity:1; }
   .bsw-stage[data-phase="ad"] .bsw-scene.ad { opacity:1; }
   .bsw-scene.ad .ad-photo { background-size:cover; background-position:center; background-color:#1a1206; }
-  /* game scene */
-  .bsw-scene.game { background:linear-gradient(180deg,#0a2c14,#0e3d1c 55%,#0a2c14); }
-  .bsw-field { position:absolute; inset:0;
-    background:repeating-linear-gradient(90deg, transparent 0 44px, rgba(255,255,255,.06) 44px 46px),
-               linear-gradient(180deg, rgba(255,255,255,.05), transparent 42%); }
+  /* game scene — real football broadcast b-roll */
+  .bsw-scene.game { background:#05070c; }
+  .bsw-gamevid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .bsw-scorebug { position:absolute; top:10px; left:10px; display:flex; align-items:center; gap:5px;
     background:rgba(6,12,22,.82); border:1px solid rgba(255,255,255,.14); border-radius:6px;
     padding:5px 9px; font:800 11px/1 "Inter"; letter-spacing:.5px; color:#fff; }
@@ -1094,9 +1092,12 @@
       <div class="bsw-tv">
         <div class="bsw-tv-set">
           <div class="bsw-screen">
-            <!-- 1 · live game -->
+            <!-- 1 · live game (real broadcast b-roll) -->
             <div class="bsw-scene game" aria-hidden="true">
-              <div class="bsw-field"></div>
+              <video class="bsw-gamevid" autoplay muted loop playsinline preload="auto" poster="static/co/game_poster.jpg">
+                <source src="static/co/game_feed.webm" type="video/webm">
+                <source src="static/co/game_feed.mp4" type="video/mp4">
+              </video>
               <div class="bsw-scorebug"><b>HOME</b> 21 · 17 <b>AWY</b> <em>3RD&nbsp;·&nbsp;04:12</em></div>
               <div class="bsw-livechip"><span class="dot"></span> LIVE</div>
               <div class="bsw-snapchip">⚡ SNAPPED BACK — NOBODY MISSED A PLAY</div>
