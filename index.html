@@ -901,8 +901,8 @@
   <div class="vframe">
     <video controls playsinline preload="metadata" poster="vid/breakshark-explainer-poster.jpg"
            title="BreakShark — the problem you didn't know you had">
-      <source src="vid/breakshark-explainer.mp4" type="video/mp4">
-      Your browser can't play this video. <a href="vid/breakshark-explainer.mp4">Download it</a>.
+      <source src="https://kfsqpmexrlqkfmmarpug.supabase.co/storage/v1/object/public/media/breakshark-explainer-1080.mp4" type="video/mp4">
+      Your browser can't play this video. <a href="https://kfsqpmexrlqkfmmarpug.supabase.co/storage/v1/object/public/media/breakshark-explainer-1080.mp4">Download it</a>.
     </video>
   </div>
 </section>
@@ -1084,8 +1084,8 @@
   <div class="filmwrap">
     <video controls playsinline preload="metadata" poster="promo/breakshark-promo-poster.jpg"
            title="BreakShark — the film">
-      <source src="promo/breakshark-promo.mp4" type="video/mp4">
-      Your browser can't play this video. <a href="promo/breakshark-promo.mp4">Download it instead.</a>
+      <source src="https://kfsqpmexrlqkfmmarpug.supabase.co/storage/v1/object/public/media/breakshark-promo-1080.mp4" type="video/mp4">
+      Your browser can't play this video. <a href="https://kfsqpmexrlqkfmmarpug.supabase.co/storage/v1/object/public/media/breakshark-promo-1080.mp4">Download it instead.</a>
     </video>
   </div>
 </section>
@@ -1103,7 +1103,7 @@
       <div class="bsw-box-col">
         <div class="bsw-phase" id="bswPhase">● LIVE GAME ON</div>
         <div class="bsw-box" aria-hidden="true">
-          <span class="bsw-fin">🦈</span>
+          <img class="bsw-fin" src="static/brand/icon.png" alt="" style="width:34px;height:34px;object-fit:contain">
           <span class="bsw-led"></span>
           <span class="bsw-ports"><i></i><i></i><i></i></span>
         </div>
@@ -1685,12 +1685,17 @@ if ("IntersectionObserver" in window) {
   function jumpToPhase(phase) {
     for (var k = 0; k < seq.length; k++) { if (seq[k].phase === phase) { i = k; paint(i); schedule(); return; } }
   }
-  // only the <button> cards are clickable (the opening "game" card is a non-clickable start marker)
+  // every card is clickable; the START card and the BreakShark box restart the demo
   cards.forEach(function (el) {
-    if (el.tagName === "BUTTON") {
-      el.addEventListener("click", function () { jumpToPhase(el.getAttribute("data-phase")); });
-    }
+    el.style.cursor = "pointer";
+    el.addEventListener("click", function () { jumpToPhase(el.getAttribute("data-phase")); });
   });
+  var bswBoxCol = stage.querySelector(".bsw-box-col");
+  if (bswBoxCol) {
+    bswBoxCol.style.cursor = "pointer";
+    bswBoxCol.title = "Restart the demo";
+    bswBoxCol.addEventListener("click", function () { jumpToPhase("game"); });
+  }
   stage.addEventListener("mouseenter", function () { paused = true; clearTimeout(timer); });
   stage.addEventListener("mouseleave", function () { paused = false; schedule(); });
   paint(0);
