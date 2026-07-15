@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BreakShark — Owner Dashboard</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{--bg:#0a1626;--card:rgba(40,59,88,.5);--line:#2b4166;--dim:#a9bdd8;--money:#22e08a;--warn:#ffb042}
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:#eef4ff;font-family:Inter,sans-serif;padding:24px;max-width:980px;margin:0 auto}
+  h1{font-family:"Bebas Neue";letter-spacing:.04em;font-size:2.2rem}
+  h2{font-family:"Bebas Neue";letter-spacing:.05em;font-size:1.3rem;margin:26px 0 10px;color:var(--money)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px}
+  input,button,select{font:inherit;border-radius:9px;border:1px solid var(--line);background:#0e1e33;color:#eef4ff;padding:10px 12px}
+  button{background:var(--money);color:#04160c;font-weight:800;border:0;cursor:pointer}
+  button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .stat{display:inline-block;margin-right:26px}
+  .stat b{font-size:1.9rem;color:var(--money)}
+  .adrow{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+  .adrow img{width:128px;border-radius:8px}
+  .pill{font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:20px}
+  .on{background:rgba(34,224,138,.15);color:var(--money)} .off{background:rgba(255,120,120,.12);color:#ff9b9b}
+  .online{color:var(--money)} .offline{color:#ff9b9b}
+  #log{font-size:.8rem;color:var(--dim);max-height:220px;overflow:auto;white-space:pre-wrap}
+  .hide{display:none}
+</style>
+</head>
+<body>
+<h1>🦈 BREAKSHARK — OWNER DASHBOARD</h1>
+
+<div class="card" id="cfgCard">
+  <h2 style="margin-top:0">Connect</h2>
+  <div class="row">
+    <input id="cfgUrl" placeholder="Supabase project URL" size="34">
+    <input id="cfgKey" placeholder="anon key" size="34">
+    <button onclick="saveCfg()">Save</button>
+  </div>
+</div>
+
+<div class="card hide" id="authCard">
+  <div class="row">
+    <input id="email" placeholder="you@email.com" size="26">
+    <input id="pass" type="password" placeholder="password" size="18">
+    <button onclick="signIn()">Sign in</button>
+    <button class="ghost" onclick="signUp()">First time: create login</button>
+  </div>
+  <p id="authMsg" style="color:var(--dim);margin-top:8px"></p>
+</div>
+
+<div id="app" class="hide">
+  <div class="card">
+    <span class="stat"><b id="stBreaks">–</b><br>breaks caught today</span>
+    <span class="stat"><b id="stPlays">–</b><br>ad plays today</span>
+    <span class="stat"><b id="stBox">–</b><br>box status</span>
+    <button class="ghost" style="float:right" onclick="refresh()">↻ Refresh</button>
+  </div>
+
+  <h2>Your ads in rotation</h2>
+  <div class="card" id="adsList">loading…</div>
+  <div class="card">
+    <div class="row">
+      <input type="file" id="adFile" accept="image/png,image/jpeg">
+      <input id="adLabel" placeholder="label (e.g. Wing Night)" size="22">
+      <button onclick="uploadAd()">Upload ad</button>
+    </div>
+    <p style="color:var(--dim);font-size:.8rem;margin-top:8px">1920×1080 PNG/JPG. New ads join the rotation on the box within ~60 seconds.</p>
+  </div>
+
+  <h2>Recent activity</h2>
+  <div class="card"><div id="log">loading…</div></div>
+</div>
+
+<script>
+const DEVICE='g10-dev-01';
+let sb=null;
+function cfg(){return {url:localStorage.bsUrl||'',key:localStorage.bsKey||''}}
+function saveCfg(){localStorage.bsUrl=document.getElementById('cfgUrl').value.trim();
+  localStorage.bsKey=document.getElementById('cfgKey').value.trim();boot()}
+async function boot(){
+  const c=cfg();
+  document.getElementById('cfgCard').classList.toggle('hide',!!(c.url&&c.key));
+  if(!c.url||!c.key)return;
+  sb=supabase.createClient(c.url,c.key);
+  const {data:{session}}=await sb.auth.getSession();
+  document.getElementById('authCard').classList.toggle('hide',!!session);
+  document.getElementById('app').classList.toggle('hide',!session);
+  if(session)refresh();
+}
+async function signUp(){
+  const {error}=await sb.auth.signUp({email:em(),password:pw()});
+  document.getElementById('authMsg').textContent=error?error.message:'Check your email to confirm, then sign in.';
+}
+async function signIn(){
+  const {error}=await sb.auth.signInWithPassword({email:em(),password:pw()});
+  if(error){document.getElementById('authMsg').textContent=error.message;return}
+  boot();
+}
+const em=()=>document.getElementById('email').value.trim();
+const pw=()=>document.getElementById('pass').value;
+async function refresh(){
+  const day=new Date();day.setHours(0,0,0,0);
+  const {data:evs}=await sb.from('events').select('t,kind,line')
+    .eq('device_id',DEVICE).gte('t',day.toISOString()).order('t',{ascending:false}).limit(400);
+  const starts=(evs||[]).filter(e=>e.kind==='ad_start').length;
+  document.getElementById('stBreaks').textContent=starts;
+  document.getElementById('stPlays').textContent=starts; // 1 rotation set per break (refine later)
+  const {data:dev}=await sb.from('devices').select('last_seen').eq('id',DEVICE).single();
+  const fresh=dev&&dev.last_seen&&(Date.now()-new Date(dev.last_seen))<180000;
+  document.getElementById('stBox').innerHTML=fresh?'<span class="online">● online</span>':'<span class="offline">● offline</span>';
+  document.getElementById('log').textContent=(evs||[]).slice(0,60)
+    .map(e=>`${new Date(e.t).toLocaleTimeString()}  ${e.kind==='ad_start'?'🟢 break caught → your ads up':'⚪ back to the game'}`).join('\n')||'no events yet today';
+  const {data:ads}=await sb.from('ads').select('*').eq('device_id',DEVICE).order('sort');
+  const c=cfg();
+  document.getElementById('adsList').innerHTML=(ads||[]).map(a=>`
+    <div class="adrow">
+      <img src="${c.url}/storage/v1/object/public/ads/${a.filename}">
+      <div style="flex:1"><b>${a.label||a.filename}</b><br>
+        <span class="pill ${a.active?'on':'off'}">${a.active?'IN ROTATION':'PAUSED'}</span></div>
+      <button class="ghost" onclick="toggleAd(${a.id},${!a.active})">${a.active?'Pause':'Resume'}</button>
+      <button class="ghost" onclick="delAd(${a.id},'${a.filename}')">Delete</button>
+    </div>`).join('')||'No ads yet — upload your first below.';
+}
+async function toggleAd(id,to){await sb.from('ads').update({active:to}).eq('id',id);refresh()}
+async function delAd(id,fn){if(!confirm('Delete this ad?'))return;
+  await sb.storage.from('ads').remove([fn]);await sb.from('ads').delete().eq('id',id);refresh()}
+async function uploadAd(){
+  const f=document.getElementById('adFile').files[0];if(!f){alert('pick a file');return}
+  const name=Date.now()+'-'+f.name.replace(/[^a-zA-Z0-9._-]/g,'');
+  const {error}=await sb.storage.from('ads').upload(name,f);
+  if(error){alert(error.message);return}
+  await sb.from('ads').insert({device_id:DEVICE,filename:name,label:document.getElementById('adLabel').value||f.name});
+  document.getElementById('adFile').value='';document.getElementById('adLabel').value='';refresh();
+}
+boot();
+</script>
+</body>
+</html>
