@@ -1,5 +1,5 @@
 """
-The Movie Zenie — Flask web server
+Movie Rando — Flask web server
 Run locally:  python server.py  → opens http://localhost:5000
 Deployed:     gunicorn server:app  (Render uses PORT env var automatically)
 """
@@ -13,7 +13,7 @@ import storage
 import tmdb
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "movie-zenie-secret")
+app.secret_key = os.environ.get("SECRET_KEY", "movie-rando-secret")
 
 
 # ── Static assets ────────────────────────────────────────────────────────────
@@ -375,7 +375,7 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     is_local = (port == 5000)
     print("=" * 50)
-    print("  The Movie Zenie — Web Edition")
+    print("  Movie Rando — Web Edition")
     print(f"  Open: http://localhost:{port}")
     print("=" * 50)
     if is_local:

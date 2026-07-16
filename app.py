@@ -28,7 +28,7 @@ class MoviePickerApp(ctk.CTk):
         self._poster_image = None
         self._resolved_actor: tuple[int, str] | None = None
 
-        self.title("The Movie Zenie")
+        self.title("Movie Rando")
         self.geometry("1340x760")
         self.minsize(1100, 660)
 
@@ -85,10 +85,10 @@ class MoviePickerApp(ctk.CTk):
         ctk.CTkLabel(hdr, image=self._sidebar_logo, text="").grid(
             row=0, column=0, rowspan=2, padx=(0, 8))
 
-        ctk.CTkLabel(hdr, text="THE MOVIE",
+        ctk.CTkLabel(hdr, text="MOVIE",
                      font=ctk.CTkFont(size=12, weight="bold"),
                      text_color=GREEN).grid(row=0, column=1, sticky="sw")
-        ctk.CTkLabel(hdr, text="GENIE",
+        ctk.CTkLabel(hdr, text="RANDO",
                      font=ctk.CTkFont(size=15, weight="bold"),
                      text_color=ACCENT).grid(row=1, column=1, sticky="nw")
 
@@ -576,7 +576,7 @@ class MoviePickerApp(ctk.CTk):
 
     def _show_api_dialog(self):
         dlg = ctk.CTkToplevel(self)
-        dlg.title("The Movie Zenie — API Keys")
+        dlg.title("Movie Rando — API Keys")
         dlg.geometry("440x220")
         dlg.resizable(False, False)
         dlg.grab_set()
