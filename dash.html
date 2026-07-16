@@ -25,7 +25,7 @@
   .stat{display:inline-block;margin-right:26px}
   .stat b{font-size:1.9rem;color:var(--money)}
   .adrow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .adrow img.thumb{width:150px;border-radius:8px}
+  .adrow img.thumb,.adrow video.thumb{width:150px;border-radius:8px}
   .adrow .mid{flex:1;min-width:220px;display:flex;flex-direction:column;gap:7px}
   .adrow input.label{width:100%;max-width:280px}
   .dp{display:flex;gap:7px;align-items:center;font-size:.8rem;color:var(--dim);flex-wrap:wrap}
@@ -78,11 +78,11 @@
 
   <div class="card">
     <div class="row">
-      <input type="file" id="adFile" accept="image/png,image/jpeg">
+      <input type="file" id="adFile" accept="image/png,image/jpeg,video/mp4">
       <input id="adLabel" placeholder="label (e.g. Wing Night)" size="22">
       <button onclick="uploadAd()">Upload ad</button>
     </div>
-    <p style="color:var(--dim);font-size:.8rem;margin-top:8px">1920×1080 PNG/JPG. Uploads go live after Save; the box updates within ~60 seconds.</p>
+    <p style="color:var(--dim);font-size:.8rem;margin-top:8px">1920×1080 PNG/JPG, or MP4 motion ads (videos play full length; images hold 8s). Uploads go live after Save; the box updates within ~60 seconds.</p>
   </div>
 
   <h2>Recent activity</h2>
@@ -174,7 +174,9 @@ function renderAds(){
         <button class="ghost mini" ${i===0?'disabled':''} onclick="move(${i},-1)">▲</button>
         <button class="ghost mini" ${i===ads.length-1?'disabled':''} onclick="move(${i},1)">▼</button>
       </div>
-      <img class="thumb" src="${CFG.url}/storage/v1/object/public/ads/${a.filename}">
+      ${a.filename.toLowerCase().endsWith('.mp4')
+        ?`<video class="thumb" src="${CFG.url}/storage/v1/object/public/ads/${a.filename}" muted loop autoplay playsinline></video>`
+        :`<img class="thumb" src="${CFG.url}/storage/v1/object/public/ads/${a.filename}">`}
       <div class="mid">
         <input class="label" value="${(a.label||'').replace(/"/g,'&quot;')}" onchange="edit(${i},'label',this.value)">
         <div class="dp">⏰ plays from <input type="time" value="${(a.daypart_start||'').slice(0,5)}"
