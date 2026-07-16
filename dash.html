@@ -58,6 +58,13 @@
 </div>
 
 <div id="app" class="hide">
+  <div class="card" id="powerCard">
+    <div class="row" style="justify-content:space-between">
+      <div><b style="font-size:1.15rem">🦈 BreakShark</b><br>
+        <span id="pwrState" style="color:var(--dim);font-size:.85rem">checking…</span></div>
+      <button id="pwrBtn" onclick="togglePower()" disabled>…</button>
+    </div>
+  </div>
   <div class="card">
     <span class="stat"><b id="stBreaks">–</b><br>breaks caught today</span>
     <span class="stat"><b id="stPlays">–</b><br>ad plays today</span>
@@ -85,7 +92,28 @@
 <script>
 const DEVICE='g10-dev-01';
 const CFG={url:'https://kfsqpmexrlqkfmmarpug.supabase.co',key:'sb_publishable_ZsK8APkvAFjAJ4CxibhMfw_KcYJZkJs'};
-let sb=null, ads=[], dirty=false;
+let sb=null, ads=[], dirty=false, devSettings=null;
+
+function renderPower(){
+  const btn=document.getElementById('pwrBtn'), st=document.getElementById('pwrState');
+  if(devSettings===null){btn.disabled=true;btn.textContent='…';return}
+  const on=devSettings.enabled!==false;
+  btn.disabled=false;
+  btn.textContent=on?'⏻ Turn OFF':'⏻ Turn ON';
+  btn.className=on?'ghost':'';
+  st.innerHTML=on
+    ?'<span class="online">● ON</span> — catching breaks and playing your ads'
+    :'<span class="offline">● OFF</span> — your TV is untouched (breaks still logged)';
+}
+async function togglePower(){
+  const on=devSettings.enabled!==false;
+  if(on&&!confirm('Turn BreakShark OFF?\nThe box stops switching your TV within ~60 seconds. Your ads and stats are kept.'))return;
+  const ns={...devSettings,enabled:!on};
+  const {error}=await sb.from('devices').update({settings:ns}).eq('id',DEVICE);
+  if(error){toast('Failed: '+(error.message||error),true);return}
+  devSettings=ns;renderPower();
+  toast(on?'🦈 Shark OFF — box stops switching within a minute':'🦈 Shark ON — switching resumes within a minute');
+}
 
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;
   t.className=err?'err':'';t.style.display='block';setTimeout(()=>t.style.display='none',3200)}
@@ -126,6 +154,7 @@ async function refresh(manual){
     document.getElementById('stBreaks').textContent=starts;
     const rot=(ad.data||[]).filter(a=>a.active).length||1;
     document.getElementById('stPlays').textContent=starts*rot;
+    devSettings=(de.data&&de.data.settings)||{};renderPower();
     const fresh=de.data&&de.data.last_seen&&(Date.now()-new Date(de.data.last_seen))<180000;
     document.getElementById('stBox').innerHTML=fresh?'<span class="online">● online</span>':'<span class="offline">● offline</span>';
     document.getElementById('log').textContent=(ev.data||[]).slice(0,60)
