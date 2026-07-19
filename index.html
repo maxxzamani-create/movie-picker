@@ -1055,6 +1055,7 @@
           <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
           <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
         </div>
+        <div id="cmpLiveRot" style="display:none;position:absolute;inset:0;background:#000;z-index:2"></div>
       </div>
       <div class="cmp-chip cl">WITHOUT</div>
       <div class="cmp-chip cr">WITH BREAKSHARK</div>
@@ -2098,26 +2099,32 @@ if ("IntersectionObserver" in window) {
       const s=await fetch(U+'/rest/v1/rpc/get_public_stats',{method:'POST',headers:{...H,'Content-Type':'application/json'},body:JSON.stringify({p_device:'g10-dev-01'})});
       if(s.ok)stats=await s.json();
     }catch(e){}
-    const rot=document.getElementById('liveRot'),cap=document.getElementById('liveCap');
-    if(!rot)return;
+    const cap=document.getElementById('liveCap');
+    /* One live rotation feeds BOTH the "what your screens would show" frame AND
+       the WITH-BREAKSHARK side of the drag-compare demo — single client, single
+       fetch, one ads[] array, kept in sync. If either target is missing or the
+       fetch failed, the static bar-promo mock underneath stays visible. */
+    const targets=[document.getElementById('liveRot'),document.getElementById('cmpLiveRot')].filter(Boolean);
+    if(!targets.length)return;
     const media=f=>U+'/storage/v1/object/public/ads/'+encodeURIComponent(f);
     let i=0,timer=null;
     function show(){
       const a=ads[i%ads.length];i++;
       const mp4=a.filename.toLowerCase().endsWith('.mp4');
-      rot.innerHTML=mp4
+      const html=mp4
         ?`<video src="${media(a.filename)}" muted autoplay playsinline style="width:100%;height:100%;object-fit:cover"></video>`
         :`<img src="${media(a.filename)}" alt="${(a.label||'house ad').replace(/"/g,'')}" style="width:100%;height:100%;object-fit:cover">`;
+      targets.forEach(t=>{t.innerHTML=html;});
       clearTimeout(timer);
       if(mp4){
-        const v=rot.querySelector('video');
-        v.onended=show; v.onerror=show;
+        const v=targets[0].querySelector('video');
+        if(v){ v.onended=show; v.onerror=show; }
         timer=setTimeout(show,45000); /* safety */
       }else{
         timer=setTimeout(show,8000);  /* same 8s the box uses */
       }
     }
-    rot.style.display='block'; show();
+    targets.forEach(t=>{t.style.display='block';}); show();
     if(cap){
       const n=stats&&stats.breaks_today!=null?stats.breaks_today:null;
       const on=stats&&stats.online;
