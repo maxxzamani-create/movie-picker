@@ -81,7 +81,7 @@
   <div class="bar">
     <div class="venue">
       <h1>TONY'S SPORTS GRILL</h1>
-      <p>Orange County, CA · Full Bar plan · 4 screens · June 2 – July 1, 2026</p>
+      <p>Orange County, CA · Founding partner · 4 screens · June 2 – July 1, 2026</p>
     </div>
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
       <span class="armed"><span class="dot"></span>BreakShark armed — striking every break</span>
@@ -133,9 +133,10 @@
   </div>
 
   <div class="roi">
-    <div class="big">This month BreakShark cost <em>$199</em> and recaptured an estimated <em id="roiMoney">—</em> — a <em id="roiX">—</em> return.</div>
+    <div class="big">This month BreakShark recaptured an estimated <em id="roiMoney">—</em> of revenue for the house.</div>
     <p>Estimate = your weekly guests × break exposure × the published 8% ad-driven purchase rate × your average add-on price.
-    Set your own numbers in the calculator — then watch your POS dessert line become the real scoreboard.</p>
+    Set your own numbers in the calculator — then watch your POS dessert line become the real scoreboard.
+    BreakShark is priced so competitively that one extra sale a day covers it.</p>
   </div>
 
 </div>
@@ -161,7 +162,6 @@
   ];
   const SPOT_SECONDS = 30;
   const PLAYS_PER_BREAK = 3;            // ~90s average break = 3 spots
-  const PLAN_COST = 199;
   const EST_RECAPTURE_WEEKLY = 316.8;   // 800 guests/wk × 55% exposure × 8% × $9 add-on
 
   const spots = [
@@ -185,7 +185,6 @@
   document.getElementById('kAir').textContent    = `${airH}h ${airM}m`;
   document.getElementById('kMoney').textContent  = `$${money.toLocaleString()}`;
   document.getElementById('roiMoney').textContent= `$${money.toLocaleString()}`;
-  document.getElementById('roiX').textContent    = `${(money/PLAN_COST).toFixed(1)}×`;
 
   // ---- Chart ----
   const max = Math.max(...days.map(x=>x.p));
