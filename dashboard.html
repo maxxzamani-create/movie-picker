@@ -1,433 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BreakShark — Business Dashboard</title>
-<meta name="theme-color" content="#03050a">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BreakShark — Owner Dashboard (Live Demo)</title>
+<meta name="description" content="The BreakShark owner dashboard — see every break caught, control your ad lineup, and watch the recaptured value add up. Live demo with simulated venue data.">
 <link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
 <link rel="shortcut icon" href="static/brand/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="static/brand/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+<!-- Google tag (gtag.js) — GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPSCL18MG6"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JPSCL18MG6');</script>
 <style>
-  :root {
-    --bg: #03050a; --surface: rgba(17,25,39,.70); --line: #1c2740;
-    --text: #eef5fc; --dim: #8ea1ba;
-    --gold: #4fb6f2; --gold2: #9fdcff; --green: #2ecc71; --red: #ff5c5c;
+  :root{--bg:#0a1626;--card:rgba(40,59,88,.5);--line:#2b4166;--dim:#a9bdd8;--money:#22e08a;--warn:#ffb042}
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:#eef4ff;font-family:Inter,sans-serif;padding:24px;max-width:1020px;margin:0 auto}
+  h1{font-family:"Bebas Neue";letter-spacing:.04em;font-size:2.2rem;display:flex;align-items:center;gap:12px}
+  h1 img{width:44px;height:44px;object-fit:contain}
+  h2{font-family:"Bebas Neue";letter-spacing:.05em;font-size:1.3rem;margin:26px 0 10px;color:var(--money)}
+  h2 .hint{font-size:.74rem;color:var(--dim);letter-spacing:0;font-family:Inter;font-weight:400}
+  span.hint{font-size:.78rem;color:var(--dim)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px}
+  input,button,select{font:inherit;border-radius:9px;border:1px solid var(--line);background:#0e1e33;color:#eef4ff;padding:9px 11px}
+  input[type=checkbox]{width:20px;height:20px;accent-color:var(--money);cursor:pointer;flex-shrink:0}
+  button{background:var(--money);color:#04160c;font-weight:800;border:0;cursor:pointer}
+  button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line)}
+  button.mini{padding:4px 10px;font-size:.85rem}
+  button:disabled{opacity:.35;cursor:default}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .toolbar{margin:4px 0 2px}
+  .stat{display:inline-block;margin-right:26px}
+  .stat b{font-size:1.9rem;color:var(--money)}
+  .adrow{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .adrow:last-child{border-bottom:0}
+  .adrow img.thumb,.adrow video.thumb{width:150px;border-radius:8px;background:#000}
+  .adrow .mid{flex:1;min-width:220px;display:flex;flex-direction:column;gap:7px}
+  .adrow input.label{width:100%;max-width:280px}
+  .grab{cursor:grab;color:var(--dim);font-size:1.55rem;padding:12px 8px;user-select:none;touch-action:none;line-height:1}
+  .grab:active{cursor:grabbing;color:var(--money)}
+  .sortGhost{opacity:.45;background:rgba(34,224,138,.08);outline:1px dashed var(--money);border-radius:10px}
+  .dp{display:flex;gap:7px;align-items:center;font-size:.8rem;color:var(--dim);flex-wrap:wrap}
+  .pill{font-size:.72rem;font-weight:800;padding:4px 11px;border-radius:20px;cursor:pointer;user-select:none;display:inline-block}
+  .on{background:rgba(34,224,138,.15);color:var(--money)} .off{background:rgba(255,120,120,.12);color:#ff9b9b}
+  .dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#5a6f8f}
+  .dot.green{background:var(--money)} .dot.red{background:#ff6b6b} .dot.amber{background:var(--warn)} .dot.idle{background:#5a6f8f}
+  .dot.pulse{animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,224,138,.5)}50%{box-shadow:0 0 0 9px rgba(34,224,138,0)}}
+  .chip{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+  .chip.live{color:var(--money);border-color:var(--money)}
+  .switchwrap{display:flex;gap:9px;align-items:center;font-size:.85rem;color:var(--dim);cursor:pointer;border:1px solid var(--line);border-radius:9px;padding:8px 12px}
+  .switchwrap b{color:#eef4ff}
+  #log{font-size:.8rem;color:var(--dim);max-height:220px;overflow:auto;white-space:pre-wrap}
+  #saveBar{position:sticky;bottom:14px;display:none;justify-content:flex-end;gap:10px;margin-top:14px;z-index:5}
+  #saveBar.show{display:flex}
+  #saveBar button{box-shadow:0 6px 24px rgba(34,224,138,.35);font-size:1.02rem;padding:12px 22px}
+  #toast{position:fixed;top:64px;right:18px;background:#0e2a1c;border:1px solid var(--money);color:#d7ffe9;
+    padding:12px 18px;border-radius:10px;font-weight:600;display:none;z-index:9;max-width:min(430px,86vw)}
+  .demobar{position:sticky;top:0;z-index:8;margin:-24px -24px 18px;background:linear-gradient(90deg,#0c2b4e,#0e3a63);
+    border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .demobar b{color:#ffc93d;letter-spacing:.1em;font-size:.8rem}
+  .demobar span{color:var(--dim);font-size:.8rem}
+  .demobar a{color:#3db6ff;font-weight:700;font-size:.85rem;text-decoration:none;white-space:nowrap}
+  @media(max-width:700px){
+    body{padding:14px}
+    .demobar{margin:-14px -14px 14px;padding:10px 14px}
+    h1{font-size:1.7rem} h1 img{width:34px;height:34px}
+    .adrow img.thumb,.adrow video.thumb{width:104px}
+    .stat{margin-right:16px} .stat b{font-size:1.45rem}
+    .grab{font-size:1.75rem;padding:14px 9px}
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); min-height: 100vh;
-    font-family: "Inter", system-ui, sans-serif; }
-  body::before {
-    content: ""; position: fixed; inset: -40%; z-index: -2; pointer-events: none;
-    background:
-      radial-gradient(38% 30% at 24% 20%, rgba(79,182,242,.10), transparent 60%),
-      radial-gradient(30% 26% at 80% 74%, rgba(11,95,176,.08), transparent 60%);
-    animation: drift 28s ease-in-out infinite alternate;
-  }
-  html::before {
-    content: ""; position: fixed; inset: 0; z-index: -1; opacity: .45; pointer-events: none;
-    background-image: radial-gradient(rgba(159,220,255,.06) 1px, transparent 1px);
-    background-size: 26px 26px;
-  }
-  @keyframes drift {
-    from { transform: translate(-2%, -1%); } to { transform: translate(2%, 2%); }
-  }
-
-  header { display: flex; align-items: center; gap: 16px; padding: 16px 28px;
-    border-bottom: 1px solid rgba(255,255,255,.06); backdrop-filter: blur(8px); }
-  .logo { width: 46px; height: 46px;
-    filter: drop-shadow(0 4px 14px rgba(79,182,242,.45)); }
-  .wordmark { font-family: "Bebas Neue", sans-serif; font-size: 34px;
-    letter-spacing: 4px; line-height: 1;
-    background: linear-gradient(100deg, #9fdcff 10%, #4fb6f2 45%, #0b5fb0 90%);
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .tagline { color: var(--dim); font-size: 12px; letter-spacing: 3px;
-    text-transform: uppercase; margin-top: 4px; }
-  header nav { margin-left: auto; }
-  header a { color: var(--text); text-decoration: none; font-size: 13px;
-    font-weight: 600; padding: 10px 18px; border-radius: 12px;
-    border: 1px solid var(--line); background: var(--surface); transition: .2s; }
-  header a:hover { border-color: var(--gold); transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(79,182,242,.18); }
-
-  .wrap { max-width: 1240px; margin: 0 auto; padding: 24px 28px;
-    display: flex; flex-direction: column; gap: 20px; }
-  .card { background: var(--surface); border: 1px solid rgba(255,255,255,.07);
-    border-radius: 18px; padding: 20px 22px; backdrop-filter: blur(10px);
-    transition: border-color .25s, box-shadow .25s; }
-  .card:hover { box-shadow: 0 14px 34px rgba(0,0,0,.3); }
-  .card h2 { font-size: 11px; letter-spacing: 3px; color: var(--dim);
-    margin-bottom: 15px; font-weight: 800; }
-  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @media (max-width: 820px) { .row2 { grid-template-columns: 1fr; } }
-
-  /* hero stats */
-  .hero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .hstat { position: relative; overflow: hidden; border-radius: 16px;
-    padding: 20px; background: rgba(16,21,32,.85);
-    border: 1px solid rgba(255,255,255,.06); transition: .25s; }
-  .hstat:hover { border-color: rgba(79,182,242,.35); transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(0,0,0,.35); }
-  .hstat::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0;
-    height: 3px; background: linear-gradient(90deg, var(--gold2), var(--gold), transparent); }
-  .hstat b { display: block; font-family: "Bebas Neue"; font-size: 46px;
-    line-height: 1;
-    background: linear-gradient(120deg, var(--gold2), var(--gold));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .hstat span { font-size: 11px; color: var(--dim); letter-spacing: 2px;
-    font-weight: 700; }
-
-  input[type=text] { background: rgba(12,17,25,.9); border: 1px solid var(--line);
-    color: var(--text); border-radius: 10px; padding: 11px 14px; font-size: 14px;
-    width: 100%; font-family: inherit; }
-  input[type=text]:focus { outline: none; border-color: var(--gold); }
-  .btn { padding: 11px 20px; border-radius: 10px; border: 1px solid var(--line);
-    background: rgba(16,21,32,.9); color: var(--text); font-size: 13.5px;
-    font-weight: 600; cursor: pointer; font-family: inherit; transition: .2s; }
-  .btn:hover { border-color: var(--gold); transform: translateY(-1px); }
-  .btn.primary { background: linear-gradient(120deg, var(--gold2), var(--gold));
-    color: #04101f; border-color: transparent; font-weight: 800; }
-  .btn.primary:hover { box-shadow: 0 8px 26px rgba(79,182,242,.35); }
-  .btn.danger:hover { border-color: var(--red); color: var(--red); }
-  .switch { display: flex; align-items: center; gap: 12px; font-size: 14px; }
-  .switch input { width: 42px; height: 22px; accent-color: var(--gold); }
-
-  /* upload zone */
-  .dropzone { display: block; border: 2px dashed rgba(79,182,242,.35); border-radius: 14px;
-    padding: 22px; text-align: center; color: var(--dim); font-size: 13.5px;
-    transition: .2s; cursor: pointer; }
-  .dropzone:hover, .dropzone.hover { border-color: var(--gold);
-    background: rgba(79,182,242,.05); color: var(--text); }
-  .dropzone b { color: var(--gold2); }
-  .dropzone input { display: none; }
-
-  /* ad grid */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px; }
-  .ad { background: rgba(16,21,32,.85); border: 1px solid rgba(255,255,255,.07);
-    border-radius: 14px; overflow: hidden; transition: .2s; }
-  .ad:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,0,0,.4); }
-  .ad.off { opacity: .42; }
-  .ad video { width: 100%; aspect-ratio: 16/9; background: #000; display: block; }
-  .ad .body { padding: 12px 14px; }
-  .ad .name { font-size: 14px; font-weight: 700; margin-bottom: 9px; }
-  .ad .ctl { display: flex; align-items: center; gap: 8px; font-size: 12px;
-    color: var(--dim); }
-  .ad .ctl .btn { margin-left: auto; padding: 6px 12px; font-size: 12px; }
-  .pill { font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
-    padding: 3px 9px; border-radius: 6px; margin-left: auto;
-    background: rgba(79,182,242,.14); color: var(--gold2);
-    border: 1px solid rgba(79,182,242,.3); }
-
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; color: var(--dim); font-size: 10.5px; letter-spacing: 1.5px;
-    padding: 8px 10px; border-bottom: 1px solid var(--line); font-weight: 800; }
-  td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,.04); }
-  tr:hover td { background: rgba(255,255,255,.02); }
-  .muted { color: var(--dim); }
-  .bar-cell { display: flex; align-items: center; gap: 8px; }
-  .minibar { height: 7px; border-radius: 4px; min-width: 4px;
-    background: linear-gradient(90deg, var(--gold2), var(--gold)); }
-  #msg { font-size: 13px; margin-top: 10px; min-height: 18px; }
-  #msg.err { color: var(--red); } #msg.ok { color: var(--green); }
-
-  /* revenue leak */
-  .leak { border-color: rgba(79,182,242,.30); }
-  .story { font-size: 14.5px; line-height: 1.75; color: #cdd6e4;
-    max-width: 880px; margin-bottom: 16px; }
-  .story .gold { color: var(--gold2); font-weight: 700; }
-  .chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 12px; margin-bottom: 18px; }
-  .chip { background: rgba(16,21,32,.85); border: 1px solid rgba(255,255,255,.06);
-    border-radius: 12px; padding: 13px 15px; transition: .25s; }
-  .chip:hover { border-color: rgba(79,182,242,.3); transform: translateY(-2px); }
-  .chip b { display: block; font-family: "Bebas Neue"; font-size: 34px;
-    line-height: 1; margin-bottom: 5px;
-    background: linear-gradient(120deg, var(--gold2), var(--gold));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .chip span { font-size: 12px; color: var(--dim); line-height: 1.5; }
-  .calc { background: rgba(12,17,25,.6); border: 1px dashed rgba(79,182,242,.35);
-    border-radius: 14px; padding: 16px 18px; }
-  .calc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-    margin-bottom: 14px; }
-  @media (max-width: 820px) { .calc-grid { grid-template-columns: 1fr; } }
-  .calc-grid label { font-size: 12px; color: var(--dim); display: flex;
-    flex-direction: column; gap: 6px; }
-  .calc input[type=number] { background: rgba(12,17,25,.9);
-    border: 1px solid var(--line); color: var(--text); border-radius: 10px;
-    padding: 10px 12px; font-size: 15px; font-family: inherit; width: 100%; }
-  .calc input[type=number]:focus { outline: none; border-color: var(--gold); }
-  .calc-out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .calc-out .hstat b { font-size: 40px; }
-  .calc-out .hstat:first-child b {
-    background: linear-gradient(120deg, #ff8a80, var(--red));
-    -webkit-background-clip: text; background-clip: text; }
-  .calc-out .hstat:nth-child(2) b {
-    background: linear-gradient(120deg, #ff8a80, var(--red));
-    -webkit-background-clip: text; background-clip: text; }
 </style>
 </head>
 <body>
-<header>
-  <img class="logo" src="static/brand/icon.png" alt="BreakShark logo">
-  <div>
-    <div class="wordmark">BreakShark.com</div>
-    <div class="tagline">business dashboard</div>
-  </div>
-  <nav><a href="index.html" style="margin-right:8px">← BreakShark.com</a><a href="tv.html" style="margin-right:8px">← Watch the TV</a><a href="dashboard-demo.html" style="color:var(--gold2)">See a demo month →</a></nav>
-</header>
 
-<div class="wrap">
-  <div class="hero">
-    <div class="hstat"><b id="stPlays">0</b><span>TOTAL PLAYS</span></div>
-    <div class="hstat"><b id="stAirtime">0s</b><span>YOUR AIRTIME</span></div>
-    <div class="hstat"><b id="stSpots">0</b><span>SPOTS ON AIR</span></div>
-  </div>
-
-  <div class="card leak">
-    <h2>THE REVENUE LEAK <span class="muted" style="letter-spacing:0; font-weight:400">— why BreakShark exists</span></h2>
-    <p class="story">Your customer just finished dinner and is thinking about
-      something sweet. The break hits and a soft-serve commercial plays on your
-      TV — now dessert happens on the drive home, at someone else's register.
-      While they're <b>your captive audience</b>, that screen should be selling
-      <b>your</b> dessert menu. <span class="gold">No more Pizza Hut ads in a
-      pizza restaurant.</span></p>
-    <div class="chips">
-      <div class="chip"><b>+45%</b><span>more snacking after food commercials play — it's automatic, and unrelated to hunger</span></div>
-      <div class="chip"><b>14%</b><span>of people crave the exact product they just saw advertised</span></div>
-      <div class="chip"><b>8%</b><span>go on to buy it — that purchase happens wherever the ad pointed them</span></div>
-      <div class="chip"><b>31%</b><span>of diners are already thinking about dessert before the entrée arrives</span></div>
-    </div>
-    <div class="calc">
-      <h2>WHAT'S IT COSTING YOU? <span class="muted" style="letter-spacing:0; font-weight:400">— estimate for your room</span></h2>
-      <div class="calc-grid">
-        <label>Guests per week
-          <input type="number" id="cGuests" value="800" min="0" step="50"></label>
-        <label>Avg dessert + drink add-on ($)
-          <input type="number" id="cPrice" value="8" min="0" step="0.5"></label>
-        <label>% of guests who catch a break with competitor food ads
-          <input type="number" id="cExposure" value="60" min="0" max="100" step="5"></label>
-      </div>
-      <div class="calc-out">
-        <div class="hstat"><b id="cWeek">$0</b><span>LEAKING PER WEEK</span></div>
-        <div class="hstat"><b id="cYear">$0</b><span>LEAKING PER YEAR</span></div>
-        <div class="hstat"><b id="cOrders">0</b><span>REDIRECTED ORDERS / WK</span></div>
-      </div>
-      <p class="muted" style="font-size:11.5px; margin-top:10px">
-        Model: guests × exposure × the 8% ad-driven purchase rate from published
-        food-marketing research, valued at your add-on price. An estimate — your
-        own impression stats above are the real number to watch.</p>
-    </div>
-  </div>
-
-  <div class="row2">
-    <div class="card">
-      <h2>BUSINESS SETTINGS</h2>
-      <div style="display:flex; gap:10px; margin-bottom:16px">
-        <input type="text" id="bizName" placeholder="Business name">
-        <button class="btn" id="saveName">Save</button>
-      </div>
-      <label class="switch">
-        <input type="checkbox" id="overrideToggle">
-        <span>BreakShark <b>armed</b> — strike every commercial break</span>
-      </label>
-    </div>
-    <div class="card">
-      <h2>UPLOAD A PROMO SPOT</h2>
-      <form id="uploadForm">
-        <input type="text" id="adName" placeholder="Spot name (e.g. Weekend Brunch Special)"
-               style="margin-bottom:10px">
-        <label class="dropzone" id="dropzone">
-          <input type="file" id="adFile" accept=".mp4,.webm,.mov,.m4v">
-          <span id="dzText">Drop a video here or <b>click to browse</b> — mp4 / webm / mov</span>
-        </label>
-        <div style="display:flex; justify-content:flex-end; margin-top:10px">
-          <button class="btn primary" type="submit"><img src="static/brand/icon.png" alt="" style="height:.85em;width:auto;vertical-align:-.1em"> &nbsp;Add to rotation</button>
-        </div>
-      </form>
-      <div id="msg"></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>AD LIBRARY <span class="muted" style="letter-spacing:0; font-weight:400">— spots rotate during detected breaks</span></h2>
-    <div class="grid" id="adGrid"></div>
-  </div>
-
-  <div class="card">
-    <h2>PERFORMANCE</h2>
-    <div class="row2">
-      <div>
-        <h2>BY SPOT</h2>
-        <table id="perAdTable">
-          <thead><tr><th>SPOT</th><th>PLAYS</th><th>AIRTIME</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-      <div>
-        <h2>RECENT PLAYS</h2>
-        <table id="recentTable">
-          <thead><tr><th>WHEN</th><th>SPOT</th><th>SECONDS</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-    <button class="btn danger" id="clearBtn" style="margin-top:16px">Clear impression log</button>
-  </div>
+<div class="demobar">
+  <div><b>LIVE DEMO</b> <span>— this is the real owner dashboard, running on simulated venue data. Every control works.</span></div>
+  <a href="founding10.html">Get the real one — claim a Founding 10 spot →</a>
 </div>
 
-<script src="co_shim.js"></script>
-<script>
-const $ = id => document.getElementById(id);
-let state = null;
+<h1><img src="static/brand/icon.png" alt="BreakShark logo">BREAKSHARK — OWNER DASHBOARD</h1>
+<div id="toast"></div>
 
-async function load() {
-  state = await (await fetch("/co/api/state")).json();
-  $("bizName").value = state.business_name;
-  $("overrideToggle").checked = state.override_enabled;
-  renderAds();
-  await loadStats();
-}
+<div id="app">
+  <div class="card" id="powerCard">
+    <div class="row" style="justify-content:space-between">
+      <div><b style="font-size:1.15rem"><img src="static/brand/icon.png" alt="" style="height:1em;width:auto;vertical-align:-.15em;margin-right:.15em"> BreakShark</b><br>
+        <span id="pwrState" style="color:var(--dim);font-size:.85rem">Shark is ON — watching your TV</span></div>
+      <button id="pwrBtn" onclick="togglePower()">Turn OFF</button>
+    </div>
+  </div>
 
-function renderAds() {
-  const g = $("adGrid"); g.innerHTML = "";
-  for (const ad of state.ads) {
-    const div = document.createElement("div");
-    div.className = "ad" + (ad.enabled ? "" : " off");
-    div.innerHTML = `
-      <video preload="metadata" muted controls>
-        <source src="${ad.url}" type="video/mp4">
-        ${ad.url_webm ? `<source src="${ad.url_webm}" type="video/webm">` : ""}
-      </video>
-      <div class="body">
-        <div class="name">${esc(ad.name)}</div>
-        <div class="ctl">
-          <label class="switch" style="gap:7px">
-            <input type="checkbox" ${ad.enabled ? "checked" : ""}
-                   onchange="toggleAd('${ad.id}')"> on air
-          </label>
-          ${ad.builtin
-            ? '<span class="pill">DEMO</span>'
-            : `<button class="btn danger" onclick="deleteAd('${ad.id}')">Delete</button>`}
+  <div class="card" id="heroCard">
+    <div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:nowrap">
+      <div style="display:flex;gap:11px;align-items:flex-start;min-width:0">
+        <span class="dot green pulse" id="liveDot"></span>
+        <div style="min-width:0">
+          <b id="heroState" style="font-size:1.12rem">Game on — watching for the next break</b><br>
+          <span id="heroSub" style="color:var(--dim);font-size:.86rem">NFL · Channel 213 · box online</span>
         </div>
-      </div>`;
-    g.appendChild(div);
-  }
-  $("stSpots").textContent = state.ads.filter(a => a.enabled).length;
+      </div>
+      <div style="text-align:right;flex-shrink:0;display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+        <span id="liveChip" class="chip live">● LIVE</span>
+        <span id="updAgo" style="color:var(--dim);font-size:.72rem">updated 2s ago</span>
+        <div class="row" style="gap:6px;justify-content:flex-end">
+          <a href="tv.html" style="text-decoration:none"><button class="ghost mini" title="Full-screen view: is it working right now?">📱 Live Monitor</button></a>
+          <button class="ghost mini" onclick="fakeRefresh()">↻ Refresh</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Today's numbers</h2>
+  <div class="card">
+    <span class="stat"><b id="stBreaks">14</b><br>breaks caught today</span>
+    <span class="stat"><b id="stScreen">26m 40s</b><br>your ads' screen time</span>
+    <span class="stat"><b id="stPlays">63</b><br>ad plays today</span>
+  </div>
+
+  <h2>Your ad lineup <span class="hint">drag the ⠿ handle to reorder — the top ad plays first · nothing changes on your TV until you hit Save</span></h2>
+  <div class="row toolbar">
+    <button onclick="shuffleAds()" title="Randomize the play order so the same ad isn't always first">🔀 Shuffle order</button>
+    <label class="switchwrap" title="Keep looping your lineup for the whole break">
+      <input type="checkbox" id="rotToggle" checked onchange="markDirty()">
+      <span><b>Rotate nonstop</b> — loop the lineup until the game comes back</span>
+    </label>
+    <span id="adCount" class="hint"></span>
+  </div>
+  <div class="card" id="adsList">loading…</div>
+  <div id="saveBar"><button class="ghost" onclick="discard()">Discard changes</button><button onclick="saveChanges()">💾 Save &amp; send to the box</button></div>
+
+  <h2>Add a new ad</h2>
+  <div class="card">
+    <div class="row">
+      <input type="file" id="adFile" accept="image/png,image/jpeg,video/mp4">
+      <input id="adLabel" placeholder="name it (e.g. Wing Night)" size="22">
+      <button onclick="uploadAd()">⬆ Upload ad</button>
+    </div>
+    <p style="color:var(--dim);font-size:.8rem;margin-top:8px">1920×1080 PNG/JPG, or MP4 motion ads (videos play full length; images hold 8s). New uploads land at the bottom of your lineup — drag them where you want, then hit Save. The box updates within about a minute.</p>
+  </div>
+
+  <h2>Today's activity</h2>
+  <div class="card"><div id="log"></div></div>
+</div>
+
+<footer style="text-align:center;color:var(--dim);font-size:.74rem;opacity:.8;margin:30px 0 6px;line-height:1.5">
+  BreakShark™ &middot; <b style="color:var(--money);font-weight:800">U.S. Patent&nbsp;Pending</b> &middot; Provisional App. No. 64/114,099 (filed July&nbsp;17,&nbsp;2026)<br>
+  &copy; 2026 BreakShark. Automated break-detection &amp; display-takeover system. &middot; <a href="index.html" style="color:#3db6ff">breakshark.com</a>
+</footer>
+
+<script>
+/* ============ DEMO ENGINE — same UI as the real dashboard, simulated data ============ */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtT=d=>new Date(d).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+const fmtDur=s=>{s=Math.max(0,Math.round(s));const m=Math.floor(s/60);return m?m+'m '+String(s%60).padStart(2,'0')+'s':s+'s'};
+
+let ads=[
+  {file:'vid/ads/burger.mp4',   poster:'vid/ads/burger.jpg',   label:'Game Day Burger + Beer', active:true},
+  {file:'vid/ads/wings.mp4',    poster:'vid/ads/wings.jpg',    label:'$1 Wing Night',          active:true},
+  {file:'vid/ads/cocktails.mp4',poster:'vid/ads/cocktails.jpg',label:'2-for-1 Cocktails',      active:true},
+  {file:'vid/ads/dessert.mp4',  poster:'vid/ads/dessert.jpg',  label:'Molten Chocolate Cake',  active:true},
+  {file:'vid/ads/brewery.mp4',  poster:'vid/ads/brewery.jpg',  label:'Fresh Pours Daily',      active:true},
+  {file:'vid/ads/pizza.mp4',    poster:'vid/ads/pizza.jpg',    label:'Late Night Pizza',       active:false},
+];
+let dirty=false, sortable=null, sharkOn=true, inBreak=false;
+let breaks=14, screenSec=1600, plays=63, lastUpd=Date.now();
+
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',3400);}
+function markDirty(){dirty=true;$('saveBar').classList.add('show');}
+function saveChanges(){dirty=false;$('saveBar').classList.remove('show');toast('✅ Saved — in the real product this reaches your box in under a minute.');}
+function discard(){dirty=false;$('saveBar').classList.remove('show');renderAds();toast('Changes discarded.');}
+
+function renderAds(){
+  const el=$('adsList');
+  el.innerHTML=ads.map((a,i)=>`
+    <div class="adrow" data-i="${i}">
+      <span class="grab" title="drag to reorder">⠿</span>
+      <video class="thumb" src="${a.file}" poster="${a.poster}" muted loop playsinline preload="metadata"
+        onmouseover="this.play()" onmouseout="this.pause()" onclick="this.paused?this.play():this.pause()"></video>
+      <div class="mid">
+        <input class="label" value="${esc(a.label)}" onchange="ads[${i}].label=this.value;markDirty()">
+        <div class="dp">
+          <span class="pill ${a.active?'on':'off'}" onclick="ads[${i}].active=!ads[${i}].active;renderAds();markDirty()">${a.active?'ACTIVE':'PAUSED'}</span>
+          <span>${a.active?'in rotation':'paused — never plays'}</span>
+        </div>
+      </div>
+    </div>`).join('');
+  $('adCount').textContent=ads.filter(a=>a.active).length+' of '+ads.length+' ads active';
+  if(sortable)sortable.destroy();
+  sortable=new Sortable(el,{handle:'.grab',animation:160,ghostClass:'sortGhost',onEnd:e=>{
+    if(e.oldIndex===e.newIndex)return;
+    const m=ads.splice(e.oldIndex,1)[0];ads.splice(e.newIndex,0,m);renderAds();markDirty();
+  }});
 }
-
-async function loadStats() {
-  const s = await (await fetch("/co/api/impressions")).json();
-  $("stPlays").textContent = s.total_plays;
-  $("stAirtime").textContent = Math.round(s.total_seconds) + "s";
-  const entries = Object.entries(s.per_ad);
-  const maxSec = Math.max(1, ...entries.map(([, v]) => v.seconds));
-  const pa = $("perAdTable").querySelector("tbody"); pa.innerHTML = "";
-  for (const [, v] of entries) {
-    pa.innerHTML += `<tr><td>${esc(v.ad_name)}</td><td>${v.plays}</td>
-      <td><span class="bar-cell"><span class="minibar"
-        style="width:${Math.round(v.seconds / maxSec * 90)}px"></span>
-        ${Math.round(v.seconds)}s</span></td></tr>`;
-  }
-  if (!entries.length)
-    pa.innerHTML = '<tr><td colspan="3" class="muted">No plays yet — go watch the TV and let a break hit.</td></tr>';
-  const rc = $("recentTable").querySelector("tbody"); rc.innerHTML = "";
-  for (const imp of s.recent) {
-    rc.innerHTML += `<tr><td class="muted">${imp.at.replace("T", " ").replace("+00:00", "")}</td>
-                     <td>${esc(imp.ad_name)}</td><td>${imp.seconds}s</td></tr>`;
-  }
-  if (!s.recent.length)
-    rc.innerHTML = '<tr><td colspan="3" class="muted">—</td></tr>';
+function shuffleAds(){for(let i=ads.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ads[i],ads[j]]=[ads[j],ads[i]];}renderAds();markDirty();toast('🔀 Order shuffled — hit Save to send it to the box.');}
+function uploadAd(){
+  const label=$('adLabel').value.trim()||'My new special';
+  const pick=ads[Math.floor(Math.random()*ads.length)];
+  ads.push({file:pick.file,poster:pick.poster,label:label,active:true});
+  $('adLabel').value='';renderAds();markDirty();
+  toast('⬆ "'+label+'" added to the bottom of your lineup (demo). Drag it where you want, then Save.');
 }
-
-window.toggleAd = async id => {
-  await fetch(`/co/api/ads/${id}/toggle`, {method: "POST"});
-  await load();
-};
-window.deleteAd = async id => {
-  if (!confirm("Delete this spot?")) return;
-  await fetch(`/co/api/ads/${id}`, {method: "DELETE"});
-  await load();
-};
-
-$("saveName").addEventListener("click", async () => {
-  await fetch("/co/api/settings", {
-    method: "POST", headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({business_name: $("bizName").value}),
-  });
-  flash("Saved.", "ok");
-});
-
-$("overrideToggle").addEventListener("change", async e => {
-  await fetch("/co/api/settings", {
-    method: "POST", headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({override_enabled: e.target.checked}),
-  });
-});
-
-/* drag & drop upload */
-const dz = $("dropzone"), fileInput = $("adFile");
-dz.addEventListener("dragover", e => { e.preventDefault(); dz.classList.add("hover"); });
-dz.addEventListener("dragleave", () => dz.classList.remove("hover"));
-dz.addEventListener("drop", e => {
-  e.preventDefault(); dz.classList.remove("hover");
-  if (e.dataTransfer.files.length) {
-    fileInput.files = e.dataTransfer.files;
-    $("dzText").innerHTML = `<b>${esc(fileInput.files[0].name)}</b> ready`;
-  }
-});
-fileInput.addEventListener("change", () => {
-  if (fileInput.files.length)
-    $("dzText").innerHTML = `<b>${esc(fileInput.files[0].name)}</b> ready`;
-});
-
-$("uploadForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const f = fileInput.files[0];
-  if (!f) return flash("Choose a video file first.", "err");
-  const fd = new FormData();
-  fd.append("file", f);
-  fd.append("name", $("adName").value);
-  flash("Uploading…", "");
-  const res = await fetch("/co/api/ads", {method: "POST", body: fd});
-  const out = await res.json();
-  if (out.error) return flash(out.error, "err");
-  $("adName").value = ""; fileInput.value = "";
-  $("dzText").innerHTML = 'Drop a video here or <b>click to browse</b> — mp4 / webm / mov';
-  flash("Uploaded — it's in the rotation.", "ok");
-  await load();
-});
-
-$("clearBtn").addEventListener("click", async () => {
-  if (!confirm("Clear all impression history?")) return;
-  await fetch("/co/api/impressions/clear", {method: "POST"});
-  await loadStats();
-});
-
-/* revenue-leak calculator: guests × exposure × 8% ad-driven purchase rate */
-function recalc() {
-  const guests = Math.max(0, +$("cGuests").value || 0);
-  const price = Math.max(0, +$("cPrice").value || 0);
-  const exposure = Math.min(100, Math.max(0, +$("cExposure").value || 0)) / 100;
-  const orders = guests * exposure * 0.08;
-  const week = orders * price;
-  $("cOrders").textContent = Math.round(orders);
-  $("cWeek").textContent = "$" + Math.round(week).toLocaleString();
-  $("cYear").textContent = "$" + Math.round(week * 52).toLocaleString();
+function togglePower(){
+  sharkOn=!sharkOn;
+  $('pwrBtn').textContent=sharkOn?'Turn OFF':'Turn ON';
+  $('pwrState').textContent=sharkOn?'Shark is ON — watching your TV':'Shark is OFF — box stops switching within a minute';
+  toast(sharkOn?'Shark ON — switching resumes within a minute.':'Shark OFF — box stops switching within a minute.');
+  if(!sharkOn)endBreak(true);
 }
-for (const id of ["cGuests", "cPrice", "cExposure"])
-  $(id).addEventListener("input", recalc);
-recalc();
+function fakeRefresh(){lastUpd=Date.now();paintAgo();toast('↻ Up to date.');}
 
-function flash(text, cls) { const m = $("msg"); m.textContent = text; m.className = cls; }
-const esc = s => String(s).replace(/[&<>"']/g,
-  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* ---- simulated live loop: game → break (your ads) → game ---- */
+function log(line){const l=$('log');l.textContent=line+'\n'+l.textContent;}
+function seedLog(){
+  const now=Date.now();let t=now-60000*3;
+  const seeds=[];
+  for(let i=0;i<9;i++){const dur=45+Math.round(Math.random()*120);t-=60000*(9+Math.random()*14);
+    seeds.push(fmtT(t)+'  ✅ break caught — your ads ran '+fmtDur(dur)+' ('+(2+Math.round(Math.random()*3))+' plays)');}
+  $('log').textContent=seeds.join('\n');
+}
+function startBreak(){
+  if(!sharkOn||inBreak)return;inBreak=true;lastUpd=Date.now();
+  $('liveDot').className='dot amber pulse';
+  $('heroState').textContent='COMMERCIAL BREAK — your ads are on';
+  $('heroSub').textContent='blocked the ad · playing your lineup on every screen';
+  $('liveChip').textContent='● YOUR ADS';
+  const dur=25+Math.round(Math.random()*40);
+  setTimeout(()=>endBreak(false,dur),dur*1000);
+}
+function endBreak(silent,dur){
+  if(!inBreak)return;inBreak=false;lastUpd=Date.now();
+  $('liveDot').className='dot green pulse';
+  $('heroState').textContent='Game on — watching for the next break';
+  $('heroSub').textContent='NFL · Channel 213 · box online';
+  $('liveChip').textContent='● LIVE';
+  if(!silent){
+    breaks++;const p=2+Math.round(Math.random()*3);plays+=p;screenSec+=dur;
+    $('stBreaks').textContent=breaks;
+    $('stPlays').textContent=plays;
+    $('stScreen').textContent=fmtDur(screenSec);
+    log(fmtT(Date.now())+'  ✅ break caught — your ads ran '+fmtDur(dur)+' ('+p+' plays)');
+  }
+}
+function paintAgo(){const s=Math.round((Date.now()-lastUpd)/1000);$('updAgo').textContent='updated '+(s<3?'2s':s+'s')+' ago';}
 
-load();
-setInterval(loadStats, 5000);
+renderAds();seedLog();
+setInterval(paintAgo,3000);
+setInterval(()=>{if(Math.random()<0.5)startBreak();},22000);
+setTimeout(startBreak,7000);
 </script>
 </body>
 </html>
