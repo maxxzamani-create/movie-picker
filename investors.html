@@ -97,7 +97,7 @@
   .card p,.card li{color:var(--dim);font-size:.92rem}
   .card ul{list-style:none;margin-top:4px}
   .card li{padding:6px 0 6px 26px;position:relative}
-  .card li::before{content:"🦈";position:absolute;left:0;font-size:.8rem}
+  .card li::before{content:"";background:url(static/brand/icon.png) center/contain no-repeat;width:14px;height:14px;position:absolute;left:0;top:8px}
   .note{color:var(--dim);font-size:.8rem;margin-top:14px;opacity:.85}
   .contact{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--blue2);border-radius:18px;
     padding:44px 30px;text-align:center;margin:20px 0 60px}
@@ -191,7 +191,7 @@
       <source src="vid/moment-real.mp4" type="video/mp4">
       Your browser can't play this video. <a href="vid/moment-real.mp4">Download it</a>.
     </video>
-    <span class="mv-recap">+ $12.00 recaptured 🦈</span>
+    <span class="mv-recap">+ $12.00 recaptured <img src="static/brand/icon.png" alt="" style="height:1em;width:auto;vertical-align:-.15em"></span>
     <span class="mv-tag"><span class="mv-dot"></span><b>BREAKSHARK</b>&nbsp;TAKEOVER · LIVE</span>
     <button type="button" class="mv-sound" id="momentSound" aria-label="Toggle video sound">🔊 Tap for sound</button>
   </div>

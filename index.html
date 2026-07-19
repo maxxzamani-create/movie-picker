@@ -899,11 +899,11 @@
       <b style="color:var(--money)">6.5%</b> — about <b style="color:var(--money)">$65,000 a year in a
       $1M room</b> that your screens are handing to somebody else.</p>
     <div class="hero-price">
-      <b class="rate">🦈 FOUNDING RESTAURANTS: up to 3 months free</b>
+      <b class="rate"><img src="static/brand/icon.png" alt="" style="height:.9em;width:auto;vertical-align:-.12em;margin-right:.15em"> FOUNDING RESTAURANTS: up to 3 months free</b>
       <span class="f10">Inquire for pricing — priced so competitively that one extra sale a day covers it · ten spots only</span>
     </div>
     <div class="ctas">
-      <a class="btn primary mega" href="founding10.html">🦈 Claim a Founding 10 spot</a>
+      <a class="btn primary mega" href="founding10.html"><img src="static/brand/icon.png" alt="" style="height:.9em;width:auto;vertical-align:-.12em;margin-right:.2em"> Claim a Founding 10 spot</a>
       <a class="cta-quiet" href="#how">or watch it catch a break first ↓</a>
     </div>
     <div class="trust-row">
@@ -966,6 +966,12 @@
       <div id="liveCap" style="display:none;position:absolute;left:0;right:0;bottom:0;z-index:3;
            background:linear-gradient(transparent,rgba(3,10,20,.92));padding:26px 14px 10px;
            font-size:.72rem;font-weight:700;letter-spacing:.06em;color:#9fe8c4;text-align:center"></div>
+      <div id="sharkDemo" aria-hidden="true" style="position:absolute;inset:0;z-index:5;display:none">
+        <video id="sharkCompVid" src="vid/competitor-clown-ad.mp4" poster="vid/competitor-clown-ad-poster.jpg" muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+        <div style="position:absolute;top:10px;left:10px;background:#c8102e;color:#fff;font-weight:800;font-size:.56rem;letter-spacing:.12em;padding:4px 9px;border-radius:6px;z-index:2">COMMERCIAL BREAK</div>
+        <div id="sharkSweep" style="position:absolute;inset:0;z-index:3;background:linear-gradient(100deg,transparent 0%,#3db6ff 46%,#eafaff 50%,#3db6ff 54%,transparent 100%);transform:translateX(-115%);pointer-events:none"></div>
+        <div id="sharkCutTag" style="position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);text-align:center;z-index:4;font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.12em;color:#eafaff;text-shadow:0 2px 16px rgba(61,182,255,.9);opacity:0">⚡ BREAKSHARK CUT IN</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1021,27 +1027,10 @@
     <div class="lead">A commercial break, with and without BreakShark</div>
     <div class="frame cmpframe" id="cmpFrame" role="slider" tabindex="0" aria-label="Drag to compare your TV with and without BreakShark" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
       <div class="layer without" id="layerWithout">
-        <div class="badge">COMMERCIAL BREAK</div>
-        <div class="fakead" aria-hidden="true">
-          <svg class="fakead-ic" viewBox="0 0 64 64">
-            <g fill="#ffcf3f">
-              <rect x="18" y="12" width="4.6" height="26" rx="2"/>
-              <rect x="24.5" y="8" width="4.6" height="30" rx="2"/>
-              <rect x="31" y="13" width="4.6" height="25" rx="2"/>
-              <rect x="37.5" y="7" width="4.6" height="31" rx="2"/>
-              <rect x="44" y="12" width="4.6" height="26" rx="2"/>
-            </g>
-            <path d="M13 30 L 51 30 L 46.5 58 L 17.5 58 Z" fill="#fff8ea"/>
-            <path d="M13 30 L 51 30 L 49.8 38 L 14.2 38 Z" fill="#f4e9d0"/>
-            <path d="M24 38 l3 20 h-6 Z M40 38 l-3 20 h6 Z" fill="#e9dcc0" opacity=".7"/>
-          </svg>
-          <div class="fakead-w">
-            <b>BURGER&nbsp;PIT</b>
-            <span class="deal">2 FOR $12 — GAME NIGHT ONLY</span>
-            <span class="jab">99 BILLION SOLD. NONE OF THEM YOURS.</span>
-          </div>
-        </div>
-        <div class="msg">A national chain's ad is playing on <b>your</b> TV right now — and your
+        <video class="cmp-compvid" src="vid/competitor-clown-ad.mp4" poster="vid/competitor-clown-ad-poster.jpg" autoplay muted loop playsinline aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"></video>
+        <div aria-hidden="true" style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,10,18,.86) 0%,rgba(6,10,18,.32) 26%,rgba(6,10,18,0) 50%)"></div>
+        <div class="badge" style="position:absolute;top:14px;left:0;right:0;z-index:2;text-align:center">COMMERCIAL BREAK</div>
+        <div class="msg" style="position:absolute;top:48px;left:0;right:0;z-index:2;margin:0 auto;padding:0 18px">A national chain's ad is playing on <b>your</b> TV right now — and your
           customers are watching it, not your menu.</div>
       </div>
       <div class="layer topclip" id="layerWith">
@@ -1192,13 +1181,9 @@
             </div>
             <!-- 2 · competitor commercial -->
             <div class="bsw-scene break" aria-hidden="true">
-              <div class="bsw-badge red">COMMERCIAL BREAK</div>
-              <div class="bsw-compad">
-                <div class="bsw-compad-name">BURGER&nbsp;PIT</div>
-                <div class="bsw-compad-deal">2 FOR $12 · GAME NIGHT ONLY</div>
-                <div class="bsw-compad-jab">99 BILLION SOLD. NONE OF THEM YOURS.</div>
-              </div>
-              <div class="bsw-detect">◆ COMMERCIAL DETECTED · &lt;1s</div>
+              <video class="bsw-compvid" src="vid/competitor-clown-ad.mp4" poster="vid/competitor-clown-ad-poster.jpg" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"></video>
+              <div class="bsw-badge red" style="position:relative;z-index:2">COMMERCIAL BREAK</div>
+              <div class="bsw-detect" style="position:relative;z-index:2">◆ COMMERCIAL DETECTED · &lt;1s</div>
             </div>
             <!-- 3 · takeover -->
             <div class="bsw-scene takeover" aria-hidden="true">
@@ -1353,7 +1338,7 @@
       </tbody>
     </table>
   </div>
-  <div class="roi">🦈 <b>The choice in one sentence:</b> rent your screens to somebody else's ad
+  <div class="roi"><img src="static/brand/icon.png" alt="" style="height:1em;width:auto;vertical-align:-.15em;margin-right:.15em"> <b>The choice in one sentence:</b> rent your screens to somebody else's ad
     network for about $1,500 a year — or put <b>100% of every break</b> to work selling your own
     menu, where the industry's own numbers say the upside is <b>30–60× bigger</b>. And BreakShark
     is priced so competitively that <b>one extra sale a day covers it</b>.</div>
@@ -1489,7 +1474,7 @@
   <div class="kicker">Pricing</div>
   <h2>PRICED SO COMPETITIVELY, ONE EXTRA SALE A DAY COVERS IT</h2>
   <div style="margin:20px auto 0;max-width:780px;text-align:center;background:rgba(255,201,61,.08);border:1px solid rgba(255,201,61,.45);border-radius:14px;padding:14px 22px">
-    <b style="color:#ffc93d;letter-spacing:.12em">🦈 THE FOUNDING 10 — LIMITED OFFER</b><br>
+    <b style="color:#ffc93d;letter-spacing:.12em"><img src="static/brand/icon.png" alt="" style="height:.9em;width:auto;vertical-align:-.12em;margin-right:.15em"> THE FOUNDING 10 — LIMITED OFFER</b><br>
     <span style="color:var(--dim)">Up to <b style="color:#ffc93d">3 months free</b> · priority install · a direct line to the founder · ten locations only.</span>
     <a href="founding10.html" style="color:var(--blue2);font-weight:700">&nbsp;Claim a spot →</a>
   </div>
@@ -1501,7 +1486,7 @@
       <ul><li>Automatic commercial takeover on every screen</li><li>Unlimited promo spots + scheduling
         (wing night on Wednesdays, brunch on weekends)</li><li>We produce 3 pro spots from
         your photos for founding partners</li><li>Owner dashboard &amp; play counts</li><li>Priority support</li></ul>
-      <a class="btn primary" href="founding10.html">🦈 Inquire for pricing</a>
+      <a class="btn primary" href="founding10.html"><img src="static/brand/icon.png" alt="" style="height:.9em;width:auto;vertical-align:-.12em;margin-right:.2em"> Inquire for pricing</a>
     </div>
     <div class="tier">
       <div class="name">CHAIN / ENTERPRISE</div>
@@ -1636,7 +1621,7 @@
   <h2>THE SHARK IS READY. ARE YOU?</h2>
   <p class="sub" style="margin:0 auto 26px">Investors and pilot locations: get in touch and
     watch the demo take its first bite.</p>
-  <a class="btn primary" href="founding10.html">🦈 Claim a Founding 10 spot</a>
+  <a class="btn primary" href="founding10.html"><img src="static/brand/icon.png" alt="" style="height:.9em;width:auto;vertical-align:-.12em;margin-right:.2em"> Claim a Founding 10 spot</a>
   <a class="btn" href="tel:+19166286299" style="margin-left:10px">📞 (916) 628-6299</a>
   <a class="btn" href="mailto:maxxzamani@gmail.com?subject=BreakShark" style="margin-left:10px">📧 maxxzamani@gmail.com</a>
   <a class="btn" href="investors.html" style="margin-left:10px">For investors →</a>
@@ -2133,6 +2118,31 @@ if ("IntersectionObserver" in window) {
       cap.style.display='block';
     }
   }catch(e){/* keep static mock */}
+})();
+</script>
+<script>
+/* Demo-rig "sharking" cut-in: a competitor commercial plays on the house frame,
+   then BreakShark sweeps in and hands the screen back to the bar's own special.
+   Purely cosmetic + graceful — if anything is missing it just no-ops. */
+(function(){
+  var dz=document.getElementById('sharkDemo'),v=document.getElementById('sharkCompVid'),
+      sw=document.getElementById('sharkSweep'),tag=document.getElementById('sharkCutTag');
+  if(!dz||!v)return;
+  function cutIn(){
+    sw.style.transition='none';sw.style.transform='translateX(-115%)';
+    tag.style.transition='none';tag.style.opacity='0';
+    void sw.offsetWidth;
+    sw.style.transition='transform .55s cubic-bezier(.7,0,.3,1)';sw.style.transform='translateX(115%)';
+    tag.style.transition='opacity .18s ease';tag.style.opacity='1';
+    setTimeout(function(){tag.style.opacity='0';},620);
+    setTimeout(function(){dz.style.display='none';try{v.pause();}catch(e){}},560);
+  }
+  function playBreak(){
+    dz.style.display='block';
+    try{v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}
+    setTimeout(cutIn,4200);
+  }
+  setTimeout(function(){playBreak();setInterval(playBreak,15000);},6000);
 })();
 </script>
 </body>
