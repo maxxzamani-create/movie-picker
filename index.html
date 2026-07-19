@@ -243,7 +243,9 @@
   .action-card { position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--line);
     background:#000; box-shadow:0 20px 50px rgba(0,0,0,.5); transition:transform .35s ease, box-shadow .35s ease; }
   .action-card:hover { transform:translateY(-6px) scale(1.015); box-shadow:0 26px 60px rgba(0,0,0,.6), 0 0 40px rgba(79,182,242,.28); }
-  .action-card video { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; }
+  .action-card video { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; transition:opacity .45s ease; }
+  .action-card.live-screen { background:#05101d; }
+  .action-card .live-ad.swap { opacity:0; }
   .action-card .tag { position:absolute; top:12px; left:12px; background:rgba(4,16,31,.85); backdrop-filter:blur(6px);
     border:1px solid rgba(79,182,242,.4); color:var(--blue-pale); font-size:11px; font-weight:800;
     letter-spacing:1px; padding:6px 12px; border-radius:100px; }
@@ -1054,55 +1056,11 @@
     <div class="kicker" style="margin-bottom:6px">Examples of your on-screen specials</div>
     <h3 style="font-family:'Bebas Neue'; font-size:24px; letter-spacing:1.5px; color:var(--dim); font-weight:400;">YOUR FOOD &amp; DRINKS, ONE SCREEN — ROTATED AUTOMATICALLY</h3>
   </div>
-  <div class="action-gallery">
-    <div class="action-card">
-      <div class="tag">🍔 RESTAURANT</div>
-      <div class="ad-photo" style="background-image:url('img/ads/burger.jpg')" role="img" aria-label="The Zenie Burger — half price during game time">
-        <div class="ad-grad"></div>
-        <div class="ad-brand">Your Bar &amp; Grill</div>
-        <div class="ad-title">THE ZENIE BURGER</div>
-        <div class="ad-sub">Half price — game time only</div>
-        <div class="ad-badge" style="--ac:#ffc93d">½ OFF</div>
-        <div class="ad-cta" style="--ac:#ffc93d">Order at the bar · tonight</div>
-      </div>
-      <div class="cap"><b>Zenie Burger — ½ Price</b><span>Plays during every commercial break</span></div>
-    </div>
-    <div class="action-card">
-      <div class="tag">🍗 SPORTS BAR</div>
-      <div class="ad-photo" style="background-image:url('img/ads/wings.jpg')" role="img" aria-label="Dollar Wing Night — every Wednesday, all flavors">
-        <div class="ad-grad"></div>
-        <div class="ad-brand">Your Bar &amp; Grill</div>
-        <div class="ad-title">$1 WING NIGHT</div>
-        <div class="ad-sub">Every Wednesday — all flavors</div>
-        <div class="ad-badge" style="--ac:#ff7a2f">$1</div>
-        <div class="ad-cta" style="--ac:#ff7a2f">Dine-in · ask your server</div>
-      </div>
-      <div class="cap"><b>$1 Wing Night</b><span>Game-day special, rotated automatically</span></div>
-    </div>
-    <div class="action-card">
-      <div class="tag">🍫 DESSERT</div>
-      <div class="ad-photo" style="background-image:url('img/ads/dessert.jpg')" role="img" aria-label="Save room for dessert — molten chocolate cake, twelve dollars tonight">
-        <div class="ad-grad"></div>
-        <div class="ad-brand">Your Bar &amp; Grill</div>
-        <div class="ad-title">SAVE ROOM FOR DESSERT</div>
-        <div class="ad-sub">Molten chocolate cake — made here</div>
-        <div class="ad-badge" style="--ac:#e879c9">$12</div>
-        <div class="ad-cta" style="--ac:#e879c9">Ask for the dessert menu</div>
-      </div>
-      <div class="cap"><b>Molten Chocolate Cake — $12</b><span>Captures the impulse buy before they leave</span></div>
-    </div>
-    <div class="action-card">
-      <div class="tag">🍸 BAR · DRINKS</div>
-      <div class="ad-photo" style="background-image:url('img/ads/cocktail.jpg')" role="img" aria-label="Craft cocktails — two for one, every happy hour">
-        <div class="ad-grad"></div>
-        <div class="ad-brand">Your Bar &amp; Grill</div>
-        <div class="ad-title">CRAFT COCKTAILS</div>
-        <div class="ad-sub">2-for-1 · every happy hour</div>
-        <div class="ad-badge" style="--ac:#ffc93d">2-4-1</div>
-        <div class="ad-cta" style="--ac:#ffc93d">Ask your bartender</div>
-      </div>
-      <div class="cap"><b>Signature Cocktails &amp; Draft Beer</b><span>Your highest-margin pour — pushed on every break</span></div>
-    </div>
+  <div class="action-gallery" id="liveAdWall">
+    <div class="action-card live-screen"><video class="live-ad" autoplay muted loop playsinline preload="none" aria-label="Your live on-screen special, rotating automatically"></video></div>
+    <div class="action-card live-screen"><video class="live-ad" autoplay muted loop playsinline preload="none" aria-label="Your live on-screen special, rotating automatically"></video></div>
+    <div class="action-card live-screen"><video class="live-ad" autoplay muted loop playsinline preload="none" aria-label="Your live on-screen special, rotating automatically"></video></div>
+    <div class="action-card live-screen"><video class="live-ad" autoplay muted loop playsinline preload="none" aria-label="Your live on-screen special, rotating automatically"></video></div>
   </div>
   <div class="gallery-cta">
     <a class="btn primary" href="#how">▶ Watch it work, step by step →</a>
@@ -2140,6 +2098,40 @@ if ("IntersectionObserver" in window) {
     setTimeout(cutIn,4200);
   }
   setTimeout(function(){playBreak();setInterval(playBreak,15000);},6000);
+})();
+</script>
+<script>
+/* LIVE AD WALL: 4 screens each cycle through the moving house-ad reels, randomized + staggered,
+   avoiding duplicates across screens. Muted autoplay loops; graceful no-op if absent. */
+(function(){
+  var wall=document.getElementById('liveAdWall'); if(!wall) return;
+  var ADS=['wings','burger','cocktails','dessert','brewery','pizza'], base='vid/ads/';
+  var screens=[].slice.call(wall.querySelectorAll('.live-ad')), current={};
+  function pick(exclude){
+    var shown=Object.keys(current).map(function(k){return current[k];});
+    var pool=ADS.filter(function(a){return a!==exclude && shown.indexOf(a)<0;});
+    if(!pool.length) pool=ADS.filter(function(a){return a!==exclude;});
+    if(!pool.length) pool=ADS.slice();
+    return pool[Math.floor(Math.random()*pool.length)];
+  }
+  function load(v,idx,name){
+    current[idx]=name; v.poster=base+name+'.jpg'; v.src=base+name+'.mp4';
+    var p=v.play(); if(p&&p.catch)p.catch(function(){});
+  }
+  function swap(v,idx){
+    var name=pick(current[idx]); v.classList.add('swap');
+    setTimeout(function(){
+      load(v,idx,name);
+      var on=function(){ v.classList.remove('swap'); v.removeEventListener('loadeddata',on); };
+      v.addEventListener('loadeddata',on);
+      setTimeout(function(){ v.classList.remove('swap'); },800);
+    },450);
+  }
+  screens.forEach(function(v,idx){ load(v,idx,pick()); });
+  screens.forEach(function(v,idx){
+    function loop(){ swap(v,idx); setTimeout(loop, 6000+Math.random()*5000); }
+    setTimeout(loop, 4000+Math.random()*5000+idx*1200);
+  });
 })();
 </script>
 </body>
