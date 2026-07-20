@@ -18,10 +18,13 @@
     { id: "pizza",     name: "Late Night Pizza",       url: "vid/ads/pizza.mp4",     enabled: true, builtin: true },
   ];
 
-  /* Live owner-dashboard rotation (same cloud feed the rest of the site uses).
-     If the box/dashboard is online, its real MP4 ads play here; otherwise the
-     built-in motion ads above are the fallback. */
+  /* DEMO RULE (Maxx, 7/19): demo pages play the built-in FAKE ads only.
+     The real owner-dashboard rotation is reserved for the main website's own
+     live sections. To preview the live feed here, opt in with ?live=1. */
+  const WANT_LIVE = /[?&]live=1\b/.test(location.search);
+
   async function liveDashboardAds() {
+    if (!WANT_LIVE) return null;
     try {
       const U = "https://kfsqpmexrlqkfmmarpug.supabase.co",
             K = "sb_publishable_ZsK8APkvAFjAJ4CxibhMfw_KcYJZkJs";
