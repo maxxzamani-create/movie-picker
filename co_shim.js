@@ -10,16 +10,35 @@
   const LS_KEY = "co_demo_v1";
 
   const BUILTIN_ADS = [
-    { id: "burger", name: "Zenie Burger — ½ Price",
-      url: "static/co/ad_burger.mp4", url_webm: "static/co/ad_burger.webm",
-      enabled: true, builtin: true },
-    { id: "wings", name: "50¢ Wing Night",
-      url: "static/co/ad_wings.mp4", url_webm: "static/co/ad_wings.webm",
-      enabled: true, builtin: true },
-    { id: "dessert", name: "Molten Chocolate Cake — $6",
-      url: "static/co/ad_dessert.mp4", url_webm: "static/co/ad_dessert.webm",
-      enabled: true, builtin: true },
+    { id: "burger",    name: "Game Day Burger + Beer", url: "vid/ads/burger.mp4",    enabled: true, builtin: true },
+    { id: "wings",     name: "$1 Wing Night",          url: "vid/ads/wings.mp4",     enabled: true, builtin: true },
+    { id: "cocktails", name: "2-for-1 Cocktails",      url: "vid/ads/cocktails.mp4", enabled: true, builtin: true },
+    { id: "dessert",   name: "Molten Chocolate Cake",  url: "vid/ads/dessert.mp4",   enabled: true, builtin: true },
+    { id: "brewery",   name: "Fresh Pours Daily",      url: "vid/ads/brewery.mp4",   enabled: true, builtin: true },
+    { id: "pizza",     name: "Late Night Pizza",       url: "vid/ads/pizza.mp4",     enabled: true, builtin: true },
   ];
+
+  /* Live owner-dashboard rotation (same cloud feed the rest of the site uses).
+     If the box/dashboard is online, its real MP4 ads play here; otherwise the
+     built-in motion ads above are the fallback. */
+  async function liveDashboardAds() {
+    try {
+      const U = "https://kfsqpmexrlqkfmmarpug.supabase.co",
+            K = "sb_publishable_ZsK8APkvAFjAJ4CxibhMfw_KcYJZkJs";
+      const r = await realFetch(U + "/rest/v1/ads?select=filename,label,sort&active=eq.true&device_id=eq.g10-dev-01&order=sort",
+        { headers: { apikey: K, Authorization: "Bearer " + K } });
+      if (!r.ok) return null;
+      const rows = await r.json();
+      const vids = (rows || []).filter(a => String(a.filename).toLowerCase().endsWith(".mp4"));
+      if (!vids.length) return null;
+      return vids.map(a => ({
+        id: "live-" + a.filename,
+        name: (a.label || a.filename) + " · live from the owner dashboard",
+        url: U + "/storage/v1/object/public/ads/" + encodeURIComponent(a.filename),
+        enabled: true, builtin: true,
+      }));
+    } catch (e) { return null; }
+  }
 
   const sessionAds = [];   // uploaded this session (object URLs don't persist)
 
@@ -58,10 +77,11 @@
       } catch (e) {
         analysis = { commercial_windows: [], duration: 75 };
       }
+      const live = await liveDashboardAds();
       return json({
         business_name: s.business_name || "Maxx's Bar & Grill",
         override_enabled: s.override_enabled !== false,
-        ads: currentAds(),
+        ads: (live && live.length) ? live : currentAds(),
         feed_url: "static/co/game_feed.mp4",
         feed_url_webm: "static/co/game_feed.webm",
         analysis: analysis,

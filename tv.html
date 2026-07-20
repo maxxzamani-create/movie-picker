@@ -454,6 +454,7 @@ let overrideEnabled = true, overrideActive = false, activeWindow = null;
 let curAd = null, adStartedAt = 0, adSlice = Infinity, breakAdsPlayed = 0;
 let sessionOverrides = 0, sessionAirtime = 0;
 let duration = 1, audioReady = false, analyser = null, audioBuf = null, feedGain = null, userMuted = false;
+let introSkip = 0, endCutoff = Infinity;
 
 function log(msg, cls) {
   const c = $("console");
@@ -492,6 +493,13 @@ async function init() {
     $("tlBar").insertBefore(d, $("tlHead"));
   }
   renderQueue();
+  /* tighter demo pacing: skip ~25% of the game lead-in and loop ~25% before the tail ends,
+     so a commercial hits sooner and the wait after the break is shorter */
+  if (windows[0]) {
+    introSkip = windows[0].start * 0.25;
+    const lastW = windows[windows.length - 1];
+    endCutoff = lastW.end + (duration - lastW.end) * 0.75;
+  }
   log(`analysis loaded — ${windows.length} commercial window(s) found`);
   if (windows[0]) {
     const s = windows[0].signals;
@@ -518,6 +526,7 @@ $("startOverlay").addEventListener("click", async () => {
   $("startOverlay").style.display = "none";
   setupAudio();
   feed.muted = false;
+  if (introSkip > 0) { try { feed.currentTime = introSkip; } catch (e) {} }
   await feed.play();
   log("broadcast started", "g");
 });
@@ -594,6 +603,12 @@ setInterval(() => {
 setInterval(() => {
   if (feed.paused && !overrideActive) return;
   const t = feed.currentTime;
+  /* shortened loop: jump the trimmed head/tail of the game feed */
+  if (!overrideActive) {
+    if (t >= endCutoff || t < introSkip - 0.4) {
+      try { feed.currentTime = introSkip; } catch (e) {}
+    }
+  }
   $("tlHead").style.left = (t / duration * 100) + "%";
   $("tlClock").textContent = fmt(t) + " / " + fmt(duration);
 
