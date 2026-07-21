@@ -866,6 +866,18 @@
     .hero-avatar, .hero-price { animation:none !important; opacity:1; transform:none; }
     .avatar-tag .dot { animation:none !important; }
   }
+
+/* venue two-ways (Loop-Only offering) */
+.vways{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px}
+.vway{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.vway.loop{border-color:var(--money);background:linear-gradient(160deg,rgba(34,224,138,.08),var(--surface))}
+.vway-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:12px;background:rgba(79,182,242,.16);color:var(--blue2)}
+.vway-tag.loop{background:var(--money);color:#04180e}
+.vway h3{font-size:19px;font-weight:800;margin-bottom:7px}
+.vway p{font-size:14.5px;color:var(--dim);line-height:1.65}
+.vway-who{margin-top:12px;font-size:12.5px;color:var(--blue-pale);opacity:.85}
+.vway-new{display:inline-block;background:var(--money);color:#04180e;font-size:10px;font-weight:800;letter-spacing:.5px;padding:2px 8px;border-radius:100px;margin-left:6px;vertical-align:middle}
+@media(max-width:620px){.vways{grid-template-columns:1fr}}
 </style>
 <!-- Google tag (gtag.js) — GA4 property "BreakShark.com" -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPSCL18MG6"></script>
@@ -1306,10 +1318,10 @@
 <section id="venues" class="reveal">
   <div class="kicker">Built for anywhere with a TV</div>
   <h2>ONE SYSTEM. EVERY SCREEN IN THE BUILDING.</h2>
-  <p class="sub">If a commercial break interrupts your customers, BreakShark can take that
-    moment back for you.</p>
+  <p class="sub">If a commercial break interrupts your customers, BreakShark takes that
+    moment back for you. And where there’s no live TV at all, it turns the screen into your own ad channel — all day long.</p>
   <div class="venue-marquee">
-    <div class="venue-track">
+    <div class="venue-track" style="animation-duration:58s">
       <div class="venue-chip">🏈 Sports Bars</div>
       <div class="venue-chip">🍽️ Restaurants</div>
       <div class="venue-chip">🍺 Breweries &amp; Taprooms</div>
@@ -1318,6 +1330,15 @@
       <div class="venue-chip">🏨 Hotel Lobbies &amp; Lounges</div>
       <div class="venue-chip">🎳 Bowling Alleys</div>
       <div class="venue-chip">✈️ Airport Lounges</div>
+      <div class="venue-chip">🩺 Doctor &amp; Dentist Waiting Rooms</div>
+      <div class="venue-chip">🚗 Auto Dealers &amp; Service</div>
+      <div class="venue-chip">💈 Salons &amp; Barbershops</div>
+      <div class="venue-chip">🏥 Senior Living</div>
+      <div class="venue-chip">🛒 Convenience Stores</div>
+      <div class="venue-chip">🏦 Bank Lobbies</div>
+      <div class="venue-chip">🌿 Dispensaries</div>
+      <div class="venue-chip">🧼 Car Washes &amp; Laundromats</div>
+      <div class="venue-chip">🎰 Casinos</div>
       <div class="venue-chip">🏈 Sports Bars</div>
       <div class="venue-chip">🍽️ Restaurants</div>
       <div class="venue-chip">🍺 Breweries &amp; Taprooms</div>
@@ -1326,6 +1347,29 @@
       <div class="venue-chip">🏨 Hotel Lobbies &amp; Lounges</div>
       <div class="venue-chip">🎳 Bowling Alleys</div>
       <div class="venue-chip">✈️ Airport Lounges</div>
+      <div class="venue-chip">🩺 Doctor &amp; Dentist Waiting Rooms</div>
+      <div class="venue-chip">🚗 Auto Dealers &amp; Service</div>
+      <div class="venue-chip">💈 Salons &amp; Barbershops</div>
+      <div class="venue-chip">🏥 Senior Living</div>
+      <div class="venue-chip">🛒 Convenience Stores</div>
+      <div class="venue-chip">🏦 Bank Lobbies</div>
+      <div class="venue-chip">🌿 Dispensaries</div>
+      <div class="venue-chip">🧼 Car Washes &amp; Laundromats</div>
+      <div class="venue-chip">🎰 Casinos</div>
+    </div>
+  </div>
+  <div class="vways">
+    <div class="vway live">
+      <span class="vway-tag">Live TV</span>
+      <h3>We swap the ad.</h3>
+      <p>When a commercial break hits, BreakShark catches it and puts your own promo on the screen instead — then snaps back to the game.</p>
+      <div class="vway-who">Sports bars · restaurants · breweries · hotels · gyms</div>
+    </div>
+    <div class="vway loop">
+      <span class="vway-tag loop">No Live TV</span>
+      <h3>We run your ads all day. <span class="vway-new">NEW</span></h3>
+      <p>No cable, no game, no problem. Flip on Loop-Only mode and the screen becomes your own channel — your specials and offers on a loop, all day.</p>
+      <div class="vway-who">Waiting rooms · salons · offices · shops · dispensaries</div>
     </div>
   </div>
 </section>
@@ -1529,7 +1573,7 @@
 
 <section id="roadmap" class="reveal">
   <div class="kicker">The path</div>
-  <h2>FROM DEMO TO EVERY BAR IN AMERICA</h2>
+  <h2>FROM DEMO TO EVERY SCREEN IN AMERICA</h2>
   <div class="phases" style="margin-top:26px">
     <div class="phase done"><span class="tag">✓ DONE — YOU'RE LOOKING AT IT</span>
       <h3>Phase 1 · Working software</h3>
