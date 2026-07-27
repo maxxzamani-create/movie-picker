@@ -358,7 +358,7 @@
     </div>
     <div class="layer" id="layYours"><div class="fill"></div><div id="liveAd" style="position:absolute;inset:0">
       <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:5vw;background:linear-gradient(160deg,#0e3f34 0%,#0a2038 55%,#071426 100%)">
-        <div class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--money-pale)">SHARK BREAK — HOUSE SPOT</div>
+        <div class="mono" style="font-size:10px;letter-spacing:.2em;color:var(--money-pale)">YOUR HOUSE SPOT</div>
         <div class="bebas" style="font-size:clamp(34px,5vw,72px);line-height:1;margin-top:8px;text-transform:uppercase">THE BREAK IS YOURS.</div>
         <div style="color:var(--dim);font-size:14px;margin-top:6px">Your screens. Your message. Every break.</div>
       </div>
@@ -367,7 +367,7 @@
     <div class="stage-tag" id="tagWait">WAITING FOR THE BREAK…</div>
     <div class="stage-tag" id="tagBreak">COMMERCIAL BREAK</div>
     <div class="stage-tag" id="tagCaught">CAUGHT IT — FLIPPING TO YOUR AD</div>
-    <div class="stage-tag" id="tagYours">YOUR SCREEN — SHARK BREAK SPOT</div>
+    <div class="stage-tag" id="tagYours">YOUR SCREEN — YOUR AD RUNNING</div>
     <div class="stage-tag" id="tagSim">DEMO OF A REAL CATCH</div>
     <div id="adBadge" aria-label="A BreakShark ad running on the screen">
       <img src="static/brand/icon.png" alt="BreakShark fin">
@@ -809,17 +809,17 @@
   });
 })();
 
-/* ---------- HERO takeover sequence — the real shark spots ---------- */
+/* ---------- HERO takeover sequence — real venue ad spots ---------- */
 (function(){
   var game=document.getElementById('layGame'), brk=document.getElementById('layBreak'), yours=document.getElementById('layYours');
   var vGame=document.getElementById('vGame');
-  var SHARK_BASE='https://kfsqpmexrlqkfmmarpug.supabase.co/storage/v1/object/public/ads/';
-  var SHARKS=['1784964781032-BreakShark-AD-01-GreatWhite.mp4','1784964801439-BreakShark-AD-02-SunsetSurface.mp4','1784964816968-BreakShark-AD-03-NeonMiami.mp4','1784964829802-BreakShark-AD-04-VolcanicEmber.mp4','1784964855622-BreakShark-AD-05-EmeraldKelp.mp4','1784964869591-BreakShark-AD-06-PurpleStorm.mp4','1784964885760-BreakShark-AD-07-BloodOrangeReef.mp4','1784964905295-BreakShark-AD-08-GoldBaitBall.mp4','1784964918680-BreakShark-AD-09-CopperSurf.mp4','1784964930067-BreakShark-AD-10-GoldenMoonBreach.mp4','1784964946196-BreakShark-AD-11-TealTangerineChase.mp4','1784964958719-BreakShark-AD-12-MoltenSunsetBreach.mp4','1784964972705-BreakShark-AD-13-Bioluminescent.mp4','1784964986562-BreakShark-AD-14-PolarIce.mp4','1784965017532-BreakShark-AD-15-AmberStorm.mp4','1784965028327-BreakShark-AD-16-RoseGoldShallows.mp4','1784965041033-BreakShark-AD-17-AmberShipwreck.mp4','1784349919510-BreakShark_Ad_01_friendly-glide.mp4','1784349945591-BreakShark_Ad_02_dawn-breach.mp4','1784349967784-BreakShark_Ad_03_sunny-breach.mp4','1784350010808-BreakShark_Ad_05_fish-catch.mp4','1784350032450-BreakShark_Ad_06_hammerhead.mp4','1784350057874-BreakShark_Ad_07_mako.mp4','1784350080063-BreakShark_Ad_08_silhouette.mp4','1784350105971-BreakShark_Ad_10_fin-sunset.mp4','1784350191658-BreakShark_Ad_09_tuna-faceoff.mp4'];
+  var SPOT_BASE='static/adspots/';
+  var SPOTS=['spot-wings.mp4','spot-burger.mp4','spot-cocktail.mp4','spot-gym.mp4','spot-steak.mp4','spot-barber.mp4','spot-spa.mp4','spot-derm.mp4'];
   var sharkIdx=0, liveAdBox=document.getElementById('liveAd');
   function nextShark(){
     if(!liveAdBox)return;
     var v=document.createElement('video');
-    v.src=SHARK_BASE+SHARKS[sharkIdx%SHARKS.length]; sharkIdx++;
+    v.src=SPOT_BASE+SPOTS[sharkIdx%SPOTS.length]; sharkIdx++;
     v.muted=true; v.autoplay=true; v.playsInline=true; v.setAttribute('playsinline','');
     v.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover';
     v.onerror=function(){ try{v.remove()}catch(e){} };
