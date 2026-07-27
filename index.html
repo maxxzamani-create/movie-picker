@@ -247,6 +247,28 @@
   .deal-card p{color:var(--dim);font-size:14.5px}
   .fquote{margin-top:26px;border-left:3px solid var(--money);padding:6px 0 6px 20px;font:600 19px/1.5 Inter}
 
+  /* ---------- ONE SLOT OF SIX (the borrowed proof) ---------- */
+  .oneslot{margin-top:26px;border:1px solid rgba(79,182,242,.5);border-radius:18px;padding:32px;
+    background:radial-gradient(120% 100% at 0% 0%,rgba(79,182,242,.13),rgba(79,182,242,.03) 55%,var(--panel));
+    box-shadow:0 0 60px rgba(79,182,242,.09)}
+  @media(max-width:640px){.oneslot{padding:24px 20px}}
+  .os-kick{font:800 11px/1 Inter;letter-spacing:.28em;text-transform:uppercase;color:var(--blue)}
+  .os-h{font-family:"Bebas Neue";font-weight:400;font-size:clamp(30px,4.4vw,54px);line-height:1.02;text-transform:uppercase;margin:12px 0 0}
+  .os-h .b{color:var(--blue2)}
+  .os-lead{color:var(--dim);font-size:16px;margin-top:12px;max-width:880px}
+  .os-lead b{color:var(--text)}
+  .os-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+  @media(max-width:700px){.os-nums{grid-template-columns:1fr}}
+  .os-n{border:1px solid var(--line2);border-radius:12px;padding:18px;background:rgba(6,13,24,.5)}
+  .os-n b{display:block;font-family:"Bebas Neue";font-size:clamp(30px,3.8vw,44px);line-height:1;color:var(--blue2)}
+  .os-n span{display:block;color:var(--dim);font-size:13px;margin-top:6px}
+  .os-math{margin-top:22px;border-top:1px solid rgba(79,182,242,.28);padding-top:20px;color:var(--dim);font-size:15px;line-height:1.75}
+  .os-math b{color:var(--text)} .os-math .g{color:var(--money);font-weight:700}
+  .os-punch{margin-top:16px;font-family:"Bebas Neue";font-size:clamp(24px,3.2vw,40px);line-height:1.05;text-transform:uppercase}
+  .os-punch .g{color:var(--money)}
+  .os-cav{margin-top:18px;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--faint);line-height:1.85}
+  .os-cav a{color:var(--blue2)}
+
   /* ---------- BE THE MEDIA COMPANY ---------- */
   .media-co{margin-top:24px;border:1px solid rgba(53,224,140,.5);border-radius:18px;padding:34px;
     background:radial-gradient(120% 100% at 0% 0%,rgba(53,224,140,.14),rgba(53,224,140,.04) 55%,var(--panel));
@@ -648,6 +670,29 @@
   </div>
 
   <div class="fquote">You're the customer here — not the product.</div>
+
+  <div class="oneslot">
+    <div class="os-kick">Borrowed proof · their study, not ours</div>
+    <h3 class="os-h">One slot of six<br>did <span class="b">this.</span></h3>
+    <p class="os-lead">A four-location pub group ran its own promotions during the commercial breaks for one month, measured against <b>four matched control locations</b> that didn't. Here's what came back, against the control group.</p>
+
+    <div class="os-nums">
+      <div class="os-n"><b>+6.5%</b><span>food and drink sales</span></div>
+      <div class="os-n"><b>+14.8%</b><span>pours of the one beer they featured</span></div>
+      <div class="os-n"><b>+70%</b><span>turnout at the event they promoted</span></div>
+    </div>
+
+    <div class="os-math">
+      That study was published by <b>a company in this category — a competitor of ours.</b> We're linking it anyway, because you should be able to read it yourself instead of taking our word for it.
+      <br><br>
+      And here's the part worth sitting with. Their case study says that pub group was on <b>the free product</b>. That same company's published plan sheet says the free product gives the venue <b>one ad slot out of six</b> — three of six and all six are their paid tiers. If both of those published statements hold, every number above came out of <span class="g">a single slot</span>. The other five were selling somebody else's brand in that pub, every break, the whole month.
+    </div>
+
+    <div class="os-punch">One slot moved the register that much.<br><span class="g">You keep all six.</span></div>
+
+    <p class="os-cav">STRAIGHT ABOUT THIS: THE CASE STUDY DOESN'T PRINT THE SLOT COUNT OUTRIGHT — WE'RE PUTTING TWO OF THEIR OWN PUBLISHED CLAIMS SIDE BY SIDE AND TELLING YOU WHAT WE THINK IT ADDS UP TO. IT'S FOUR PUBS OVER ONE MONTH, ON THEIR BOX, NOT OURS. READ IT AND DECIDE FOR YOURSELF.
+      <a href="sources.html#borrowed">Both quotes, the link, and the caveats →</a></p>
+  </div>
 
   <div class="media-co">
     <div class="mc-kick">Or don't stop at your own menu</div>
