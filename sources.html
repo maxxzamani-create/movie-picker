@@ -62,11 +62,12 @@
   .srcard{border:1px solid var(--line2);border-radius:14px;background:var(--panel);padding:24px 26px;margin-top:16px;border-left:3px solid var(--money)}
   .srcard.ours{border-left-color:var(--blue)}
   .srcard.soft{border-left-color:var(--amber)}
-  .srcard.gone{border-left-color:var(--red);opacity:.94}
+  .srcard.gone{border-left-color:var(--line2);background:rgba(16,28,46,.5)}
   .srfig{font-family:"Bebas Neue";font-size:clamp(34px,4.4vw,52px);line-height:1;color:var(--money)}
   .srcard.ours .srfig{color:var(--blue2)}
   .srcard.soft .srfig{color:var(--amber)}
-  .srcard.gone .srfig{color:var(--red);text-decoration:line-through;text-decoration-thickness:3px}
+  .srcard.gone .srfig{color:var(--faint);text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:rgba(109,132,166,.7)}
+  .srcard.gone .srwhat{color:var(--dim)}
   .srwhat{font:700 16px Inter;margin:6px 0 10px}
   .srbody{color:var(--dim);font-size:14.5px}
   .srbody b{color:var(--text)}
@@ -79,7 +80,7 @@
   .tag.peer{border-color:rgba(53,224,140,.6);color:var(--money);background:rgba(53,224,140,.08)}
   .tag.first{border-color:rgba(79,182,242,.6);color:var(--blue2);background:rgba(79,182,242,.08)}
   .tag.vend{border-color:rgba(255,201,61,.5);color:var(--amber)}
-  .tag.dead{border-color:rgba(255,90,90,.5);color:var(--red)}
+  .tag.dead{border-color:var(--line2);color:var(--faint)}
   .caveat{margin-top:12px;font-size:13.5px;color:var(--faint);border-left:2px solid var(--line2);padding-left:12px}
   .caveat b{color:var(--dim)}
   .toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
@@ -284,6 +285,23 @@
     <p class="srbody" style="margin-top:10px"><b>What we refuse to do:</b> multiply. Six times the one-slot result is <b>39%</b>, and it's wrong. Advertising response is concave — each additional exposure does less work than the one before it. Any model that stacks linearly overstates the top end badly.</p>
     <p class="srbody" style="margin-top:10px"><b>What we do instead:</b> two standard diminishing-returns curves, both calibrated so that one slot returns exactly the measured 6.5%:</p>
     <p class="srbody mono" style="margin-top:10px;font-size:12.5px;color:var(--money-pale);background:#060d18;border:1px solid var(--line2);border-radius:10px;padding:14px 16px;line-height:1.9">LOW &nbsp;= 6.5 &times; &radic;n &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(square-root response)<br>HIGH = 6.5 &times; ln(1+n) / ln(2) &nbsp;(logarithmic response)<br><br>n = 6 &nbsp;&rarr;&nbsp; 15.9% &ndash; 18.2% &nbsp;&nbsp;(2.4&times; to 2.8&times; the one-slot result)</p>
+    <p class="srbody" style="margin-top:14px"><b>The whole dataset, at a $100,000 room.</b> This is the same table the homepage calculator runs on — one dataset, so the site can never show you two different answers. Change the revenue there and every figure moves together.</p>
+    <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:13.5px">
+      <thead><tr>
+        <th style="text-align:left;padding:9px 10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line)">Slots yours</th>
+        <th style="text-align:left;padding:9px 10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line)">Lift</th>
+        <th style="text-align:right;padding:9px 10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--line)">On $100,000 / yr</th>
+      </tr></thead>
+      <tbody style="font-family:var(--mono);font-size:12.5px">
+        <tr><td style="padding:9px 10px;color:var(--blue2);border-bottom:1px solid rgba(36,57,92,.5)">1 of 6 &nbsp;<span style="color:var(--blue2);font-size:9px;letter-spacing:.12em">MEASURED</span></td><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">6.5%</td><td style="padding:9px 10px;text-align:right;color:var(--money);border-bottom:1px solid rgba(36,57,92,.5)">$6,500</td></tr>
+        <tr><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">2 of 6</td><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">9.2% – 10.3%</td><td style="padding:9px 10px;text-align:right;color:var(--money);border-bottom:1px solid rgba(36,57,92,.5)">$9,192 – $10,302</td></tr>
+        <tr><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">3 of 6</td><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">11.3% – 13.0%</td><td style="padding:9px 10px;text-align:right;color:var(--money);border-bottom:1px solid rgba(36,57,92,.5)">$11,258 – $13,000</td></tr>
+        <tr><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">4 of 6</td><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">13.0% – 15.1%</td><td style="padding:9px 10px;text-align:right;color:var(--money);border-bottom:1px solid rgba(36,57,92,.5)">$13,000 – $15,093</td></tr>
+        <tr><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">5 of 6</td><td style="padding:9px 10px;color:var(--dim);border-bottom:1px solid rgba(36,57,92,.5)">14.5% – 16.8%</td><td style="padding:9px 10px;text-align:right;color:var(--money);border-bottom:1px solid rgba(36,57,92,.5)">$14,534 – $16,802</td></tr>
+        <tr><td style="padding:9px 10px;color:var(--money-pale)">6 of 6</td><td style="padding:9px 10px;color:var(--dim)">15.9% – 18.2%</td><td style="padding:9px 10px;text-align:right;color:var(--money)">$15,922 – $18,248</td></tr>
+      </tbody>
+    </table>
+    <div class="caveat" style="margin-top:14px"><b>The dollar column is the softest number on this whole page.</b> It multiplies a modeled percentage by a revenue figure you typed in, and it assumes the lift lands on your top line rather than only on the items you promote — which is close to the reasoning behind the $65,000 headline we retired further down. We show it because you asked what six slots are worth, and refusing to answer isn't honest either. Treat the low column as the number and everything above it as upside.</div>
     <div class="caveat"><b>Every caveat that applies:</b> it inherits the one-slot inference (if that pub group had more than one slot, the whole base is wrong). It assumes your room behaves like a four-pub Irish group in one month. It assumes you have something worth promoting in all six slots. And the curve shapes are conventions, not laws — we picked two common ones and showed the range rather than a single confident number. <b>Plan on the bottom of the band, or on nothing at all, and let a Catch Night tell you the truth about your own room.</b></div>
     <div class="srmeta"><span class="tag vend">Our model</span> <span>Built on the one-slot figure above · not a measurement</span> <a href="index.html#deal">See the model on the homepage →</a></div>
   </div>
@@ -295,8 +313,8 @@
 
 <!-- ═══ REMOVED ═══ -->
 <section id="removed">
-  <div class="kick" style="color:var(--red)">The part most sites delete quietly</div>
-  <h2>Numbers we <span style="color:var(--red)">took down</span>, and why</h2>
+  <div class="kick" style="color:var(--amber)">The part most sites delete quietly</div>
+  <h2>Numbers we <span style="color:var(--amber)">took down</span>, and why</h2>
   <p class="sub">These were on this site earlier, or were considered and rejected. If we ever pull a number down, it gets listed here with the reason rather than quietly disappearing.</p>
 
   <div class="srcard gone">
