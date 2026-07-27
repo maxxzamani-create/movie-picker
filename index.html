@@ -299,6 +299,8 @@
   .lslide .ls-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--money-pale);text-transform:uppercase}
   .lslide .ls-h{font-family:"Bebas Neue";font-size:clamp(16px,1.8vw,26px);line-height:1;margin-top:4px;text-transform:uppercase}
   .lslide .ls-p{color:var(--dim);font-size:9.5px;margin-top:2px}
+  .lslide.limg{padding:0}
+  .lslide.limg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
   /* ---------- INVESTORS ---------- */
   .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:30px}
@@ -640,7 +642,7 @@
       <div class="step"><div class="n">02 · IT GOES TO WORK</div><h4>Your promos on every break</h4><p>Every commercial break flips to your taps, your kitchen, your events — and the game is back the second play resumes.</p></div>
       <div class="step"><div class="n">03 · YOU DECIDE</div><h4>Keep it or hand it back</h4><p>You watched it work in your own room with your own crowd, and your register saw the night. Keep going or we take the box — your call.</p></div>
     </div>
-    <p class="riskline"><b>Here's the whole risk:</b> a Catch Night is <b>free</b> and there's nothing to sign. Worst case all night is the TV you already own — and you're holding the kill switch anyway. We haven't set a price on the box yet, and nothing gets billed until we do and you say yes to it.</p>
+    <p class="riskline"><b>Here's the whole risk:</b> a Catch Night is <b>free</b> and there's nothing to sign. Worst case all night is the TV you already own — and you're holding the kill switch anyway. Nothing gets billed, ever, unless you've seen terms and said yes to them.</p>
     <form class="claim" id="claimForm">
       <input required name="name" placeholder="Your name" aria-label="Your name" autocomplete="name">
       <input required name="venue" placeholder="Your place" aria-label="Venue name" autocomplete="organization">
@@ -669,10 +671,7 @@
     <div class="plate"><div class="num">09</div><div class="st">HELD · LOOP VENUE</div></div>
     <div class="plate"><div class="num">10</div><div class="st">HELD · LOOP VENUE</div></div>
   </div>
-  <p class="terms">Founding venues get <b>up to 3 months free</b>, <b>first in line for install</b>, <b>3 professional ad spots made from your photos</b>, <b>your own results page</b>, and <b>my cell number</b> — plus first say in what we build next.</p>
-  <div class="green-block" style="margin-top:18px">
-    <b>NO PRICE SET YET — FOUNDING PARTNERS HELP SET IT.</b> Here's how it'll work though: you buy the box, you pay one flat fee, and you keep 100% of every slot and every dollar it brings in. No cut of your sales. No ad network on your walls. Ever.
-  </div>
+  <p class="terms">Founding venues get <b>first in line for install</b>, <b>3 professional ad spots made from your photos</b>, <b>your own results page</b>, and <b>my cell number</b> — plus first say in what we build next.</p>
   <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn primary" href="#catchnight">Book a Catch Night → spot 01 comes after</a></div>
   <p class="mono" style="color:var(--faint);margin-top:14px">BOARD AS OF JULY 27, 2026 — UPDATED BY HAND.</p>
 </section>
@@ -684,7 +683,7 @@
   <div class="letter">
     <p>I run a mortgage business and a solar business. I know exactly what a margin is, because I have to make payroll out of mine. So when I found out that a bar pays for the TV, the cable bill, and the electricity — and then hands its commercial breaks to a middleman who sells them to somebody else — it struck me as completely backwards.</p>
     <p>So I built a box that gives the breaks back. Built it myself, on a bench, and filmed it catching a real break on live TV on July 14th — one take, no cuts. It's up on this page. The patent paperwork went in on July 17th.</p>
-    <p><b>Here's the deal, plain:</b> you buy the box. You pay one flat fee. You keep all six slots and 100% of every dollar they bring in — including slots you sell to the mechanic or the barber down the street, if you want to run it like your own little TV station. I don't take a cut of your sales. There's no ad network on your walls. I haven't set the price yet; the first 10 venues are going to help me set it, and nothing gets billed until you've agreed to it. What I won't do is make up a number just to look finished.</p>
+    <p><b>Here's the deal, plain:</b> you keep all six slots and 100% of every dollar they bring in — including slots you sell to the mechanic or the barber down the street, if you want to run it like your own little TV station. I don't take a cut of your sales. There's no ad network on your walls. And nothing ever gets billed until you've seen the terms in writing and said yes to them. What I won't do is make up a number just to look finished.</p>
     <p><b>The question sharp people ask next:</b> "Don't you run two other businesses?" I do — a mortgage practice I run with my partner, and a solar operation that mostly runs itself. They pay my bills, which means BreakShark doesn't have to yet. No desperation pricing, no cutting corners. This is the one I'm building for the long haul, and it gets worked on every single day. Ask me about it straight — I'd rather answer than have you wonder.</p>
     <p>We're not launched yet and this site says so everywhere. What I've got is a working box, real numbers posted as we count them — the misses too — and a phone number that rings me, not a call center. If that's the kind of guy you'd rather deal with, text me what your room looks like.</p>
     <div class="sig">MAXX ZAMANI</div>
@@ -700,23 +699,23 @@
   <div class="loopgrid">
     <div class="lcard">
       <div class="ltv"><span class="lchip">YOUR CHANNEL · LIVE</span>
-        <div class="lslide" style="background:linear-gradient(160deg,#2A1E14,#12100b)"><div class="ls-k">The Shop · Today</div><div class="ls-h">WALK-INS AFTER 2</div><div class="ls-p">Fades from $30 · beard trim $15</div></div>
-        <div class="lslide" style="background:linear-gradient(160deg,#1c2a14,#0d120b)"><div class="ls-k">This week</div><div class="ls-h">KID CUTS $20 — SAT AM</div><div class="ls-p">First come, first served</div></div>
-        <div class="lslide" style="background:linear-gradient(160deg,#14212a,#0b0f12)"><div class="ls-k">On the shelf</div><div class="ls-h">POMADE 2-FOR-$25</div><div class="ls-p">Ask your barber</div></div>
+        <div class="lslide limg"><img src="static/adspots/still-barber.jpg" alt="Real barbershop ad spot playing on the loop" loading="lazy"></div>
+        <div class="lslide" style="background:linear-gradient(160deg,rgba(12,18,28,.85),rgba(4,8,14,.92)),url('static/adspots/still-barber.jpg') center/cover"><div class="ls-k">This week</div><div class="ls-h">KID CUTS $20 — SAT AM</div><div class="ls-p">First come, first served</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,rgba(12,18,28,.85),rgba(4,8,14,.92)),url('static/adspots/still-barber.jpg') center/cover"><div class="ls-k">On the shelf</div><div class="ls-h">POMADE 2-FOR-$25</div><div class="ls-p">Ask your barber</div></div>
       </div>
       <h4>The shop</h4><p>Cuts, prices, products, and the "walk-ins after 2" card — instead of cable news arguing over your chairs. Want to change a price? Text us.</p></div>
     <div class="lcard">
       <div class="ltv"><span class="lchip">YOUR CHANNEL · LIVE</span>
-        <div class="lslide" style="background:linear-gradient(160deg,#0e2a3f,#0a1420)"><div class="ls-k">This office</div><div class="ls-h">FLU SHOTS — ASK AT THE DESK</div><div class="ls-p">Walk-in, most insurance accepted</div></div>
-        <div class="lslide" style="background:linear-gradient(160deg,#14303a,#0b1216)"><div class="ls-k">Now accepting</div><div class="ls-h">NEW PATIENTS WELCOME</div><div class="ls-p">Same-week appointments</div></div>
-        <div class="lslide" style="background:linear-gradient(160deg,#1e2a3a,#0d1118)"><div class="ls-k">Friendly reminder</div><div class="ls-h">HAVE YOUR CARD READY</div><div class="ls-p">It keeps the line moving — thank you</div></div>
+        <div class="lslide limg"><img src="static/adspots/still-derm.jpg" alt="Real medical-office ad spot playing on the loop" loading="lazy"></div>
+        <div class="lslide" style="background:linear-gradient(160deg,rgba(12,18,28,.85),rgba(4,8,14,.92)),url('static/adspots/still-derm.jpg') center/cover"><div class="ls-k">Now accepting</div><div class="ls-h">NEW PATIENTS WELCOME</div><div class="ls-p">Same-week appointments</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,rgba(12,18,28,.85),rgba(4,8,14,.92)),url('static/adspots/still-derm.jpg') center/cover"><div class="ls-k">Friendly reminder</div><div class="ls-h">HAVE YOUR CARD READY</div><div class="ls-p">It keeps the line moving — thank you</div></div>
       </div>
       <h4>The waiting room</h4><p>Your providers, your services, your seasonal reminders. Professional, quiet, nothing to maintain. The box doesn't record anything about your patients — it just plays.</p></div>
     <div class="lcard">
       <div class="ltv"><span class="lchip">YOUR CHANNEL · LIVE</span>
-        <div class="lslide" style="background:linear-gradient(160deg,#1E1430,#0e0a16)"><div class="ls-k">Tonight</div><div class="ls-h">HIIT 6PM — 4 SPOTS LEFT</div><div class="ls-p">Sign up at the front desk</div></div>
-        <div class="lslide" style="background:linear-gradient(160deg,#0e3f34,#081a12)"><div class="ls-k">This week only</div><div class="ls-h">FREE PT INTRO SESSION</div><div class="ls-p">Members bring a friend free</div></div>
-        <div class="lslide" style="background:linear-gradient(160deg,#3a2a0e,#160f06)"><div class="ls-k">Smoothie bar</div><div class="ls-h">PROTEIN SHAKE $6</div><div class="ls-p">Post-workout special til 8</div></div>
+        <div class="lslide limg"><img src="static/adspots/still-gym.jpg" alt="Real gym ad spot playing on the loop" loading="lazy"></div>
+        <div class="lslide" style="background:linear-gradient(160deg,rgba(12,18,28,.85),rgba(4,8,14,.92)),url('static/adspots/still-gym.jpg') center/cover"><div class="ls-k">Tonight</div><div class="ls-h">HIIT 6PM — 4 SPOTS LEFT</div><div class="ls-p">Sign up at the front desk</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,rgba(12,18,28,.85),rgba(4,8,14,.92)),url('static/adspots/still-gym.jpg') center/cover"><div class="ls-k">Smoothie bar</div><div class="ls-h">PROTEIN SHAKE $6</div><div class="ls-p">Post-workout special til 8</div></div>
       </div>
       <h4>The gym floor</h4><p>Tonight's classes, open spots, member offers on every screen on the cardio row — sold while they're already in the building.</p></div>
   </div>
@@ -733,7 +732,7 @@
     <div class="rung now"><div class="n">NOW</div><h4>Working box</h4><p>62 of 62 verified catches on streaming. Live catches on film. Patent filed 7/17/26. Satellite gap disclosed.</p></div>
     <div class="rung"><div class="n">NEXT</div><h4>Catch Nights</h4><p>Live runs in real venues. Each night is a countable, public result.</p></div>
     <div class="rung"><div class="n">THEN</div><h4>Founding 10 installs</h4><p>Paid pilot venues, each with its own results page. Our own venues' sales numbers replace every borrowed one.</p></div>
-    <div class="rung"><div class="n">SCALE</div><h4>Fleet + flat fee</h4><p>Box plus one flat fee per venue, no ad network needed — the venue keeps its screens; we keep the relationship.</p></div>
+    <div class="rung"><div class="n">SCALE</div><h4>Fleet</h4><p>Venue-by-venue rollout, no ad network needed — the venue keeps its screens and its money; we keep the relationship.</p></div>
   </div>
   <p style="margin-top:24px;font:600 15px Inter"><a href="investors.html">Investor page &amp; materials →</a> &nbsp;·&nbsp; <a href="mailto:maxxzamani@gmail.com?subject=BreakShark%20—%20Investor%20Inquiry">Email me directly</a></p>
 </section>
@@ -753,7 +752,7 @@
   <details><summary>Is this even allowed?</summary>
     <p>Your TVs, your room, your call. The BX-1 never touches, records, or rebroadcasts the signal — it just changes which input your own screens show during a commercial break, the same thing you do when you grab the remote. Venue screens have been run this way openly for years across the country. And if you ever want it off, the bypass remote kills it instantly.</p></details>
   <details><summary>Why isn't there a price on the site?</summary>
-    <p>Because it isn't set, and we're not going to invent one for a webpage. How it works is set: you buy the box, one flat fee, you keep everything. The first 10 venues help set the number. Nothing gets billed until you've agreed to it.</p></details>
+    <p>Because we're not making any pricing claims right now, and we're not going to invent a number for a webpage. When pricing is set it'll be here in plain English — and nothing gets billed unless you've seen it and said yes to it. A Catch Night costs you nothing either way.</p></details>
 </section>
 
 <footer id="trust">
