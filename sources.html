@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BreakShark — Every number, and where it came from</title>
+<meta name="description" content="Every figure on breakshark.com, what it actually measures, who published it, and a link to check it yourself — including the numbers we removed and why.">
+<link rel="icon" href="static/brand/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a1626; --bg2:#0d1b2f; --panel:rgba(23,40,66,.55); --panel2:rgba(28,48,78,.85);
+    --line:#24395c; --line2:#31507c;
+    --text:#f2f7fd; --dim:#a9bdd8; --faint:#6d84a6;
+    --blue:#4fb6f2; --blue2:#9fdcff; --blue-deep:#0b5fb0;
+    --money:#35e08c; --money-deep:#12a86a; --money-pale:#b8f5d6; --money-dim:#1e7a52;
+    --red:#ff5a5a; --amber:#ffc93d;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:66px}
+  h1,h2,.bebas{font-family:"Bebas Neue",sans-serif;font-weight:400;letter-spacing:.5px;line-height:1.02;text-transform:uppercase}
+  h1{font-size:clamp(38px,6vw,76px)} h2{font-size:clamp(28px,3.6vw,44px)}
+  h1 .g,h2 .g{color:var(--money)} h1 .b,h2 .b{color:var(--blue)}
+  img,video{max-width:100%;display:block}
+  a{color:var(--money)}
+  section{padding:60px 24px;max-width:1120px;margin:0 auto;scroll-margin-top:90px}
+  .kick{font:800 11px/1 Inter;letter-spacing:.28em;text-transform:uppercase;color:var(--money);margin-bottom:14px}
+  .kick.b{color:var(--blue)}
+  .sub{color:var(--dim);max-width:820px;margin-top:14px;font-size:17px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+  .btn{display:inline-flex;align-items:center;gap:10px;font:800 15px Inter;text-decoration:none;
+    padding:15px 26px;border-radius:10px;border:1px solid var(--line2);color:var(--text);transition:transform .15s ease,box-shadow .2s;cursor:pointer;background:transparent}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(120deg,var(--money),var(--money-deep));border-color:transparent;color:#04140b;box-shadow:0 12px 34px rgba(53,224,140,.32)}
+  .amber-block{border:1px solid rgba(255,201,61,.4);background:rgba(255,201,61,.06);border-radius:12px;padding:16px 22px;color:var(--dim);font-size:14.5px;line-height:1.65}
+  .amber-block b{color:var(--amber)}
+  .green-block{border:1px solid rgba(53,224,140,.45);background:rgba(53,224,140,.07);border-radius:12px;padding:18px 22px;color:var(--dim);font-size:15px;line-height:1.65}
+  .green-block b{color:var(--money)}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:13px 22px;background:rgba(10,22,38,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(36,57,92,.6)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .brand img{height:28px;width:auto}
+  .brand b{font-family:"Bebas Neue";font-size:21px;letter-spacing:1.5px}
+  nav{display:flex;gap:20px;align-items:center}
+  nav a{color:var(--dim);text-decoration:none;font:600 13.5px Inter}
+  nav a:hover{color:var(--text)}
+  nav .cta{color:#04140b;background:linear-gradient(120deg,var(--money),var(--money-deep));padding:9px 15px;border-radius:8px;font-weight:800}
+  @media(max-width:820px){nav a:not(.cta){display:none}}
+  footer{border-top:1px solid var(--line);padding:40px 24px 60px;color:var(--faint);font-size:13px;margin-top:40px}
+  .foot-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+  @media(max-width:820px){.foot-in{grid-template-columns:1fr}}
+  footer a{color:var(--dim);text-decoration:none;display:block;margin-top:8px}
+  footer a:hover{color:var(--money)}
+  footer h5{font:700 11px var(--mono);letter-spacing:.2em;color:var(--money);text-transform:uppercase}
+  .patline{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;margin-top:14px;line-height:1.9}
+
+  /* ---------- SOURCES PAGE ---------- */
+  .srcard{border:1px solid var(--line2);border-radius:14px;background:var(--panel);padding:24px 26px;margin-top:16px;border-left:3px solid var(--money)}
+  .srcard.ours{border-left-color:var(--blue)}
+  .srcard.soft{border-left-color:var(--amber)}
+  .srcard.gone{border-left-color:var(--red);opacity:.94}
+  .srfig{font-family:"Bebas Neue";font-size:clamp(34px,4.4vw,52px);line-height:1;color:var(--money)}
+  .srcard.ours .srfig{color:var(--blue2)}
+  .srcard.soft .srfig{color:var(--amber)}
+  .srcard.gone .srfig{color:var(--red);text-decoration:line-through;text-decoration-thickness:3px}
+  .srwhat{font:700 16px Inter;margin:6px 0 10px}
+  .srbody{color:var(--dim);font-size:14.5px}
+  .srbody b{color:var(--text)}
+  .srmeta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase;margin-top:14px;
+    border-top:1px solid rgba(36,57,92,.7);padding-top:12px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+  .srmeta a{text-decoration:none;font-weight:600}
+  .srmeta a:hover{text-decoration:underline}
+  .tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    border:1px solid var(--line2);border-radius:4px;padding:3px 8px;color:var(--dim)}
+  .tag.peer{border-color:rgba(53,224,140,.6);color:var(--money);background:rgba(53,224,140,.08)}
+  .tag.first{border-color:rgba(79,182,242,.6);color:var(--blue2);background:rgba(79,182,242,.08)}
+  .tag.vend{border-color:rgba(255,201,61,.5);color:var(--amber)}
+  .tag.dead{border-color:rgba(255,90,90,.5);color:var(--red)}
+  .caveat{margin-top:12px;font-size:13.5px;color:var(--faint);border-left:2px solid var(--line2);padding-left:12px}
+  .caveat b{color:var(--dim)}
+  .toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .toc a{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+    border:1px solid var(--line2);border-radius:6px;padding:9px 13px;color:var(--dim)}
+  .toc a:hover{border-color:var(--money);color:var(--money)}
+  .lead{border-left:3px solid var(--money);padding:6px 0 6px 20px;font:600 19px/1.5 Inter;margin-top:26px}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html"><img src="static/brand/icon.png" alt="BreakShark fin logo"><b>BREAKSHARK</b></a>
+  <nav aria-label="Main">
+    <a href="index.html#proof">Watch It Work</a>
+    <a href="index.html#straight">Straight Talk</a>
+    <a href="index.html#deal">The Deal</a>
+    <a href="investors.html">Investors</a>
+    <a class="cta" href="index.html#catchnight">Book a Catch Night</a>
+  </nav>
+</header>
+
+<section style="padding-bottom:20px">
+  <div class="kick">Show your work</div>
+  <h1>Every number on this site,<br>and where it <span class="g">came from.</span></h1>
+  <p class="sub">Every figure we publish is on this page: what it actually measures, who published it, and a link so you can check it without taking our word for anything. The numbers we <b style="color:var(--text)">removed</b> are here too, with the reason — that's the part most sites leave out.</p>
+  <div class="toc">
+    <a href="#ours">Our own numbers</a>
+    <a href="#airtime">The airtime</a>
+    <a href="#screens">What screens do</a>
+    <a href="#rates">What screen ads sell for</a>
+    <a href="#removed">What we removed</a>
+  </div>
+</section>
+
+<!-- ═══ OUR OWN ═══ -->
+<section id="ours" style="padding-top:30px">
+  <div class="kick b">First-party — our box, our logs</div>
+  <h2>Numbers we <span class="b">generated ourselves</span></h2>
+  <p class="sub">These come off the BX-1's own records during July 2026 testing. Nobody has audited them. The box posts its live counts to a public endpoint you can open yourself, and the misses are listed next to the catches on purpose.</p>
+
+  <div class="srcard ours">
+    <div class="srfig">62 of 62</div>
+    <div class="srwhat">Commercial breaks caught on streaming, July 2026</div>
+    <p class="srbody">Three separate sessions: <b>23 of 23</b> on an overnight NFL broadcast (Jul 17–18), <b>30 of 30</b> on a brand-new streaming app over 6.3 hours with no changes made (Jul 18), and <b>9 of 9</b> in a Roku session (Jul 16). Not one false takeover reached a TV.</p>
+    <div class="caveat"><b>What this is not:</b> it is not a guarantee, and it is not satellite. It's three sessions in one month on one prototype, in a lab, not a bar. A venue's real setup can differ.</div>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log + frame-by-frame review</span> <a href="index.html#proof">See the scorecard →</a></div>
+  </div>
+
+  <div class="srcard soft">
+    <div class="srfig">2 of 4</div>
+    <div class="srwhat">Satellite breaks caught clean — our weak spot</div>
+    <p class="srbody">On a DirecTV baseball test (Jul 17): 2 caught clean, <b>1 caught late, 1 missed entirely</b>. Satellite ads splice in with no gap for the box to see. Streaming is proven; satellite is still being worked on, and we list it separately rather than blending it into one flattering number.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">3</div>
+    <div class="srwhat">Short false alarms, all under 16 seconds</div>
+    <p class="srbody">In the Roku session the box twice mistook a product logo, and once a schedule screen, for a break. It was in watch-only mode — <b>nothing ever reached a TV</b>. We count them anyway.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">~2s / ~5s</div>
+    <div class="srwhat">How fast it flips, and how early it comes back</div>
+    <p class="srbody">On a frame-by-frame review of 23 breaks (Jul 18): the venue's ad was up about <b>2 seconds</b> into the break — sometimes before it fully started — and never later than 12 seconds. Coming back, it was typically on the game about <b>5 seconds early</b>, during the channel's bumper. It has never cut into live play.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: frame-by-frame review, 23 breaks, July 18 2026</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">2,666</div>
+    <div class="srwhat">Raw watch-only detection events, Jul 13–26</div>
+    <p class="srbody">This is <b>not</b> 2,666 catches. It's every candidate event the detector logged while running in watch-only mode across two weeks of tuning, including duplicates and rejects. The 62 above are the verified end-to-end catches. We publish both so the gap between them is visible.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">Jul 17, 2026</div>
+    <div class="srwhat">U.S. provisional patent filed</div>
+    <p class="srbody">A provisional application, filed July 17 2026. That is exactly what "patent pending" means here — an application on record, not a granted patent. We say the filing type and the date rather than implying more.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: filing receipt</span></div>
+  </div>
+</section>
+
+<!-- ═══ AIRTIME ═══ -->
+<section id="airtime">
+  <div class="kick">Published, third-party</div>
+  <h2>How much of your airtime is <span class="g">already commercials</span></h2>
+  <p class="sub">This is the part nobody disputes, and it's the whole reason the BX-1 exists. You are already paying to show this airtime.</p>
+
+  <div class="srcard">
+    <div class="srfig">63 minutes</div>
+    <div class="srwhat">Commercial time in an average NFL broadcast — about a third of it</div>
+    <p class="srbody">An analysis of a full NFL season found the average broadcast carried roughly <b>63 minutes of commercials — 32.98% of the airtime</b> — across 100-plus spots, with the average break stretching from 1:50 to 2:20. Over a 17-week season that's about <b>23.5 hours of ads</b> per fan.</p>
+    <div class="srmeta"><span class="tag">Trade press</span> <span>CBS Sports, reporting a Streaming Observer analysis</span> <a href="https://www.cbssports.com/nfl/news/study-nfl-fans-watch-an-average-of-almost-24-hours-of-commercials-in-a-season/" target="_blank" rel="noopener">Read it →</a></div>
+  </div>
+
+  <div class="srcard">
+    <div class="srfig">2:05 – 2:25</div>
+    <div class="srwhat">Guaranteed commercial break between every half inning of MLB</div>
+    <p class="srbody">Major League Baseball's own pace-of-play rules mandate <b>2:05 for local broadcasts and 2:25 for national</b> between innings, and 2:55 in the postseason. Nine innings of that is roughly <b>20–22 minutes of guaranteed break inventory</b> in every single game — scheduled, predictable, and currently not yours.</p>
+    <div class="srmeta"><span class="tag peer">League primary source</span> <span>MLB.com</span> <a href="https://www.mlb.com/news/mlb-pace-of-play-rules-explanation-c266724556" target="_blank" rel="noopener">Read the rule →</a></div>
+  </div>
+</section>
+
+<!-- ═══ SCREENS ═══ -->
+<section id="screens">
+  <div class="kick">Published, third-party</div>
+  <h2>What a screen in a room <span class="g">actually does</span></h2>
+
+  <div class="srcard">
+    <div class="srfig">+8.1%</div>
+    <div class="srwhat">Higher probability a customer buys the item that's on the screen</div>
+    <p class="srbody">A peer-reviewed field experiment in the <b>Journal of Marketing</b> tracked <b>237 advertising campaigns and roughly 30 million shoppers</b> over four years, matching who was actually exposed to a screen against what they actually bought at the register. Putting a specific item on an in-venue screen raised the probability of buying that item by <b>8.1%</b>.</p>
+    <p class="srbody" style="margin-top:10px">The conditions that <b>strengthen</b> the effect read like a description of a bar on game night: it was <b>+13.9% stronger for indulgent items</b> than practical ones, <b>+20.6% stronger for new items</b>, <b>+4.3% stronger on weekends</b>, stronger <b>later in the day</b>, and stronger when the room was <b>more crowded</b>.</p>
+    <div class="caveat"><b>Read this honestly:</b> the study ran in grocery retail, not in bars, so we cite it as the best available measurement of the mechanism — screens sell the thing on the screen — not as a promise about your room. <b>And it found the opposite of what most signage marketing claims:</b> screens did <b>not</b> increase how much people spent overall. They changed <b>which items</b> people bought. That's a real limit, and it's also the honest pitch — this moves your mix toward what you want moving, it doesn't conjure new spending.</div>
+    <div class="srmeta"><span class="tag peer">Peer-reviewed</span> <span>Herhausen, de Jong &amp; Grewal · Journal of Marketing (AMA)</span> <a href="https://research.vu.nl/en/publications/in-store-advertising-with-digital-signage/" target="_blank" rel="noopener">Open-access copy →</a> <a href="https://journals.sagepub.com/doi/10.1177/00222429251351578" target="_blank" rel="noopener">Publisher →</a></div>
+  </div>
+
+  <div class="srcard">
+    <div class="srfig">66%</div>
+    <div class="srwhat">Of out-of-home sports viewers watch in a restaurant or bar</div>
+    <p class="srbody">Nielsen found that among U.S. adults who watched fall sports away from home, <b>66% watched in a restaurant or bar</b>, and <b>31% of 18–24 year-olds</b> watched while working out. Roughly half discussed an advertised brand with family or friends afterward. Your screens have a real, attentive audience in front of them.</p>
+    <div class="srmeta"><span class="tag peer">First-party research</span> <span>Nielsen, 2019</span> <a href="https://www.nielsen.com/insights/2019/for-the-win-out-of-home-viewers-of-fall-sports-on-linear-tv-are-engaged/" target="_blank" rel="noopener">Read it →</a></div>
+  </div>
+
+  <div class="srcard">
+    <div class="srfig">24%</div>
+    <div class="srwhat">Of U.S. adults recalled seeing a video display in a restaurant or bar in the last 30 days</div>
+    <p class="srbody">About <b>58 million adults</b>. Venue screens are noticed at a scale most owners underestimate — which cuts both ways: they're noticing whatever is on there right now, too.</p>
+    <div class="caveat"><b>Age caveat:</b> this is a 2013 Arbitron study — the most rigorous venue-recall measurement we could find, but it is over a decade old and the publisher has since been acquired. We use it for order of magnitude, nothing finer.</div>
+    <div class="srmeta"><span class="tag vend">Dated</span> <span>Arbitron, Points of View 2013</span> <a href="https://www.arbitron.com/downloads/PointsofView2013.pdf" target="_blank" rel="noopener">Read the report (PDF) →</a></div>
+  </div>
+</section>
+
+<!-- ═══ RATES ═══ -->
+<section id="rates">
+  <div class="kick">Published rate guides</div>
+  <h2>What a local screen ad <span class="g">sells for</span></h2>
+  <p class="sub">If you decide to sell a slot to the business next door, this is the going market. These are published vendor rate guides, not academic research — we're labelling them plainly, and we list three so you can see them converge rather than trusting any one.</p>
+
+  <div class="srcard soft">
+    <div class="srfig">$50 – $1,000</div>
+    <div class="srwhat">Per month, for a small digital-signage advertisement</div>
+    <p class="srbody">The guide puts small ads at <b>$50 to $1,000 a month</b> and larger placements at $1,000 to $25,000, and lists what moves the number: audience specificity, ad size and duration, location traffic, and how long the advertiser commits.</p>
+    <div class="srmeta"><span class="tag vend">Vendor guide</span> <span>Rise Vision</span> <a href="https://www.risevision.com/blog/digital-signage-advertising-rates" target="_blank" rel="noopener">Read the guide →</a></div>
+  </div>
+
+  <div class="srcard soft">
+    <div class="srfig">$150 – $750</div>
+    <div class="srwhat">Per month, per screen, indoor high-traffic venue</div>
+    <p class="srbody">An independent guide landing in the same range, with a worked example of a local restaurant selling slots at <b>$250 a month to six advertisers</b>.</p>
+    <div class="srmeta"><span class="tag vend">Vendor guide</span> <span>PosterBooking</span> <a href="https://www.posterbooking.com/signage/digital-signage/costs-and-expenses/" target="_blank" rel="noopener">Read the guide →</a></div>
+  </div>
+
+  <div class="srcard soft">
+    <div class="srfig">$100 – $300</div>
+    <div class="srwhat">Per week, for a screen in a gym or similarly targeted location</div>
+    <p class="srbody">A third guide, priced weekly rather than monthly, in the same order of magnitude once converted.</p>
+    <div class="srmeta"><span class="tag vend">Vendor guide</span> <span>Nento</span> <a href="https://nento.com/digital-signage-advertising-rates-a-comprehensive-guide/" target="_blank" rel="noopener">Read the guide →</a></div>
+  </div>
+
+  <div class="amber-block" style="margin-top:18px">
+    <b>WHAT THIS RANGE IS AND ISN'T:</b> three independent guides converging on the same order of magnitude is a fair read on the <b>market</b>. It is not a quote, not a forecast, and not a promise that anybody will pay you it. Your town, your foot traffic and your negotiation set the real number — and if you sell a slot, BreakShark never brokers it and never takes a cut of it.
+  </div>
+</section>
+
+<!-- ═══ REMOVED ═══ -->
+<section id="removed">
+  <div class="kick" style="color:var(--red)">The part most sites delete quietly</div>
+  <h2>Numbers we <span style="color:var(--red)">took down</span>, and why</h2>
+  <p class="sub">These figures were on this site earlier. They're gone. If we ever pull a number down, it gets listed here rather than quietly disappearing.</p>
+
+  <div class="srcard gone">
+    <div class="srfig">+6.5% / +14.8% / +70%</div>
+    <div class="srwhat">Food and drink lift, featured-beer pours, event turnout — REMOVED July 27, 2026</div>
+    <p class="srbody">These three figures — and the "$65,000 a year" headline built on the first one — came from a <b>case study published by another company in this category</b>, about their product, not ours. We cited the source honestly at the time. We removed them anyway, for two reasons.</p>
+    <p class="srbody" style="margin-top:10px"><b>One:</b> they were somebody else's results for somebody else's box, and using them as our flagship economics meant our biggest number wasn't ours. <b>Two:</b> when we went back to link the study so you could read it yourself, <b>we couldn't find it published anymore</b> — and we will not keep a number on this page that a reader can't go verify.</p>
+    <p class="srbody" style="margin-top:10px">What replaced them is above: the airtime figures, the peer-reviewed screen study, and the Nielsen audience data — all of it linkable. It's a smaller, slower claim. It's ours to stand behind.</p>
+    <div class="srmeta"><span class="tag dead">Removed</span> <span>Replaced with linkable third-party research</span></div>
+  </div>
+
+  <div class="srcard gone">
+    <div class="srfig">"+29.5% basket"</div>
+    <div class="srwhat">Screens raise average purchase amount — NEVER USED, and we won't</div>
+    <p class="srbody">This one is everywhere in signage marketing. We chased it to its origin and there isn't one — it's repeated blog to blog with no study behind it. Worse, the peer-reviewed research we <b>do</b> cite above found the opposite: screens changed <b>which</b> items sold, not <b>how much</b> was spent. Publishing it would have contradicted our own footnotes.</p>
+    <div class="srmeta"><span class="tag dead">Rejected</span> <span>No traceable original study</span></div>
+  </div>
+
+  <div class="srcard gone">
+    <div class="srfig">"35% shorter wait"</div>
+    <div class="srwhat">Screens cut perceived waiting time — NEVER USED</div>
+    <p class="srbody">Traces back to an unpublished internal field study by a queue-management vendor. The underlying idea holds up — <b>peer-reviewed work does find screens reduce perceived waiting and raise satisfaction</b>, especially when the content fits the venue — but that research publishes no headline percentage, so neither do we.</p>
+    <div class="srmeta"><span class="tag dead">Rejected</span> <span>Borges, Herter &amp; Chebat · Journal of Retailing and Consumer Services (2015)</span> <a href="https://ideas.repec.org/a/eee/joreco/v22y2015icp96-106.html" target="_blank" rel="noopener">The real paper →</a></div>
+  </div>
+
+  <div class="lead">If a number on this site can't be clicked, checked, or attributed, it shouldn't be on this site.</div>
+
+  <div class="green-block" style="margin-top:22px">
+    <b>WHAT COMES NEXT.</b> Everything on this page is either our prototype's own logs or somebody else's research. Neither is the number that actually matters — <b>what BreakShark does to a real venue's sales</b>. That number doesn't exist yet, because we have no customers yet. The first venues will measure it on their own registers and publish it here with their names on it, by the end of 2026. Until that exists, this page is what we've got, and we're not going to dress it up.
+  </div>
+
+  <p style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn primary" href="index.html#catchnight">Book a free Catch Night →</a>
+    <a class="btn" href="index.html#proof">Watch the box work →</a>
+  </p>
+  <p class="mono" style="color:var(--faint);margin-top:16px">PAGE LAST REVIEWED JULY 27, 2026 · IF YOU FIND A NUMBER ON THIS SITE THAT ISN'T ON THIS PAGE, TEXT MAXX AT (916) 628-6299 AND IT GETS FIXED OR REMOVED.</p>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <h5>BreakShark</h5>
+      <div class="patline">U.S. PATENT PENDING — FILED JULY 17, 2026<br>© 2026 BREAKSHARK · BUILT BY MAXX ZAMANI, CALIFORNIA<br>LLC FILING IN PROGRESS — THIS LINE UPDATES WHEN IT'S DONE</div>
+    </div>
+    <div>
+      <h5>Look under the hood</h5>
+      <a href="index.html#straight">Where it works and where it doesn't</a>
+      <a href="sources.html">Every number, and where it came from</a>
+      <a href="dashboard.html">Live dashboard demo</a>
+      <a href="investors.html">Investors</a>
+    </div>
+    <div>
+      <h5>Talk to the guy who built it</h5>
+      <a href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
+      <a href="mailto:maxxzamani@gmail.com">maxxzamani@gmail.com</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

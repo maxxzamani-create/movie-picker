@@ -1,393 +1,282 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a1626">
-<title>BreakShark for Investors — The break-level TV takeover nobody else does</title>
-<meta name="description" content="BreakShark keeps the live broadcast on bar and restaurant TVs and monetizes only the commercial breaks. Market, business model, roadmap, and the investment opportunity.">
-<meta property="og:title" content="BreakShark for Investors">
-<meta property="og:description" content="Every commercial break on every bar TV is selling for somebody else. BreakShark takes that airtime back — automatically.">
-<meta property="og:image" content="https://breakshark.com/static/brand/og-image.jpg">
-<meta property="og:url" content="https://breakshark.com/investors.html">
-<link rel="canonical" href="https://breakshark.com/investors.html">
-<!-- Google tag (gtag.js) — GA4 property "BreakShark.com" -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JPSCL18MG6"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JPSCL18MG6');</script>
-<link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
-<link rel="shortcut icon" href="static/brand/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BreakShark for Investors — a working box, public numbers</title>
+<meta name="description" content="Pre-revenue, pre-launch, and everything is checkable: a working box, a scorecard that shows the misses, and a founder who answers his own phone.">
+<link rel="icon" href="static/brand/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0a1626; --panel:#16253e; --panel2:#1b2c4a; --line:#2b4166;
-    --blue:#3db6ff; --blue2:#2e9fe6; --blue-pale:#cdeeff; --blue-deep:#0b5fb0;
-    --white:#f4f8fd; --dim:#a9bdd8; --gold:#ffc93d; --green:#2ecc71;
-    --money:#22e08a; --money-pale:#b9ffe0; --red:#ff5470;
+    --bg:#0a1626; --bg2:#0d1b2f; --panel:rgba(23,40,66,.55); --panel2:rgba(28,48,78,.85);
+    --line:#24395c; --line2:#31507c;
+    --text:#f2f7fd; --dim:#a9bdd8; --faint:#6d84a6;
+    --blue:#4fb6f2; --blue2:#9fdcff; --blue-deep:#0b5fb0;
+    --money:#35e08c; --money-deep:#12a86a; --money-pale:#b8f5d6; --money-dim:#1e7a52;
+    --red:#ff5a5a; --amber:#ffc93d;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
+  *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--ink);color:var(--white);font-family:Inter,system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
-  body::before{content:"";position:fixed;inset:-40%;z-index:-1;
-    background:radial-gradient(40% 32% at 20% 15%,rgba(61,182,255,.14),transparent 60%),
-               radial-gradient(34% 30% at 84% 20%,rgba(205,238,255,.08),transparent 60%),
-               radial-gradient(46% 38% at 50% 100%,rgba(11,95,176,.12),transparent 60%)}
-  a{color:var(--blue)}
-  .wrap{max-width:1020px;margin:0 auto;padding:0 20px}
-  header{padding:18px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(10,22,38,.88);backdrop-filter:blur(10px);z-index:50}
-  header .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-  .logo{display:flex;align-items:center;gap:10px;font-family:"Bebas Neue",sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--white);text-decoration:none}
-  .logo img{height:30px;filter:drop-shadow(0 4px 14px rgba(61,182,255,.55))}
-  .logo span{color:var(--blue)}
-  header nav{display:flex;gap:6px;flex-wrap:wrap}
-  header nav a{color:var(--dim);text-decoration:none;font-size:.82rem;font-weight:600;padding:8px 12px;border-radius:10px}
-  header nav a:hover{color:var(--white);background:rgba(255,255,255,.05)}
-  .hero{text-align:center;padding:76px 0 44px}
-  .kicker{display:inline-block;background:rgba(61,182,255,.1);border:1px solid rgba(61,182,255,.45);color:var(--blue);
-    font-weight:800;font-size:.78rem;letter-spacing:.18em;padding:8px 18px;border-radius:999px;text-transform:uppercase}
-  h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(2.8rem,7vw,4.8rem);line-height:1.03;letter-spacing:.02em;margin:24px 0 18px}
-  h1 .b{background:linear-gradient(120deg,var(--blue-pale),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{color:var(--dim);max-width:680px;margin:0 auto;font-size:1.08rem}
-  .ctas{display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap}
-  .btn{display:inline-block;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:800;font-size:.95rem;
-    border:1px solid var(--line);color:var(--white);background:rgba(30,46,70,.85);transition:.2s}
-  .btn:hover{transform:translateY(-2px);border-color:var(--blue)}
-  .btn.primary{background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));color:#04101f;border-color:transparent}
-  .btn.primary:hover{box-shadow:0 14px 38px rgba(61,182,255,.4)}
-  section{padding:56px 0}
-  h2{font-family:"Bebas Neue",sans-serif;font-size:2.1rem;letter-spacing:.04em;margin-bottom:8px}
-  h2 .b{color:var(--blue)}
-  h2 .g,.lead .g{background:linear-gradient(120deg,var(--money-pale),var(--money));-webkit-background-clip:text;background-clip:text;color:transparent}
-  td b.g{color:var(--money)}
-  .lead{color:var(--dim);max-width:720px;margin-bottom:26px}
-  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;transition:transform .3s ease,border-color .3s ease}
-  .stat:hover{transform:translateY(-4px);border-color:rgba(61,182,255,.4)}
-  .stat b{display:block;font-family:"Bebas Neue",sans-serif;font-size:2.6rem;line-height:1;
-    background:linear-gradient(120deg,var(--blue-pale),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:8px}
-  .stat.money{border-color:rgba(34,224,138,.3)}
-  .stat.money:hover{border-color:rgba(34,224,138,.55)}
-  .stat.money b{background:linear-gradient(120deg,var(--money-pale),var(--money));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat p{color:var(--dim);font-size:.85rem;line-height:1.5}
-  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem;background:var(--panel);border-radius:14px;overflow:hidden}
-  th{text-align:left;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);padding:14px 16px;border-bottom:2px solid var(--blue-deep);background:var(--panel2)}
-  td{padding:13px 16px;border-bottom:1px solid var(--line);color:var(--dim);vertical-align:top}
-  td b{color:var(--white)}
-  tr:last-child td{border-bottom:none}
-  .wedge{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--blue2);border-radius:16px;padding:30px 34px;text-align:center;margin:26px 0}
-  .wedge .big{font-family:"Bebas Neue",sans-serif;font-size:clamp(1.5rem,4vw,2.3rem);letter-spacing:.04em}
-  .wedge .big em{color:var(--gold);font-style:normal}
-  .wedge p{color:var(--dim);margin-top:10px;font-size:.95rem}
-  .timeline{position:relative;margin:28px 0 0;padding-left:26px;border-left:2px solid var(--line)}
-  .tstep{position:relative;padding:0 0 26px 18px}
-  .tstep::before{content:"";position:absolute;left:-33px;top:5px;width:12px;height:12px;border-radius:50%;
-    background:var(--panel);border:2px solid var(--blue)}
-  .tstep.done::before{background:var(--green);border-color:var(--green)}
-  .tstep h4{font-family:"Bebas Neue",sans-serif;font-size:1.15rem;letter-spacing:.05em}
-  .tstep h4 .tagchip{font-family:Inter;font-size:.62rem;letter-spacing:.12em;font-weight:800;text-transform:uppercase;
-    vertical-align:middle;margin-left:8px;padding:3px 10px;border-radius:999px}
-  .tagchip.donechip{background:rgba(46,204,113,.14);border:1px solid rgba(46,204,113,.5);color:var(--green)}
-  .tagchip.nowchip{background:rgba(255,201,61,.12);border:1px solid rgba(255,201,61,.5);color:var(--gold)}
-  .tstep p{color:var(--dim);font-size:.9rem;margin-top:4px}
-  .cardgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:24px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;transition:transform .3s ease,border-color .3s ease}
-  .card:hover{transform:translateY(-4px);border-color:rgba(61,182,255,.35)}
-  .card h3{font-family:"Bebas Neue",sans-serif;letter-spacing:.05em;font-size:1.15rem;margin-bottom:10px;color:var(--blue)}
-  .card p,.card li{color:var(--dim);font-size:.92rem}
-  .card ul{list-style:none;margin-top:4px}
-  .card li{padding:6px 0 6px 26px;position:relative}
-  .card li::before{content:"";background:url(static/brand/icon.png) center/contain no-repeat;width:14px;height:14px;position:absolute;left:0;top:8px}
-  .note{color:var(--dim);font-size:.8rem;margin-top:14px;opacity:.85}
-  .contact{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--blue2);border-radius:18px;
-    padding:44px 30px;text-align:center;margin:20px 0 60px}
-  .contact h2{margin-bottom:10px}
-  .contact p{color:var(--dim);max-width:560px;margin:0 auto 26px}
-  /* ── The Moment: real live-action footage ── */
-  .moment-video{position:relative;max-width:900px;margin:34px auto 0;aspect-ratio:16/9;
-    border-radius:20px;overflow:hidden;background:#04070e;isolation:isolate;
-    border:1px solid #223049;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(79,182,242,.18);}
-  .moment-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#04070e;}
-  .mv-tag{position:absolute;left:3.5%;bottom:6%;z-index:6;display:inline-flex;align-items:center;gap:7px;
-    background:rgba(4,10,20,.62);border:1px solid rgba(34,224,138,.4);color:#cfe4ff;
-    font-size:clamp(8px,1.1vw,12px);font-weight:800;letter-spacing:.13em;padding:5px 12px;border-radius:100px;backdrop-filter:blur(3px)}
-  .mv-tag b{color:var(--money-pale)}
-  .mv-tag .mv-dot{width:7px;height:7px;border-radius:50%;background:var(--money);box-shadow:0 0 9px var(--money);animation:mvBlink 1.3s infinite}
-  .mv-recap{position:absolute;right:3.5%;top:6.5%;z-index:6;background:rgba(10,26,20,.9);border:1px solid rgba(34,224,138,.6);
-    color:var(--money-pale);font-weight:800;font-size:clamp(10px,1.4vw,15px);padding:6px 14px;border-radius:100px;
-    box-shadow:0 8px 26px rgba(0,0,0,.45);animation:mvRecap 6s ease-in-out infinite}
-  .mv-sound{position:absolute;right:3.5%;bottom:6%;z-index:7;cursor:pointer;
-    background:rgba(4,10,20,.72);border:1px solid rgba(120,160,220,.35);color:#eaf4ff;
-    font-size:clamp(9px,1.1vw,12px);font-weight:700;letter-spacing:.04em;padding:7px 14px;border-radius:100px;
-    backdrop-filter:blur(3px);transition:.2s}
-  .mv-sound:hover{border-color:var(--blue);transform:translateY(-1px)}
-  @keyframes mvBlink{0%,100%{opacity:1}50%{opacity:.25}}
-  @keyframes mvRecap{0%,58%{opacity:0;transform:translateY(-6px) scale(.9)}64%{opacity:1;transform:translateY(0) scale(1)}92%{opacity:1}100%{opacity:0;transform:translateY(-4px)}}
-  @media (prefers-reduced-motion:reduce){.mv-recap,.mv-dot{animation:none!important}}
+  body{background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:66px}
+  h1,h2,.bebas{font-family:"Bebas Neue",sans-serif;font-weight:400;letter-spacing:.5px;line-height:1.02;text-transform:uppercase}
+  h1{font-size:clamp(38px,6vw,76px)} h2{font-size:clamp(30px,4.2vw,52px)}
+  h1 .g,h2 .g{color:var(--money)} h1 .b,h2 .b{color:var(--blue)}
+  img,video{max-width:100%;display:block}
+  a{color:var(--money)}
+  section{padding:70px 24px;max-width:1120px;margin:0 auto;scroll-margin-top:90px}
+  .kick{font:800 11px/1 Inter;letter-spacing:.28em;text-transform:uppercase;color:var(--money);margin-bottom:14px}
+  .kick.b{color:var(--blue)}
+  .sub{color:var(--dim);max-width:780px;margin-top:14px;font-size:17px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+  .btn{display:inline-flex;align-items:center;gap:10px;font:800 15px Inter;text-decoration:none;
+    padding:15px 26px;border-radius:10px;border:1px solid var(--line2);color:var(--text);transition:transform .15s ease,box-shadow .2s;cursor:pointer;background:transparent}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(120deg,var(--money),var(--money-deep));border-color:transparent;color:#04140b;box-shadow:0 12px 34px rgba(53,224,140,.32)}
+  .amber-block{border:1px solid rgba(255,201,61,.4);background:rgba(255,201,61,.06);border-radius:12px;padding:16px 22px;color:var(--dim);font-size:14.5px;line-height:1.65}
+  .amber-block b{color:var(--amber)}
+  .green-block{border:1px solid rgba(53,224,140,.45);background:rgba(53,224,140,.07);border-radius:12px;padding:18px 22px;color:var(--dim);font-size:15px;line-height:1.65}
+  .green-block b{color:var(--money)}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:13px 22px;background:rgba(10,22,38,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(36,57,92,.6)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .brand img{height:28px;width:auto}
+  .brand b{font-family:"Bebas Neue";font-size:21px;letter-spacing:1.5px}
+  nav{display:flex;gap:20px;align-items:center}
+  nav a{color:var(--dim);text-decoration:none;font:600 13.5px Inter}
+  nav a:hover{color:var(--text)}
+  nav .cta{color:#04140b;background:linear-gradient(120deg,var(--money),var(--money-deep));padding:9px 15px;border-radius:8px;font-weight:800}
+  @media(max-width:820px){nav a:not(.cta){display:none}}
+  footer{border-top:1px solid var(--line);padding:40px 24px 60px;color:var(--faint);font-size:13px;margin-top:40px}
+  .foot-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+  @media(max-width:820px){.foot-in{grid-template-columns:1fr}}
+  footer a{color:var(--dim);text-decoration:none;display:block;margin-top:8px}
+  footer a:hover{color:var(--money)}
+  footer h5{font:700 11px var(--mono);letter-spacing:.2em;color:var(--money);text-transform:uppercase}
+  .patline{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;margin-top:14px;line-height:1.9}
 
-  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--dim);font-size:.8rem}
-  footer img{height:20px;vertical-align:middle;margin-right:8px;opacity:.85}
-
-  /* motion */
-  .hero .kicker,.hero h1,.hero .sub,.hero .ctas{animation:heroUp .9s cubic-bezier(.16,1,.3,1) both}
-  .hero h1{animation-delay:.08s}.hero .sub{animation-delay:.18s}.hero .ctas{animation-delay:.3s}
-  @keyframes heroUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
-  .reveal.in{opacity:1;transform:none}
-  .reveal:not(.in) :is(.stat,.card,.tstep){opacity:0;transform:translateY(28px) scale(.985)}
-  :is(.stat,.card,.tstep){transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),border-color .3s ease}
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important}
-    .reveal,.reveal:not(.in) :is(.stat,.card,.tstep),.hero .kicker,.hero h1,.hero .sub,.hero .ctas{opacity:1;transform:none}
-  }
+  /* ---------- INVESTORS PAGE ADDITIONS ---------- */
+  .hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:26px}
+  .bigcount{display:flex;gap:30px;flex-wrap:wrap;margin-top:28px}
+  .bc{border-left:3px solid var(--money);padding-left:16px}
+  .bc.aw{border-left-color:var(--amber)}
+  .bc b{font-family:"Bebas Neue",sans-serif;font-size:clamp(30px,3.6vw,48px);display:block;line-height:1;color:var(--money)}
+  .bc.aw b{color:var(--amber)}
+  .bc span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+  .ledbox{border:1px solid var(--line2);border-radius:14px;background:var(--panel);overflow:hidden;margin-top:26px}
+  .ledbox .head{display:flex;justify-content:space-between;gap:14px;padding:11px 15px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--dim);background:rgba(10,22,38,.8)}
+  .ledbox .head b{color:var(--money);font-weight:600}
+  table.led{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+  table.led td{padding:12px 15px;border-bottom:1px solid rgba(36,57,92,.55);color:var(--dim);vertical-align:top}
+  table.led tr:last-child td{border-bottom:none}
+  table.led .ok{color:var(--money);font-weight:600;white-space:nowrap}
+  table.led .pend{color:var(--amber);white-space:nowrap}
+  table.led .warn{color:var(--red);white-space:nowrap}
+  .wontlist{list-style:none;margin-top:28px;display:grid;gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .wontlist li{background:var(--panel);padding:20px 22px;color:var(--dim);font-size:14.5px}
+  .wontlist li b{display:block;font:800 15.5px Inter;color:var(--text);margin-bottom:5px}
+  .specs{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:10px 26px}
+  @media(max-width:560px){.specs{grid-template-columns:1fr}}
+  .spec{font-family:var(--mono);font-size:12px;color:#8fa6c4;border-bottom:1px solid rgba(36,57,92,.55);padding:9px 0}
+  .spec b{color:var(--money);font-weight:600}
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:30px}
+  @media(max-width:860px){.ladder{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.ladder{grid-template-columns:1fr}}
+  .rung{background:var(--panel);padding:24px 20px}
+  .rung .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money)}
+  .rung h4{font:800 15.5px Inter;margin:8px 0 6px}
+  .rung p{color:var(--dim);font-size:13.5px}
+  .rung.now{background:linear-gradient(180deg,rgba(53,224,140,.1),var(--panel))}
+  .fquote{margin-top:28px;border-left:3px solid var(--money);padding:6px 0 6px 20px;font:600 19px/1.5 Inter}
+  .srcline{margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;line-height:1.9}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="wrap">
-    <a class="logo" href="index.html"><img src="static/brand/icon.png" alt="BreakShark fin logo">BreakShark<span>.tv</span></a>
-    <nav>
-      <a href="#opportunity">Opportunity</a>
-      <a href="#market">Market</a>
-      <a href="#competition">Competition</a>
-      <a href="#economics">Business model</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#moat">Moat</a>
-      <a href="pitch.html" style="color:var(--gold)">Slide Deck →</a>
-    </nav>
-  </div>
+  <a class="brand" href="index.html"><img src="static/brand/icon.png" alt="BreakShark fin logo"><b>BREAKSHARK</b></a>
+  <nav aria-label="Main">
+    <a href="index.html#proof">Watch It Work</a>
+    <a href="index.html#straight">Straight Talk</a>
+    <a href="index.html#deal">The Deal</a>
+    <a href="sources.html">Sources</a>
+    <a class="cta" href="index.html#catchnight">Book a Catch Night</a>
+  </nav>
 </header>
 
-<div class="hero wrap">
-  <span class="kicker">For Investors</span>
-  <h1>THE AD BREAK IS THE ONLY<br>PART OF LIVE TV <span class="b">NOBODY OWNS.</span></h1>
-  <p class="sub">Atmosphere replaces the broadcast. EverPass sells the games. Loop is an ad channel.
-  BreakShark is the only player that <b>keeps the live game on</b> and monetizes just the commercial breaks —
-  automatically flipping venue screens to the house's own promotions, then snapping back the instant play resumes.</p>
-  <div class="ctas">
-    <a class="btn primary" href="pitch.html">Read the slide deck</a>
-    <a class="btn" href="mailto:maxxzamani@gmail.com?subject=BreakShark%20Investor%20Inquiry">📧 Talk to the founder</a>
-    <a class="btn" href="tv.html">▶ See the live demo</a>
-  </div>
-</div>
+<!-- ===== BODY START ===== -->
 
-<section id="opportunity">
-  <div class="wrap">
-    <h2>A <span class="b">6.5% SALES LIFT</span> IS SITTING IN EVERY SPORTS BAR'S BREAKS — <span class="b">$65K/YR</span> ON A $1M ROOM</h2>
-    <p class="lead">Venues pay for commercial TV, pack the house for the game — then hand their most captive
-    audience to whichever national chain bought the break. Their own screens tell their customers to eat somewhere else.</p>
-    <div class="stats">
-      <div class="stat"><b>45%</b><p>more likely to snack during food commercials</p></div>
-      <div class="stat"><b>14%</b><p>crave the exact item they just saw advertised</p></div>
-      <div class="stat"><b>8%</b><p>leave and buy it somewhere else</p></div>
-      <div class="stat money"><b>+6.5%</b><p>measured food &amp; drink lift when breaks sell the house menu (the incumbent's own case study) — ~$65K/yr on a $1M venue, and BreakShark gives the venue 100% of the break</p></div>
-    </div>
-    <div class="moment-video" role="group"
-       aria-label="Real live-action footage of the BreakShark takeover moment in a sports bar.">
-    <video id="momentVid" autoplay muted loop playsinline preload="metadata"
-           poster="vid/moment-real-poster.jpg"
-           aria-label="A sports bar on game night: the wall TV flips from a national-chain ad to the venue's own $12 sundae special the instant the commercial break hits, and a customer at the bar points up and orders one.">
-      <source src="vid/moment-real.mp4" type="video/mp4">
-      Your browser can't play this video. <a href="vid/moment-real.mp4">Download it</a>.
-    </video>
-    <span class="mv-recap">+ $12.00 recaptured <img src="static/brand/icon.png" alt="" style="height:1em;width:auto;vertical-align:-.15em"></span>
-    <span class="mv-tag"><span class="mv-dot"></span><b>BREAKSHARK</b>&nbsp;TAKEOVER · LIVE</span>
-    <button type="button" class="mv-sound" id="momentSound" aria-label="Toggle video sound">🔊 Tap for sound</button>
+<!-- 1 · HERO -->
+<section id="top">
+  <div class="kick b">For investors</div>
+  <h1>Most pre-seed decks<br>ask you to believe.<br>This one asks you to <span class="g">check.</span></h1>
+  <p class="sub">I'm Maxx. I built the box on a bench and filmed it catching a real commercial break on live TV. Everything on this page is something you can verify from your desk in about ten minutes — the video, the box's own live counts, the patent filing date, and a scorecard that lists the misses next to the catches. Where I don't have a number yet, I say so instead of borrowing one.</p>
+  <div class="hero-cta">
+    <a class="btn primary" href="index.html#proof">Watch it work</a>
+    <a class="btn" href="mailto:maxxzamani@gmail.com?subject=BreakShark%20—%20Investor%20Inquiry">Email me directly</a>
   </div>
-    <p style="text-align:center;color:var(--dim);font-size:.82rem;max-width:660px;margin:16px auto 0">The consumer moment BreakShark monetizes: the break hits → the house ad takes the screen → the impulse purchase stays in the building.</p>
+  <div class="bigcount">
+    <div class="bc"><b>62 / 62</b><span>Breaks caught on streaming · July 2026</span></div>
+    <div class="bc"><b>2,666</b><span>Raw watch-only detections · Jul 13–26</span></div>
+    <div class="bc aw"><b>2 of 4</b><span>Satellite · the part that isn't solved</span></div>
   </div>
 </section>
 
-<section id="market">
-  <div class="wrap">
-    <h2>MARKET <span class="b">SIZE</span></h2>
-    <table>
-      <tr><th>Layer</th><th>Definition</th><th>US venues</th></tr>
-      <tr><td><b>Universe</b></td><td>Restaurants + bars</td><td>~793,000</td></tr>
-      <tr><td><b>TAM</b></td><td>Venues with at least one TV</td><td>~150,000–200,000</td></tr>
-      <tr><td><b>SAM</b></td><td>Core live-sports venues — the beachhead</td><td>~80,000–160,000</td></tr>
-      <tr><td><b>5-yr target</b></td><td>1–4% of the sports-bar niche</td><td>~1,000–5,000</td></tr>
+<!-- 2 · WHAT'S ACTUALLY BUILT -->
+<section id="built">
+  <div class="kick">What's actually built</div>
+  <h2>One box. It's called<br>the <span class="g">BX-1.</span></h2>
+  <p class="sub">Not a deck slide, not a mockup. A physical box that sits between a venue's cable or streaming box and the TV. It watches and listens to the picture right there on the device — no schedule from the network, nobody feeding it cues — and it only takes over during a real commercial break. The second play resumes, the screen is back on the game.</p>
+  <div class="specs">
+    <div class="spec"><b>Where it sits</b> — between the venue's box and the TV</div>
+    <div class="spec"><b>How it decides</b> — watches and listens, on-device</div>
+    <div class="spec"><b>When it acts</b> — only during a real ad break</div>
+    <div class="spec"><b>If it fails</b> — the break just plays normally</div>
+    <div class="spec"><b>Kill switch</b> — a bypass remote, no menu, no phone call</div>
+    <div class="spec"><b>Its own report card</b> — the box posts live counts publicly</div>
+  </div>
+  <div class="green-block" style="margin-top:24px">
+    <b>HOW FAST IT FLIPS:</b> on the frame-by-frame review, the venue's ad was up about <b>2 seconds</b> into the break, and never later than <b>12 seconds</b>. Coming back it's typically on the game about <b>5 seconds early</b>, during the channel's bumper. It has never cut into live play.
+  </div>
+  <p class="sub" style="margin-top:22px">The unedited single-take video of a real catch on live TV — filmed July 14, 2026 — is on the <a href="index.html#proof">homepage</a>, next to the box's live feed. A U.S. provisional patent was filed July 17, 2026.</p>
+</section>
+
+<!-- 3 · THE RECORD -->
+<section id="record">
+  <div class="kick">The record, misses included</div>
+  <h2>Four sessions.<br>Here's <span class="g">all of them.</span></h2>
+  <p class="sub">Streaming and satellite are listed separately on purpose. One blended number would look better and tell you less. Every row below comes off the box's own logs plus a frame-by-frame review.</p>
+
+  <div class="ledbox">
+    <div class="head"><span><b>THE SCORECARD</b> · STRAIGHT OFF THE BOX</span><span>JULY 2026</span></div>
+    <table class="led">
+      <tr>
+        <td class="mono" style="white-space:nowrap">JUL 16</td>
+        <td>Roku session — every real break caught. Three short false alarms, all under 16 seconds, in watch-only mode. Nothing reached a TV. Counting them anyway.</td>
+        <td class="ok">9 / 9</td>
+      </tr>
+      <tr>
+        <td class="mono" style="white-space:nowrap">JUL 17–18</td>
+        <td>Overnight NFL broadcast — ran all night, every break caught, no flapping, nothing touched live play.</td>
+        <td class="ok">23 / 23</td>
+      </tr>
+      <tr>
+        <td class="mono" style="white-space:nowrap">JUL 18</td>
+        <td>Brand-new streaming app, 6.3 hours — caught every break with no changes made to the box for that app.</td>
+        <td class="ok">30 / 30</td>
+      </tr>
+      <tr>
+        <td class="mono" style="white-space:nowrap">JUL 17</td>
+        <td>Satellite (DirecTV baseball) — 2 caught clean, 1 caught late, 1 missed outright. Satellite ads splice in with no gap for the box to see. Unsolved.</td>
+        <td class="warn">2 of 4 clean</td>
+      </tr>
     </table>
-    <p class="note">Reference: Atmosphere cites a 2.4M all-business-type US TAM. We deliberately start where
-    the pain is sharpest and detection is strongest — live sports venues.</p>
   </div>
+
+  <p class="srcline">STREAMING TOTAL: 62 OF 62 ACROSS THREE SETUPS, JULY 2026. SATELLITE TOTAL: 2 OF 4 CLEAN, ONE TEST. RAW WATCH-ONLY DETECTION EVENTS LOGGED JUL 13–26: 2,666.<br>THE BOX POSTS ITS OWN LIVE COUNTS TO A PUBLIC ENDPOINT — YOU DON'T HAVE TO TAKE MY WORD FOR ANY OF IT. SEE <a href="sources.html">SOURCES</a>.</p>
 </section>
 
-<section id="competition">
-  <div class="wrap">
-    <h2>COMPETITION — <span class="b">THE INCUMBENT PROVED OUR MARKET</span></h2>
-    <table>
-      <tr><th>Player</th><th>Model</th><th>Why we win anyway</th></tr>
-      <tr><td><b>Taiv</b><br>YC-backed, $13M Series A+ (Feb '26), 5,000+ venues</td><td>Free box detects breaks, sells the venue's break time to national advertisers (Pepsi, Bacardi, BMW, sportsbooks); venue keeps <b>1 of 6 slots</b> + ~$1–2K/yr</td><td>Their customer is the advertiser — the venue is inventory. 100% slot ownership is enterprise-only, for chains. Giving every corner bar all 6 slots would cannibalize the ad network their investors just funded. <b>They can only follow us by shrinking their own revenue.</b></td></tr>
-      <tr><td><b>Atmosphere</b><br>$1B valuation, ~60–65K venues</td><td>Free ambient TV; sells national ads</td><td><b>Replaces</b> the venue's programming — the opposite of showing the game</td></tr>
-      <tr><td><b>EverPass / UPshow</b><br>RedBird + NFL-backed</td><td>Exclusive commercial NFL Sunday Ticket + venue promo screens</td><td>Sells the <b>games</b> — never touches the breaks inside them</td></tr>
-      <tr><td><b>Loop Media</b><br>~49K screens</td><td>Replace-the-feed ad channels</td><td>Ad-only; revenue fell ~30% FY2024 — validates keeping the broadcast</td></tr>
-    </table>
-    <div class="wedge">
-      <div class="big">THEY MONETIZE THE BREAKS. <em>WE HAND THEM BACK.</em></div>
-      <p>Taiv spent years and $13M+ proving the two things we'd otherwise have to prove: bars install boxes
-      to control commercial breaks, and venue self-promotion measurably lifts sales — their own flagship case
-      study is a pub group gaining <b>+6.5% food &amp; drink sales</b> from its OWN promos. Then they structurally
-      capped how much of that value a venue can keep (1 of 6 slots free; pay up for more; 2-year post-exit
-      non-compete; house promos contractually "best-effort"). BreakShark sells the uncapped version: venue-paid,
-      every slot theirs, no ad network to protect. <b>The incumbent validated the behavior; their business model
-      forbids them from selling the pure product.</b></p>
-    </div>
-  </div>
+<!-- 4 · WHAT WE WON'T CLAIM -->
+<section id="wont">
+  <div class="kick b">The honest ledger</div>
+  <h2>What I <span class="g">won't</span> claim.</h2>
+  <p class="sub">This is the part most decks bury. I'd rather lead with it, because it's the only way the rest of the page is worth reading. Everything here is a real gap, stated the way I'd state it on a call.</p>
+  <ul class="wontlist">
+    <li><b>No customers.</b> Not one venue is running a BX-1 today. Pre-launch, and the site says so on every page.</li>
+    <li><b>No revenue.</b> Zero. The two businesses I already run pay my bills, which is why BreakShark can afford to be honest instead of desperate.</li>
+    <li><b>No price.</b> There is no pricing claim on this site, and there isn't one behind the scenes either. The revenue model is not set yet — the first venues help set it. Anyone quoting you a number for this company is guessing.</li>
+    <li><b>Satellite isn't solved.</b> Streaming is where the record is. Satellite caught 2 of 4 clean on the one real test, and it stays on the scorecard until it's fixed.</li>
+    <li><b>Borrowed market stats are gone.</b> I had a sales-lift headline on this page that came out of somebody else's case study. It was not my number, so it came off the site entirely — headline, math, and the PDF behind it. What replaces it is our own venues' results, once we have them.</li>
+    <li><b>The record is short.</b> Sixty-two breaks over three setups in one month is a real result and a small sample. It'll get longer in public, misses included, or it doesn't count.</li>
+  </ul>
+  <div class="fquote">I'd rather show you a gap than paper over it. The gaps are the reason you can trust the rest.</div>
 </section>
 
-<section id="economics">
-  <div class="wrap">
-    <h2>BUSINESS <span class="g">MODEL</span></h2>
-    <p class="lead">Venue-paid SaaS. Simple, boring, profitable — before any advertising-marketplace upside.
-    Product pricing has not been set; the design rule is that it stays so competitive that one extra sale
-    a day covers it for the venue.</p>
-    <div class="stats">
-      <div class="stat"><b>Venue-paid</b><p>the venue is the customer — no ad network, no third-party advertisers to protect</p></div>
-      <div class="stat money"><b>100%</b><p>of every break's slots go to the venue's own menu — the uncapped version of a model the incumbent already proved</p></div>
-      <div class="stat"><b>Recurring</b><p>subscription revenue per venue, compounding as detection accuracy and density grow</p></div>
-      <div class="stat"><b>&lt;1%</b><p>of US sports bars is all it takes for a lean, self-sustaining business — no need to match the ad networks' venue counts</p></div>
-    </div>
-    <table>
-      <tr><th>Venues</th><th>Milestone</th></tr>
-      <tr><td>10</td><td>Founding cohort — proves retention &amp; accuracy in the wild</td></tr>
-      <tr><td>500</td><td>Comfortably self-sustaining; ODM hardware live</td></tr>
-      <tr><td>1,000</td><td>Channel motion (AV integrators, TV dealers, restaurant groups)</td></tr>
-      <tr><td>2,500</td><td>Local-ad marketplace layer viable — network economics begin</td></tr>
-    </table>
-    <p class="note">Upside layer: once density exists, local advertisers buy the reclaimed break inventory
-    across venues (rev-share with the house) — the step from SaaS multiples toward media-network multiples.</p>
-    <div class="cardgrid">
-      <div class="card"><h3>WHAT CAPITAL UNLOCKS · 1</h3>
-        <p><b>Production hardware.</b> Move from retail-parts prototype to an ODM manufacturing run
-        with FCC certification — the step that makes installs repeatable and margins real.</p></div>
-      <div class="card"><h3>WHAT CAPITAL UNLOCKS · 2</h3>
-        <p><b>Pilot → proof → pipeline.</b> Complete the Founding 10, convert measured check-size lift
-        into case studies, and run the outbound motion to sports bars and franchise groups.</p></div>
-      <div class="card"><h3>WHAT CAPITAL UNLOCKS · 3</h3>
-        <p><b>The network layer.</b> Fleet dashboard, channel partnerships (AV integrators, TV dealers),
-        and the local-ad marketplace that turns reclaimed breaks into media-network economics.</p></div>
-    </div>
+<!-- 5 · WHY THE BREAK IS THE OPENING -->
+<section id="opening">
+  <div class="kick b">Why the break is the opening</div>
+  <h2>The screens are the venue's.<br>The breaks <span class="g">aren't.</span></h2>
+  <p class="sub">A venue pays for the TVs, the programming, the wall they hang on and the power they burn. Then the game cuts to a break and those screens go to work for somebody else. That's the whole opening, and it's not a small one — <a href="sources.html">roughly a third of an average NFL broadcast is commercial time</a>, and there's <a href="sources.html">peer-reviewed work in the Journal of Marketing</a> showing that promoting an item on in-venue screens raises the chance a customer buys that item, with the effect strongest for indulgent items, new items, weekends, later in the day, and crowded rooms.</p>
+
+  <p class="sub">There's an established way to sell into that gap: the free ad box. A company puts a device in the venue at no charge, detects the breaks, and sells most of that break time to national advertisers. It works, and it proves two things I'd otherwise have to prove myself — venues will accept a box that controls their break time, and putting the house's own promotions on those screens moves product.</p>
+
+  <p class="sub">But look at who pays. In that model the advertiser is the customer and the venue is the inventory. The room, the crowd, and the screens are the thing being sold. The venue gets a slice of its own airtime back as compensation.</p>
+
+  <p class="sub">BreakShark inverts the payer. <b style="color:var(--text)">The venue is the customer.</b> No ad network sits on the venue's walls, so nobody upstream has to be protected and every slot in the break can point at the venue's own food, drinks and events. That's not a feature somebody copies in a sprint — it's a different customer. A business built on selling venue airtime to advertisers can't hand that airtime back without firing the people who actually pay it.</p>
+
+  <div class="amber-block" style="margin-top:22px">
+    <b>THE HONEST CAVEAT:</b> being structurally different is an argument, not a result. It's worth exactly nothing until real venues run the box and post real numbers. That's the next rung, and it's the only one I'm asking anyone to judge me on.
   </div>
+  <p class="srcline">EVERY OUTSIDE NUMBER REFERENCED ON THIS PAGE IS CITED IN FULL AT <a href="sources.html">SOURCES</a>. NOTHING HERE RESTATES A FIGURE WITHOUT A LINK BEHIND IT.</p>
 </section>
 
-<section id="roadmap">
-  <div class="wrap">
-    <h2>ROADMAP &amp; <span class="b">TRACTION</span></h2>
-    <div class="timeline">
-      <div class="tstep done"><h4>CONCEPT, BRAND &amp; SITE <span class="tagchip donechip">Done</span></h4>
-        <p>breakshark.com live with working simulated demo, reporting dashboard, investor deck, and lead capture.</p></div>
-      <div class="tstep done"><h4>PROTOTYPE HARDWARE PURCHASED <span class="tagchip donechip">Done</span></h4>
-        <p>Fail-safe pass-through architecture on retail parts — the broadcast physically never routes through our computer.</p></div>
-      <div class="tstep done"><h4>U.S. PATENT PENDING <span class="tagchip donechip">Done</span></h4>
-        <p>U.S. Provisional Patent Application No. 64/114,099 filed July 17, 2026 — 45 claims on the break-detection + takeover system. NDA and pilot agreements prepared; trademark clearance underway with counsel.</p></div>
-      <div class="tstep"><h4>PROTOTYPE BUILD &amp; SUCCESS GATE <span class="tagchip nowchip">In progress</span></h4>
-        <p>Hard bar before any venue pitch: ≥90% of breaks caught within 5 seconds, return to program in ≤2 seconds, zero false switches across three full games.</p>
-        <p style="margin-top:8px"><b>July 14, 2026 &mdash; caught on camera:</b> the prototype autonomously catches a live broadcast break, runs the house ad, and returns to the game. One continuous, unedited shot:</p>
-        <figure style="margin:10px 0 0">
-          <video controls playsinline preload="metadata" poster="vid/live-catch-poster.jpg" style="width:100%;max-width:560px;border-radius:10px;display:block">
-            <source src="vid/live-catch-2026-07-14.mp4" type="video/mp4">
-          </video>
-          <figcaption style="font-size:.75rem;opacity:.65;margin-top:6px">Real footage &mdash; live game &rarr; break detected &rarr; house ad &rarr; autonomous return. July 14, 2026.</figcaption>
-        </figure></div>
-      <div class="tstep"><h4>FOUNDING 10 PILOT</h4>
-        <p>Ten hand-picked local venues — up to 3 months free, priority install. Goal: retention proof, real-world accuracy data, testimonials.</p></div>
-      <div class="tstep"><h4>PRODUCTION &amp; SCALE</h4>
-        <p>ODM manufacturing run, FCC certification, channel partnerships, 500+ venues.</p></div>
-      <div class="tstep"><h4>NETWORK LAYER</h4>
-        <p>Local-ad marketplace on reclaimed inventory; the detection network compounds with every box deployed.</p></div>
+<!-- 6 · THE LADDER -->
+<section id="ladder">
+  <div class="kick">The ladder</div>
+  <h2>Four rungs.<br>We're on the <span class="g">first one.</span></h2>
+  <p class="sub">No hockey stick, no hypothetical curve. Each rung is a thing that either happened or didn't, and the site updates when it does.</p>
+  <div class="ladder">
+    <div class="rung now">
+      <div class="n">NOW</div>
+      <h4>A working box</h4>
+      <p>62 of 62 on streaming. A real catch on film, one take. Live counts posted publicly. Patent filed 7/17/26. Satellite gap disclosed and still open.</p>
+    </div>
+    <div class="rung">
+      <div class="n">NEXT</div>
+      <h4>Catch Nights in real venues</h4>
+      <p>The BX-1 runs one real game night in somebody else's room, on their TVs, with them holding the kill switch. Free. Each night is a countable, public result — including the nights it goes badly.</p>
+    </div>
+    <div class="rung">
+      <div class="n">THEN</div>
+      <h4>First paid venues</h4>
+      <p>The founding venues, each with its own results page carrying its own numbers. That's when the borrowed market stats get permanently replaced by ours, and when the model gets set with the people paying for it.</p>
+    </div>
+    <div class="rung">
+      <div class="n">SCALE</div>
+      <h4>A fleet</h4>
+      <p>Venue by venue, no ad network required. The venue keeps its screens and everything they earn; we keep the box, the software and the relationship.</p>
     </div>
   </div>
+  <p class="srcline">STAGE, PLAINLY: PRE-REVENUE, PRE-LAUNCH, NO CUSTOMERS. THE FIRST VENUES GET FREE CATCH NIGHTS. FOUNDER-FUNDED TO HERE.</p>
 </section>
 
-<section id="moat">
-  <div class="wrap">
-    <h2>THE <span class="b">MOAT</span></h2>
-    <div class="cardgrid">
-      <div class="card"><h3>PATENT STRATEGY</h3>
-        <p>U.S. patent pending — Provisional Application No. 64/114,099, filed July 17, 2026. 45 claims covering the automated break-detection and
-        display-takeover system, multiple detection sources, and the networked marketplace embodiment. Nonprovisional conversion planned within the priority year.</p></div>
-      <div class="card"><h3>TRADE-SECRET ENGINE</h3>
-        <p>The detection tuning and pattern library stay proprietary — and get smarter with every venue
-        deployed. The data moat compounds; a copycat starts from zero.</p></div>
-      <div class="card"><h3>FAIL-SAFE BY PHYSICS</h3>
-        <p>The broadcast never passes through our computer. If our software ever hiccups, the TV shows the
-        game. Worst case is always "nothing happens" — that's what lets bars trust a startup's box.</p></div>
-      <div class="card"><h3>CLEAN LEGAL POSTURE</h3>
-        <p>We never record, store, modify, or redistribute the feed. Switching inputs is what a bartender does
-        with a remote — the venue owns the screen and decides what it shows. Production design uses only
-        licensing-clean detection paths.</p></div>
-      <div class="card"><h3>ALIGNED-MODEL MOAT</h3>
-        <p>The incumbent (Taiv) makes money selling the exact seconds we liberate — matching our offer for every
-        corner bar means cannibalizing their own ad network. Our moat isn't the feature; it's a business model an
-        ad network can't copy without firing its real customer. Plus: founding cohort, brand, and speed toward the
-        realistic endgame — partnership or acquisition by a strategic already on venue screens.</p></div>
-      <div class="card"><h3>CAPITAL-EFFICIENT BY RULE</h3>
-        <p>Standing rule: no production spend until the founding 10 are paying. Pilot on retail parts, prove
-        retention, then scale. Reaching self-sustaining at under 1% of the niche keeps every path open.</p></div>
-    </div>
+<!-- 7 · CONTACT -->
+<section id="contact">
+  <div class="kick">Talk to the guy who built it</div>
+  <h2>The phone rings <span class="g">me.</span></h2>
+  <p class="sub">Not a call center, not an assistant, not a form that routes somewhere. If you want to poke holes in this, I'd genuinely rather hear it from you than find out later. Ask me the hard one first — I'll answer it straight or tell you I don't know yet.</p>
+  <div class="hero-cta">
+    <a class="btn primary" href="mailto:maxxzamani@gmail.com?subject=BreakShark%20—%20Investor%20Inquiry">Email me directly</a>
+    <a class="btn" href="tel:+19166286299">Call or text (916) 628-6299</a>
+    <a class="btn" href="index.html#proof">Watch it work</a>
   </div>
+  <p class="srcline">MAXX ZAMANI · BUILDER &amp; OPERATOR · CALIFORNIA · (916) 628-6299 · MAXXZAMANI@GMAIL.COM</p>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="contact">
-      <h2>LET'S <span class="b">TALK</span></h2>
-      <p>BreakShark is founder-funded through the pilot. Investor conversations are open for the production
-      and scale stage. Get the deck, see the demo, or get 15 minutes with the founder.</p>
-      <div class="ctas">
-        <a class="btn primary" href="mailto:maxxzamani@gmail.com?subject=BreakShark%20Investor%20Inquiry">📧 maxxzamani@gmail.com</a>
-        <a class="btn" href="tel:+19166286299">📞 (916) 628-6299</a>
-        <a class="btn" href="pitch.html">Slide deck</a>
-        <a class="btn" href="dashboard-demo.html">Demo dashboard</a>
-        <a class="btn" href="BreakShark-CaseStudy-The-65K-Question.pdf">📊 The $65K Question (case study)</a>
-      </div>
-      <p class="note">Maxx Zamani · Founder · Orange County, California · <a href="tel:+19166286299" style="color:var(--blue)">(916) 628-6299</a></p>
-    </div>
-  </div>
-</section>
+<!-- ===== BODY END ===== -->
 
 <footer>
-  <img src="static/brand/icon.png" alt="">
-  BreakShark.com — we keep the game on · figures are estimates based on cited industry research ·
-  detection never modifies the broadcast signal, it only changes what the screen displays
+  <div class="foot-in">
+    <div>
+      <h5>BreakShark</h5>
+      <div class="patline">U.S. PATENT PENDING — FILED JULY 17, 2026<br>© 2026 BREAKSHARK · BUILT BY MAXX ZAMANI, CALIFORNIA<br>LLC FILING IN PROGRESS — THIS LINE UPDATES WHEN IT'S DONE</div>
+    </div>
+    <div>
+      <h5>Look under the hood</h5>
+      <a href="index.html#straight">Where it works and where it doesn't</a>
+      <a href="sources.html">Every number, and where it came from</a>
+      <a href="dashboard.html">Live dashboard demo</a>
+      <a href="investors.html">Investors</a>
+    </div>
+    <div>
+      <h5>Talk to the guy who built it</h5>
+      <a href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
+      <a href="mailto:maxxzamani@gmail.com">maxxzamani@gmail.com</a>
+    </div>
+  </div>
 </footer>
-
-<script>
-document.querySelectorAll("section").forEach(s => s.classList.add("reveal"));
-if ("IntersectionObserver" in window) {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll(".stat,.card,.tstep").forEach((k, i) => {
-          k.style.transitionDelay = (90 + i * 85) + "ms";
-          setTimeout(() => { k.style.transitionDelay = ""; }, 1400 + i * 85);
-        });
-        e.target.classList.add("in");
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-} else {
-  document.querySelectorAll(".reveal").forEach(el => el.classList.add("in"));
-}
-
-/* The Moment video: tap-for-sound toggle */
-(function(){
-  var v=document.getElementById("momentVid"), b=document.getElementById("momentSound");
-  if(!v||!b) return;
-  b.addEventListener("click",function(){
-    v.muted=!v.muted;
-    if(!v.muted){ v.play&&v.play(); b.textContent="🔊 Sound on"; }
-    else { b.textContent="🔊 Tap for sound"; }
-  });
-})();
-</script>
-<script>
-/* Pause any video that scrolls off screen; resume only muted autoplay loops */
-(function(){var vs=document.querySelectorAll('video');if(!('IntersectionObserver'in window)||!vs.length)return;var io=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(en.intersectionRatio<0.25){if(!v.paused)v.pause();}else if(v.muted&&v.loop&&v.autoplay&&v.paused){var p=v.play();if(p&&p.catch)p.catch(function(){});}});},{threshold:[0,0.25,0.5]});vs.forEach(function(v){io.observe(v);});})();
-</script>
 </body>
 </html>
