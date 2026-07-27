@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BreakShark Loop — your own channel, no cable needed</title>
+<meta name="description" content="No live sports, no cable, no problem. The same box turns your screen into your own channel all day — salons, waiting rooms, gyms, lobbies, showrooms. Free Loop Week, nothing to sign.">
+<link rel="icon" href="static/brand/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a1626; --bg2:#0d1b2f; --panel:rgba(23,40,66,.55); --panel2:rgba(28,48,78,.85);
+    --line:#24395c; --line2:#31507c;
+    --text:#f2f7fd; --dim:#a9bdd8; --faint:#6d84a6;
+    --blue:#4fb6f2; --blue2:#9fdcff; --blue-deep:#0b5fb0;
+    --money:#35e08c; --money-deep:#12a86a; --money-pale:#b8f5d6; --money-dim:#1e7a52;
+    --red:#ff5a5a; --amber:#ffc93d;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:66px}
+  h1,h2,.bebas{font-family:"Bebas Neue",sans-serif;font-weight:400;letter-spacing:.5px;line-height:1.02;text-transform:uppercase}
+  h1{font-size:clamp(38px,6vw,76px)} h2{font-size:clamp(30px,4.2vw,52px)}
+  h1 .g,h2 .g{color:var(--money)} h1 .b,h2 .b{color:var(--blue)}
+  img,video{max-width:100%;display:block}
+  a{color:var(--money)}
+  section{padding:70px 24px;max-width:1120px;margin:0 auto;scroll-margin-top:90px}
+  .kick{font:800 11px/1 Inter;letter-spacing:.28em;text-transform:uppercase;color:var(--money);margin-bottom:14px}
+  .kick.b{color:var(--blue)}
+  .sub{color:var(--dim);max-width:780px;margin-top:14px;font-size:17px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+  .btn{display:inline-flex;align-items:center;gap:10px;font:800 15px Inter;text-decoration:none;
+    padding:15px 26px;border-radius:10px;border:1px solid var(--line2);color:var(--text);transition:transform .15s ease,box-shadow .2s;cursor:pointer;background:transparent}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(120deg,var(--money),var(--money-deep));border-color:transparent;color:#04140b;box-shadow:0 12px 34px rgba(53,224,140,.32)}
+  .amber-block{border:1px solid rgba(255,201,61,.4);background:rgba(255,201,61,.06);border-radius:12px;padding:16px 22px;color:var(--dim);font-size:14.5px;line-height:1.65}
+  .amber-block b{color:var(--amber)}
+  .green-block{border:1px solid rgba(53,224,140,.45);background:rgba(53,224,140,.07);border-radius:12px;padding:18px 22px;color:var(--dim);font-size:15px;line-height:1.65}
+  .green-block b{color:var(--money)}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:13px 22px;background:rgba(10,22,38,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(36,57,92,.6)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .brand img{height:28px;width:auto}
+  .brand b{font-family:"Bebas Neue";font-size:21px;letter-spacing:1.5px}
+  nav{display:flex;gap:20px;align-items:center}
+  nav a{color:var(--dim);text-decoration:none;font:600 13.5px Inter}
+  nav a:hover{color:var(--text)}
+  nav .cta{color:#04140b;background:linear-gradient(120deg,var(--money),var(--money-deep));padding:9px 15px;border-radius:8px;font-weight:800}
+  @media(max-width:820px){nav a:not(.cta){display:none}}
+  @media(max-width:430px){.brand b{display:none}nav .cta{padding:8px 12px;font-size:13px}}
+  footer{border-top:1px solid var(--line);padding:40px 24px 60px;color:var(--faint);font-size:13px;margin-top:40px}
+  .foot-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+  @media(max-width:820px){.foot-in{grid-template-columns:1fr}}
+  footer a{color:var(--dim);text-decoration:none;display:block;margin-top:8px}
+  footer a:hover{color:var(--money)}
+  footer h5{font:700 11px var(--mono);letter-spacing:.2em;color:var(--money);text-transform:uppercase}
+  .patline{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;margin-top:14px;line-height:1.9}
+
+  /* ---------- INVESTORS PAGE ADDITIONS ---------- */
+  .hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:26px}
+  .bigcount{display:flex;gap:30px;flex-wrap:wrap;margin-top:28px}
+  .bc{border-left:3px solid var(--money);padding-left:16px}
+  .bc.aw{border-left-color:var(--amber)}
+  .bc b{font-family:"Bebas Neue",sans-serif;font-size:clamp(30px,3.6vw,48px);display:block;line-height:1;color:var(--money)}
+  .bc.aw b{color:var(--amber)}
+  .bc span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+  .ledbox{border:1px solid var(--line2);border-radius:14px;background:var(--panel);overflow:hidden;margin-top:26px}
+  .ledbox .head{display:flex;justify-content:space-between;gap:14px;padding:11px 15px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--dim);background:rgba(10,22,38,.8)}
+  .ledbox .head b{color:var(--money);font-weight:600}
+  table.led{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+  table.led td{padding:12px 15px;border-bottom:1px solid rgba(36,57,92,.55);color:var(--dim);vertical-align:top}
+  table.led tr:last-child td{border-bottom:none}
+  table.led .ok{color:var(--money);font-weight:600;white-space:nowrap}
+  table.led .pend{color:var(--amber);white-space:nowrap}
+  table.led .warn{color:var(--red);white-space:nowrap}
+  .wontlist{list-style:none;margin-top:28px;display:grid;gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .wontlist li{background:var(--panel);padding:20px 22px;color:var(--dim);font-size:14.5px}
+  .wontlist li b{display:block;font:800 15.5px Inter;color:var(--text);margin-bottom:5px}
+  .specs{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:10px 26px}
+  @media(max-width:560px){.specs{grid-template-columns:1fr}}
+  .spec{font-family:var(--mono);font-size:12px;color:#8fa6c4;border-bottom:1px solid rgba(36,57,92,.55);padding:9px 0}
+  .spec b{color:var(--money);font-weight:600}
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:30px}
+  @media(max-width:860px){.ladder{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.ladder{grid-template-columns:1fr}}
+  .rung{background:var(--panel);padding:24px 20px}
+  .rung .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money)}
+  .rung h4{font:800 15.5px Inter;margin:8px 0 6px}
+  .rung p{color:var(--dim);font-size:13.5px}
+  .rung.now{background:linear-gradient(180deg,rgba(53,224,140,.1),var(--panel))}
+  .fquote{margin-top:28px;border-left:3px solid var(--money);padding:6px 0 6px 20px;font:600 19px/1.5 Inter}
+  .srcline{margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;line-height:1.9}
+
+  /* ---------- SHARED PAGE ADDITIONS ---------- */
+  .qa{list-style:none;margin-top:26px;display:grid;gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .qa li{background:var(--panel);padding:22px 24px;color:var(--dim);font-size:15px}
+  .qa li b{display:block;font:800 16px Inter;color:var(--text);margin-bottom:7px}
+  .qa li .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--money);text-transform:uppercase;display:block;margin-bottom:9px}
+  .qa li .tag.aw{color:var(--amber)}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:26px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}}
+  .tc{background:var(--panel);padding:24px}
+  .tc h4{font:800 15.5px Inter;margin-bottom:8px}
+  .tc p{color:var(--dim);font-size:14.5px}
+  .tc .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money);margin-bottom:9px}
+  .tc.no .n{color:var(--red)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:28px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--panel);padding:26px 22px}
+  .step .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money)}
+  .step h4{font:800 16px Inter;margin:9px 0 7px}
+  .step p{color:var(--dim);font-size:14px}
+  .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:28px}
+  .mbar{display:none}
+  @media(max-width:900px){
+    .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:70;gap:1px;background:var(--line);border-top:1px solid var(--line2)}
+    .mbar a{flex:1;text-align:center;padding:15px 8px calc(15px + env(safe-area-inset-bottom));font:800 13.5px Inter;text-decoration:none}
+    .mbar .claim{background:linear-gradient(120deg,var(--money),var(--money-deep));color:#04140b}
+    .mbar .text{background:#0d1b2f;color:var(--dim)}
+    body{padding-bottom:54px}
+  }
+  .lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:28px}
+  @media(max-width:860px){.lgrid{grid-template-columns:1fr}}
+  .lc{background:var(--panel);padding:0 0 22px}
+  .lc .shot{aspect-ratio:16/9;background:#04070e;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .lc .shot img{width:100%;height:100%;object-fit:cover;opacity:.9}
+  .lc .lchip{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+    background:rgba(53,224,140,.16);border:1px solid rgba(53,224,140,.7);color:var(--money-pale);padding:4px 8px;border-radius:4px}
+  .lc .body{padding:20px 22px 0}
+  .lc h4{font:800 16px Inter;margin-bottom:7px}
+  .lc p{color:var(--dim);font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html"><img src="static/brand/icon.png" alt="BreakShark fin logo"><b>BREAKSHARK</b></a>
+  <nav aria-label="Main">
+    <a href="index.html#proof">Watch It Work</a>
+    <a href="index.html#straight">Straight Talk</a>
+    <a href="loop.html">Loop Mode</a>
+    <a href="support.html">Support</a>
+    <a href="sources.html">Sources</a>
+    <a class="cta" href="index.html#catchnight">Book a Catch Night</a>
+  </nav>
+</header>
+
+<section style="padding-top:56px">
+  <div class="kick">No live TV? Still your screen.</div>
+  <h1>Your channel.<br>Running <span class="g">all day.</span></h1>
+  <p class="sub">Most of the businesses with a TV on the wall aren't showing a game. They're showing cable news nobody asked for, a weather loop, or a black screen. That screen is the most expensive piece of furniture in the room that isn't selling anything. Loop mode turns it into yours — your services, your prices, your offers — running quietly on repeat, all day, with no cable box involved at all.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="sms:+19166286299?body=Hey%20Maxx%20—%20I%20want%20a%20free%20Loop%20Week%20for%20my%20business.">Book a free Loop Week</a>
+    <a class="btn" href="privacy.html">What the box sees and sends →</a>
+  </div>
+  <p class="mono" style="color:var(--faint);margin-top:20px;letter-spacing:.06em">FREE. NOTHING TO SIGN. THE BOX COMES OUT IF YOU SHRUG.</p>
+</section>
+
+<section style="padding-top:10px">
+  <div class="kick">Who this is for</div>
+  <h2>If the TV isn't <span class="g">showing a game.</span></h2>
+  <p class="sub">Break detection is the hard part of what we built, and Loop mode doesn't use it. There's no game, so there's no break to catch — which means there's nothing to get wrong. The box just plays your channel.</p>
+  <div class="lgrid">
+    <div class="lc">
+      <div class="shot"><span class="lchip">YOUR CHANNEL · LIVE</span><img src="static/adspots/still-barber.jpg" alt="Barbershop promo playing on the loop" loading="lazy"></div>
+      <div class="body"><h4>Salons and barbershops</h4><p>Cuts, prices, the products on your shelf, and the walk-ins-after-two card — instead of cable news arguing over your chairs. Want to change a price? Text it to me and it's up.</p></div>
+    </div>
+    <div class="lc">
+      <div class="shot"><span class="lchip">YOUR CHANNEL · LIVE</span><img src="static/adspots/still-derm.jpg" alt="Medical office promo playing on the loop" loading="lazy"></div>
+      <div class="body"><h4>Waiting rooms</h4><p>Your providers, your services, your seasonal reminders, the have-your-card-ready nudge that keeps the line moving. Professional, quiet, nothing to maintain — and the box has no camera and no room microphone, which is the part your compliance folks will want to hear first.</p></div>
+    </div>
+    <div class="lc">
+      <div class="shot"><span class="lchip">YOUR CHANNEL · LIVE</span><img src="static/adspots/still-gym.jpg" alt="Gym promo playing on the loop" loading="lazy"></div>
+      <div class="body"><h4>Gyms and studios</h4><p>Tonight's classes and how many spots are left, personal-training consults, referral offers, the smoothie bar — on every screen along the cardio row, sold to people who are already in the building and already looking up.</p></div>
+    </div>
+  </div>
+  <p class="mono" style="color:var(--faint);margin-top:20px;letter-spacing:.06em;line-height:1.9">ALSO: DEALERSHIP SHOWROOMS · HOTEL AND OFFICE LOBBIES · LAUNDROMATS · BANK LOBBIES · SENIOR LIVING · ANY ROOM WHERE PEOPLE SIT AND WAIT.</p>
+</section>
+
+<section>
+  <div class="kick">Why a screen is worth doing right</div>
+  <h2>The research here is <span class="g">closer to your room</span> than to a sports bar.</h2>
+  <p class="sub">The strongest peer-reviewed measurement of what an in-venue screen actually does was run in retail — not in bars. Which makes it a better fit for a salon, a showroom, or a waiting room than it is for the sports side of this business, and we'd rather say that than oversell either one.</p>
+
+  <div class="green-block" style="margin-top:26px">
+    <b>+8.1%</b> higher probability that a customer buys the specific item that's on the screen — from a peer-reviewed field experiment in the <i>Journal of Marketing</i> covering 237 campaigns and roughly 30 million shoppers, matched against what people actually bought. The effect ran <b>stronger for new items</b>, stronger later in the day, and stronger when the room was busier. <a href="sources.html#screens">Every figure and its caveats →</a>
+  </div>
+
+  <div class="amber-block" style="margin-top:18px">
+    <b>Read it straight, including the part that doesn't flatter us.</b> That study found screens changed <b>which</b> items people bought — not how much they spent overall. So the honest pitch for Loop mode isn't "this conjures new money." It's that the thing you most want moving is the thing on the screen, all day, in front of people who are already sitting in your room with nothing else to look at. And it was measured in a store, not in your salon, so treat it as the mechanism rather than a promise about your week.
+  </div>
+</section>
+
+<section>
+  <div class="kick">How it actually goes</div>
+  <h2>Photos in. <span class="g">Channel out.</span></h2>
+  <div class="steps">
+    <div class="step"><div class="n">01 · YOU SEND</div><h4>Photos and a price list</h4><p>Pictures of your space, your work, your products, and what you charge. Phone photos are fine — that's what most of these are built from.</p></div>
+    <div class="step"><div class="n">02 · I BUILD</div><h4>Your channel, made for you</h4><p>I turn them into real spots — your name, your prices, your offers — and load them on the box. You approve everything before it plays anywhere.</p></div>
+    <div class="step"><div class="n">03 · IT RUNS</div><h4>Seven days, free</h4><p>One HDMI cable, no rewiring, no cable service required. It plays all day. At the end of the week you keep going or I take the box back.</p></div>
+  </div>
+  <div class="green-block" style="margin-top:26px">
+    <b>Here's the whole risk: there isn't any.</b> A Loop Week is free and there is nothing to sign. Nothing gets billed to anybody, ever, unless they've seen terms in writing and said yes to them. If you don't like it, I take the box home and you've lost a week of a screen that was showing somebody else's weather forecast anyway.
+  </div>
+  <div class="cta-row">
+    <a class="btn primary" href="sms:+19166286299?body=Hey%20Maxx%20—%20I%20want%20a%20free%20Loop%20Week%20for%20my%20business.">Book a free Loop Week</a>
+    <a class="btn" href="mailto:maxxzamani@gmail.com?subject=Loop%20Week%20—%20my%20business">Email me instead</a>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Straight answers</div>
+  <h2>What owners ask <span class="g">about Loop.</span></h2>
+  <ul class="qa">
+    <li><b>Do I need cable for this?</b>No. That's the whole point of Loop mode — there's no broadcast involved. The box plays your channel on its own. If you ever do add live TV later, the same box starts catching commercial breaks automatically, no new hardware.</li>
+    <li><b>Who changes it when my prices change?</b>Text me. That's the current answer and I'd rather be honest about it than pretend there's a portal. Venues running a box also get a dashboard where they can reorder and swap what's playing from a phone.</li>
+    <li><b>Is it going to look like a cheap slideshow?</b>It shouldn't, and if it does, tell me and I'll rebuild it. The spots are built from your actual photos with real type and motion — the same production that goes on the sports side, pointed at your services instead of somebody's wings.</li>
+    <li><b>Can it hear my customers?</b>No. There is no microphone and no camera on the box. It has no physical way to see or hear your room — it reads a cable signal, and in Loop mode it isn't even doing that. <a href="privacy.html">The full description is here →</a></li>
+    <li><b>What does it cost?</b>A Loop Week is free with nothing to sign. Beyond that we're not making pricing claims on this site and we're not going to invent a number for a webpage. When it's set it'll be here in plain English, and nothing gets billed unless you've seen it and said yes to it.</li>
+    <li><b>Are Loop venues an afterthought to the sports bars?</b>Fair question, and the honest answer is that the sports side is louder because break detection is the harder engineering problem and it's what the test record is about. But two of the ten founding spots are held specifically for Loop venues, and they're held on purpose — a waiting room that runs this well is a better proof of the product than another bar.</li>
+  </ul>
+</section>
+<footer>
+  <div class="foot-in">
+    <div>
+      <h5>BreakShark</h5>
+      <div class="patline">U.S. PATENT PENDING — PROVISIONAL FILED JULY 17, 2026<br>© 2026 BREAKSHARK · BUILT BY MAXX ZAMANI, CALIFORNIA<br>LLC FILING IN PROGRESS — THIS LINE UPDATES WHEN IT'S DONE</div>
+    </div>
+    <div>
+      <h5>Look under the hood</h5>
+      <a href="index.html#straight">Where it works and where it doesn't</a>
+      <a href="sources.html">Every number, and where it came from</a>
+      <a href="support.html">What happens after you say yes</a>
+      <a href="privacy.html">What the box sees and sends</a>
+      <a href="loop.html">Loop mode — no live TV needed</a>
+      <a href="dashboard.html">Live dashboard demo</a>
+      <a href="investors.html">Investors</a>
+    </div>
+    <div>
+      <h5>Talk to the guy who built it</h5>
+      <a href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
+      <a href="tel:+19166286299">Call: (916) 628-6299</a>
+      <a href="mailto:maxxzamani@gmail.com">maxxzamani@gmail.com</a>
+    </div>
+  </div>
+</footer>
+<div class="mbar" aria-label="Quick actions">
+  <a class="claim" href="sms:+19166286299?body=Hey%20Maxx%20—%20I%20want%20a%20free%20Loop%20Week%20for%20my%20business.">Book a free Loop Week</a>
+  <a class="text" href="sms:+19166286299">Text Maxx</a>
+</div>
+</body>
+</html>

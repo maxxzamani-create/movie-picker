@@ -135,7 +135,10 @@
   @media(max-width:820px){.adframe{left:4%;right:4%;width:auto;top:15%}}
   @media(prefers-reduced-motion:reduce){.adframe img.kb,.sdot.on,.breakfx,#adBadge{animation:none}}
   .hero-copy{position:relative;z-index:9;max-width:1180px;margin:0 auto;width:100%;padding:0 24px 26px}
-  .hero-copy .pat{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);margin-bottom:14px}
+  .hero-copy .pat{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint);margin-bottom:14px;white-space:nowrap;
+    position:relative;z-index:11;display:inline-block;background:rgba(4,7,14,.82);padding:4px 9px;border-radius:4px}
+  @media(max-width:560px){.hero-copy .pat{font-size:8.6px;letter-spacing:.13em}}
+  @media(max-width:390px){.hero-copy .pat{font-size:7.8px;letter-spacing:.09em}}
   .hero-copy h1{font-size:clamp(52px,8.2vw,118px);text-transform:uppercase}
   .hero-copy h1 .you{color:var(--money);text-shadow:0 0 46px rgba(53,224,140,.5)}
   .hero-copy .sub{font-size:17.5px;max-width:700px}
@@ -506,6 +509,7 @@
     <a href="#straight">Straight Talk</a>
     <a href="#deal">The Deal</a>
     <a href="#founding">Founding 10</a>
+    <a href="loop.html">Loop Mode</a>
     <a href="sources.html">Sources</a>
     <a href="investors.html">Investors</a>
     <a class="cta" href="#catchnight">Book a Catch Night</a>
@@ -520,6 +524,9 @@
   <a href="#deal">The Deal</a>
   <a href="#founding">Founding 10</a>
   <a href="#faq">FAQ</a>
+  <a href="loop.html">Loop Mode — no live TV</a>
+  <a href="support.html">Support &amp; what happens next</a>
+  <a href="privacy.html">What the box sees</a>
   <a href="sources.html">Sources</a>
   <a href="investors.html">Investors</a>
 </div>
@@ -547,7 +554,7 @@
   </div>
 
   <div class="hero-copy">
-    <div class="pat">U.S. PATENT PENDING — FILED JULY 17, 2026</div>
+    <div class="pat">U.S. PATENT PENDING — PROVISIONAL FILED JULY 17, 2026</div>
     <h1>The game cuts to ads.<br><span class="you">Your TVs cut to you.</span></h1>
     <p class="sub" style="font-size:19px;color:var(--text)"><b>One box.</b> It catches every commercial break and puts
       <b class="you" style="color:var(--money)">your</b> food, <b class="you" style="color:var(--money)">your</b> drinks and
@@ -927,6 +934,7 @@
       <div class="step"><div class="n">03 · YOU DECIDE</div><h4>Keep it or hand it back</h4><p>You watched it work in your own room with your own crowd, and your register saw the night. Keep going or we take the box — your call.</p></div>
     </div>
     <p class="riskline"><b>Here's the whole risk:</b> a Catch Night is <b>free</b> and there's nothing to sign. Worst case all night is the TV you already own — and you're holding the kill switch anyway. Nothing gets billed, ever, unless you've seen terms and said yes to them.</p>
+    <p class="mono" style="color:var(--faint);margin:14px 0 4px;letter-spacing:.06em;line-height:1.9">WONDERING WHO ANSWERS WHEN SOMETHING BREAKS, HOW MANY BOXES YOUR ROOM ACTUALLY NEEDS, OR WHAT HAPPENS TO YOUR TVS IF BREAKSHARK GOES AWAY? <a href="support.html" style="color:var(--money)">IT'S ALL ON ONE PAGE →</a></p>
     <form class="claim" id="claimForm">
       <input required name="name" placeholder="Your name" aria-label="Your name" autocomplete="name">
       <input required name="venue" placeholder="Your place" aria-label="Venue name" autocomplete="organization">
@@ -1003,8 +1011,9 @@
       </div>
       <h4>The gym floor</h4><p>Tonight's classes, open spots, member offers on every screen on the cardio row — sold while they're already in the building.</p></div>
   </div>
-  <p style="margin-top:24px"><a class="btn primary" href="sms:+19166286299?body=Hey%20Maxx%20—%20I%20want%20a%20Loop%20Week%20for%20my%20business.">Book a free Loop Week →</a></p>
-  <p class="mono" style="color:var(--faint);margin-top:12px">WE BUILD YOUR CHANNEL, IT RUNS 7 DAYS, THE BOX COMES OUT IF YOU SHRUG. TWO OF THE FOUNDING 10 SPOTS ARE HELD FOR LOOP VENUES.</p>
+  <div class="green-block" style="margin-top:26px"><b>A Loop Week is free, and there's nothing to sign</b> — same deal as a Catch Night. We build your channel, it runs seven days, and the box comes out if you shrug. Nothing gets billed to anybody unless they've seen terms in writing and said yes to them.</div>
+  <p style="margin-top:24px;display:flex;gap:14px;flex-wrap:wrap"><a class="btn primary" href="sms:+19166286299?body=Hey%20Maxx%20—%20I%20want%20a%20free%20Loop%20Week%20for%20my%20business.">Book a free Loop Week →</a><a class="btn" href="loop.html">See the whole Loop page →</a></p>
+  <p class="mono" style="color:var(--faint);margin-top:12px">TWO OF THE FOUNDING 10 SPOTS ARE HELD FOR LOOP VENUES — ON PURPOSE. NO CABLE, NO GAME, NO BREAK TO CATCH: THE BOX JUST PLAYS YOUR CHANNEL.</p>
 </section>
 
 <!-- ═══ 11 · INVESTORS ═══ -->
@@ -1030,11 +1039,16 @@
   <details><summary>What happens when it misses one?</summary>
     <p>Nothing. The break plays like it always has — the game runs straight through the box. On streaming it's caught 62 out of 62 in testing. On satellite it's caught 2 of 4, and we say so right on the page. Worst case is the TV you already own.</p></details>
   <details><summary>I've got 14 TVs. Do I need 14 boxes?</summary>
-    <p>One box covers one cable or streaming box. If six TVs are all showing the same cable box, one covers all six. Rooms with a bunch of different feeds are exactly what a Catch Night is for — we walk your setup and give you the honest count before anything else happens.</p></details>
+    <p>No — screens are never what gets counted. One BX-1 sits on one cable or streaming box, and it covers every TV showing that feed. If eight TVs are all on the same cable box, one BX-1 covers all eight. What you count is <b>simultaneous games</b>: three different games on at once means three feeds, so three boxes. Two games, two boxes.</p>
+    <p>Don't take my count over the phone, though. Big rooms get this wrong in both directions — I've seen fourteen-screen bars that needed two boxes and six-screen rooms that needed four. That's exactly what a Catch Night walkthrough is for, and if the honest number is bigger than you hoped you'll hear it from me at the walkthrough. <a href="support.html">The whole rule, written out →</a></p></details>
+  <details><summary>Who do I call when something goes wrong — and what if you don't pick up?</summary>
+    <p>You text me at (916) 628-6299. That's my actual cell, not a queue, and during business hours you should have me inside a couple of hours. Game nights I keep the phone on me.</p>
+    <p>But the part that matters more than my response time: <b>nothing about your TVs depends on me being reachable.</b> The bypass remote in your drawer kills the box instantly — no menu, no app, no phone call — and your feed runs straight through like the box was never there. Same if it loses power, same if the software crashes, same if this company stopped existing tomorrow. The break just plays like it always has. <a href="support.html">Including what happens if BreakShark goes away →</a></p></details>
   <details><summary>What do you need from me to start?</summary>
     <p>Photos of your food, your drinks, and your room. Founding venues get 3 professional spots made from those photos, and you run the lineup from your phone.</p></details>
-  <details><summary>Is this even allowed?</summary>
-    <p>Your TVs, your room, your call. The BX-1 never touches, records, or rebroadcasts the signal — it just changes which input your own screens show during a commercial break, the same thing you do when you grab the remote. Venue screens have been run this way openly for years across the country. And if you ever want it off, the bypass remote kills it instantly.</p></details>
+  <details><summary>Is this even allowed? And can it hear my customers?</summary>
+    <p>Your TVs, your room, your call. The BX-1 never touches, records, or rebroadcasts the signal — it just changes which input your own screens show during a commercial break, the same thing you do when you grab the remote. Venue screens have been run this way openly for years across the country. And if you ever want it off, the bypass remote kills it instantly.</p>
+    <p>On hearing your customers: <b>it can't.</b> There is no camera and no microphone on the box — it has no physical part that could see or hear your room. What it watches and listens to is the picture and sound already coming down the HDMI cable from your cable box. It reads the broadcast, not the room. <a href="privacy.html">The full description, including what leaves the box →</a></p></details>
   <details><summary>Why isn't there a price on the site?</summary>
     <p>Because we're not making any pricing claims right now, and we're not going to invent a number for a webpage. When pricing is set it'll be here in plain English — and nothing gets billed unless you've seen it and said yes to it. A Catch Night costs you nothing either way.</p></details>
 </section>
@@ -1043,12 +1057,15 @@
   <div class="foot-in">
     <div>
       <h5>BreakShark</h5>
-      <div class="patline">U.S. PATENT PENDING — FILED JULY 17, 2026<br>© 2026 BREAKSHARK · BUILT BY MAXX ZAMANI, CALIFORNIA<br>LLC FILING IN PROGRESS — THIS LINE UPDATES WHEN IT'S DONE</div>
+      <div class="patline">U.S. PATENT PENDING — PROVISIONAL FILED JULY 17, 2026<br>© 2026 BREAKSHARK · BUILT BY MAXX ZAMANI, CALIFORNIA<br>LLC FILING IN PROGRESS — THIS LINE UPDATES WHEN IT'S DONE</div>
     </div>
     <div>
       <h5>Look under the hood</h5>
       <a href="#straight">Where it works and where it doesn't</a>
       <a href="sources.html">Every number, and where it came from</a>
+      <a href="support.html">What happens after you say yes</a>
+      <a href="privacy.html">What the box sees and sends</a>
+      <a href="loop.html">Loop mode — no live TV needed</a>
       <a href="dashboard.html">Live dashboard demo</a>
       <a href="founding10.html">The Founding 10</a>
       <a href="investors.html">Investors</a>
@@ -1056,7 +1073,9 @@
     <div>
       <h5>What the box sees &amp; sends</h5>
       <div class="patline" style="margin-top:8px">THE BX-1 WATCHES YOUR TV LINE RIGHT ON THE BOX. NOTHING IT SEES OR HEARS IS SAVED OR SENT ANYWHERE. IT ONLY PHONES HOME A HEARTBEAT — IS IT ON, HOW MANY BREAKS IT CAUGHT, WHICH PROMO IS UP. IT RECORDS NOTHING ABOUT YOUR CUSTOMERS.</div>
-      <a style="margin-top:12px" href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
+      <a style="margin-top:12px" href="privacy.html">No camera, no room mic — the full description →</a>
+      <a href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
+      <a href="tel:+19166286299">Call: (916) 628-6299</a>
       <a href="mailto:maxxzamani@gmail.com">maxxzamani@gmail.com</a>
     </div>
   </div>

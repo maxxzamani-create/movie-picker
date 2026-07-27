@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BreakShark — What happens after you say yes</title>
+<meta name="description" content="Who answers the phone, how fast, what happens if the box quits, and what happens if I get hit by a bus. The unglamorous part, written down.">
+<link rel="icon" href="static/brand/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a1626; --bg2:#0d1b2f; --panel:rgba(23,40,66,.55); --panel2:rgba(28,48,78,.85);
+    --line:#24395c; --line2:#31507c;
+    --text:#f2f7fd; --dim:#a9bdd8; --faint:#6d84a6;
+    --blue:#4fb6f2; --blue2:#9fdcff; --blue-deep:#0b5fb0;
+    --money:#35e08c; --money-deep:#12a86a; --money-pale:#b8f5d6; --money-dim:#1e7a52;
+    --red:#ff5a5a; --amber:#ffc93d;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:66px}
+  h1,h2,.bebas{font-family:"Bebas Neue",sans-serif;font-weight:400;letter-spacing:.5px;line-height:1.02;text-transform:uppercase}
+  h1{font-size:clamp(38px,6vw,76px)} h2{font-size:clamp(30px,4.2vw,52px)}
+  h1 .g,h2 .g{color:var(--money)} h1 .b,h2 .b{color:var(--blue)}
+  img,video{max-width:100%;display:block}
+  a{color:var(--money)}
+  section{padding:70px 24px;max-width:1120px;margin:0 auto;scroll-margin-top:90px}
+  .kick{font:800 11px/1 Inter;letter-spacing:.28em;text-transform:uppercase;color:var(--money);margin-bottom:14px}
+  .kick.b{color:var(--blue)}
+  .sub{color:var(--dim);max-width:780px;margin-top:14px;font-size:17px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+  .btn{display:inline-flex;align-items:center;gap:10px;font:800 15px Inter;text-decoration:none;
+    padding:15px 26px;border-radius:10px;border:1px solid var(--line2);color:var(--text);transition:transform .15s ease,box-shadow .2s;cursor:pointer;background:transparent}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(120deg,var(--money),var(--money-deep));border-color:transparent;color:#04140b;box-shadow:0 12px 34px rgba(53,224,140,.32)}
+  .amber-block{border:1px solid rgba(255,201,61,.4);background:rgba(255,201,61,.06);border-radius:12px;padding:16px 22px;color:var(--dim);font-size:14.5px;line-height:1.65}
+  .amber-block b{color:var(--amber)}
+  .green-block{border:1px solid rgba(53,224,140,.45);background:rgba(53,224,140,.07);border-radius:12px;padding:18px 22px;color:var(--dim);font-size:15px;line-height:1.65}
+  .green-block b{color:var(--money)}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:13px 22px;background:rgba(10,22,38,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(36,57,92,.6)}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .brand img{height:28px;width:auto}
+  .brand b{font-family:"Bebas Neue";font-size:21px;letter-spacing:1.5px}
+  nav{display:flex;gap:20px;align-items:center}
+  nav a{color:var(--dim);text-decoration:none;font:600 13.5px Inter}
+  nav a:hover{color:var(--text)}
+  nav .cta{color:#04140b;background:linear-gradient(120deg,var(--money),var(--money-deep));padding:9px 15px;border-radius:8px;font-weight:800}
+  @media(max-width:820px){nav a:not(.cta){display:none}}
+  @media(max-width:430px){.brand b{display:none}nav .cta{padding:8px 12px;font-size:13px}}
+  footer{border-top:1px solid var(--line);padding:40px 24px 60px;color:var(--faint);font-size:13px;margin-top:40px}
+  .foot-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+  @media(max-width:820px){.foot-in{grid-template-columns:1fr}}
+  footer a{color:var(--dim);text-decoration:none;display:block;margin-top:8px}
+  footer a:hover{color:var(--money)}
+  footer h5{font:700 11px var(--mono);letter-spacing:.2em;color:var(--money);text-transform:uppercase}
+  .patline{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;margin-top:14px;line-height:1.9}
+
+  /* ---------- INVESTORS PAGE ADDITIONS ---------- */
+  .hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:26px}
+  .bigcount{display:flex;gap:30px;flex-wrap:wrap;margin-top:28px}
+  .bc{border-left:3px solid var(--money);padding-left:16px}
+  .bc.aw{border-left-color:var(--amber)}
+  .bc b{font-family:"Bebas Neue",sans-serif;font-size:clamp(30px,3.6vw,48px);display:block;line-height:1;color:var(--money)}
+  .bc.aw b{color:var(--amber)}
+  .bc span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+  .ledbox{border:1px solid var(--line2);border-radius:14px;background:var(--panel);overflow:hidden;margin-top:26px}
+  .ledbox .head{display:flex;justify-content:space-between;gap:14px;padding:11px 15px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--dim);background:rgba(10,22,38,.8)}
+  .ledbox .head b{color:var(--money);font-weight:600}
+  table.led{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+  table.led td{padding:12px 15px;border-bottom:1px solid rgba(36,57,92,.55);color:var(--dim);vertical-align:top}
+  table.led tr:last-child td{border-bottom:none}
+  table.led .ok{color:var(--money);font-weight:600;white-space:nowrap}
+  table.led .pend{color:var(--amber);white-space:nowrap}
+  table.led .warn{color:var(--red);white-space:nowrap}
+  .wontlist{list-style:none;margin-top:28px;display:grid;gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .wontlist li{background:var(--panel);padding:20px 22px;color:var(--dim);font-size:14.5px}
+  .wontlist li b{display:block;font:800 15.5px Inter;color:var(--text);margin-bottom:5px}
+  .specs{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:10px 26px}
+  @media(max-width:560px){.specs{grid-template-columns:1fr}}
+  .spec{font-family:var(--mono);font-size:12px;color:#8fa6c4;border-bottom:1px solid rgba(36,57,92,.55);padding:9px 0}
+  .spec b{color:var(--money);font-weight:600}
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:30px}
+  @media(max-width:860px){.ladder{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.ladder{grid-template-columns:1fr}}
+  .rung{background:var(--panel);padding:24px 20px}
+  .rung .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money)}
+  .rung h4{font:800 15.5px Inter;margin:8px 0 6px}
+  .rung p{color:var(--dim);font-size:13.5px}
+  .rung.now{background:linear-gradient(180deg,rgba(53,224,140,.1),var(--panel))}
+  .fquote{margin-top:28px;border-left:3px solid var(--money);padding:6px 0 6px 20px;font:600 19px/1.5 Inter}
+  .srcline{margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;line-height:1.9}
+
+  /* ---------- SHARED PAGE ADDITIONS ---------- */
+  .qa{list-style:none;margin-top:26px;display:grid;gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .qa li{background:var(--panel);padding:22px 24px;color:var(--dim);font-size:15px}
+  .qa li b{display:block;font:800 16px Inter;color:var(--text);margin-bottom:7px}
+  .qa li .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--money);text-transform:uppercase;display:block;margin-bottom:9px}
+  .qa li .tag.aw{color:var(--amber)}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:26px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}}
+  .tc{background:var(--panel);padding:24px}
+  .tc h4{font:800 15.5px Inter;margin-bottom:8px}
+  .tc p{color:var(--dim);font-size:14.5px}
+  .tc .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money);margin-bottom:9px}
+  .tc.no .n{color:var(--red)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:28px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--panel);padding:26px 22px}
+  .step .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money)}
+  .step h4{font:800 16px Inter;margin:9px 0 7px}
+  .step p{color:var(--dim);font-size:14px}
+  .cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:28px}
+  .mbar{display:none}
+  @media(max-width:900px){
+    .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:70;gap:1px;background:var(--line);border-top:1px solid var(--line2)}
+    .mbar a{flex:1;text-align:center;padding:15px 8px calc(15px + env(safe-area-inset-bottom));font:800 13.5px Inter;text-decoration:none}
+    .mbar .claim{background:linear-gradient(120deg,var(--money),var(--money-deep));color:#04140b}
+    .mbar .text{background:#0d1b2f;color:var(--dim)}
+    body{padding-bottom:54px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html"><img src="static/brand/icon.png" alt="BreakShark fin logo"><b>BREAKSHARK</b></a>
+  <nav aria-label="Main">
+    <a href="index.html#proof">Watch It Work</a>
+    <a href="index.html#straight">Straight Talk</a>
+    <a href="loop.html">Loop Mode</a>
+    <a href="support.html">Support</a>
+    <a href="sources.html">Sources</a>
+    <a class="cta" href="index.html#catchnight">Book a Catch Night</a>
+  </nav>
+</header>
+
+<section style="padding-top:56px">
+  <div class="kick">The unglamorous part</div>
+  <h1>You're not buying a box.<br>You're betting on <span class="g">a guy answering.</span></h1>
+  <p class="sub">So here is exactly who answers, how fast, what happens when I can't, and what happens to your TVs if BreakShark stops existing tomorrow. Every venue owner who has been burned by a vendor asks some version of this. Most sites make you find out after you sign. This one is the page.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="index.html#catchnight">Book a free Catch Night</a>
+    <a class="btn" href="sms:+19166286299">Text me the hard question first</a>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="kick">Who picks up</div>
+  <h2>One phone. <span class="g">Mine.</span></h2>
+  <p class="sub">There is no support team, no ticket queue, and no call center — and I'd rather you know the shape of that than find out on a Sunday. Here is the honest version, including where it's thin.</p>
+
+  <ul class="qa">
+    <li>
+      <span class="tag">First line</span>
+      <b>Text (916) 628-6299. That's my actual cell.</b>
+      Text beats calling — it timestamps itself, I can answer between other things, and you get it in writing. Email works too: <a href="mailto:maxxzamani@gmail.com">maxxzamani@gmail.com</a>. Both reach the same person, which is me.
+    </li>
+    <li>
+      <span class="tag">What I aim for</span>
+      <b>Same day, and inside a couple of hours during business hours.</b>
+      Game nights I keep the phone on me. If something is actively wrong with your screens during a game, say so in the first three words and it jumps the line ahead of everything else.
+    </li>
+    <li>
+      <span class="tag aw">Where it's thin — say it out loud</span>
+      <b>I run two other businesses, and one person can only drive to so many rooms.</b>
+      That's the real ceiling, and it's the reason the first cohort is ten venues and not a hundred. If I'm going to be out of pocket for a day — travel, a closing, anything — the venues running a box hear it from me before it happens, not after. When this outgrows one phone, the fix is hiring a tech, not pretending the phone scales.
+    </li>
+    <li>
+      <span class="tag">If I don't answer</span>
+      <b>You are never stuck waiting on me to watch the game.</b>
+      This is the part that matters more than my response time: nothing about your TVs depends on me being reachable. The bypass remote in your drawer kills the box instantly — no menu, no app, no phone call — and your feed runs straight through exactly like the box was never there. Worst case, unplug it. The game keeps playing either way.
+    </li>
+  </ul>
+</section>
+
+<section>
+  <div class="kick">The thing nobody asks until it's too late</div>
+  <h2>What happens to your TVs <span class="g">if BreakShark goes away.</span></h2>
+  <p class="sub">Fair question for a pre-launch company with one guy in it. The answer is built into the hardware, not into a promise.</p>
+
+  <div class="green-block" style="margin-top:26px">
+    <b>Your game feed does not pass through our software.</b> The broadcast runs through the box on its own path. If our software crashes, if the box loses power, if the company disappears entirely and nobody ever updates anything again — the break just plays like it always has, and your TV is the TV you already owned. There is no scenario where a BreakShark failure leaves you with a dark screen or a bill for a repair. That is a deliberate design choice and it's the first thing I built.
+  </div>
+
+  <div class="twocol">
+    <div class="tc"><div class="n">IF THE BOX DIES</div><h4>The break plays normally</h4><p>The feed passes straight through. You lose the takeover, not the game. Text me and I ship a replacement — you don't pay for hardware that failed on its own.</p></div>
+    <div class="tc"><div class="n">IF YOU WANT OUT</div><h4>Unplug it, ship it back</h4><p>A prepaid return label goes in every box on day one, so getting the hardware back to me never costs you shipping and never turns into a chore you're avoiding.</p></div>
+    <div class="tc"><div class="n">IF I'M UNREACHABLE</div><h4>The remote in your drawer</h4><p>Bypass is a physical button, not a setting. It doesn't need the internet, our servers, or me. Anyone behind the bar can hit it.</p></div>
+    <div class="tc no"><div class="n">IF BREAKSHARK ENDS</div><h4>You keep your TVs and your night</h4><p>The box stops flipping breaks. Nothing else changes. No lock-in on your screens, no proprietary anything between you and your cable box.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="kick">Where we actually stand</div>
+  <h2>The company, <span class="g">stated plainly.</span></h2>
+  <p class="sub">If you're the kind of buyer who runs a vendor check before anything gets installed, here's what that check would turn up — from me, first, instead of from a search.</p>
+
+  <ul class="qa">
+    <li>
+      <span class="tag aw">In progress</span>
+      <b>The LLC is being filed. It isn't done yet.</b>
+      It's on every page of this site for that reason. No venue will be asked to sign anything with a person instead of a company — the entity gets finished before any agreement goes out, and that line in the footer updates the day it's done. A free Catch Night involves no paperwork at all, so it isn't waiting on any of this.
+    </li>
+    <li>
+      <span class="tag">On record</span>
+      <b>U.S. patent pending — a provisional application filed July 17, 2026.</b>
+      That means an application is on record and the priority date is held. It does not mean a granted patent, and we don't word it like it does anywhere on this site.
+    </li>
+    <li>
+      <span class="tag">Not yet</span>
+      <b>No customers, no revenue, and no price set.</b>
+      You'd be among the first. There are no invented testimonials and no logos on this site that don't belong there. Nothing gets billed to anybody unless they've seen terms in writing and said yes to them, and a Catch Night is free with nothing to sign.
+    </li>
+    <li>
+      <span class="tag">Insurance and paperwork</span>
+      <b>Ask, and you'll get a straight answer the same day.</b>
+      If your GM, your landlord, or your compliance folks need something specific in a file before a box goes on a wall — a certificate, a W-9, a data sheet, a signed statement about what the box does and doesn't record — text me what the requirement is and I'll tell you plainly whether I have it today or what it takes to get it. I'd rather lose a deal on a real gap than fudge one.
+    </li>
+  </ul>
+</section>
+
+<section>
+  <div class="kick">How many boxes</div>
+  <h2>One box per feed. <span class="g">TVs don't count.</span></h2>
+  <p class="sub">The single most common question, and the one most likely to be answered wrong by guessing. The rule is simple, and it's about your cable boxes — not your screens.</p>
+
+  <div class="steps">
+    <div class="step"><div class="n">THE RULE</div><h4>One box, one feed</h4><p>A BX-1 sits on one cable or streaming box. It catches the breaks in whatever that feed is showing.</p></div>
+    <div class="step"><div class="n">YOUR SCREENS</div><h4>Hang as many as you want</h4><p>If eight TVs are all showing the same cable box, one BX-1 covers all eight. Screens are never the thing being counted.</p></div>
+    <div class="step"><div class="n">DIFFERENT GAMES</div><h4>Each simultaneous game is its own feed</h4><p>Three different games on at once means three feeds, so three boxes. Two games, two boxes. It tracks your cable boxes exactly.</p></div>
+  </div>
+
+  <div class="amber-block" style="margin-top:26px">
+    <b>Don't take my count over the phone.</b> Big rooms get this wrong in both directions — I've seen fourteen-screen bars that genuinely need two boxes, and six-screen rooms that need four. That's the whole reason a Catch Night starts with me walking your setup and giving you the honest number before anything else happens. If the honest number is bigger than you hoped, you'll hear it from me at the walkthrough, not on an invoice.
+  </div>
+</section>
+
+<section>
+  <div class="kick">The order things happen in</div>
+  <h2>Nobody skips the <span class="g">free night.</span></h2>
+  <div class="steps">
+    <div class="step"><div class="n">01 · CATCH NIGHT</div><h4>Free, nothing to sign</h4><p>I bring the BX-1 to your place and run it on your TVs for one real game night. You hold the bypass remote the whole time. If you shrug, the box goes home with me and that's the end of it.</p></div>
+    <div class="step"><div class="n">02 · INSTALL</div><h4>About an hour, before open</h4><p>Between your cable or streaming box and the TV. No rewiring, nobody from IT, your game feed never changed or delayed. The bypass remote stays in your drawer.</p></div>
+    <div class="step"><div class="n">03 · YOUR NUMBERS</div><h4>Posted where anyone can see</h4><p>Founding venues get their own results page — breaks caught, promos run, and what actually moved. Good or bad, it's the number that goes up.</p></div>
+  </div>
+  <div class="cta-row">
+    <a class="btn primary" href="index.html#catchnight">Book a free Catch Night</a>
+    <a class="btn" href="privacy.html">What the box sees and sends →</a>
+  </div>
+  <p class="mono" style="color:var(--faint);margin-top:22px;letter-spacing:.06em;line-height:1.9">IF SOMETHING ON THIS PAGE ISN'T TRUE OF YOUR EXPERIENCE, TEXT MAXX AT (916) 628-6299 AND IT GETS FIXED OR REMOVED — SAME RULE AS EVERY NUMBER ON THIS SITE.</p>
+</section>
+<footer>
+  <div class="foot-in">
+    <div>
+      <h5>BreakShark</h5>
+      <div class="patline">U.S. PATENT PENDING — PROVISIONAL FILED JULY 17, 2026<br>© 2026 BREAKSHARK · BUILT BY MAXX ZAMANI, CALIFORNIA<br>LLC FILING IN PROGRESS — THIS LINE UPDATES WHEN IT'S DONE</div>
+    </div>
+    <div>
+      <h5>Look under the hood</h5>
+      <a href="index.html#straight">Where it works and where it doesn't</a>
+      <a href="sources.html">Every number, and where it came from</a>
+      <a href="support.html">What happens after you say yes</a>
+      <a href="privacy.html">What the box sees and sends</a>
+      <a href="loop.html">Loop mode — no live TV needed</a>
+      <a href="dashboard.html">Live dashboard demo</a>
+      <a href="investors.html">Investors</a>
+    </div>
+    <div>
+      <h5>Talk to the guy who built it</h5>
+      <a href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
+      <a href="tel:+19166286299">Call: (916) 628-6299</a>
+      <a href="mailto:maxxzamani@gmail.com">maxxzamani@gmail.com</a>
+    </div>
+  </div>
+</footer>
+<div class="mbar" aria-label="Quick actions">
+  <a class="claim" href="index.html#catchnight">Book a Catch Night</a>
+  <a class="text" href="sms:+19166286299">Text Maxx</a>
+</div>
+</body>
+</html>
