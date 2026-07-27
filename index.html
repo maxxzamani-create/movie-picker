@@ -294,9 +294,16 @@
   .sm-grid label{display:block;font:700 13px Inter;color:var(--dim);margin-bottom:10px}
   .sm-grid input[type=range]{width:100%;accent-color:#35e08c}
   .sm-slotrow{display:flex;gap:6px;margin-top:14px}
-  .sm-pip{flex:1;height:34px;border-radius:6px;border:1px solid rgba(255,90,90,.4);background:rgba(255,90,90,.09);
-    display:flex;align-items:center;justify-content:center;font:800 8.5px Inter;letter-spacing:.05em;color:#ffb3b3;transition:all .25s ease}
+  .sm-pip{flex:1;min-width:0;height:40px;padding:0;border-radius:6px;border:1px solid rgba(255,90,90,.4);background:rgba(255,90,90,.09);
+    display:flex;align-items:center;justify-content:center;font:800 10px Inter;letter-spacing:.04em;color:#ffb3b3;
+    transition:transform .15s ease,border-color .25s ease,background .25s ease,color .25s ease,box-shadow .2s ease;
+    cursor:pointer;-webkit-appearance:none;appearance:none}
+  .sm-pip:hover{transform:translateY(-2px);border-color:rgba(53,224,140,.55);color:var(--money-pale);box-shadow:0 6px 16px rgba(53,224,140,.16)}
+  .sm-pip:focus-visible{outline:2px solid var(--money);outline-offset:2px}
   .sm-pip.on{border-color:rgba(53,224,140,.7);background:rgba(53,224,140,.16);color:var(--money-pale)}
+  .sm-pip.on:hover{border-color:var(--money)}
+  @media(max-width:520px){.sm-pip{font-size:9px;height:38px}}
+  .sm-hint{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:9px}
   .sm-out .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
   .sm-out .band{font-family:"Bebas Neue";font-size:clamp(38px,6vw,72px);line-height:1;margin:8px 0 2px;
     background:linear-gradient(120deg,var(--money-pale),var(--money));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -760,10 +767,11 @@
       <div class="sm-kick" style="color:var(--blue)">Part two — this is a model, and here's the model</div>
       <div class="sm-grid">
         <div>
-          <label for="slots">Slots you control — slide it</label>
+          <label for="slots">Slots you control — click a slot, or drag the bar</label>
           <input type="range" id="slots" min="1" max="6" step="1" value="6" aria-label="Number of ad slots you control">
-          <div class="sm-slotrow" id="slotPips"></div>
-          <div class="mono" style="color:var(--faint);margin-top:12px" id="slotSay"></div>
+          <div class="sm-slotrow" id="slotPips" role="group" aria-label="Choose how many ad slots are yours"></div>
+          <div class="sm-hint">Tap any slot to see what that many would do</div>
+          <div class="mono" style="color:var(--faint);margin-top:10px" id="slotSay"></div>
         </div>
         <div class="sm-out">
           <div class="lbl">Modeled lift on food &amp; drink · not a promise</div>
@@ -1053,11 +1061,21 @@
   var sl=document.getElementById('slots'); if(!sl)return;
   var pips=document.getElementById('slotPips'), say=document.getElementById('slotSay'),
       band=document.getElementById('slotBand'), note=document.getElementById('slotNote');
-  for(var i=0;i<6;i++){var d=document.createElement('div');d.className='sm-pip';d.textContent='SLOT '+(i+1);pips.appendChild(d);}
+  for(var i=0;i<6;i++){
+    var d=document.createElement('button');
+    d.type='button'; d.className='sm-pip'; d.textContent='SLOT '+(i+1);
+    d.setAttribute('data-n', i+1);
+    d.setAttribute('aria-label','Set the model to '+(i+1)+' slot'+(i?'s':''));
+    d.addEventListener('click',function(){
+      sl.value=this.getAttribute('data-n');
+      sl.dispatchEvent(new Event('input'));
+    });
+    pips.appendChild(d);
+  }
   var pipEls=pips.querySelectorAll('.sm-pip');
   function upd(){
     var n=+sl.value;
-    for(var i=0;i<6;i++) pipEls[i].classList.toggle('on', i<n);
+    for(var i=0;i<6;i++){ pipEls[i].classList.toggle('on', i<n); pipEls[i].setAttribute('aria-pressed', i<n?'true':'false'); }
     var lo=BASE*Math.sqrt(n), hi=BASE*Math.log(1+n)/Math.log(2);
     if(n===1){
       band.textContent='6.5%';
