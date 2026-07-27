@@ -186,18 +186,30 @@
   .failglass b{color:var(--money)}
   .failglass p{color:var(--dim);font-size:15px;margin-top:6px}
 
-  /* ---------- SHARK REEL ---------- */
+  /* ---------- ANY GAME ANY CHANNEL (channel takeover grid) ---------- */
   .reelwrap{background:#061020;border-top:1px solid rgba(53,224,140,.25);border-bottom:1px solid rgba(53,224,140,.25);max-width:none}
   .reel-in{max-width:1180px;margin:0 auto}
-  .reelgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
-  @media(max-width:900px){.reelgrid{grid-template-columns:repeat(2,1fr);gap:10px}}
-  .rtile{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line2);background:#04070e;
-    box-shadow:0 10px 30px rgba(0,0,0,.4)}
-  .rtile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .rtile .rlbl{position:absolute;left:9px;bottom:9px;z-index:3;font-family:var(--mono);font-size:9px;letter-spacing:.14em;
-    color:var(--money);background:rgba(4,12,8,.75);border:1px solid rgba(53,224,140,.45);border-radius:4px;padding:4px 7px;text-transform:uppercase}
-  .rtile .rglow{position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 0 0 40px rgba(53,224,140,.14)}
-  .rtile .rph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:10px;letter-spacing:.14em}
+  .chgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+  @media(max-width:900px){.chgrid{grid-template-columns:repeat(2,1fr);gap:10px}}
+  @media(max-width:520px){.chgrid{grid-template-columns:1fr}}
+  .ctile{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line2);background:#04070e;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  .ctile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ctile .clbl{position:absolute;left:9px;top:9px;z-index:5;font-family:var(--mono);font-size:9px;letter-spacing:.14em;
+    color:var(--dim);background:rgba(4,7,14,.78);border:1px solid var(--line2);border-radius:4px;padding:4px 7px;text-transform:uppercase}
+  .ctile .cflash{position:absolute;inset:0;z-index:6;pointer-events:none;border:3px solid var(--money);opacity:0}
+  .ctile.flash .cflash{animation:ctf .25s steps(2) 1}
+  @keyframes ctf{0%{opacity:.95}100%{opacity:0}}
+  .ctile .cad{position:absolute;inset:0;z-index:4;display:none;flex-direction:column;justify-content:flex-end;padding:7%;
+    background:linear-gradient(160deg,var(--ca1,#0e3f34) 0%,#0a2038 60%,#071426 100%)}
+  .ctile.ad .cad{display:flex}
+  .ctile.ad video{visibility:hidden}
+  .cad .ca-venue{font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:var(--money-pale);text-transform:uppercase}
+  .cad .ca-h{font-family:"Bebas Neue";font-size:clamp(17px,2.1vw,30px);line-height:1;margin-top:5px;text-transform:uppercase}
+  .cad .ca-p{color:var(--dim);font-size:10.5px;margin-top:3px}
+  .cad .ca-badge{position:absolute;top:8px;right:8px;display:flex;align-items:center;gap:6px;
+    background:linear-gradient(120deg,var(--money),var(--money-deep));border:1px solid var(--money-pale);border-radius:7px;padding:4px 8px 4px 6px}
+  .cad .ca-badge img{height:15px;width:auto}
+  .cad .ca-badge span{font-family:"Bebas Neue";font-size:11px;letter-spacing:1px;color:#04140b}
 
   /* ---------- THE DEAL ---------- */
   .deal{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:34px}
@@ -261,6 +273,18 @@
   .lcard{border:1px solid var(--line2);border-radius:12px;padding:24px;background:var(--panel)}
   .lcard h4{font:800 16px Inter;color:var(--money-pale)}
   .lcard p{color:var(--dim);font-size:14px;margin-top:8px}
+  /* the little TV in each loop card — a real loop channel, playing */
+  .ltv{position:relative;aspect-ratio:16/9;border-radius:9px;overflow:hidden;border:1px solid var(--line2);background:#04070e;margin-bottom:16px}
+  .ltv .lchip{position:absolute;top:7px;left:7px;z-index:5;font-family:var(--mono);font-size:8px;letter-spacing:.16em;color:var(--money);background:rgba(4,12,8,.8);border:1px solid rgba(53,224,140,.4);border-radius:3px;padding:3px 6px}
+  .lslide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:8%;opacity:0;animation:lrot 15s infinite}
+  .lslide:nth-child(2){animation-delay:0s}
+  .lslide:nth-child(3){animation-delay:5s}
+  .lslide:nth-child(4){animation-delay:10s}
+  @keyframes lrot{0%{opacity:0}4%{opacity:1}31%{opacity:1}36%{opacity:0}100%{opacity:0}}
+  @media(prefers-reduced-motion:reduce){.lslide{animation:none}.lslide:nth-child(2){opacity:1}}
+  .lslide .ls-k{font-family:var(--mono);font-size:8px;letter-spacing:.18em;color:var(--money-pale);text-transform:uppercase}
+  .lslide .ls-h{font-family:"Bebas Neue";font-size:clamp(16px,1.8vw,26px);line-height:1;margin-top:4px;text-transform:uppercase}
+  .lslide .ls-p{color:var(--dim);font-size:9.5px;margin-top:2px}
 
   /* ---------- INVESTORS ---------- */
   .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:30px}
@@ -494,21 +518,22 @@
   <p class="srcline" style="margin-top:18px">WHERE THESE COME FROM: the box's own logs and a frame-by-frame review of 23 breaks on July 18, plus session records from July 14–18, 2026. Streaming and satellite are listed separately on purpose — one blended number would flatter us and mislead you.</p>
 </section>
 
-<!-- ═══ 4.5 · SHARK BREAK REEL ═══ -->
-<section class="reelwrap" id="reel">
+<!-- ═══ 4.5 · ANY GAME, ANY CHANNEL ═══ -->
+<section class="reelwrap" id="anygame">
   <div class="reel-in" style="padding:78px 24px">
-  <div class="kick">The Shark Break reel</div>
-  <h2>This is what a break <span class="g">looks like now.</span></h2>
-  <p class="sub">Six of our house spots, all playing at once. Yours would be your wings, your taps, your Thursday night — shot from photos you send us. Founding venues get three of them made for free.</p>
-  <div class="reelgrid" id="reelGrid">
-    <div class="rtile"><div class="rph">LOADING SPOT…</div><div class="rglow"></div><div class="rlbl">SHARK BREAK 01</div></div>
-    <div class="rtile"><div class="rph">LOADING SPOT…</div><div class="rglow"></div><div class="rlbl">SHARK BREAK 02</div></div>
-    <div class="rtile"><div class="rph">LOADING SPOT…</div><div class="rglow"></div><div class="rlbl">SHARK BREAK 03</div></div>
-    <div class="rtile"><div class="rph">LOADING SPOT…</div><div class="rglow"></div><div class="rlbl">SHARK BREAK 04</div></div>
-    <div class="rtile"><div class="rph">LOADING SPOT…</div><div class="rglow"></div><div class="rlbl">SHARK BREAK 05</div></div>
-    <div class="rtile"><div class="rph">LOADING SPOT…</div><div class="rglow"></div><div class="rlbl">SHARK BREAK 06</div></div>
+  <div class="kick">Any game. Any channel. Any break.</div>
+  <h2>If it has commercial breaks,<br>the BX-1 <span class="g">hunts them.</span></h2>
+  <p class="sub">Hockey, baseball, hoops, fight night — and it's not just sports. News in the hotel lobby, cooking shows in the restaurant, home shows in the dealership waiting room, daytime TV at the doctor's office. Watch each screen below: the show plays, the break hits, <b style="color:var(--money)">your ad takes over</b>, and the show comes right back.</p>
+  <div class="chgrid" id="chGrid">
+    <div class="ctile" data-clip="hockey" data-ca1="#0e3f34" data-venue="Your ad · Sports bar" data-h="WING NIGHT —<br>$1 WINGS TIL CLOSE" data-p="Every break of the game, selling your kitchen."><div class="clbl">LIVE HOCKEY</div></div>
+    <div class="ctile" data-clip="baseball" data-ca1="#123a5e" data-venue="Your ad · Taproom" data-h="9TH-INNING IPA —<br>$2 OFF PINTS" data-p="Your taps on every screen, every break."><div class="clbl">LIVE BASEBALL</div></div>
+    <div class="ctile" data-clip="basketball" data-ca1="#3a2a0e" data-venue="Your ad · Gym" data-h="PT INTRO SESSION —<br>FREE THIS WEEK" data-p="Sold on the cardio row while they sweat."><div class="clbl">LIVE HOOPS</div></div>
+    <div class="ctile" data-clip="mma" data-ca1="#3a0e1c" data-venue="Your ad · Fight night" data-h="NO COVER +<br>2-FOR-1 PITCHERS" data-p="The crowd's already loud. Sell them."><div class="clbl">FIGHT NIGHT</div></div>
+    <div class="ctile" data-clip="news" data-clip2="reno" data-ca1="#0e2a3f" data-venue="Your ad · Doctor's office" data-h="FLU SHOTS —<br>ASK AT THE DESK" data-p="Your services, not cable commercials." data-venue2="Your ad · Dealership" data-h2="SERVICE SPECIAL —<br>FREE TIRE ROTATION" data-p2="The waiting room sells the service bay."><div class="clbl" data-l2="HOME RENO SHOW">CABLE NEWS</div></div>
+    <div class="ctile" data-clip="cooking" data-ca1="#3a1c0e" data-venue="Your ad · Restaurant" data-h="CHEF'S SPECIAL —<br>TONIGHT $19" data-p="They're watching food. Show them yours."><div class="clbl">COOKING SHOW</div></div>
   </div>
-  <p style="margin-top:26px"><a class="btn primary" href="#catchnight">Get three spots made for your place →</a></p>
+  <p class="mono" style="color:var(--faint);margin-top:16px">SIMULATED TAKEOVERS FOR DEMO — THE BOX'S REAL VERIFIED RECORD IS IN THE SCORECARD ABOVE. SPORTS ON STREAMING: 62 OF 62. SATELLITE AND NEW CHANNEL TYPES: IN THE OPEN, SEE STRAIGHT TALK.</p>
+  <p style="margin-top:20px"><a class="btn primary" href="#catchnight">Get three ads made for your place →</a></p>
   </div>
 </section>
 
@@ -529,7 +554,7 @@
         <div class="slot theirs">THEIR<br>AD</div>
         <div class="slot theirs">THEIR<br>AD</div>
       </div>
-      <p>Their customer is the advertiser. Your room is the product. For the use of your walls you get a rent check — usually <b style="color:var(--text)">$1–2K a year</b>.</p>
+      <p>Their customer is the advertiser. Your room is the product — five of six slots sell <b style="color:var(--text)">somebody else's brand</b> on your walls, your TVs, your electric bill.</p>
     </div>
     <div class="deal-card us">
       <div class="tag">The BreakShark deal</div>
@@ -548,8 +573,12 @@
 
   <div class="fquote">You're the customer here — not the product.</div>
 
-  <div class="amber-block" style="margin-top:20px">
-    <b>THEIR OWN NUMBER:</b> the "free box" industry published a case study saying the <b style="color:var(--text)">one</b> house slot a venue keeps lifts sales 3–5%. One slot out of six already moves your register. BreakShark gives you all six.
+  <div class="green-block" style="margin-top:20px">
+    <b>OR BE THE MEDIA COMPANY.</b> Don't need all six slots for your own menu? Sell one or two to the businesses next door — the mechanic, the barber, the dispensary by the stadium. <b>You set the price. You keep 100%.</b> We never broker the deal and never take a cut. What do local screens go for? Published rate guides put small local screen ads at <b>$50–$1,000 a month</b>. Even at neighborly rates — call it $25–$75 a week — two neighbor slots is roughly <b>$2,600–$7,800 a year</b> on top of your own lift, at numbers you pick.
+  </div>
+
+  <div class="amber-block" style="margin-top:14px">
+    <b>WHERE THOSE NUMBERS COME FROM:</b> the sales-lift case study (3–5% from ONE house slot) is the "free box" industry's own published number. The local ad-rate range comes from published 2026 digital-signage rate guides — your town and your foot traffic set the real price, and nobody should promise you otherwise.
   </div>
 </section>
 
@@ -631,7 +660,7 @@
   <div class="kick" style="text-align:center">A letter from the guy who built it</div>
   <h2 style="text-align:center">Why you keep <span class="g">all six slots</span></h2>
   <div class="letter">
-    <p>I run a mortgage business and a solar business. I know exactly what a margin is, because I have to make payroll out of mine. So when I found out that a bar pays for the TV, the cable bill, and the electricity — and then hands its commercial breaks to a middleman who sells them to somebody else for a rent check — it struck me as completely backwards.</p>
+    <p>I run a mortgage business and a solar business. I know exactly what a margin is, because I have to make payroll out of mine. So when I found out that a bar pays for the TV, the cable bill, and the electricity — and then hands its commercial breaks to a middleman who sells them to somebody else — it struck me as completely backwards.</p>
     <p>So I built a box that gives the breaks back. Built it myself, on a bench, and filmed it catching a real break on live TV on July 14th — one take, no cuts. It's up on this page. The patent paperwork went in on July 17th.</p>
     <p><b>Here's the deal, plain:</b> you buy the box. You pay one flat fee. You keep all six slots and 100% of every dollar they bring in — including slots you sell to the mechanic or the barber down the street, if you want to run it like your own little TV station. I don't take a cut of your sales. There's no ad network on your walls. I haven't set the price yet; the first 10 venues are going to help me set it, and nothing gets billed until you've agreed to it. What I won't do is make up a number just to look finished.</p>
     <p><b>The question sharp people ask next:</b> "Don't you run two other businesses?" I do — a mortgage practice I run with my partner, and a solar operation that mostly runs itself. They pay my bills, which means BreakShark doesn't have to yet. No desperation pricing, no cutting corners. This is the one I'm building for the long haul, and it gets worked on every single day. Ask me about it straight — I'd rather answer than have you wonder.</p>
@@ -647,9 +676,27 @@
   <h2>Loop mode: your own channel,<br>running <span class="g">all day</span></h2>
   <p class="sub">Waiting rooms, salons, lobbies, showrooms. Same box, no cable needed — your services, your offers, your story on a loop. Send us photos and a price list, we'll build you a channel.</p>
   <div class="loopgrid">
-    <div class="lcard"><h4>The shop</h4><p>Cuts, prices, products, and the "walk-ins after 2" card — instead of cable news arguing over your chairs. Want to change a price? Text us.</p></div>
-    <div class="lcard"><h4>The waiting room</h4><p>Your providers, your services, your seasonal reminders. Professional, quiet, nothing to maintain. The box doesn't record anything about your patients — it just plays.</p></div>
-    <div class="lcard"><h4>The gym floor</h4><p>Tonight's classes, open spots, member offers on every screen on the cardio row — sold while they're already in the building.</p></div>
+    <div class="lcard">
+      <div class="ltv"><span class="lchip">YOUR CHANNEL · LIVE</span>
+        <div class="lslide" style="background:linear-gradient(160deg,#2A1E14,#12100b)"><div class="ls-k">The Shop · Today</div><div class="ls-h">WALK-INS AFTER 2</div><div class="ls-p">Fades from $30 · beard trim $15</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,#1c2a14,#0d120b)"><div class="ls-k">This week</div><div class="ls-h">KID CUTS $20 — SAT AM</div><div class="ls-p">First come, first served</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,#14212a,#0b0f12)"><div class="ls-k">On the shelf</div><div class="ls-h">POMADE 2-FOR-$25</div><div class="ls-p">Ask your barber</div></div>
+      </div>
+      <h4>The shop</h4><p>Cuts, prices, products, and the "walk-ins after 2" card — instead of cable news arguing over your chairs. Want to change a price? Text us.</p></div>
+    <div class="lcard">
+      <div class="ltv"><span class="lchip">YOUR CHANNEL · LIVE</span>
+        <div class="lslide" style="background:linear-gradient(160deg,#0e2a3f,#0a1420)"><div class="ls-k">This office</div><div class="ls-h">FLU SHOTS — ASK AT THE DESK</div><div class="ls-p">Walk-in, most insurance accepted</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,#14303a,#0b1216)"><div class="ls-k">Now accepting</div><div class="ls-h">NEW PATIENTS WELCOME</div><div class="ls-p">Same-week appointments</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,#1e2a3a,#0d1118)"><div class="ls-k">Friendly reminder</div><div class="ls-h">HAVE YOUR CARD READY</div><div class="ls-p">It keeps the line moving — thank you</div></div>
+      </div>
+      <h4>The waiting room</h4><p>Your providers, your services, your seasonal reminders. Professional, quiet, nothing to maintain. The box doesn't record anything about your patients — it just plays.</p></div>
+    <div class="lcard">
+      <div class="ltv"><span class="lchip">YOUR CHANNEL · LIVE</span>
+        <div class="lslide" style="background:linear-gradient(160deg,#1E1430,#0e0a16)"><div class="ls-k">Tonight</div><div class="ls-h">HIIT 6PM — 4 SPOTS LEFT</div><div class="ls-p">Sign up at the front desk</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,#0e3f34,#081a12)"><div class="ls-k">This week only</div><div class="ls-h">FREE PT INTRO SESSION</div><div class="ls-p">Members bring a friend free</div></div>
+        <div class="lslide" style="background:linear-gradient(160deg,#3a2a0e,#160f06)"><div class="ls-k">Smoothie bar</div><div class="ls-h">PROTEIN SHAKE $6</div><div class="ls-p">Post-workout special til 8</div></div>
+      </div>
+      <h4>The gym floor</h4><p>Tonight's classes, open spots, member offers on every screen on the cardio row — sold while they're already in the building.</p></div>
   </div>
   <p style="margin-top:24px"><a class="btn primary" href="sms:+19166286299?&body=Hey%20Maxx%20—%20I%20want%20a%20Loop%20Week%20for%20my%20business.">Book a free Loop Week →</a></p>
   <p class="mono" style="color:var(--faint);margin-top:12px">WE BUILD YOUR CHANNEL, IT RUNS 7 DAYS, THE BOX COMES OUT IF YOU SHRUG. TWO OF THE FOUNDING 10 SPOTS ARE HELD FOR LOOP VENUES.</p>
@@ -815,32 +862,65 @@
   loop();
 })();
 
-/* ---------- SHARK BREAK REEL — 6 spots playing at once, lazy-loaded ---------- */
+/* ---------- ANY GAME ANY CHANNEL — show plays, break hits, your ad takes over, show returns ---------- */
 (function(){
-  var grid=document.getElementById('reelGrid'); if(!grid)return;
-  var BASE='https://kfsqpmexrlqkfmmarpug.supabase.co/storage/v1/object/public/ads/';
-  var S=['1784964781032-BreakShark-AD-01-GreatWhite.mp4','1784964801439-BreakShark-AD-02-SunsetSurface.mp4','1784964816968-BreakShark-AD-03-NeonMiami.mp4','1784964829802-BreakShark-AD-04-VolcanicEmber.mp4','1784964855622-BreakShark-AD-05-EmeraldKelp.mp4','1784964869591-BreakShark-AD-06-PurpleStorm.mp4','1784964885760-BreakShark-AD-07-BloodOrangeReef.mp4','1784964905295-BreakShark-AD-08-GoldBaitBall.mp4','1784964918680-BreakShark-AD-09-CopperSurf.mp4','1784964930067-BreakShark-AD-10-GoldenMoonBreach.mp4','1784964946196-BreakShark-AD-11-TealTangerineChase.mp4','1784964958719-BreakShark-AD-12-MoltenSunsetBreach.mp4','1784964972705-BreakShark-AD-13-Bioluminescent.mp4','1784964986562-BreakShark-AD-14-PolarIce.mp4','1784965017532-BreakShark-AD-15-AmberStorm.mp4','1784965028327-BreakShark-AD-16-RoseGoldShallows.mp4','1784965041033-BreakShark-AD-17-AmberShipwreck.mp4','1784349919510-BreakShark_Ad_01_friendly-glide.mp4','1784349945591-BreakShark_Ad_02_dawn-breach.mp4','1784349967784-BreakShark_Ad_03_sunny-breach.mp4','1784350010808-BreakShark_Ad_05_fish-catch.mp4','1784350032450-BreakShark_Ad_06_hammerhead.mp4','1784350057874-BreakShark_Ad_07_mako.mp4','1784350080063-BreakShark_Ad_08_silhouette.mp4','1784350105971-BreakShark_Ad_10_fin-sunset.mp4','1784350191658-BreakShark_Ad_09_tuna-faceoff.mp4'];
-  var tiles=[].slice.call(grid.querySelectorAll('.rtile'));
+  var grid=document.getElementById('chGrid'); if(!grid)return;
+  var tiles=[].slice.call(grid.querySelectorAll('.ctile'));
   var started=false;
+  function setAd(t,alt){
+    var ad=t.querySelector('.cad');
+    ad.style.setProperty('--ca1',t.dataset.ca1||'#0e3f34');
+    ad.querySelector('.ca-venue').textContent=(alt&&t.dataset.venue2)?t.dataset.venue2:t.dataset.venue;
+    ad.querySelector('.ca-h').innerHTML=(alt&&t.dataset.h2)?t.dataset.h2:t.dataset.h;
+    ad.querySelector('.ca-p').textContent=(alt&&t.dataset.p2)?t.dataset.p2:t.dataset.p;
+  }
   function boot(){
     if(started)return; started=true;
     tiles.forEach(function(t,n){
-      var idx=(n*4)%S.length;   /* spread the tiles across the library */
+      var clip=t.dataset.clip, clip2=t.dataset.clip2, alt=false;
       var v=document.createElement('video');
-      v.muted=true;v.playsInline=true;v.setAttribute('playsinline','');v.setAttribute('preload','auto');
-      v.addEventListener('ended',function(){ idx=(idx+6)%S.length; v.src=BASE+S[idx]; v.play().catch(function(){}); });
-      v.addEventListener('playing',function(){ var p=t.querySelector('.rph'); if(p)p.style.display='none'; });
-      v.addEventListener('error',function(){ var p=t.querySelector('.rph'); if(p)p.textContent='SPOT UNAVAILABLE'; });
-      v.src=BASE+S[idx];
+      v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');
+      v.setAttribute('preload','metadata');
+      v.poster='static/channels/sport-'+clip+'-poster.jpg';
+      v.src='static/channels/sport-'+clip+'.mp4';
       t.insertBefore(v,t.firstChild);
-      setTimeout(function(){ v.play().catch(function(){}) }, n*220);  /* stagger so they don't all hit at once */
+      var ad=document.createElement('div');ad.className='cad';
+      ad.innerHTML='<div class="ca-badge"><img src="static/brand/icon.png" alt=""><span>BREAKSHARK AD</span></div><div class="ca-venue"></div><div class="ca-h"></div><div class="ca-p"></div>';
+      var fl=document.createElement('div');fl.className='cflash';
+      t.appendChild(ad);t.appendChild(fl);
+      setAd(t,false);
+      var lbl=t.querySelector('.clbl');
+      function flash(){t.classList.remove('flash');void t.offsetWidth;t.classList.add('flash')}
+      function cycle(){
+        if(document.hidden){setTimeout(cycle,3000);return}
+        /* show plays 7s -> CAUGHT flash -> your ad 5s -> flash -> show returns */
+        setTimeout(function(){
+          flash();
+          setTimeout(function(){
+            setAd(t,alt);t.classList.add('ad');
+            setTimeout(function(){
+              flash();
+              setTimeout(function(){
+                t.classList.remove('ad');
+                if(clip2){alt=!alt;var nc=alt?clip2:clip;
+                  v.src='static/channels/sport-'+nc+'.mp4';v.poster='static/channels/sport-'+nc+'-poster.jpg';
+                  v.play().catch(function(){});
+                  if(lbl)lbl.textContent=alt?(lbl.dataset.l2||lbl.textContent):'CABLE NEWS';
+                }
+                cycle();
+              },250);
+            },5000);
+          },260);
+        },7000);
+      }
+      setTimeout(function(){ v.play().catch(function(){}); cycle(); }, n*1200); /* stagger the hunts */
     });
   }
   function pauseAll(p){ grid.querySelectorAll('video').forEach(function(v){ p?v.pause():v.play().catch(function(){}) }) }
   document.addEventListener('visibilitychange',function(){ if(started)pauseAll(document.hidden) });
   if(!('IntersectionObserver' in window)){ boot(); return }
   var io=new IntersectionObserver(function(es){es.forEach(function(e){
-    if(e.isIntersecting){ boot(); if(started)pauseAll(false) } else if(started){ pauseAll(true) }
+    if(e.isIntersecting){ boot(); pauseAll(false) } else if(started){ pauseAll(true) }
   })},{threshold:.15});
   io.observe(grid);
 })();
