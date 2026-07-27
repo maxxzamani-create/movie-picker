@@ -155,6 +155,32 @@
   </div>
 
   <div class="srcard ours">
+    <div class="srfig">16.7%</div>
+    <div class="srwhat">Of airtime called as commercials, over 12.9 unattended hours</div>
+    <p class="srbody">The box ran <b>12.9 continuous hours</b> on live NFL Flag Championship coverage (Tubi NFL Channel via a Fire TV Stick), July 26&ndash;27 2026, in <b>watch-only mode</b> &mdash; it decides and logs, the TV never switches. Over that window it called <b>94 breaks</b>, 7.3 an hour, median length <b>90 seconds</b>, and <b>68%</b> of the calls were pod-shaped (60&ndash;320 seconds, the length a real commercial pod actually runs). <b>Zero</b> calls hit the five-minute safety ceiling.</p>
+    <p class="srbody"><b>Why this number matters:</b> a real broadcast runs roughly 18&ndash;25% commercials. Six days earlier this same box called 44.5% &mdash; about double reality. This is the first time it has landed inside the believable band and held it all night with nobody watching.</p>
+    <p class="srbody"><b>What this is not:</b> it is not a catch rate, and we won't dress it up as one. It says the box has stopped over-calling. It does <b>not</b> say how many real breaks it caught, because nobody hand-labeled that night.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own 5 Hz gate trace, 7/26 18:00 &rarr; 7/27 06:55</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">6 of 6 &middot; 3 of 3</div>
+    <div class="srwhat">Spot-checked calls that were real commercials, and quiet moments that were really the game</div>
+    <p class="srbody">From that same night we pulled frames out of the box's own recording at nine moments spread across the run. <b>Six were breaks the box called</b> &mdash; 21:01, 23:41, 01:12, 03:27, 05:52, 06:43 &mdash; and every one was a real commercial: Olive Garden, a Toyota RAV4, an American Cancer Society PSA, and three others. <b>Three were moments it stayed quiet</b> &mdash; 21:30, 02:00, 04:45 &mdash; and all three were live flag football with the scorebug on screen, correctly left alone.</p>
+    <p class="srbody"><b>Read this precisely, because the wording is the honesty.</b> This is evidence about the calls it <b>made</b>, not about the ones it may have <b>missed</b>. Six out of six spot-checks being real ads does not mean the box is &ldquo;100% accurate,&rdquo; and we will not print it that way &mdash; that is the single easiest claim on this site to knock down, and turning a spot-check into a percentage is exactly the move this page exists to refuse.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: frames pulled from the box's flight recorder, 9 timestamps, 7/26&ndash;27</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">~4 hrs</div>
+    <div class="srwhat">A real miss &mdash; the box called a frozen menu as commercials</div>
+    <p class="srbody">That same overnight run has a genuine failure in it, and it belongs on this page. Late in the night the streaming app crashed out to its own home screen, and the box spent about <b>four hours calling a silent, frozen menu as commercial breaks</b>. It was in watch-only mode, so nothing reached a TV &mdash; but it was wrong.</p>
+    <p class="srbody"><b>What happened next is the part we'd actually point at.</b> Because the box logs its own state five times a second, the failure was findable the next morning. It was traced to two specific defects, both fixed, replayed against the recording of the bad night to prove the fix behaved, and deployed by <b>11:39 that same morning</b>. The box will no longer call a break on silent video, and the five-minute ceiling on a single call is now chain-proof.</p>
+    <p class="srbody">The whole-night average including that stretch was <b>23.1%</b>. We publish the clean-window <b>16.7%</b> instead &mdash; and we're telling you the other number exists rather than letting you find it later.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own trace log + the deployed fix, 7/27 11:39</span></div>
+  </div>
+
+  <div class="srcard ours">
     <div class="srfig">2,666</div>
     <div class="srwhat">Raw watch-only detection events, Jul 13–26</div>
     <p class="srbody">This is <b>not</b> 2,666 catches. It's every candidate event the detector logged while running in watch-only mode across two weeks of tuning, including duplicates and rejects. The 62 above are the verified end-to-end catches. We publish both so the gap between them is visible.</p>

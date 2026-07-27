@@ -669,6 +669,7 @@
       <tr><td class="mono">JUL 17</td><td>satellite (DirecTV baseball) — 2 clean, 1 late, 1 missed. Fix in progress</td><td class="warn">2 of 4 clean</td></tr>
       <tr><td class="mono">JUL 17–18</td><td>ran all night on an NFL broadcast — every break caught, zero flaps</td><td class="ok">23 / 23 ✓</td></tr>
       <tr><td class="mono">JUL 18</td><td>brand-new streaming app, 6.3 hours — caught every break, no changes made</td><td class="ok">30 / 30 ✓</td></tr>
+      <tr><td class="mono">JUL 26–27</td><td>12.9 hours unattended on live football — 16.7% of airtime called as ads, inside the real-world band. Nine calls pulled and eyeballed frame by frame</td><td class="ok">6 of 6 real ads</td></tr>
       <tr id="ledLive"><td class="mono">TODAY</td><td>break events the test box has seen today</td><td id="ledLiveN" class="pend">CHECKING…</td></tr>
     </table>
   </div>
@@ -690,6 +691,14 @@
       <div class="v">3</div><div class="vs">Short false alarms</div>
       <p><b>All of them under 16 seconds.</b> In the Roku session it twice mistook a product logo, and once a schedule screen, for a break. Nothing ever reached a TV — the box was in watch-only mode. We're counting them anyway.</p>
     </div>
+    <div class="mcard">
+      <div class="v">16.7%</div><div class="vs">Of airtime called as ads</div>
+      <p><b>12.9 hours straight, nobody watching it.</b> On live football, the box called 94 breaks — 16.7% of the airtime. Real broadcasts run 18–25% ads, so it's landing just inside the believable band. Six days earlier this same box was calling 44.5%, which is roughly double reality. That gap is what a month of tuning bought.</p>
+    </div>
+    <div class="mcard">
+      <div class="v">6 of 6</div><div class="vs">Spot-checked, frame by frame</div>
+      <p><b>We pulled the tape on nine moments from that night.</b> Six were breaks the box called: every one was a real commercial — Olive Garden, a Toyota RAV4, a cancer-society PSA and three more. The other three were moments it deliberately stayed quiet: all three were live football, scorebug on screen. <b>That tells you the calls it made were right. It does not tell you how many it missed</b> — nobody hand-labeled that night, so we're not claiming a catch rate off it.</p>
+    </div>
     <div class="mcard warn">
       <div class="v">2 of 4</div><div class="vs">Satellite · the weak spot</div>
       <p><b>Satellite is harder and we're not there yet.</b> On a DirecTV baseball test: 2 breaks caught clean, 1 caught late, 1 missed. Satellite ads splice in with no gap for the box to see. Streaming is proven; satellite is still being worked on.</p>
@@ -700,12 +709,18 @@
     <b>HOW FAST IT FLIPS:</b> on the frame-by-frame test, your ad was up about <b>2 seconds</b> into the break — sometimes before it even started — and never later than 12 seconds. Coming back, it's typically on the game about <b>5 seconds early</b>, during the channel's bumper. It has never cut into live play.
   </div>
 
+  <div class="amber-block" style="margin-top:22px">
+    <b>A REAL MISS, THIS MONTH — AND WHAT WE DID ABOUT IT.</b> Overnight on July 26th the streaming app crashed to its own home screen. The box sat there and called a silent, frozen menu as commercials for about four hours. Nothing reached a TV — it was in watch-only mode, like everything we test — but it was wrong, and it was wrong for four hours.<br><br>
+    Here's the part that matters. The box records everything it does at five times a second, so the next morning that miss was <b>findable</b>. We traced it, found two specific defects behind it, fixed both, replayed the fix against the actual recording of the bad night to prove it behaved, and had it deployed by 11:39 that same morning. The box will no longer call an ad break on silent video, and the five-minute ceiling on any single break is now impossible to slip past.<br><br>
+    <b>We built it to miss rather than guess.</b> A false switch puts your ads over live play — that's the failure that gets a box thrown out of a bar. A missed break costs one commercial. So the audio proposes and the video vetoes, deliberately biased toward missing. And the open problem we haven't solved: some apps splice their ads in on the server side, where the scorebug can survive into the commercial and fool the visual check. That one's still open, and it stays on this page until it isn't.
+  </div>
+
   <div class="failglass">
     <b>And if it ever fails? Nothing happens.</b>
     <p>The break just plays like it always has — the game feed runs straight through the box. Lose power, unplug it, whatever: your TV is the TV you already own. And the bypass remote in your drawer shuts it off instantly — no menu, no calling us. Every catch is money you didn't have; a miss costs you nothing.</p>
   </div>
 
-  <p class="srcline" style="margin-top:18px">WHERE THESE COME FROM: the box's own logs and a frame-by-frame review of 23 breaks on July 18, plus session records from July 14–18, 2026. Streaming and satellite are listed separately on purpose — one blended number would flatter us and mislead you.
+  <p class="srcline" style="margin-top:18px">WHERE THESE COME FROM: the box's own logs and a frame-by-frame review of 23 breaks on July 18, session records from July 14–18, and a 12.9-hour unattended run on live NFL Flag Championship coverage over the Tubi NFL Channel via Fire TV, July 26–27, 2026, in watch-only mode. Streaming and satellite are listed separately on purpose — one blended number would flatter us and mislead you.
     <a href="sources.html#ours" style="font-weight:600">See every figure and its caveats →</a></p>
 </section>
 
