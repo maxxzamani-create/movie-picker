@@ -126,11 +126,12 @@
   <p class="sub">These come off the BX-1's own records during July 2026 testing. Nobody has audited them. The box posts its live counts to a public endpoint you can open yourself, and the misses are listed next to the catches on purpose.</p>
 
   <div class="srcard ours">
-    <div class="srfig">62 of 62</div>
+    <div class="srfig">71 of 71</div>
     <div class="srwhat">Commercial breaks caught on streaming, July 2026</div>
-    <p class="srbody">Three separate sessions: <b>23 of 23</b> on an overnight NFL broadcast (Jul 17–18), <b>30 of 30</b> on a brand-new streaming app over 6.3 hours with no changes made (Jul 18), and <b>9 of 9</b> in a Roku session (Jul 16). Not one false takeover reached a TV.</p>
-    <div class="caveat"><b>What this is not:</b> it is not a guarantee, and it is not satellite. It's three sessions in one month on one prototype, in a lab, not a bar. A venue's real setup can differ.</div>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log + frame-by-frame review</span> <a href="index.html#proof">See the scorecard →</a></div>
+    <p class="srbody">Four separate verified sessions: <b>9 of 9</b> in a Roku session (Jul 16), <b>23 of 23</b> on an overnight NFL broadcast with zero flaps (Jul 17&ndash;18), <b>30 of 30</b> on a brand-new streaming app over 6.3 hours with no changes made (Jul 18), and <b>9 of 9</b> in a supervised live test where a person called the breaks out loud in real time (Jul 27, ~1.9 hours scored, zero false switches). Not one false takeover reached a TV.</p>
+    <p class="srbody"><b>The July 27 session is the first one with human labels recorded live</b> &mdash; a label file written as the breaks happened, then cross-checked frame by frame against the box's own recording. Everything before it was verified after the fact. Small sample by design: we score what we can verify.</p>
+    <div class="caveat"><b>What this is not:</b> it is not a guarantee, and it is not satellite. It's four sessions in one month on one prototype, in a lab, not a bar. A venue's real setup can differ. <b>This supersedes the 62 of 62 published July 27</b>, which covered the first three sessions &mdash; nothing was removed, a fourth session was added.</div>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log + frame-by-frame review, plus the July 27 live label file</span> <a href="index.html#proof">See the scorecard →</a></div>
   </div>
 
   <div class="srcard soft">
@@ -152,6 +153,47 @@
     <div class="srwhat">How fast it flips, and how early it comes back</div>
     <p class="srbody">On a frame-by-frame review of 23 breaks (Jul 18): the venue's ad was up about <b>2 seconds</b> into the break — sometimes before it fully started — and never later than 12 seconds. Coming back, it was typically on the game about <b>5 seconds early</b>, during the channel's bumper. It has never cut into live play.</p>
     <div class="srmeta"><span class="tag first">First-party</span> <span>Source: frame-by-frame review, 23 breaks, July 18 2026</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">~7s / ~5s</div>
+    <div class="srwhat">How far behind a human observer it ran, July 27</div>
+    <p class="srbody">In the supervised session, entry ran a median of about <b>7 seconds</b> behind the human's spoken call and exit about <b>5 seconds</b> behind.</p>
+    <p class="srbody"><b>This is a different yardstick from the ~2s / ~5s above</b>, which is measured against the actual first frame of the commercial. A person needs a beat to see a break and say so, so the human-referenced number will always look worse. We publish both rather than pick the better-looking one.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: hand-label session cross-checked against the flight recorder, July 27 2026</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">Under 4 min</div>
+    <div class="srwhat">Unattended recovery from a cold power loss</div>
+    <p class="srbody">We deliberately cut power to the box at 8:45pm on July 27. Every component came back on its own in about <b>three and a half minutes</b>: the detection brain, the audio watcher, the video capture, the evidence recorder, and the shadow-mode safety flag. No human intervention at any step.</p>
+    <p class="srbody">This matters because a venue is not a lab. Power drops, staff unplug things, a cord gets kicked. Until July 27 this was an intention; now it is a measurement.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own startup logs, July 27 2026</span></div>
+  </div>
+
+  <div class="srcard soft">
+    <div class="srfig">12 of 12, late</div>
+    <div class="srwhat">The channel type it struggles with &mdash; reported on its own</div>
+    <p class="srbody">On a college-football replay channel whose graphics bar persists straight through the commercials, all <b>12</b> labeled breaks were caught &mdash; but entries ran a median of about <b>11 seconds</b> late, worst case <b>97 seconds</b>, so the front of one pod was effectively missed. It also fired <b>three short false ad-calls during live play</b> (17&ndash;46 seconds each), and one call hung <b>80 seconds</b> past the return.</p>
+    <p class="srbody"><b>Root cause is identified:</b> the box locks onto the scorebug to separate game from ad, and that reference does not re-lock when the channel changes; gray night turf defeats the field check on top of it. It is the current top fix.</p>
+    <p class="srbody"><b>Deliberately excluded from the 71 of 71 above</b> &mdash; different conditions, reported separately rather than blended into a friendlier number.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: hand-label session + frame verification, July 27 2026</span></div>
+  </div>
+
+  <div class="srcard soft">
+    <div class="srfig">22 of 22 &middot; 0 of 130</div>
+    <div class="srwhat">Switching policy, rehearsed against real data &mdash; not a live switch</div>
+    <p class="srbody">The debounce logic that will drive the physical HDMI switch was tuned against July 27's hand-labeled session. All <b>22</b> verified breaks would have reached the TV, and a stress window that produced <b>130 sub-second detector blips</b> produced <b>zero</b> TV flips through the policy.</p>
+    <p class="srbody"><b>Read this as a rehearsal, because that is what it is.</b> It is the policy replayed against recorded data, not a switch firing in a room. The control cable arrives this week; the first commanded cut on real hardware will be reported here, pass or fail. <b>No end-to-end switch latency number appears anywhere on this site until that measurement exists.</b></p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: policy replay against the July 27 labeled session &mdash; not a live-switch measurement</span></div>
+  </div>
+
+  <div class="srcard ours">
+    <div class="srfig">2:50pm &rarr; 7:42pm</div>
+    <div class="srwhat">How long a found miss took to fix, same day</div>
+    <p class="srbody">The channel-change blindness above surfaced in a labeled session at 2:50 in the afternoon on July 27. It was root-caused, fixed, validated offline against that same day's recordings, and deployed by <b>7:42 that evening</b>.</p>
+    <p class="srbody">That is the point of a box that records everything it does: a miss is findable in its own logs, and a fix is provable against real footage before it ships. We publish the clock on it so the claim is checkable rather than cultural.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: labeled session record + deploy log, July 27 2026</span></div>
   </div>
 
   <div class="srcard ours">
@@ -183,7 +225,7 @@
   <div class="srcard ours">
     <div class="srfig">2,666</div>
     <div class="srwhat">Raw watch-only detection events, Jul 13–26</div>
-    <p class="srbody">This is <b>not</b> 2,666 catches. It's every candidate event the detector logged while running in watch-only mode across two weeks of tuning, including duplicates and rejects. The 62 above are the verified end-to-end catches. We publish both so the gap between them is visible.</p>
+    <p class="srbody">This is <b>not</b> 2,666 catches. It's every candidate event the detector logged while running in watch-only mode across two weeks of tuning, including duplicates and rejects. The 71 above are the verified end-to-end catches. We publish both so the gap between them is visible.</p>
     <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log</span></div>
   </div>
 
@@ -379,7 +421,7 @@
     <a class="btn primary" href="index.html#catchnight">Book a free Catch Night →</a>
     <a class="btn" href="index.html#proof">Watch the box work →</a>
   </p>
-  <p class="mono" style="color:var(--faint);margin-top:16px">PAGE LAST REVIEWED JULY 27, 2026 · IF YOU FIND A NUMBER ON THIS SITE THAT ISN'T ON THIS PAGE, TEXT MAXX AT (916) 628-6299 AND IT GETS FIXED OR REMOVED.</p>
+  <p class="mono" style="color:var(--faint);margin-top:16px">PAGE LAST REVIEWED JULY 28, 2026 · IF YOU FIND A NUMBER ON THIS SITE THAT ISN'T ON THIS PAGE, TEXT MAXX AT (916) 628-6299 AND IT GETS FIXED OR REMOVED.</p>
 </section>
 
 <footer>
