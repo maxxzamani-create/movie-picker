@@ -708,7 +708,7 @@
 <section id="straight" class="reveal">
   <div class="kick b">Straight talk</div>
   <h2>Where it's <span class="g">perfect</span>,<br>and where it isn't.</h2>
-  <p class="sub">A commercial break and a 25-second timeout can look exactly the same on screen. The BX-1 watches and listens to the game itself to tell them apart. On streaming it hasn't missed one yet — including the first session where a human called the breaks out loud and the box was graded against him. On satellite it still misses. On one channel type it struggles badly. All of it is below.</p>
+  <p class="sub">A commercial break and a 25-second timeout can look exactly the same on screen. The BX-1 watches and listens to the game itself to tell them apart. On streaming it hasn't missed one yet — including the first session where a human called the breaks out loud and the box was graded against him, and the run where it stopped watching and started switching a real screen on its own. The channel type that used to beat it doesn't anymore. Satellite still does, and that one we don't sell. All of it is below.</p>
 
   <div class="missgrid">
     <div class="mcard">
@@ -735,13 +735,17 @@
       <div class="v">Under 4 min</div><div class="vs">Recovery from a dead plug</div>
       <p><b>We pulled the power on purpose.</b> A bar is not a lab — power drops, staff unplug things, somebody kicks a cord. On July 27 we cold-killed the box and timed it. In about three and a half minutes it had brought back every piece of itself — detection, audio, video, the evidence recorder, and the safety flag that keeps it in watch-only mode — with nobody touching it.</p>
     </div>
-    <div class="mcard warn">
-      <div class="v">12 of 12, late</div><div class="vs">The channel it struggles with</div>
-      <p><b>This one it does not do well.</b> On a college-football replay channel whose graphics bar stays on screen straight through the commercials, it caught all 12 labeled breaks but got in late — a median of about 11 seconds, worst case 97, which in practice means it missed the front of one pod. It also made three short false ad-calls during live play, 17 to 46 seconds each. <b>We keep these out of the 71 above on purpose</b> — different conditions, reported separately.</p>
+    <div class="mcard">
+      <div class="v">7 of 7</div><div class="vs">Live fire &middot; it actually switched</div>
+      <p><b>It stopped watching and started doing.</b> In a 79-minute supervised live-fire run, every one of the seven commercial pods the owner called out loud was physically switched by the box &mdash; the relay moved, the screen changed, the game came back. Best pod was inside a second of the human on both the way in and the way out, and one pod it caught with nobody prompting it at all. The safety flag has been off since July 30: it now drives a real screen unattended, and every exit lands on the broadcast&#39;s own countdown, about eight seconds wide including the relay itself.</p>
+    </div>
+    <div class="mcard">
+      <div class="v">~3 seconds</div><div class="vs">The hard channel &middot; solved</div>
+      <p><b>The one it used to fail, it now catches almost instantly.</b> On channels whose graphics bar stays on screen straight through the commercials, the box used to get in a median of 11 seconds late &mdash; worst case 97, which meant losing the front of a pod. So we stopped fighting the scorebug and built a detector that learns the bottom bar itself, then watches for it to vanish. Entries on that path went from about <b>85 seconds to about 3</b>, and it re-learns the bar on its own each time the program changes. Same channel type, same hardware &mdash; different answer.</p>
     </div>
     <div class="mcard warn">
-      <div class="v">2 of 4</div><div class="vs">Satellite · the weak spot</div>
-      <p><b>Satellite is harder and we're not there yet.</b> On a DirecTV baseball test: 2 breaks caught clean, 1 caught late, 1 missed. Satellite ads splice in with no gap for the box to see. Streaming is proven; satellite is still being worked on.</p>
+      <div class="v">Streaming</div><div class="vs">What we sell today</div>
+      <p><b>BreakShark ships on streaming. Satellite is in the lab.</b> Satellite ads splice in with no gap for the box to see, and our own frame-verified scoring on a DirecTV tape still fails our internal gate &mdash; so we don't sell it. It now has a dedicated second rig and an engineer&#39;s full attention. When it clears the same bar streaming cleared, it goes on this page with the number attached. Until then, if your room runs on satellite, we&#39;ll tell you that on the first call rather than at install.</p>
     </div>
   </div>
 
@@ -762,7 +766,7 @@
 
   <div class="amber-block" style="margin-top:14px">
     <b>THE OTHER MISS — AND HOW FAST IT GOT FIXED.</b> The same July 27 session that produced the 9 of 9 also produced a bad one. Switched to a college-football replay channel, the box caught every labeled break but was late getting in — a median of about 11 seconds, worst case 97 seconds, which means the front of one pod was effectively gone. It also fired three short false ad-calls during live play, 17 to 46 seconds each, and once hung 80 seconds past the return. We know exactly why: the box locks onto the scorebug to tell game from ad, and it doesn't re-lock when you change the channel — and gray night turf beats the field check on top of it.<br><br>
-    That miss was found in a labeled session at 2:50 in the afternoon. It was root-caused, fixed, validated offline against that same day's recordings, and deployed by <b>7:42 that evening</b>. Same day. That is the whole reason the box records everything it does: a miss is findable, and a fix is provable before it ships.<br><br>
+    That miss was found in a labeled session at 2:50 in the afternoon. It was root-caused, fixed, validated offline against that same day's recordings, and deployed by <b>7:42 that evening</b>. Same day. <b>And it is now closed:</b> rather than keep patching the scorebug lock, we built a detector that teaches itself what the bottom bar looks like and watches for it to disappear &mdash; entries on that channel type went from about 85 seconds to about 3, and it re-learns the bar by itself whenever the program changes. That is the whole reason the box records everything it does: a miss is findable, and a fix is provable before it ships.<br><br>
     <b>And nothing runs away.</b> There is a hard five-minute ceiling on any single break call, regardless of what the detector believes, and since July 27 it can't be chained around by back-to-back calls. Every error in that hardest session stayed under two minutes.
   </div>
 
@@ -1092,7 +1096,7 @@
   <h2>Check us out from your desk.<br>The box's numbers are <span class="g">public.</span></h2>
   <p class="sub">Most pre-seed decks ask you to believe. This page asks you to check: a working box running live, links anyone can open, a patent filing on record, and a scorecard that posts the misses next to the catches — streaming and satellite listed separately, on purpose.</p>
   <div class="ladder">
-    <div class="rung now"><div class="n">NOW</div><h4>Working box</h4><p>71 of 71 verified catches on streaming. Live catches on film. Patent filed 7/17/26. Satellite gap disclosed.</p></div>
+    <div class="rung now"><div class="n">NOW</div><h4>Working box</h4><p>71 of 71 verified catches on streaming, and switching a real screen unattended since 7/30. Live catches on film. Patent filed 7/17/26. Satellite gap disclosed.</p></div>
     <div class="rung"><div class="n">NEXT</div><h4>Catch Nights</h4><p>Live runs in real venues. Each night is a countable, public result.</p></div>
     <div class="rung"><div class="n">THEN</div><h4>Founding 10 installs</h4><p>Paid pilot venues, each with its own results page. Our own venues' sales numbers replace every borrowed one.</p></div>
     <div class="rung"><div class="n">SCALE</div><h4>Fleet</h4><p>Venue-by-venue rollout, no ad network needed — the venue keeps its screens and its money; we keep the relationship.</p></div>
@@ -1107,7 +1111,7 @@
   <details><summary>Does it ever interrupt the game?</summary>
     <p>No. Your broadcast is never changed, delayed, or interrupted. The BX-1 only changes what your screen shows during a commercial break that's already happening — and the game is back the moment play resumes. In the frame-by-frame test it actually came back about 5 seconds early, during the channel's bumper.</p></details>
   <details><summary>What happens when it misses one?</summary>
-    <p>Nothing. The break plays like it always has — the game runs straight through the box. On streaming it's caught 71 out of 71 in testing. On satellite it's caught 2 of 4, and we say so right on the page. Worst case is the TV you already own.</p></details>
+    <p>Nothing. The break plays like it always has — the game runs straight through the box. On streaming it's caught 71 out of 71 in testing. On satellite it hasn't cleared our own bar yet, so we don't sell it for satellite — and we say so right on the page. Worst case is the TV you already own.</p></details>
   <details><summary>I've got 14 TVs. Do I need 14 boxes?</summary>
     <p>No — screens are never what gets counted. One BX-1 sits on one cable or streaming box, and it covers every TV showing that feed. If eight TVs are all on the same cable box, one BX-1 covers all eight. What you count is <b>simultaneous games</b>: three different games on at once means three feeds, so three boxes. Two games, two boxes.</p>
     <p>Don't take my count over the phone, though. Big rooms get this wrong in both directions — I've seen fourteen-screen bars that needed two boxes and six-screen rooms that needed four. That's exactly what a Catch Night walkthrough is for, and if the honest number is bigger than you hoped you'll hear it from me at the walkthrough. <a href="support.html">The whole rule, written out →</a></p></details>
