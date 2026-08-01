@@ -424,6 +424,9 @@
   .plate .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--faint);margin-top:6px}
   .plate.next{border-color:rgba(53,224,140,.7);box-shadow:0 0 30px rgba(53,224,140,.16)}
   .plate.next .num{color:var(--money)} .plate.next .st{color:var(--money)}
+  .plate.claimed{border-color:rgba(53,224,140,.95);background:linear-gradient(160deg,rgba(53,224,140,.14),var(--panel));box-shadow:0 0 34px rgba(53,224,140,.24)}
+  .plate.claimed .num{color:var(--money)} .plate.claimed .st{color:var(--money)}
+  .plate.claimed .who{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:var(--dim);margin-top:4px;line-height:1.35}
   .terms{margin-top:24px;color:var(--dim);font-size:15px}
   .terms b{color:var(--text)}
 
@@ -486,6 +489,28 @@
     body{padding-bottom:54px}
   }
   @media(max-width:380px){.brand b{display:none}}
+
+/* ═══════════ MOBILE DENSITY PASS — 2026-08-01 ═══════════
+   Every section ran 88px of padding top AND bottom on phones (~176px of dead
+   air between blocks, 13 sections). Phone-only; desktop untouched. */
+@media(max-width:760px){
+  section{padding:34px 16px}
+  h1{line-height:1.03} h2{line-height:1.05}
+  .kick{margin-bottom:9px;letter-spacing:.22em}
+  .sub{margin-top:10px;font-size:15.5px;line-height:1.55}
+  .board{margin-top:20px;gap:9px}
+  .plate{padding:13px 9px}
+  .plate .num{font-size:32px}
+  .terms{margin-top:14px}
+  .card,.rung,.step,.plate,details{padding:16px 14px}
+  figure,.reel,.lslide,.twocol{margin-top:16px}
+  .twocol{gap:14px}
+}
+@media(max-width:440px){
+  section{padding:28px 14px}
+  .sub{font-size:15px}
+  .card,.rung,.step,details{padding:14px 12px}
+}
 </style>
 <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
@@ -995,10 +1020,10 @@
 <section id="founding" class="reveal">
   <div class="kick b">The Founding 10</div>
   <h2>Ten places get in first.<br>Here's the <span class="g">real count.</span></h2>
-  <p class="sub">We update this board by hand. The first spot goes to the first Catch Night venue that wants to keep going.</p>
+  <p class="sub">We update this board by hand. <b class="g">Spot 01 was claimed on August 1, 2026</b> — a restaurant and bar in Newport Beach, California, going in at up to six screens. Spot 02 goes to the next Catch Night venue that wants to keep going.</p>
   <div class="board">
-    <div class="plate next"><div class="num">01</div><div class="st">NEXT — YOURS?</div></div>
-    <div class="plate"><div class="num">02</div><div class="st">OPEN</div></div>
+    <div class="plate claimed"><div class="num">01</div><div class="st">CLAIMED · AUG 1</div><div class="who">NEWPORT BEACH, CA<br>UP TO 6 SCREENS</div></div>
+    <div class="plate next"><div class="num">02</div><div class="st">NEXT — YOURS?</div></div>
     <div class="plate"><div class="num">03</div><div class="st">OPEN</div></div>
     <div class="plate"><div class="num">04</div><div class="st">OPEN</div></div>
     <div class="plate"><div class="num">05</div><div class="st">OPEN</div></div>
@@ -1009,8 +1034,8 @@
     <div class="plate"><div class="num">10</div><div class="st">HELD · LOOP VENUE</div></div>
   </div>
   <p class="terms">Founding venues get <b>first in line for install</b>, <b>3 professional ad spots made from your photos</b>, <b>your own results page</b>, and <b>my cell number</b> — plus first say in what we build next.</p>
-  <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn primary" href="#catchnight">Book a Catch Night → spot 01 comes after</a></div>
-  <p class="mono" style="color:var(--faint);margin-top:14px">BOARD AS OF JULY 27, 2026 — UPDATED BY HAND.</p>
+  <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn primary" href="#catchnight">Book a Catch Night → spot 02 comes after</a></div>
+  <p class="mono" style="color:var(--faint);margin-top:14px">BOARD AS OF AUGUST 1, 2026 — UPDATED BY HAND.</p>
 </section>
 
 <!-- ═══ 9 · THE LETTER ═══ -->

@@ -67,6 +67,9 @@
   .plate .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--faint);margin-top:6px}
   .plate.next{border-color:rgba(53,224,140,.7);box-shadow:0 0 30px rgba(53,224,140,.16)}
   .plate.next .num{color:var(--money)} .plate.next .st{color:var(--money)}
+  .plate.claimed{border-color:rgba(53,224,140,.95);background:linear-gradient(160deg,rgba(53,224,140,.14),var(--panel));box-shadow:0 0 34px rgba(53,224,140,.24)}
+  .plate.claimed .num{color:var(--money)} .plate.claimed .st{color:var(--money)}
+  .plate.claimed .who{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:var(--dim);margin-top:4px;line-height:1.35}
   .terms{margin-top:24px;color:var(--dim);font-size:15px}
   .terms b{color:var(--text)}
   .twocol{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px}
@@ -96,6 +99,23 @@
   form.claim .btn{grid-column:1/-1;justify-content:center}
   .orline{grid-column:1/-1;text-align:center;color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.14em}
   .srcline{margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em}
+
+/* ═══ MOBILE DENSITY PASS — 2026-08-01: phone-only vertical tightening ═══ */
+@media(max-width:760px){
+  section{padding:32px 16px}
+  h1{line-height:1.03} h2{line-height:1.05}
+  .kick{margin-bottom:9px;letter-spacing:.22em}
+  .sub{margin-top:10px;font-size:15.5px;line-height:1.55}
+  .board{margin-top:20px;gap:9px}
+  .plate{padding:13px 9px}
+  .plate .num{font-size:32px}
+  .card,.step,details{padding:16px 14px}
+  .twocol{gap:14px;margin-top:16px}
+}
+@media(max-width:440px){
+  section{padding:26px 14px}
+  .card,.step,details{padding:14px 12px}
+}
 </style>
 </head>
 <body>
@@ -120,8 +140,9 @@
   <h1>Ten places get in first.<br>Here's the <span class="g">real count.</span></h1>
   <p class="sub">I'm putting the BX-1 into ten venues before anybody else. Not because ten is a marketing
     number — because ten is how many rooms I can drive to, set up myself, and answer the phone for.
-    The board below is updated by hand. Right now every spot but two is open, and I'd rather tell you
-    that plainly than pretend there's a line out the door.</p>
+    The board below is updated by hand. <b class="g">Spot 01 went on August 1, 2026</b> — a restaurant and
+    bar in Newport Beach, California, scoped at up to six screens. Seven spots are open, two are held, and
+    I'd rather tell you that plainly than pretend there's a line out the door.</p>
   <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
     <a class="btn primary" href="#claim">Put my name on the board →</a>
     <a class="btn" href="index.html#catchnight">Book a free Catch Night first</a>
@@ -133,11 +154,12 @@
 <section id="board">
   <div class="kick">The board, as it actually stands</div>
   <h2>Where the ten spots <span class="g">sit today</span></h2>
-  <p class="sub">Spot 01 goes to the first Catch Night venue that wants to keep going. Two spots are held
-    for Loop venues — places without live sports that run their own channel all day. That's the whole board.</p>
+  <p class="sub">Spot 01 is gone — the first venue signed on August 1, 2026. Spot 02 goes to the next
+    Catch Night venue that wants to keep going. Two spots are held for Loop venues — places without live
+    sports that run their own channel all day. That's the whole board.</p>
   <div class="board">
-    <div class="plate next"><div class="num">01</div><div class="st">NEXT — YOURS?</div></div>
-    <div class="plate"><div class="num">02</div><div class="st">OPEN</div></div>
+    <div class="plate claimed"><div class="num">01</div><div class="st">CLAIMED · AUG 1</div><div class="who">NEWPORT BEACH, CA<br>UP TO 6 SCREENS</div></div>
+    <div class="plate next"><div class="num">02</div><div class="st">NEXT — YOURS?</div></div>
     <div class="plate"><div class="num">03</div><div class="st">OPEN</div></div>
     <div class="plate"><div class="num">04</div><div class="st">OPEN</div></div>
     <div class="plate"><div class="num">05</div><div class="st">OPEN</div></div>
@@ -147,7 +169,7 @@
     <div class="plate"><div class="num">09</div><div class="st">HELD · LOOP VENUE</div></div>
     <div class="plate"><div class="num">10</div><div class="st">HELD · LOOP VENUE</div></div>
   </div>
-  <p class="mono" style="color:var(--faint);margin-top:16px">BOARD AS OF JULY 27, 2026 — UPDATED BY HAND. THIS MATCHES THE BOARD ON THE HOME PAGE.</p>
+  <p class="mono" style="color:var(--faint);margin-top:16px">BOARD AS OF AUGUST 1, 2026 — UPDATED BY HAND. THIS MATCHES THE BOARD ON THE HOME PAGE.</p>
 </section>
 
 <!-- 3 · WHAT FOUNDERS GET -->
