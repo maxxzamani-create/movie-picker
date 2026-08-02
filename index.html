@@ -630,10 +630,10 @@
     <div class="calcgrid" style="margin-top:18px">
       <div>
         <label for="rev">What you do a year in food &amp; drink</label>
-        <input type="range" id="rev" min="100000" max="5000000" step="25000" value="100000">
+        <input type="range" id="rev" min="100000" max="1500000" step="25000" value="100000">
         <div class="val" id="revVal">$100,000 / yr</div>
         <label for="lift">The lift <b style="color:var(--text)">you</b> think you'd get on what you push</label>
-        <input type="range" id="lift" min="1" max="19" step="0.1" value="3">
+        <input type="range" id="lift" min="1" max="16" step="0.1" value="3">
         <div class="val" id="liftVal">3.0% — playing it safe</div>
         <div class="slotpre" id="slotPre">
           <span class="spl">Or use the six-slot model:</span>
@@ -642,8 +642,8 @@
       </div>
       <div class="calcout">
         <div class="line">WHAT THAT WOULD BE WORTH A YEAR · YOUR NUMBERS</div>
-        <div class="big" id="calcBig">$30,000</div>
-        <div class="rng" id="calcRng">between 1% and 8%: $10,000 – $80,000 a year</div>
+        <div class="big" id="calcBig">$3,000</div>
+        <div class="rng" id="calcRng">the six-slot model spans $3,000 (1 slot, their CEO’s low claim) to $16,000 (6 slots, top of model)</div>
         <p style="color:var(--dim);font-size:13.5px;margin-top:14px"><b style="color:var(--text)">This is your estimate, not our promise.</b> Nobody has measured BreakShark in a live venue yet — the first ones will, and they'll publish it. Slide it to whatever you'd actually bet on.</p>
       </div>
     </div>
@@ -894,18 +894,18 @@
         </div>
         <div class="sm-out">
           <div class="lbl">Modeled lift on food &amp; drink · not a promise</div>
-          <div class="band" id="slotBand">15.9% – 18.2%</div>
+          <div class="band" id="slotBand">7.3% – 15.9%</div>
           <div class="note" id="slotNote"></div>
           <div class="sm-dollars">
             <div class="lbl">What that's worth at your revenue</div>
-            <div class="amt" id="slotDollars">$15,922 – $18,248</div>
+            <div class="amt" id="slotDollars">$7,500 – $16,000</div>
           </div>
         </div>
       </div>
 
       <div class="sm-rev">
         <label for="smRev">Your food &amp; drink revenue for the year — set it to your room</label>
-        <input type="range" id="smRev" min="100000" max="5000000" step="25000" value="100000" aria-label="Your annual food and drink revenue">
+        <input type="range" id="smRev" min="100000" max="1500000" step="25000" value="100000" aria-label="Your annual food and drink revenue">
         <div class="rv" id="smRevVal">$100,000 / yr</div>
       </div>
 
@@ -915,11 +915,11 @@
         </tr></thead>
         <tbody id="smLadderBody"></tbody>
       </table>
-      <p class="mono" style="color:var(--faint);margin-top:12px;font-size:11px;letter-spacing:.05em">CLICK ANY ROW TO SET THE MODEL TO THAT MANY SLOTS. SLOT 1 IS THE MEASURED RESULT FROM THEIR STUDY; ROWS 2–6 ARE MODELED. THE SAME NUMBERS DRIVE THE CALCULATOR IN <a href="#money">THE MONEY</a> — ONE DATASET, NO TWO ANSWERS.</p>
+      <p class="mono" style="color:var(--faint);margin-top:12px;font-size:11px;letter-spacing:.05em">CLICK ANY ROW TO SET THE MODEL TO THAT MANY SLOTS. SLOT 1 IS THEIR PUBLISHED RANGE — THEIR CEO’S 3% LOW CLAIM TO THEIR BEST CASE STUDY’S 6.5%. ROWS 2–6 ARE MODELED. THE SAME NUMBERS DRIVE THE CALCULATOR IN <a href="#money">THE MONEY</a> — ONE DATASET, NO TWO ANSWERS.</p>
 
       <div class="sm-reject">
         <div class="x">39%</div>
-        <p><b>That's six times the one-slot result, and we're not going to claim it.</b> Advertising doesn't stack in a straight line — the second time somebody sees your wings during a game does less work than the first, and the sixth does less than the fifth. Every serious model of ad response curves that way. Anyone who multiplies a one-slot number by six and hands you the total is selling you something. The band above uses two standard diminishing-returns curves instead, and even those we'd tell you to plan on the bottom of.</p>
+        <p><b>That's six times the one-slot result, and we're not going to claim it.</b> Advertising doesn't stack in a straight line — the second time somebody sees your wings during a game does less work than the first, and the sixth does less than the fifth. Every serious model of ad response curves that way. Anyone who multiplies a one-slot number by six and hands you the total is selling you something. The band above starts from their own two published one-slot numbers — the 3% their CEO claims on the low end and the 6.5% their best case study measured — and grows both on a square-root diminishing-returns curve instead. Even then, plan on the bottom of it.</p>
       </div>
     </div>
 
@@ -1164,17 +1164,22 @@
 <script>
 /* ═══════════ THE ONE SHARED MODEL ═══════════
    Every lift number anywhere on this site comes from here. One dataset, no two answers.
-   Base: 6.5% MEASURED lift from ONE slot of six (competitor-published, matched control group).
-   Two standard diminishing-returns curves, both calibrated so slots=1 returns the measured 6.5%:
-     LOW  = 6.5 * sqrt(n)              (square-root response)
-     HIGH = 6.5 * ln(1+n)/ln(2)        (logarithmic response)
+   Two anchors, BOTH the competitor's own published one-slot numbers:
+     LOWBASE  3.0 = their CEO's on-camera claim (the low end of his 3-5%)
+     HIGHBASE 6.5 = their best published case study (4 pubs, matched control, 1 month)
+   Both grow on the SAME square-root diminishing-returns curve:
+     LOW  = 3.0 * sqrt(n)    HIGH = 6.5 * sqrt(n)    n=6 -> 7.3% - 15.9%
    Linear (6.5*n) appears once, struck through, only to be rejected.
-   Slot 1 is MEASURED. Slots 2-6 are MODELED and labelled as such everywhere they appear. */
+   Re-anchored 2026-08-02: the old band varied the curve and kept the flattering
+   6.5 anchor fixed; this one varies the anchor, which is where the real
+   uncertainty lives. Top of band fell 18.2 -> 15.9, bottom fell 15.9 -> 7.3.
+   Modeled dollars round to $500 - a model has no business printing exact dollars. */
 window.BSMODEL={
-  BASE:6.5,
-  low:function(n){return this.BASE*Math.sqrt(n)},
-  high:function(n){return this.BASE*Math.log(1+n)/Math.log(2)},
-  money:function(v){return '$'+Math.round(v).toLocaleString()},
+  LOWBASE:3.0,
+  HIGHBASE:6.5,
+  low:function(n){return this.LOWBASE*Math.sqrt(n)},
+  high:function(n){return this.HIGHBASE*Math.sqrt(n)},
+  money:function(v){return '$'+(Math.round(v/500)*500).toLocaleString()},
   dollars:function(n,rev){return{lo:rev*this.low(n)/100, hi:rev*this.high(n)/100}}
 };
 
@@ -1230,9 +1235,9 @@ window.BSMODEL={
   var spbs=wrap?wrap.querySelectorAll('.spb'):[];
 
   function label(l){
-    if(l<=3) return ' — playing it safe';
-    if(l<=6.5) return ' — around the measured one-slot result';
-    if(l<=13) return ' — the model’s mid range';
+    if(l<=3) return ' — playing it safe, their CEO’s low claim';
+    if(l<=6.5) return ' — inside their published one-slot range';
+    if(l<=11) return ' — the model’s mid range';
     return ' — the top of the model, treat as upside';
   }
   function upd(){
@@ -1243,16 +1248,18 @@ window.BSMODEL={
     rv.textContent=M.money(r)+' / yr';
     lv.textContent=l.toFixed(1)+'%'+label(l)+(picked?' · '+picked+' slot'+(picked>1?'s':''):'');
     big.textContent=M.money(r*l/100);
-    rng.textContent='the six-slot model spans '+M.money(r*M.BASE/100)+' (1 slot, measured) to '+M.money(r*M.high(6)/100)+' (6 slots, top of model)';
+    rng.textContent='the six-slot model spans '+M.money(r*M.LOWBASE/100)+' (1 slot, their CEO’s low claim) to '+M.money(r*M.high(6)/100)+' (6 slots, top of model)';
     for(var i=0;i<spbs.length;i++) spbs[i].classList.toggle('on', (+spbs[i].getAttribute('data-n'))===picked);
   }
   rev.addEventListener('input',upd);
   lift.addEventListener('input',function(){picked=0;upd();});
 
   /* the six-slot ladder drives this too — one dataset, both directions */
-  window.BSsyncCalc=function(n,revenue){
+  window.BSsyncCalc=function(n,revenue,adopt){
     if(syncing)return;
-    picked=n; lift.value=M.low(n).toFixed(1);
+    /* only adopt the model's lift when the visitor actually changed the slot count —
+       a revenue drag or a page load must NEVER overwrite a hand-set lift */
+    if(adopt){ picked=n; lift.value=M.low(n).toFixed(1); }
     if(revenue && +rev.value!==revenue) rev.value=revenue;
     upd();
   };
@@ -1266,7 +1273,7 @@ window.BSMODEL={
 
 /* six-slot ladder — uses the shared model defined at the top of this script */
 (function(){
-  var M=window.BSMODEL, BASE=M.BASE;
+  var M=window.BSMODEL;
   var sl=document.getElementById('slots'); if(!sl)return;
   var pips=document.getElementById('slotPips'), say=document.getElementById('slotSay'),
       band=document.getElementById('slotBand'), note=document.getElementById('slotNote'),
@@ -1288,49 +1295,50 @@ window.BSMODEL={
   /* build the running-total ladder once */
   for(var k=1;k<=6;k++){
     var tr=document.createElement('tr');
-    tr.className='lrow'; tr.setAttribute('data-n',k);
-    tr.innerHTML='<td><span class="sn">'+k+' of 6</span>'+(k===1?'<span class="sm-measured">MEASURED</span>':'')+'</td>'+
+    tr.className='lrow'; tr.setAttribute('data-n',k); tr.setAttribute('tabindex','0'); tr.setAttribute('role','button'); tr.setAttribute('aria-label','Set the model to '+k+' slot'+(k>1?'s':''));
+    tr.innerHTML='<td><span class="sn">'+k+' of 6</span>'+(k===1?'<span class="sm-measured">THEIR PUBLISHED RANGE</span>':'')+'</td>'+
                  '<td class="pct" data-cell="pct"></td>'+
                  '<td class="r"><span class="amt" data-cell="amt"></span><span class="delta" data-cell="delta"></span></td>';
     tr.addEventListener('click',function(){ sl.value=this.getAttribute('data-n'); sl.dispatchEvent(new Event('input')); });
+    tr.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); this.click(); } });
     lbody.appendChild(tr);
   }
   var lrows=lbody.querySelectorAll('.lrow');
 
-  function upd(){
+  function upd(fromSlots){
     var n=+sl.value, R=+rev.value;
     for(var i=0;i<6;i++){ pipEls[i].classList.toggle('on', i<n); pipEls[i].setAttribute('aria-pressed', i<n?'true':'false'); }
     revVal.textContent=M.money(R)+' / yr';
 
     var lo=M.low(n), hi=M.high(n), d=M.dollars(n,R);
     if(n===1){
-      band.textContent='6.5%';
-      note.innerHTML='<b>This one isn’t modeled — it’s the measured result</b> from their published study: one slot of six, four pubs, against a matched control group, over one month.';
+      band.textContent='3.0% – 6.5%';
+      note.innerHTML='<b>This one isn’t our model — both ends are their own published numbers.</b> Their CEO says the single house slot moves bar sales 3–5%; their best case study measured 6.5% across four pubs against a matched control group. We anchor on both and show you the whole spread.';
       say.textContent='1 OF 6 YOURS · 5 SELLING SOMEBODY ELSE’S BRAND';
-      dollars.textContent=M.money(d.lo);
+      dollars.textContent=M.money(d.lo)+' – '+M.money(d.hi);
     } else {
       band.textContent=lo.toFixed(1)+'% – '+hi.toFixed(1)+'%';
-      note.innerHTML='At <b>'+n+' slots</b> that’s roughly <b>'+(lo/BASE).toFixed(1)+'× to '+(hi/BASE).toFixed(1)+'×</b> the measured one-slot result — not '+n+'×. We’d tell you to plan on the low end and treat the rest as upside.';
+      note.innerHTML='At <b>'+n+' slots</b> that’s roughly <b>'+Math.sqrt(n).toFixed(1)+'×</b> their published one-slot numbers — not '+n+'×. We’d tell you to plan on the low end and treat the rest as upside.';
       say.textContent=n+' OF 6 YOURS · '+(6-n)+' SELLING SOMEBODY ELSE’S BRAND';
       dollars.textContent=M.money(d.lo)+' – '+M.money(d.hi);
     }
 
     /* the running total, every slot count, at their revenue */
-    var one=M.dollars(1,R).lo;
+    var one=M.dollars(1,R);
     lrows.forEach(function(tr){
       var k=+tr.getAttribute('data-n'), dk=M.dollars(k,R);
       tr.classList.toggle('on', k===n);
-      tr.querySelector('[data-cell=pct]').textContent = k===1 ? '6.5%' : M.low(k).toFixed(1)+'% – '+M.high(k).toFixed(1)+'%';
-      tr.querySelector('[data-cell=amt]').textContent = k===1 ? M.money(dk.lo) : M.money(dk.lo)+' – '+M.money(dk.hi);
-      tr.querySelector('[data-cell=delta]').textContent = k===1 ? 'the measured one-slot result'
-        : '+'+M.money(dk.lo-one)+' – '+M.money(dk.hi-one)+' over one slot';
+      tr.querySelector('[data-cell=pct]').textContent = M.low(k).toFixed(1)+'% – '+M.high(k).toFixed(1)+'%';
+      tr.querySelector('[data-cell=amt]').textContent = M.money(dk.lo)+' – '+M.money(dk.hi);
+      tr.querySelector('[data-cell=delta]').textContent = k===1 ? 'their published one-slot range'
+        : '+'+M.money(dk.lo-one.lo)+' – '+M.money(dk.hi-one.hi)+' over one slot';
     });
     /* keep The Money calculator in lockstep */
-    if(window.BSsyncCalc) window.BSsyncCalc(n,R);
+    if(window.BSsyncCalc) window.BSsyncCalc(n,R,fromSlots===true);
   }
-  sl.addEventListener('input',upd);
-  rev.addEventListener('input',upd);
-  upd();
+  sl.addEventListener('input',function(){upd(true)});
+  rev.addEventListener('input',function(){upd(false)});
+  upd(false);
 })();
 
 /* mobile menu */
