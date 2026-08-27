@@ -59,11 +59,11 @@
     font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint)}
   .statusbar-in{max-width:1180px;margin:0 auto;padding:8px 22px;display:flex;gap:22px;align-items:center;white-space:nowrap;overflow:hidden}
   .sdot{width:8px;height:8px;border-radius:50%;background:var(--faint);display:inline-block;margin-right:7px;flex:none}
-  .sdot.on{background:var(--money);box-shadow:0 0 10px var(--money);animation:pulse 1.6s infinite}
+  .sdot.on{background:var(--blue);box-shadow:0 0 10px var(--blue);animation:pulse 1.6s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
   .statusbar b{color:var(--text);font-weight:600}
-  .statusbar .g{color:var(--money)}
-  .statusbar .ledlink{margin-left:auto;color:var(--money);text-decoration:none;opacity:.85}
+  .statusbar .g{color:var(--blue)}
+  .statusbar .ledlink{margin-left:auto;color:var(--blue);text-decoration:none;opacity:.85}
   .statusbar .ledlink:hover{opacity:1}
   @media(max-width:720px){.statusbar .hide-m{display:none}}
 
@@ -146,7 +146,7 @@
   .hero-cta .ghost{color:var(--dim);font:600 14px Inter;text-decoration:none}
   .hero-cta .ghost:hover{color:var(--text)}
   .hero-proof{display:flex;gap:20px;flex-wrap:wrap;margin-top:20px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint)}
-  .hero-proof b{color:var(--money)}
+  .hero-proof b{color:var(--blue)}
 
   /* ---------- MONEY ---------- */
   .money-wrap{text-align:center}
@@ -192,18 +192,18 @@
   @media(max-width:940px){.ledgrid{grid-template-columns:1fr}}
   .ledbox{border:1px solid var(--line2);border-radius:14px;background:var(--panel);overflow:hidden}
   .ledbox .head{display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--dim);background:rgba(10,22,38,.8)}
-  .ledbox .head b{color:var(--money);font-weight:600}
+  .ledbox .head b{color:var(--blue);font-weight:600}
   table.led{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
   table.led td{padding:11px 15px;border-bottom:1px solid rgba(36,57,92,.55);color:var(--dim)}
   table.led tr:last-child td{border-bottom:none}
-  table.led .ok{color:var(--money);font-weight:600} table.led .pend{color:var(--amber)} table.led .warn{color:var(--red)}
+  table.led .ok{color:var(--blue);font-weight:600} table.led .pend{color:var(--amber)} table.led .warn{color:var(--red)}
   .rigframe{position:relative;aspect-ratio:16/9;background:#04070e}
   .rigframe .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-align:center;padding:0 20px}
   .ledbox .meta{padding:13px 15px;font-family:var(--mono);font-size:11.5px;color:#8fa6c4;letter-spacing:.05em;line-height:1.8}
   .bigcount{display:flex;gap:30px;flex-wrap:wrap;margin-top:26px}
-  .bc{border-left:3px solid var(--money);padding-left:16px}
+  .bc{border-left:3px solid var(--blue);padding-left:16px}
   .bc.aw{border-left-color:var(--amber)}
-  .bc b{font-family:"Bebas Neue";font-size:clamp(32px,3.8vw,52px);display:block;line-height:1;color:var(--money)}
+  .bc b{font-family:"Bebas Neue";font-size:clamp(32px,3.8vw,52px);display:block;line-height:1;color:var(--blue)}
   .bc.aw b{color:var(--amber)}
   .bc span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
 
@@ -662,7 +662,7 @@
     <div class="bc"><b>30</b><span>In a row, 6.3 hrs, brand-new app</span></div>
     <div class="bc"><b>&lt; 4 min</b><span>Unattended recovery from a dead plug</span></div>
     <div class="bc"><b>2,666</b><span>Raw watch-only detections Jul 13–26 · 71 verified end-to-end</span></div>
-    <div class="bc aw"><b id="bcToday">—</b><span>Events detected today · live</span></div>
+    <div class="bc aw"><b id="bcToday">—</b><span>Events detected · last 24 hours · live</span></div>
   </div>
 
   <div class="ledgrid">
@@ -1543,9 +1543,10 @@ window.BSMODEL={
     var online=stats&&stats.online;
     if(online){ sbDot.classList.add('on'); sbState.textContent='TEST BOX: ON AND RUNNING'; if(head)head.textContent='● LIVE FROM THE TEST BOX — NOT A MOCKUP'; }
     else { offline(); }
-    if(stats&&stats.breaks_today!=null){
-      var n=(+stats.breaks_today).toLocaleString();
-      sbBreaks.innerHTML='EVENTS DETECTED TODAY: <b class="g">'+n+'</b>';
+    var bcount=(stats&&stats.breaks_24h!=null)?stats.breaks_24h:(stats?stats.breaks_today:null);
+    if(bcount!=null){
+      var n=(+bcount).toLocaleString();
+      sbBreaks.innerHTML='EVENTS DETECTED · 24H: <b class="g">'+n+'</b>';
       if(bcT)bcT.textContent=n;
       if(ledLiveN){ledLiveN.textContent=n;ledLiveN.className='pend';}
       if(ledS)ledS.textContent='LIVE';
