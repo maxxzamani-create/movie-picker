@@ -1551,7 +1551,11 @@ window.BSMODEL={
       if(ledS)ledS.textContent='LIVE';
     }
     if(ads&&ads.length){
-      ads=ads.filter(function(a){return /shark/i.test(a.label||'')||/BreakShark[-_]Ad/i.test(a.filename||'')});
+      ads=ads.filter(function(a){
+        var L=(a.label||''), F=(a.filename||'');
+        if(/tavernhouse/i.test(L)||/tavernhouse/i.test(F)) return false;
+        return /\(motion\)/i.test(L) || /(^|-)\d{2}_[a-z]+\.mp4$/i.test(F);
+      });
       if(ads.length){
         var media=function(f){return U+'/storage/v1/object/public/ads/'+encodeURIComponent(f)};
         var i=0,timer=null;
@@ -1567,7 +1571,11 @@ window.BSMODEL={
         }
         if(ph)ph.style.display='none';
         show();
+      } else if(ph){
+        ph.innerHTML='<span>PROMO REEL IS IDLE RIGHT NOW.<br>THE RECORD STANDS AT 71/71 — WATCH THE FILM.</span>';
       }
+    } else if(ph){
+      ph.innerHTML='<span>PROMO REEL IS IDLE RIGHT NOW.<br>THE RECORD STANDS AT 71/71 — WATCH THE FILM.</span>';
     }
   }catch(e){ if(!settled){settled=true;offline()} }
 })();
