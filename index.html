@@ -700,7 +700,7 @@ table.ar td.v.us{color:var(--money)}
       <div class="model">
         <div>
           <div class="kick b" style="margin-bottom:6px">Part two — the model</div>
-          <div style="font-size:14px;color:var(--dim);line-height:1.55">Slot 1 starts from <b style="color:var(--text)">their</b> published range — their CEO's 3% low claim up to their best case study's 6.5%, with that top end cut by a third to stay conservative. Slots 2–6 grow on a square-root curve, because the sixth time somebody sees your wings does less than the first. Tap a slot.</div>
+          <div style="font-size:14px;color:var(--dim);line-height:1.55">Slot 1 starts from <b style="color:var(--text)">their</b> published range — their CEO's 3% low claim up to their best case study's 6.5%, with that top end cut by a quarter to stay conservative. Slots 2–6 grow on a square-root curve, because the sixth time somebody sees your wings does less than the first. Tap a slot.</div>
           <div class="pips" id="pips"></div>
           <label for="smRev" style="display:block;font:600 10px var(--mono);letter-spacing:.16em;color:var(--faint);margin-top:18px">YOUR FOOD &amp; DRINK REVENUE A YEAR</label>
           <input type="range" id="smRev" min="100000" max="1500000" step="25000" value="500000" style="width:100%;margin-top:8px;accent-color:var(--money)">
@@ -708,10 +708,10 @@ table.ar td.v.us{color:var(--money)}
         </div>
         <div class="mout">
           <div class="lbl">Modeled lift on food &amp; drink · not a promise</div>
-          <div class="band" id="slotBand">7.3% – 10.7%</div>
+          <div class="band" id="slotBand">7.3% – 11.9%</div>
           <div class="lbl" id="slotSay">ALL SIX SLOTS YOURS</div>
           <div class="lbl" style="margin-top:16px">Worth, at your revenue, per year</div>
-          <div class="amt" id="slotDollars">$36,500 – $53,500</div>
+          <div class="amt" id="slotDollars">$36,500 – $59,500</div>
           <p style="font-size:12px;color:var(--faint);margin-top:12px;line-height:1.5">The same numbers drive the calculator below. <a href="sources.html#borrowed">The model, in full →</a></p>
         </div>
       </div>
@@ -924,7 +924,7 @@ table.ar td.v.us{color:var(--money)}
           <label for="lift">The lift <b style="color:var(--text)">you</b> think you'd get on what you push</label>
           <input type="range" id="lift" min="1" max="12" step="0.1" value="4">
           <div class="val" id="liftVal">4.0%</div>
-          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Their published one-slot band is 3% to 6.5% — their CEO's own low number to their best case study. The six-slot model above extends that to 7.3% to 10.7%, with the top end already cut by a third, and shows exactly how. Slide it to whatever you'd actually bet on.</p>
+          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Their published one-slot band is 3% to 6.5% — their CEO's own low number to their best case study. The six-slot model above extends that to 7.3% to 11.9%, with the top end already cut by a quarter, and shows exactly how. Slide it to whatever you'd actually bet on.</p>
         </div>
         <div class="calcout">
           <div class="line">What that would be worth a year · your numbers</div>
@@ -1112,7 +1112,7 @@ table.ar td.v.us{color:var(--money)}
 (function(){var c=document.getElementById('cmp'),r=document.getElementById('cmpRange');if(!c)return;r.addEventListener('input',function(){c.style.setProperty('--x',r.value+'%')})})();
 /* six-slot model */
 (function(){
-  var LOW=3.0,HIGH=4.35,n=6,rev=500000;  /* HIGH = their 6.5 cut by a third (Maxx, 9/02): conservative on purpose */
+  var LOW=3.0,HIGH=4.875,n=6,rev=500000;  /* HIGH = their 6.5 cut by a quarter (Maxx, 9/02 'less'): conservative on purpose */
   var pips=document.getElementById('pips'),band=document.getElementById('slotBand'),say=document.getElementById('slotSay'),dol=document.getElementById('slotDollars'),sr=document.getElementById('smRev'),srv=document.getElementById('smRevVal');
   if(!pips)return;
   function m(v){return '$'+(Math.round(v/500)*500).toLocaleString()}
