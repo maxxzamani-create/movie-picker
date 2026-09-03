@@ -473,6 +473,18 @@ table.ar td.v.us{color:var(--money)}
 .pip{font-family:var(--mono)}
 @media(max-width:360px){.mbar .btn{font-size:12px;padding:9px 8px}.statusbar-in{font-size:10px;gap:12px}}
 
+
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
+.pcard{position:relative;border:1px solid var(--line2);border-radius:9px;overflow:hidden;background:#0b1b2e;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.pcard img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.pcard.on{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.pcard .tk{position:absolute;left:7px;top:7px;width:19px;height:19px;border-radius:5px;border:1px solid rgba(255,255,255,.55);background:rgba(4,10,20,.72);display:grid;place-items:center;font:700 12px var(--sans);color:transparent;line-height:1}
+.pcard.on .tk{background:var(--blue);border-color:var(--blue);color:#03101f}
+.pcard .ln{padding:7px 9px 2px;font:700 11px var(--sans);color:var(--text);line-height:1.3}
+.pcard .src{padding:0 9px 8px;font:500 8.5px var(--mono);letter-spacing:.07em;color:var(--faint)}
+.foundnote{font:500 10px var(--mono);letter-spacing:.1em;color:var(--blue2);margin:2px 0 8px}
+@media(max-width:620px){.pgrid{grid-template-columns:1fr 1fr}}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1;transform:none}
@@ -742,7 +754,7 @@ table.ar td.v.us{color:var(--money)}
     <h2>Everything runs from <span class="g">one screen.</span></h2>
     <div class="feats">
       <div class="feat"><div class="ic">PROMOS</div><h4>Your reel, every break</h4><p>Load your specials, events and sponsors once. They rotate across every screen in the building for as long as the break lasts.</p></div>
-      <div class="feat hot"><div class="ic">AD STUDIO</div><h4>Make a new spot in minutes</h4><p>New special this weekend? Type it, pick a length, approve the preview. It's on your screens for the next break. No agency, no camera crew.</p></div>
+      <div class="feat hot"><div class="ic">AD STUDIO</div><h4>Ads from your own photos</h4><p>Paste your website; every photo on it comes back with a line already written. Tick the ones you want and they become moving spots. No agency, no camera crew, no stock footage.</p></div>
       <div class="feat"><div class="ic">RETURN</div><h4>It gives the game back</h4><p>Giving the game back fast is the hard part, and it's where most of the work goes. Median four seconds from the moment play resumes.</p></div>
       <div class="feat"><div class="ic">PHONE</div><h4>Run it from the walk-in</h4><p>Change tonight's rotation from your phone. Schedule by day, by time of day, or by which game is on.</p></div>
       <div class="feat"><div class="ic">KILL SWITCH</div><h4>Your staff always wins</h4><p>One tap and the box stops touching the TVs. It stands down whenever a person is driving the room — a box that fights the bartender gets unplugged.</p></div>
@@ -751,7 +763,7 @@ table.ar td.v.us{color:var(--money)}
 
     <div class="kick" style="margin-top:56px">Your ad library · real spots, real menus</div>
     <h3 class="bb" style="font-size:clamp(32px,4vw,52px)">These are the ads. <span class="g">Yours start the same way.</span></h3>
-    <p class="sub" style="font-size:15.5px">Every spot below was made the way yours will be: from a menu, a few photos and a special worth pushing. Founding venues get three made for them; after that, Ad Studio makes the next one in minutes. Hover to pause.</p>
+    <p class="sub" style="font-size:15.5px">Every spot below was made the way yours will be: from a venue's own photos and a special worth pushing. Founding venues get three made for them; after that, Ad Studio builds them from the pictures on your website. Hover to pause.</p>
     <div class="lib"><div class="libtrack" id="libtrack"><img src="vid/ads/card-wings5.jpg" alt="" loading="lazy"><img src="vid/ads/burger.jpg" alt="" loading="lazy"><img src="vid/ads/card-happyhour.jpg" alt="" loading="lazy"><img src="static/adspots/still-cocktail.jpg" alt="" loading="lazy"><img src="vid/ads/card-pitchers.jpg" alt="" loading="lazy"><img src="vid/ads/pizza.jpg" alt="" loading="lazy"><img src="vid/ads/card-trivia.jpg" alt="" loading="lazy"><img src="static/adspots/still-steak.jpg" alt="" loading="lazy"><img src="vid/ads/card-latenight.jpg" alt="" loading="lazy"><img src="vid/ads/cocktails.jpg" alt="" loading="lazy"><img src="vid/ads/card-secretmenu.jpg" alt="" loading="lazy"><img src="vid/ads/brewery.jpg" alt="" loading="lazy"><img src="static/adspots/still-wings.jpg" alt="" loading="lazy"><img src="vid/ads/dessert.jpg" alt="" loading="lazy"><img src="static/adspots/still-burger.jpg" alt="" loading="lazy"><img src="vid/ads/wings.jpg" alt="" loading="lazy"><img src="vid/ads/card-wings5.jpg" alt="" loading="lazy"><img src="vid/ads/burger.jpg" alt="" loading="lazy"><img src="vid/ads/card-happyhour.jpg" alt="" loading="lazy"><img src="static/adspots/still-cocktail.jpg" alt="" loading="lazy"><img src="vid/ads/card-pitchers.jpg" alt="" loading="lazy"><img src="vid/ads/pizza.jpg" alt="" loading="lazy"><img src="vid/ads/card-trivia.jpg" alt="" loading="lazy"><img src="static/adspots/still-steak.jpg" alt="" loading="lazy"><img src="vid/ads/card-latenight.jpg" alt="" loading="lazy"><img src="vid/ads/cocktails.jpg" alt="" loading="lazy"><img src="vid/ads/card-secretmenu.jpg" alt="" loading="lazy"><img src="vid/ads/brewery.jpg" alt="" loading="lazy"><img src="static/adspots/still-wings.jpg" alt="" loading="lazy"><img src="vid/ads/dessert.jpg" alt="" loading="lazy"><img src="static/adspots/still-burger.jpg" alt="" loading="lazy"><img src="vid/ads/wings.jpg" alt="" loading="lazy"></div></div>
   </div>
 </section>
@@ -762,27 +774,43 @@ table.ar td.v.us{color:var(--money)}
     <div class="studio">
       <div>
         <div class="kick">Ad Studio · built into the dashboard</div>
-        <h2>Need a new spot?<br><span class="g">Make it tonight.</span></h2>
-        <p class="sub">Most venues stop advertising because making an ad is a project. Here it's a text box. Type what
-          you're pushing, pick a length, approve the preview, and it plays in the next break.</p>
+        <h2>Your ads, made from<br><span class="g">your own photos.</span></h2>
+        <p class="sub">Not stock footage. Not some invented place that looks nothing like yours. <b>Your dish, your
+          bar, your room</b> — the pictures already on your website — turned into moving spots that play in your
+          breaks. You give us your web address and tick the ones you like.</p>
         <ul>
-          <li><b>Write it like a text message.</b> "Half-price wings until the fourth quarter." That's the brief.</li>
-          <li><b>Pick the length.</b> Ten seconds for a quick hit, fifteen for a special, thirty for a feature.</li>
-          <li><b>You approve before it airs.</b> Nothing reaches a screen until you've watched it and said yes.</li>
-          <li><b>Small per-spot cost.</b> Spots you make cost a little extra when you make them. Everything already in
-            your library plays free, forever, as often as you want.</li>
+          <li><b>Paste your website.</b> About a minute later every photo on it comes back as a card, each with a
+            line already written for it and a note saying which page it came from.</li>
+          <li><b>Tick the ones you want.</b> As many as you like. Change any line we wrote. No website, or a photo
+            we didn't find? Upload your own picture or your logo instead.</li>
+          <li><b>Press one button.</b> Every photo you ticked becomes a moving spot — your line stamped across it,
+            your venue's name underneath. Two to four minutes each.</li>
+          <li><b>Nothing airs until you say so.</b> Finished spots wait in a list with the video and the line.
+            Press Approve and it joins that box's lineup and starts playing on your screens.</li>
         </ul>
+        <p class="sub" style="font-size:15.5px"><b>The only two choices you make:</b> six seconds or ten, standard
+          or HD. Small per-spot cost when you make one — everything already in your library replays free, as often
+          as you want.</p>
       </div>
+
       <div class="mock">
         <div class="bar"><i></i><i></i><i></i><span>DEMO · HOW AD STUDIO WORKS ON THE OWNER'S DASHBOARD</span></div>
         <div class="body">
-          <div class="fld"><label>What are you pushing?</label><div class="inp typing" id="adType"></div></div>
-          <div class="fld"><label>Length</label><div class="chips"><span class="cp">10 sec</span><span class="cp on">15 sec</span><span class="cp">30 sec</span></div></div>
-          <div class="fld"><label>Style</label><div class="chips"><span class="cp on">Cinematic</span><span class="cp">Spokesperson</span></div></div>
-          <div class="fld"><label>Where it plays</label><div class="chips"><span class="cp on">Every screen</span><span class="cp">Bar only</span><span class="cp">Patio</span></div></div>
-          <div id="mockPrev" style="display:none;margin:4px 0 14px;border:1px solid rgba(53,224,140,.6);border-radius:10px;overflow:hidden;position:relative"><img src="vid/ads/card-wings5.jpg" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover"><span style="position:absolute;left:10px;top:10px;font:600 9.5px var(--mono);letter-spacing:.16em;padding:5px 9px;border-radius:4px;background:rgba(53,224,140,.92);color:#04140b">PREVIEW · APPROVE TO AIR</span></div>
-          <button class="btn primary go" type="button" id="mockGo">See how Ad Studio works →</button>
-          <div class="fine">YOU PREVIEW AND APPROVE BEFORE IT REACHES A SCREEN</div>
+          <div class="fld"><label>Your website</label><div class="inp typing" id="adType"></div></div>
+          <div class="fld">
+            <div class="foundnote">▸ FOUND 4 PHOTOS ON YOUR SITE — TICK THE ONES YOU WANT</div>
+            <div class="pgrid" id="pgrid">
+              <div class="pcard on"><span class="tk">✓</span><img src="vid/ads/card-wings5.jpg" alt=""><div class="ln">Wing night — half price till the fourth</div><div class="src">FROM /MENU</div></div>
+              <div class="pcard on"><span class="tk">✓</span><img src="vid/ads/burger.jpg" alt=""><div class="ln">The double, fries and a draft</div><div class="src">FROM /MENU</div></div>
+              <div class="pcard"><span class="tk">✓</span><img src="vid/ads/cocktails.jpg" alt=""><div class="ln">Happy hour, four to seven</div><div class="src">FROM /SPECIALS</div></div>
+              <div class="pcard"><span class="tk">✓</span><img src="vid/ads/pizza.jpg" alt=""><div class="ln">Kitchen open late, every night</div><div class="src">FROM /HOME</div></div>
+            </div>
+          </div>
+          <div class="fld"><label>Length</label><div class="chips"><span class="cp on">6 sec</span><span class="cp">10 sec</span></div></div>
+          <div class="fld"><label>Quality</label><div class="chips"><span class="cp on">Standard</span><span class="cp">HD</span></div></div>
+          <div id="mockPrev" style="display:none;margin:4px 0 14px;border:1px solid rgba(79,182,242,.6);border-radius:10px;overflow:hidden;position:relative"><img src="vid/ads/card-wings5.jpg" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover"><span style="position:absolute;left:10px;top:10px;font:600 9.5px var(--mono);letter-spacing:.16em;padding:5px 9px;border-radius:4px;background:rgba(79,182,242,.95);color:#03101f">WAITING FOR YOUR OK</span></div>
+          <button class="btn primary go" type="button" id="mockGo">Make my spots →</button>
+          <div class="fine">NOTHING REACHES A SCREEN UNTIL YOU PRESS APPROVE</div>
         </div>
       </div>
     </div>
@@ -1049,7 +1077,7 @@ table.ar td.v.us{color:var(--money)}
       <details><summary>What about slow afternoons with no game on?</summary><p>Loop mode runs your reel on a schedule with no live TV involved, so the screens still sell for you at two in the afternoon. <a href="loop.html">How loop mode works →</a></p></details>
       <details><summary>I've got 14 TVs. Do I need 14 boxes?</summary><p>No — screens are never what gets counted. One BX-1 sits on one cable or streaming box and covers every TV showing that feed. What you count is <b>simultaneous games</b>: three different games at once means three feeds, so three boxes. Tell us how many games you run at once on a Saturday and we'll give you the count before we come out. Restaurant groups: same text, we'll scope the whole group.</p></details>
       <details><summary>Who do I call when something goes wrong — and what if you don't pick up?</summary><p>You text (916) 628-6299. That's Maxx's actual cell, not a queue — game nights the phone is on him, weekdays you have him inside a couple of hours. And nothing about your TVs depends on anyone being reachable: the bypass remote in your drawer kills the box instantly, and your feed runs straight through like the box was never there. Same if it loses power, same if the software ever crashes. <a href="support.html">What happens after you say yes →</a></p></details>
-      <details><summary>What do you need from me to start?</summary><p>Photos of your food, your drinks and your room. We install the box — about twenty minutes per feed — and load three professional spots made from those photos. You run the lineup from your phone; anything new after that, you make in Ad Studio.</p></details>
+      <details><summary>What do you need from me to start?</summary><p>Your website address, and photos of your food, your drinks and your room. We install the box — about twenty minutes per feed — and load three professional spots made from your own pictures. You run the lineup from your phone; anything new after that, Ad Studio builds from the photos on your site.</p></details>
       <details><summary>Who is behind this?</summary><p>BreakShark, Inc., a Delaware C-corporation formed August 10, 2026, built in California by Maxx Zamani, who filed the U.S. provisional patent on the detection method on July 17, 2026. Every number on this site traces to a graded file, and they are all on <a href="sources.html">the sources page</a>. <a href="investors.html">Investor materials →</a></p></details>
     </div>
   </div>
@@ -1183,14 +1211,16 @@ table.ar td.v.us{color:var(--money)}
     if(note)note.textContent='YOUR MESSAGE IS BELOW. COPY IT AND TEXT IT TO (916) 628-6299, OR EMAIL IT. OR JUST CALL.';var out=document.getElementById('claimOut'),msg=document.getElementById('claimMsg'),cp=document.getElementById('claimCopy');if(out){out.style.display='block';msg.textContent=body;cp.onclick=function(){try{navigator.clipboard.writeText(body);cp.textContent='Copied ✓'}catch(x){cp.textContent='Select and copy the text above'}};out.scrollIntoView({block:'nearest'})}
   });
 })();
+/* ad studio photo cards */
+(function(){var g=document.getElementById('pgrid');if(!g)return;g.addEventListener('click',function(e){var c=e.target.closest('.pcard');if(c)c.classList.toggle('on')})})();
 /* ad studio chips */
 (function(){document.querySelectorAll('.mock .chips').forEach(function(g){g.addEventListener('click',function(e){var c=e.target.closest('.cp');if(!c)return;g.querySelectorAll('.cp').forEach(function(x){x.classList.toggle('on',x===c)})})})})();
 /* ad studio typing demo */
 (function(){
   var el=document.getElementById('adType');if(!el)return;
-  var lines=['Half-price wings until the fourth quarter','Trivia Tuesday — 7pm, teams of six','$5 drafts every Sunday kickoff'];
+  var lines=['yourbar.com','yourrestaurant.com','yourvenue.com'];
   var b=document.getElementById('mockGo'),pv=document.getElementById('mockPrev');
-  if(b)b.addEventListener('click',function(){b.textContent='Building your spot…';pv.style.display='none';setTimeout(function(){pv.style.display='block';b.textContent='Preview ready — this is where you approve it ✓'},1400);setTimeout(function(){b.textContent='See how Ad Studio works →';pv.style.display='none'},7000)});
+  if(b)b.addEventListener('click',function(){b.textContent='Building your spots…';pv.style.display='none';setTimeout(function(){pv.style.display='block';b.textContent='2 spots built — waiting for your OK ✓'},1400);setTimeout(function(){b.textContent='Make my spots →';pv.style.display='none'},7000)});
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=lines[0];el.classList.remove('typing');return}
   var li=0,ci=0,del=false;
   (function tick(){var s=lines[li%lines.length];ci=del?ci-1:ci+1;el.textContent=s.slice(0,ci);var w=del?26:52;
