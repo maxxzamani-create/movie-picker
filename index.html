@@ -700,7 +700,7 @@ table.ar td.v.us{color:var(--money)}
       <div class="model">
         <div>
           <div class="kick b" style="margin-bottom:6px">Part two — the model</div>
-          <div style="font-size:14px;color:var(--dim);line-height:1.55">Slot 1 starts from <b style="color:var(--text)">their</b> published range — their CEO's 3% low claim up to their best case study's 6.5%, with that top end cut by a quarter to stay conservative. Slots 2–6 grow on a square-root curve, because the sixth time somebody sees your wings does less than the first. The floor never goes above 6.5% either — that is the only measured number anyone has published, and if it turns out to have come from all six slots rather than one, we still are not claiming more than it. Tap a slot.</div>
+          <div style="font-size:14px;color:var(--dim);line-height:1.55">Slot 1 starts from <b style="color:var(--text)">their</b> published range — their CEO's 3% low claim up to their best case study's 6.5%, with that top end cut by a quarter to stay conservative. The floor runs from their 3% at one slot up to exactly their 6.5% at all six — both ends sit on their own published numbers, so even if that 6.5% came from six slots rather than one, we are not claiming more than it. The ceiling is our model, with its top end cut by a quarter. Both curves flatten, because the sixth time somebody sees your wings does less than the first. Tap a slot.</div>
           <div class="pips" id="pips"></div>
           <label for="smRev" style="display:block;font:600 10px var(--mono);letter-spacing:.16em;color:var(--faint);margin-top:18px">YOUR FOOD &amp; DRINK REVENUE A YEAR</label>
           <input type="range" id="smRev" min="100000" max="1500000" step="25000" value="500000" style="width:100%;margin-top:8px;accent-color:var(--money)">
@@ -923,7 +923,7 @@ table.ar td.v.us{color:var(--money)}
           <label for="lift">The lift <b style="color:var(--text)">you</b> think you'd get on what you push</label>
           <input type="range" id="lift" min="1" max="12" step="0.1" value="4">
           <div class="val" id="liftVal">4.0%</div>
-          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Their published one-slot band is 3% to 6.5% — their CEO's own low number to their best case study. The six-slot model above runs 6.5% to 11.9% — the top end cut by a quarter, the floor held at their one measured number — and shows exactly how. Slide it to whatever you'd actually bet on.</p>
+          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Their published one-slot band is 3% to 6.5% — their CEO's own low number to their best case study. The six-slot model above runs 6.5% to 11.9% — the floor landing exactly on their published 6.5%, the ceiling our model with its top cut by a quarter — and shows exactly how. Slide it to whatever you'd actually bet on.</p>
         </div>
         <div class="calcout">
           <div class="line">What that would be worth a year · your numbers</div>
@@ -1111,11 +1111,12 @@ table.ar td.v.us{color:var(--money)}
 (function(){var c=document.getElementById('cmp'),r=document.getElementById('cmpRange');if(!c)return;r.addEventListener('input',function(){c.style.setProperty('--x',r.value+'%')})})();
 /* six-slot model */
 (function(){
-  var LOW=3.0,HIGH=4.875,n=6,rev=500000;  /* HIGH = their 6.5 cut by a quarter (Maxx, 9/02 'less'): conservative on purpose */
+  var LOW=3.0,HIGH=4.875,n=6,rev=500000;  /* HIGH = their 6.5 cut by a quarter (Maxx, 9/02 'less') */
+  var LOWP=Math.log(6.5/LOW)/Math.log(6);  /* the floor curve is PINNED to their two published numbers: 3.0% at one slot, exactly 6.5% at six (Maxx, 9/02) — no flat spot, no cap artefact */
   var pips=document.getElementById('pips'),band=document.getElementById('slotBand'),say=document.getElementById('slotSay'),dol=document.getElementById('slotDollars'),sr=document.getElementById('smRev'),srv=document.getElementById('smRevVal');
   if(!pips)return;
   function m(v){return '$'+(Math.round(v/500)*500).toLocaleString()}
-  function lo(k){return Math.min(LOW*Math.sqrt(k),6.5)} function hi(k){return HIGH*Math.sqrt(k)}  /* floor capped at their one measured number (Maxx 9/02): if that 6.5% was six slots, not one, we are still not overclaiming */
+  function lo(k){return LOW*Math.pow(k,LOWP)} function hi(k){return HIGH*Math.sqrt(k)}
   function render(){
     pips.innerHTML='';for(var k=1;k<=6;k++){var p=document.createElement('button');p.type='button';p.setAttribute('aria-pressed',k<=n?'true':'false');p.className='pip'+(k<=n?' on':'');p.textContent=k<=n?'YOURS':'THEIRS';p.dataset.k=k;p.addEventListener('click',function(){n=+this.dataset.k;render()});pips.appendChild(p)}
     band.textContent=lo(n).toFixed(1)+'% – '+hi(n).toFixed(1)+'%';
