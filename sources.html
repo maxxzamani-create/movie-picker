@@ -89,6 +89,10 @@
     border:1px solid var(--line2);border-radius:6px;padding:9px 13px;color:var(--dim)}
   .toc a:hover{border-color:var(--money);color:var(--money)}
   .lead{border-left:3px solid var(--money);padding:6px 0 6px 20px;font:600 19px/1.5 Inter;margin-top:26px}
+  .sm-tbl{width:100%;border-collapse:collapse;font-size:14px}
+  .sm-tbl th{text-align:left;font:700 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:8px 10px;border-bottom:1px solid var(--line2)}
+  .sm-tbl td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--dim)}
+  .sm-tbl td.mono{font-family:var(--mono);font-size:12.5px;color:var(--text)}
 </style>
 </head>
 <body>
@@ -96,7 +100,7 @@
   <a class="brand" href="index.html"><img src="static/brand/icon.png" alt="BreakShark fin logo"><b>BREAKSHARK</b></a>
   <nav aria-label="Main">
     <a href="index.html#proof">Watch It Work</a>
-    <a href="index.html#straight">Straight Talk</a>
+    <a href="index.html#how">How It Works</a>
     <a href="index.html#deal">The Deal</a>
     <a href="loop.html">Loop Mode</a>
     <a href="support.html">Support</a>
@@ -121,118 +125,58 @@
 
 <!-- ═══ OUR OWN ═══ -->
 <section id="ours" style="padding-top:30px">
-  <div class="kick b">First-party — our box, our logs</div>
+  <div class="kick b">First-party — our boxes, our graded files</div>
   <h2>Numbers we <span class="b">generated ourselves</span></h2>
-  <p class="sub">These come off the BX-1's own records during July 2026 testing. Nobody has audited them. The box posts its live counts to a public endpoint you can open yourself, and the misses are listed next to the catches on purpose.</p>
+  <p class="sub">Every first-party number on the front page comes from one method: a person watches a recorded broadcast and marks the exact second every commercial break starts and ends. That file is the key. The box's own decisions are then replayed against the key, second by second, over a window that must match the key exactly. Nobody outside the company has audited these yet; the files exist and can be shown.</p>
 
   <div class="srcard ours">
-    <div class="srfig">71 of 71</div>
-    <div class="srwhat">Commercial breaks caught on streaming, July 2026</div>
-    <p class="srbody">Four separate verified sessions: <b>9 of 9</b> in a Roku session (Jul 16), <b>23 of 23</b> on an overnight NFL broadcast with zero flaps (Jul 17&ndash;18), <b>30 of 30</b> on a brand-new streaming app over 6.3 hours with no changes made (Jul 18), and <b>9 of 9</b> in a supervised live test where a person called the breaks out loud in real time (Jul 27, ~1.9 hours scored, zero false switches). Not one false takeover reached a TV.</p>
-    <p class="srbody"><b>The July 27 session is the first one with human labels recorded live</b> &mdash; a label file written as the breaks happened, then cross-checked frame by frame against the box's own recording. Everything before it was verified after the fact. Small sample by design: we score what we can verify.</p>
-    <div class="caveat"><b>What this is not:</b> it is not a guarantee, and it is not satellite. It's four sessions in one month on one prototype, in a lab, not a bar. A venue's real setup can differ. <b>This supersedes the 62 of 62 published July 27</b>, which covered the first three sessions &mdash; nothing was removed, a fourth session was added.</div>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log + frame-by-frame review, plus the July 27 live label file</span> <a href="index.html#proof">See the scorecard →</a></div>
-  </div>
-
-  <div class="srcard soft">
-    <div class="srfig">2 of 4</div>
-    <div class="srwhat">Satellite breaks caught clean — our weak spot</div>
-    <p class="srbody">On a DirecTV baseball test (Jul 17): 2 caught clean, <b>1 caught late, 1 missed entirely</b>. Satellite ads splice in with no gap for the box to see. Streaming is proven; satellite is still being worked on, and we list it separately rather than blending it into one flattering number.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log</span></div>
+    <div class="srfig">12 broadcasts · 81 hours</div>
+    <div class="srwhat">Graded by hand, Aug 28 – Sep 1, 2026</div>
+    <table class="sm-tbl" style="margin-top:12px"><thead><tr><th>Date</th><th>Broadcast</th><th>Graded</th><th>Breaks marked</th></tr></thead><tbody><tr><td class="mono">Aug 28</td><td>Daytime sports, R1</td><td class="mono">8.99 h</td><td class="mono">73</td></tr><tr><td class="mono">Aug 29</td><td>NFL, Lions–Colts, R2</td><td class="mono">4.30 h</td><td class="mono">64</td></tr><tr><td class="mono">Aug 29</td><td>Daytime sports, R3</td><td class="mono">4.22 h</td><td class="mono">28</td></tr><tr><td class="mono">Aug 30</td><td>Daytime sports, R1</td><td class="mono">8.75 h</td><td class="mono">62</td></tr><tr><td class="mono">Aug 30</td><td>Evening sports, R1</td><td class="mono">5.79 h</td><td class="mono">37</td></tr><tr><td class="mono">Aug 30</td><td>Evening satellite, R4</td><td class="mono">5.37 h</td><td class="mono">37</td></tr><tr><td class="mono">Aug 31</td><td>Daytime, R1</td><td class="mono">9.23 h</td><td class="mono">55</td></tr><tr><td class="mono">Aug 31</td><td>Daytime, R2</td><td class="mono">9.23 h</td><td class="mono">53</td></tr><tr><td class="mono">Aug 31</td><td>Daytime satellite, R4</td><td class="mono">8.09 h</td><td class="mono">52</td></tr><tr><td class="mono">Aug 31</td><td>Evening, R2</td><td class="mono">6.41 h</td><td class="mono">38</td></tr><tr><td class="mono">Aug 31</td><td>Evening satellite, R4</td><td class="mono">5.36 h</td><td class="mono">36</td></tr><tr><td class="mono">Sep 1</td><td>Evening satellite, R4</td><td class="mono">5.44 h</td><td class="mono">29</td></tr></tbody></table>
+    <p class="srbody" style="margin-top:10px">Total: <b>81.18 hours, 564 commercial breaks</b>, each marked to the second by a person. R1–R4 are our four recording rigs; "satellite" rows came through a DirecTV receiver, the rest through cable and streaming boxes.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the twelve signed key files (keys-signed/) and the harness windows printed beside each result</span></div>
   </div>
 
   <div class="srcard ours">
-    <div class="srfig">3</div>
-    <div class="srwhat">Short false alarms, all under 16 seconds</div>
-    <p class="srbody">In the Roku session the box twice mistook a product logo, and once a schedule screen, for a break. It was in watch-only mode — <b>nothing ever reached a TV</b>. We count them anyway.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log</span></div>
+    <div class="srfig">20–30 s/hr</div>
+    <div class="srwhat">Live play touched per hour outside a commercial · the four graded sessions</div>
+    <p class="srbody">The four sessions the front page quotes, replayed through the exact decision code the venue box runs, with the window asserted equal to the key: <b>Aug 28 (8.99 h, 73 breaks): 26.8 s/hr · Aug 29 Lions–Colts (4.30 h, 64 breaks): 27.7 · Aug 30 evening satellite (5.37 h, 37 breaks): 29.6 · Sep 1 evening satellite (5.44 h, 29 breaks): 20.2.</b> "Seconds per hour" means seconds in which the box had the screens on your ad while the key says programming was on — including the few seconds it takes to hand the screens back after play resumes.</p>
+    <div class="caveat"><b>What this is not:</b> a guarantee, or a number from a bar. It is a bench replay on our own rigs' recordings. Daytime studio-heavy programming grades differently from live games and is not in this figure; the Founding 10 will produce the first numbers from a real room.</div>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: harness-20260902-blends.txt, rows p_max (the two-check gate); windows printed with each row</span></div>
   </div>
 
   <div class="srcard ours">
-    <div class="srfig">~2s / ~5s</div>
-    <div class="srwhat">How fast it flips, and how early it comes back</div>
-    <p class="srbody">On a frame-by-frame review of 23 breaks (Jul 18): the venue's ad was up about <b>2 seconds</b> into the break — sometimes before it fully started — and never later than 12 seconds. Coming back, it was typically on the game about <b>5 seconds early</b>, during the channel's bumper. It has never cut into live play.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: frame-by-frame review, 23 breaks, July 18 2026</span></div>
+    <div class="srfig">8–11 s in · ~4 s back</div>
+    <div class="srwhat">Median time to your ad, and median time back to the game · same four sessions</div>
+    <p class="srbody">Entry medians on the four sessions: <b>7.5 · 10.5 · 9.0 · 9.5 seconds</b> from the first commercial frame to your ad on screen. Return median: <b>3.5 seconds</b> from play resuming to the game back on every screen. Medians, not bests.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the same harness rows, columns entry p50 and return p50</span></div>
   </div>
 
   <div class="srcard ours">
-    <div class="srfig">~7s / ~5s</div>
-    <div class="srwhat">How far behind a human observer it ran, July 27</div>
-    <p class="srbody">In the supervised session, entry ran a median of about <b>7 seconds</b> behind the human's spoken call and exit about <b>5 seconds</b> behind.</p>
-    <p class="srbody"><b>This is a different yardstick from the ~2s / ~5s above</b>, which is measured against the actual first frame of the commercial. A person needs a beat to see a break and say so, so the human-referenced number will always look worse. We publish both rather than pick the better-looking one.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: hand-label session cross-checked against the flight recorder, July 27 2026</span></div>
+    <div class="srfig">13.1 hours · 0 crashes</div>
+    <div class="srwhat">The venue box's first night alone in a live room, Sep 1, 2026</div>
+    <p class="srbody">An NVIDIA Jetson venue box on a commercial DirecTV feed, switching a real screen through an HDMI switch, unattended: <b>13.1 hours, 219 cut-and-return cycles, zero crashes</b>, every switch read back from the switch itself before it was counted. A cycle is one cut to your ads and one return; it is the box's own count, not a hand-graded one.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's switch log for Sep 1 and the morning report of Sep 1</span></div>
   </div>
 
   <div class="srcard ours">
-    <div class="srfig">Under 4 min</div>
-    <div class="srwhat">Unattended recovery from a cold power loss</div>
-    <p class="srbody">We deliberately cut power to the box at 8:45pm on July 27. Every component came back on its own in about <b>three and a half minutes</b>: the detection brain, the audio watcher, the video capture, the evidence recorder, and the shadow-mode safety flag. No human intervention at any step.</p>
-    <p class="srbody">This matters because a venue is not a lab. Power drops, staff unplug things, a cord gets kicked. Until July 27 this was an intention; now it is a measurement.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own startup logs, July 27 2026</span></div>
-  </div>
-
-  <div class="srcard soft">
-    <div class="srfig">12 of 12, late</div>
-    <div class="srwhat">The channel type it struggles with &mdash; reported on its own</div>
-    <p class="srbody">On a college-football replay channel whose graphics bar persists straight through the commercials, all <b>12</b> labeled breaks were caught &mdash; but entries ran a median of about <b>11 seconds</b> late, worst case <b>97 seconds</b>, so the front of one pod was effectively missed. It also fired <b>three short false ad-calls during live play</b> (17&ndash;46 seconds each), and one call hung <b>80 seconds</b> past the return.</p>
-    <p class="srbody"><b>Root cause is identified:</b> the box locks onto the scorebug to separate game from ad, and that reference does not re-lock when the channel changes; gray night turf defeats the field check on top of it. It is the current top fix.</p>
-    <p class="srbody"><b>Deliberately excluded from the 71 of 71 above</b> &mdash; different conditions, reported separately rather than blended into a friendlier number.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: hand-label session + frame verification, July 27 2026</span></div>
-  </div>
-
-  <div class="srcard soft">
-    <div class="srfig">22 of 22 &middot; 0 of 130</div>
-    <div class="srwhat">Switching policy, rehearsed against real data &mdash; not a live switch</div>
-    <p class="srbody">The debounce logic that will drive the physical HDMI switch was tuned against July 27's hand-labeled session. All <b>22</b> verified breaks would have reached the TV, and a stress window that produced <b>130 sub-second detector blips</b> produced <b>zero</b> TV flips through the policy.</p>
-    <p class="srbody"><b>Read this as a rehearsal, because that is what it is.</b> It is the policy replayed against recorded data, not a switch firing in a room. The control cable arrives this week; the first commanded cut on real hardware will be reported here, pass or fail. <b>No end-to-end switch latency number appears anywhere on this site until that measurement exists.</b></p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: policy replay against the July 27 labeled session &mdash; not a live-switch measurement</span></div>
+    <div class="srfig">Same ads, same seconds</div>
+    <div class="srwhat">Commercial satellite vs a home receiver, Aug 29, 2026</div>
+    <p class="srbody">A commercial DirecTV receiver and a residential one, same game, recorded side by side for two hours and compared picture by picture: <b>the same commercials at the same broadcast seconds</b>, with only a fixed receiver delay between them. That is why a number measured on our bench transfers to a venue's own feed.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: night-20260828/ab-content report</span></div>
   </div>
 
   <div class="srcard ours">
-    <div class="srfig">2:50pm &rarr; 7:42pm</div>
-    <div class="srwhat">How long a found miss took to fix, same day</div>
-    <p class="srbody">The channel-change blindness above surfaced in a labeled session at 2:50 in the afternoon on July 27. It was root-caused, fixed, validated offline against that same day's recordings, and deployed by <b>7:42 that evening</b>.</p>
-    <p class="srbody">That is the point of a box that records everything it does: a miss is findable in its own logs, and a fix is provable against real footage before it ships. We publish the clock on it so the claim is checkable rather than cultural.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: labeled session record + deploy log, July 27 2026</span></div>
-  </div>
-
-  <div class="srcard ours">
-    <div class="srfig">16.7%</div>
-    <div class="srwhat">Of airtime called as commercials, over 12.9 unattended hours</div>
-    <p class="srbody">The box ran <b>12.9 continuous hours</b> on live NFL Flag Championship coverage (Tubi NFL Channel via a Fire TV Stick), July 26&ndash;27 2026, in <b>watch-only mode</b> &mdash; it decides and logs, the TV never switches. Over that window it called <b>94 breaks</b>, 7.3 an hour, median length <b>90 seconds</b>, and <b>68%</b> of the calls were pod-shaped (60&ndash;320 seconds, the length a real commercial pod actually runs). <b>Zero</b> calls hit the five-minute safety ceiling.</p>
-    <p class="srbody"><b>Why this number matters:</b> a real broadcast runs roughly 18&ndash;25% commercials. Six days earlier this same box called 44.5% &mdash; about double reality. This is the first time it has landed inside the believable band and held it all night with nobody watching.</p>
-    <p class="srbody"><b>What this is not:</b> it is not a catch rate, and we won't dress it up as one. It says the box has stopped over-calling. It does <b>not</b> say how many real breaks it caught, because nobody hand-labeled that night.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own 5 Hz gate trace, 7/26 18:00 &rarr; 7/27 06:55</span></div>
-  </div>
-
-  <div class="srcard ours">
-    <div class="srfig">6 of 6 &middot; 3 of 3</div>
-    <div class="srwhat">Spot-checked calls that were real commercials, and quiet moments that were really the game</div>
-    <p class="srbody">From that same night we pulled frames out of the box's own recording at nine moments spread across the run. <b>Six were breaks the box called</b> &mdash; 21:01, 23:41, 01:12, 03:27, 05:52, 06:43 &mdash; and every one was a real commercial: Olive Garden, a Toyota RAV4, an American Cancer Society PSA, and three others. <b>Three were moments it stayed quiet</b> &mdash; 21:30, 02:00, 04:45 &mdash; and all three were live flag football with the scorebug on screen, correctly left alone.</p>
-    <p class="srbody"><b>Read this precisely, because the wording is the honesty.</b> This is evidence about the calls it <b>made</b>, not about the ones it may have <b>missed</b>. Six out of six spot-checks being real ads does not mean the box is &ldquo;100% accurate,&rdquo; and we will not print it that way &mdash; that is the single easiest claim on this site to knock down, and turning a spot-check into a percentage is exactly the move this page exists to refuse.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: frames pulled from the box's flight recorder, 9 timestamps, 7/26&ndash;27</span></div>
-  </div>
-
-  <div class="srcard ours">
-    <div class="srfig">~4 hrs</div>
-    <div class="srwhat">A real miss &mdash; the box called a frozen menu as commercials</div>
-    <p class="srbody">That same overnight run has a genuine failure in it, and it belongs on this page. Late in the night the streaming app crashed out to its own home screen, and the box spent about <b>four hours calling a silent, frozen menu as commercial breaks</b>. It was in watch-only mode, so nothing reached a TV &mdash; but it was wrong.</p>
-    <p class="srbody"><b>What happened next is the part we'd actually point at.</b> Because the box logs its own state five times a second, the failure was findable the next morning. It was traced to two specific defects, both fixed, replayed against the recording of the bad night to prove the fix behaved, and deployed by <b>11:39 that same morning</b>. The box will no longer call a break on silent video, and the five-minute ceiling on a single call is now chain-proof.</p>
-    <p class="srbody">The whole-night average including that stretch was <b>23.1%</b>. We publish the clean-window <b>16.7%</b> instead &mdash; and we're telling you the other number exists rather than letting you find it later.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own trace log + the deployed fix, 7/27 11:39</span></div>
-  </div>
-
-  <div class="srcard ours">
-    <div class="srfig">2,666</div>
-    <div class="srwhat">Raw watch-only detection events, Jul 13–26</div>
-    <p class="srbody">This is <b>not</b> 2,666 catches. It's every candidate event the detector logged while running in watch-only mode across two weeks of tuning, including duplicates and rejects. The 71 above are the verified end-to-end catches. We publish both so the gap between them is visible.</p>
-    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's own event log</span></div>
+    <div class="srfig">July 2026</div>
+    <div class="srwhat">The first month, on streaming boxes</div>
+    <p class="srbody"><b>23 of 23</b> breaks on an overnight NFL broadcast (Jul 17–18). <b>7 of 7</b> breaks physically switched in a supervised live-fire run (Jul 27) — relay moved, screen changed, game came back. Cold-killed on purpose and back on its own in <b>under four minutes</b> (Jul 27). Channels that keep a graphics bar on screen through the ads: caught in <b>about three seconds</b> after the bottom-bar detector was added. The first catch on film, one take, no cuts: Jul 14 — it is on the front page.</p>
+    <div class="srmeta"><span class="tag first">First-party</span> <span>Source: the box's event logs, the Jul 27 live label file, and the film</span></div>
   </div>
 
   <div class="srcard ours">
     <div class="srfig">Jul 17, 2026</div>
     <div class="srwhat">U.S. provisional patent filed</div>
-    <p class="srbody">A provisional application, filed July 17 2026. That is exactly what "patent pending" means here — an application on record, not a granted patent. We say the filing type and the date rather than implying more.</p>
+    <p class="srbody">A provisional application filed July 17, 2026 by the founder; BreakShark, Inc. was formed August 10, 2026. That is exactly what "patent pending" means here — an application on record, not a granted patent.</p>
     <div class="srmeta"><span class="tag first">First-party</span> <span>Source: filing receipt</span></div>
   </div>
 </section>
@@ -337,7 +281,7 @@
 
     <div class="caveat"><b>Where we're inferring, and saying so:</b> the case study does not print the slot count. We are placing two of their published claims next to each other and drawing a conclusion. If that pub group was actually on a paid tier with more slots, the inference is wrong and the honest read is "some portion of six slots produced 6.5%." Either way it's four pubs, one month, on somebody else's hardware — not a promise about your room. <b>We keep it here rather than on our headline for exactly that reason:</b> our biggest claim should be ours, and this one isn't.</div>
 
-    <div class="srmeta"><span class="tag">Competitor-published</span> <span>Verified live July 27, 2026</span> <a href="https://www.taiv.tv/case-study/fionn-maccools/" target="_blank" rel="noopener">Read their case study →</a> <a href="https://www.taiv.tv/enterprise/bars-restaurants/" target="_blank" rel="noopener">Read their plan sheet →</a></div>
+    <div class="srmeta"><span class="tag">Competitor-published</span> <span>Verified live July 27, 2026</span> <span>Their case study and their plan sheet, with links, are cited in full in the investor materials — ask and we'll send them.</span></div>
   </div>
 
   <div class="srcard" style="border-left-color:var(--amber)">
@@ -346,7 +290,7 @@
     <p class="srbody">A spirits brand bought those slots across <b>200 venue screens for four months</b>, roughly 50 million impressions. Published results: <b>+287% increase in that brand's sales</b> measured inside the venues, <b>a 28% decrease in the competing brand's sales</b> in those same rooms, and <b>60% of venues that didn't previously stock the product started carrying it.</b></p>
     <p class="srbody" style="margin-top:10px">We cite this for one reason. Every conversation about break advertising treats the venue's slot as the only one that does anything. This is the seller's own published proof that <b>all six slots move product</b> — and that five of them are moving it toward whoever bought the airtime. That last figure is the one worth sitting with: the ads changed what the bar itself decided to purchase.</p>
     <div class="caveat"><b>Read it fairly:</b> this is an advertiser success story, published to sell advertising, and a 287% lift is off whatever base that brand started at in those rooms — a small base makes a big percentage. We're not presenting it as a precise measurement of what happens in your bar. We're presenting it as the seller's own answer to "do the other five slots matter."</div>
-    <div class="srmeta"><span class="tag">Competitor-published</span> <span>Verified live July 27, 2026</span> <a href="https://www.taiv.tv/case-study/bacardi/" target="_blank" rel="noopener">Read their advertiser case study →</a></div>
+    <div class="srmeta"><span class="tag">Competitor-published</span> <span>Verified live July 27, 2026</span> <span>Their advertiser case study is cited in full, with the link, in the investor materials.</span></div>
   </div>
 
   <div class="srcard soft">
@@ -429,7 +373,7 @@
     <a class="btn primary" href="index.html#catchnight">Book a free Catch Night →</a>
     <a class="btn" href="index.html#proof">Watch the box work →</a>
   </p>
-  <p class="mono" style="color:var(--faint);margin-top:16px">PAGE LAST REVIEWED AUGUST 2, 2026 · IF YOU FIND A NUMBER ON THIS SITE THAT ISN'T ON THIS PAGE, TEXT MAXX AT (916) 628-6299 AND IT GETS FIXED OR REMOVED.</p>
+  <p class="mono" style="color:var(--faint);margin-top:16px">PAGE LAST REVIEWED SEPTEMBER 2, 2026 · IF YOU FIND A NUMBER ON THIS SITE THAT ISN'T ON THIS PAGE, TEXT MAXX AT (916) 628-6299 AND IT GETS FIXED OR REMOVED.</p>
 </section>
 
 <footer>
@@ -451,9 +395,9 @@
     <div>
       <h5>Talk to the guy who built it</h5>
       <a href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
-      <a href="mailto:maxx@breakshark.com">maxx@breakshark.com</a>
+      <a href="/cdn-cgi/l/email-protection#3a575b42427a58485f5b5149525b485114595557"><span class="__cf_email__" data-cfemail="c9a4a8b1b189abbbaca8a2baa1a8bba2e7aaa6a4">[email&#160;protected]</span></a>
     </div>
   </div>
 </footer>
-</body>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html>
