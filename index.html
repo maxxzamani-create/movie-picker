@@ -700,7 +700,7 @@ table.ar td.v.us{color:var(--money)}
       <div class="model">
         <div>
           <div class="kick b" style="margin-bottom:6px">Part two — the model</div>
-          <div style="font-size:14px;color:var(--dim);line-height:1.55">Slot 1 starts from <b style="color:var(--text)">their</b> published range — their CEO's 3% low claim up to their best case study's 6.5%, with that top end cut by a quarter to stay conservative. The floor runs from their 3% at one slot up to exactly their 6.5% at all six — both ends sit on their own published numbers, so even if that 6.5% came from six slots rather than one, we are not claiming more than it. The ceiling is our model, with its top end cut by a quarter. Both curves flatten, because the sixth time somebody sees your wings does less than the first. Tap a slot.</div>
+          <div style="font-size:14px;color:var(--dim);line-height:1.55">One slot is <b style="color:var(--text)">their</b> published range exactly: their CEO's 3% low claim to their best case study's 6.5%. Their study does not say whether that 6.5% came from one slot or all six, so we cover both readings — the floor climbs to 6.5% only when you own all six, and the ceiling already starts at 6.5% with just one. Either way we never claim more than the number they published. Both lines flatten as they go, because the sixth time somebody sees your wings does less than the first. Tap a slot.</div>
           <div class="pips" id="pips"></div>
           <label for="smRev" style="display:block;font:600 10px var(--mono);letter-spacing:.16em;color:var(--faint);margin-top:18px">YOUR FOOD &amp; DRINK REVENUE A YEAR</label>
           <input type="range" id="smRev" min="100000" max="1500000" step="25000" value="500000" style="width:100%;margin-top:8px;accent-color:var(--money)">
@@ -923,7 +923,7 @@ table.ar td.v.us{color:var(--money)}
           <label for="lift">The lift <b style="color:var(--text)">you</b> think you'd get on what you push</label>
           <input type="range" id="lift" min="1" max="12" step="0.1" value="4">
           <div class="val" id="liftVal">4.0%</div>
-          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Their published one-slot band is 3% to 6.5% — their CEO's own low number to their best case study. The six-slot model above runs 6.5% to 11.9% — the floor landing exactly on their published 6.5%, the ceiling our model with its top cut by a quarter — and shows exactly how. Slide it to whatever you'd actually bet on.</p>
+          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Their published one-slot band is 3% to 6.5% — their CEO's own low number to their best case study. The six-slot model above runs 6.5% to 11.9%, and one slot is their published range exactly — 3% to 6.5% — so neither end ever claims past their own numbers. Slide it to whatever you'd actually bet on.</p>
         </div>
         <div class="calcout">
           <div class="line">What that would be worth a year · your numbers</div>
@@ -1111,12 +1111,18 @@ table.ar td.v.us{color:var(--money)}
 (function(){var c=document.getElementById('cmp'),r=document.getElementById('cmpRange');if(!c)return;r.addEventListener('input',function(){c.style.setProperty('--x',r.value+'%')})})();
 /* six-slot model */
 (function(){
-  var LOW=3.0,HIGH=4.875,n=6,rev=500000;  /* HIGH = their 6.5 cut by a quarter (Maxx, 9/02 'less') */
-  var LOWP=Math.log(6.5/LOW)/Math.log(6);  /* the floor curve is PINNED to their two published numbers: 3.0% at one slot, exactly 6.5% at six (Maxx, 9/02) — no flat spot, no cap artefact */
+  var LOW=3.0,HIGH=6.5,n=6,rev=500000;
+  /* BOTH curves are pinned so neither ever claims more than the competitor's own two published numbers,
+     whichever way their case study is read (Maxx, 9/02):
+       floor  3.0% at one slot  ->  exactly 6.5% at six   (covers 'the 6.5% came from all six slots')
+       ceiling 6.5% at one slot ->  11.9% at six          (covers 'the 6.5% came from one slot') */
+  /* Maxx's fixed points (9/02): 1 slot = their published range exactly (3.0-6.5); 3 slots floor 4.5; 6 slots 6.5-11.9.
+     Both columns step up uniformly between those points — no flat spots, no curve nobody can read. */
+  var FLOOR=[3.0,3.8,4.5,5.2,5.9,6.5], CEIL=[6.5,7.6,8.7,9.7,10.8,11.9];
   var pips=document.getElementById('pips'),band=document.getElementById('slotBand'),say=document.getElementById('slotSay'),dol=document.getElementById('slotDollars'),sr=document.getElementById('smRev'),srv=document.getElementById('smRevVal');
   if(!pips)return;
   function m(v){return '$'+(Math.round(v/500)*500).toLocaleString()}
-  function lo(k){return LOW*Math.pow(k,LOWP)} function hi(k){return HIGH*Math.sqrt(k)}
+  function lo(k){return FLOOR[k-1]} function hi(k){return CEIL[k-1]}
   function render(){
     pips.innerHTML='';for(var k=1;k<=6;k++){var p=document.createElement('button');p.type='button';p.setAttribute('aria-pressed',k<=n?'true':'false');p.className='pip'+(k<=n?' on':'');p.textContent=k<=n?'YOURS':'THEIRS';p.dataset.k=k;p.addEventListener('click',function(){n=+this.dataset.k;render()});pips.appendChild(p)}
     band.textContent=lo(n).toFixed(1)+'% – '+hi(n).toFixed(1)+'%';
