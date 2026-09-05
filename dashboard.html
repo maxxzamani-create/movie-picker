@@ -2,28 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
 <title>BreakShark — Owner Dashboard (Live Demo)</title>
 <meta name="description" content="The BreakShark owner dashboard — see every break caught, control your ad lineup, and watch the recaptured value add up. Live demo with simulated venue data.">
-<link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
-<link rel="shortcut icon" href="static/brand/favicon.ico">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="icon" href="static/brand-2026/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="static/brand-2026/favicon/favicon.svg">
+  <link rel="apple-touch-icon" href="static/brand-2026/favicon/apple-touch-icon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
 <!-- Google tag (gtag.js) — GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPSCL18MG6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JPSCL18MG6');</script>
 <style>
-  :root{--bg:#0a1626;--card:rgba(40,59,88,.5);--line:#2b4166;--dim:#a9bdd8;--money:#22e08a;--warn:#ffb042}
+  :root{--bg:#08080a;--card:rgba(59,59,69,.5);--line:#43434e;--dim:#b3b4b6;--money:#ea5a18;--warn:#ff7e42}
   *{box-sizing:border-box;margin:0}
-  body{background:var(--bg);color:#eef4ff;font-family:Inter,sans-serif;padding:24px;max-width:1020px;margin:0 auto}
-  h1{font-family:"Bebas Neue";letter-spacing:.04em;font-size:2.2rem;display:flex;align-items:center;gap:12px}
+  body{background:var(--bg);color:#fff3ee;font-family:Inter,sans-serif;padding:24px;max-width:1020px;margin:0 auto}
+  h1{font-family:"microgramma-extended",Impact,sans-serif;letter-spacing:.04em;font-size:2.2rem;display:flex;align-items:center;gap:12px;text-transform:uppercase;font-weight:500}
   h1 img{width:44px;height:44px;object-fit:contain}
-  h2{font-family:"Bebas Neue";letter-spacing:.05em;font-size:1.3rem;margin:26px 0 10px;color:var(--money)}
+  h2{font-family:"microgramma-extended",Impact,sans-serif;letter-spacing:.05em;font-size:1.3rem;margin:26px 0 10px;color:var(--money);text-transform:uppercase;font-weight:500}
   h2 .hint{font-size:.74rem;color:var(--dim);letter-spacing:0;font-family:Inter;font-weight:400}
   span.hint{font-size:.78rem;color:var(--dim)}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px}
-  input,button,select{font:inherit;border-radius:9px;border:1px solid var(--line);background:#0e1e33;color:#eef4ff;padding:9px 11px}
+  input,button,select{font:inherit;border-radius:9px;border:1px solid var(--line);background:#1e1e23;color:#fff3ee;padding:9px 11px}
   input[type=checkbox]{width:20px;height:20px;accent-color:var(--money);cursor:pointer;flex-shrink:0}
-  button{background:var(--money);color:#04160c;font-weight:800;border:0;cursor:pointer}
+  button{background:var(--money);color:#170903;font-weight:800;border:0;cursor:pointer}
   button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line)}
   button.mini{padding:4px 10px;font-size:.85rem}
   button:disabled{opacity:.35;cursor:default}
@@ -38,29 +42,29 @@
   .adrow input.label{width:100%;max-width:280px}
   .grab{cursor:grab;color:var(--dim);font-size:1.55rem;padding:12px 8px;user-select:none;touch-action:none;line-height:1}
   .grab:active{cursor:grabbing;color:var(--money)}
-  .sortGhost{opacity:.45;background:rgba(34,224,138,.08);outline:1px dashed var(--money);border-radius:10px}
+  .sortGhost{opacity:.45;background:rgba(234,90,24,.08);outline:1px dashed var(--money);border-radius:10px}
   .dp{display:flex;gap:7px;align-items:center;font-size:.8rem;color:var(--dim);flex-wrap:wrap}
   .pill{font-size:.72rem;font-weight:800;padding:4px 11px;border-radius:20px;cursor:pointer;user-select:none;display:inline-block}
-  .on{background:rgba(34,224,138,.15);color:var(--money)} .off{background:rgba(255,120,120,.12);color:#ff9b9b}
-  .dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#5a6f8f}
-  .dot.green{background:var(--money)} .dot.red{background:#ff6b6b} .dot.amber{background:var(--warn)} .dot.idle{background:#5a6f8f}
+  .on{background:rgba(234,90,24,.15);color:var(--money)} .off{background:rgba(255,120,120,.12);color:#ff9b9b}
+  .dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#727277}
+  .dot.green{background:var(--money)} .dot.red{background:#ff6b6b} .dot.amber{background:var(--warn)} .dot.idle{background:#727277}
   .dot.pulse{animation:pulse 1.6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,224,138,.5)}50%{box-shadow:0 0 0 9px rgba(34,224,138,0)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(234,90,24,.5)}50%{box-shadow:0 0 0 9px rgba(234,90,24,0)}}
   .chip{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
   .chip.live{color:var(--money);border-color:var(--money)}
   .switchwrap{display:flex;gap:9px;align-items:center;font-size:.85rem;color:var(--dim);cursor:pointer;border:1px solid var(--line);border-radius:9px;padding:8px 12px}
-  .switchwrap b{color:#eef4ff}
+  .switchwrap b{color:#fff3ee}
   #log{font-size:.8rem;color:var(--dim);max-height:220px;overflow:auto;white-space:pre-wrap}
   #saveBar{position:sticky;bottom:14px;display:none;justify-content:flex-end;gap:10px;margin-top:14px;z-index:5}
   #saveBar.show{display:flex}
-  #saveBar button{box-shadow:0 6px 24px rgba(34,224,138,.35);font-size:1.02rem;padding:12px 22px}
-  #toast{position:fixed;top:64px;right:18px;background:#0e2a1c;border:1px solid var(--money);color:#d7ffe9;
+  #saveBar button{box-shadow:0 6px 24px rgba(234,90,24,.35);font-size:1.02rem;padding:12px 22px}
+  #toast{position:fixed;top:64px;right:18px;background:#2c160c;border:1px solid var(--money);color:#ffe4d7;
     padding:12px 18px;border-radius:10px;font-weight:600;display:none;z-index:9;max-width:min(430px,86vw)}
-  .demobar{position:sticky;top:0;z-index:8;margin:-24px -24px 18px;background:linear-gradient(90deg,#0c2b4e,#0e3a63);
+  .demobar{position:sticky;top:0;z-index:8;margin:-24px -24px 18px;background:linear-gradient(90deg,#292931,#34343d);
     border-bottom:1px solid var(--line);padding:10px 24px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
   .demobar b{color:#ffc93d;letter-spacing:.1em;font-size:.8rem}
   .demobar span{color:var(--dim);font-size:.8rem}
-  .demobar a{color:#4fb6f2;font-weight:700;font-size:.85rem;text-decoration:none;white-space:nowrap}
+  .demobar a{color:#e07f52;font-weight:700;font-size:.85rem;text-decoration:none;white-space:nowrap}
   @media(max-width:700px){
     body{padding:14px}
     .demobar{margin:-14px -14px 14px;padding:10px 14px}
@@ -73,12 +77,12 @@
 </style>
 </head>
 <body>
-<header style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:11px 20px;background:rgba(10,22,38,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(36,57,92,.6);font-family:Inter,system-ui,sans-serif">
-  <a href="index.html" style="display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2f7fd"><img src="static/brand/icon.png" alt="" style="height:25px;width:auto"><b style="font-family:'Bebas Neue';font-size:19px;letter-spacing:1.4px">BREAKSHARK</b></a>
+<header style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:11px 20px;background:rgba(10,10,12,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,59,69,.6);font-family:Inter,system-ui,sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:9px;text-decoration:none;color:#f2efea"><img src="static/brand-2026/icon/breakshark-icon.svg" alt="" style="height:25px;width:auto"><b style="font-family:"microgramma-extended",Impact,sans-serif;font-size:19px;letter-spacing:1.4px">BREAKSHARK</b></a>
   <nav style="display:flex;gap:16px;align-items:center">
-    <a href="index.html#proof" style="color:#a9bdd8;text-decoration:none;font:600 13px Inter">Watch It Work</a>
-    <a href="sources.html" style="color:#a9bdd8;text-decoration:none;font:600 13px Inter">Sources</a>
-    <a href="index.html#catchnight" style="color:#04140b;background:linear-gradient(120deg,#35e08c,#12a86a);padding:8px 14px;border-radius:8px;font:800 13px Inter;text-decoration:none">Book a Catch Night</a>
+    <a href="index.html#proof" style="color:#b3b4b6;text-decoration:none;font:600 13px Inter">Watch It Work</a>
+    <a href="sources.html" style="color:#b3b4b6;text-decoration:none;font:600 13px Inter">Sources</a>
+    <a href="index.html#catchnight" style="color:#0c0603;background:linear-gradient(120deg,#f4bca2,#913c15);padding:8px 14px;border-radius:8px;font:800 13px Inter;text-decoration:none">Book a Catch Night</a>
   </nav>
 </header>
 
@@ -88,13 +92,13 @@
   <a href="founding10.html">Get the real one — claim a Founding 10 spot →</a>
 </div>
 
-<h1><img src="static/brand/icon.png" alt="BreakShark logo">BREAKSHARK — OWNER DASHBOARD</h1>
+<h1><img src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark logo">BREAKSHARK — OWNER DASHBOARD</h1>
 <div id="toast"></div>
 
 <div id="app">
   <div class="card" id="powerCard">
     <div class="row" style="justify-content:space-between">
-      <div><b style="font-size:1.15rem"><img src="static/brand/icon.png" alt="" style="height:1em;width:auto;vertical-align:-.15em;margin-right:.15em"> BreakShark</b><br>
+      <div><b style="font-size:1.15rem"><img src="static/brand-2026/icon/breakshark-icon.svg" alt="" style="height:1em;width:auto;vertical-align:-.15em;margin-right:.15em"> BreakShark</b><br>
         <span id="pwrState" style="color:var(--dim);font-size:.85rem">Shark is ON — watching your TV</span></div>
       <button id="pwrBtn" onclick="togglePower()">Turn OFF</button>
     </div>
@@ -154,8 +158,8 @@
 </div>
 
 <footer style="text-align:center;color:var(--dim);font-size:.74rem;opacity:.8;margin:30px 0 6px;line-height:1.5">
-  BreakShark™ &middot; <b style="color:var(--money);font-weight:800">U.S. Patent&nbsp;Pending</b> &middot; Provisional App. No. 64/114,099 (filed July&nbsp;17,&nbsp;2026)<br>
-  &copy; 2026 BreakShark. Automated break-detection &amp; display-takeover system. &middot; <a href="index.html" style="color:#4fb6f2">breakshark.com</a>
+  BreakShark™ &middot; <b style="color:var(--money);font-weight:800">U.S. Patent&nbsp;Pending</b> &middot; two provisionals filed July&nbsp;17 and September&nbsp;3,&nbsp;2026<br>
+  &copy; 2026 BreakShark. Automated break-detection &amp; display-takeover system. &middot; <a href="index.html" style="color:#e07f52">breakshark.com</a>
 </footer>
 
 <script>
