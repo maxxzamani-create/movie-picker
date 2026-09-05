@@ -13,6 +13,8 @@
       <stop offset="100%" stop-color="#6B6B6D"/>
     </linearGradient>
   </defs>
+
+  <rect x="0" y="0" width="3640" height="2378" fill="#000000"/>
   
   <g transform="translate(220,220) scale(1.509433962264151)">
     <g id="waves" fill="url(#goldGrad)">
@@ -112,7 +114,7 @@ fill="url(#steelGrad)" stroke="none">
   <g transform="translate(220,1738) scale(1.0139416983523448)">
     <svg x="0" y="0" width="3156" height="434" viewBox="0 0 3156 434">
       <g transform="translate(0.000000,434.000000) scale(0.100000,-0.100000)"
-fill="#F2EFEA" stroke="none">
+fill="#e07f52" stroke="none">
 <path d="M150 2090 l0 -1180 953 0 c1018 0 1180 6 1355 51 147 37 253 103 308
 191 106 168 124 588 34 792 -38 85 -115 154 -212 191 l-48 18 43 27 c97 61
 151 157 176 311 14 84 14 221 0 310 -35 226 -187 382 -424 435 -102 23 -512
