@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#000000">
 <title>BreakShark Loop — your own channel, no cable needed</title>
+  <meta property="og:site_name" content="BreakShark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BreakShark Loop — your own channel, no cable needed">
+  <meta property="og:description" content="No live sports, no cable, no problem. The same box turns your screen into your own channel all day — salons, waiting rooms, gyms, lobbies, showrooms. Free Loop Week, nothing to sign.">
+  <meta property="og:url" content="https://breakshark.com/loop.html">
+  <meta property="og:image" content="https://breakshark.com/img/og-moment.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BreakShark">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BreakShark Loop — your own channel, no cable needed">
+  <meta name="twitter:description" content="No live sports, no cable, no problem. The same box turns your screen into your own channel all day — salons, waiting rooms, gyms, lobbies, showrooms. Free Loop Week, nothing to sign.">
+  <meta name="twitter:image" content="https://breakshark.com/img/og-moment.jpg">
 <meta name="description" content="No live sports, no cable, no problem. The same box turns your screen into your own channel all day — salons, waiting rooms, gyms, lobbies, showrooms. Free Loop Week, nothing to sign.">
 <link rel="icon" href="static/brand-2026/favicon/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="static/brand-2026/favicon/favicon.svg">
@@ -18,8 +31,8 @@
     --bg:#08080a; --bg2:#121215; --panel:rgba(41,41,48,.55); --panel2:rgba(49,49,57,.85);
     --line:#3b3b45; --line2:#83462a;
     --text:#f2efea; --dim:#b3b4b6; --faint:#87878c;
-    --blue:#e07f52; --blue2:#f1ac8c; --blue-deep:#62270c;
-    --money:#f4bca2; --money-deep:#913c15; --money-pale:#fbe8df; --money-dim:#803918;
+    --blue:#e07f52; --blue2:#e07f52; --blue-deep:#62270c;
+    --money:#e07f52; --money-deep:#913c15; --money-pale:#f2efea; --money-dim:#803918;
     --red:#ff5a5a; --amber:#ffc93d;
     --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
@@ -39,10 +52,10 @@
   .btn{display:inline-flex;align-items:center;gap:10px;font:800 15px Inter;text-decoration:none;
     padding:15px 26px;border-radius:10px;border:1px solid var(--line2);color:var(--text);transition:transform .15s ease,box-shadow .2s;cursor:pointer;background:transparent}
   .btn:hover{transform:translateY(-2px)}
-  .btn.primary{background:linear-gradient(120deg,var(--money),var(--money-deep));border-color:transparent;color:#0c0603;box-shadow:0 12px 34px rgba(244,188,162,.32)}
+  .btn.primary{background:linear-gradient(120deg,var(--money),var(--money-deep));border-color:transparent;color:#0c0603;box-shadow:0 12px 34px rgba(224,127,82,.32)}
   .amber-block{border:1px solid rgba(255,122,61,.4);background:rgba(255,122,61,.06);border-radius:12px;padding:16px 22px;color:var(--dim);font-size:14.5px;line-height:1.65}
   .amber-block b{color:var(--amber)}
-  .green-block{border:1px solid rgba(244,188,162,.45);background:rgba(244,188,162,.07);border-radius:12px;padding:18px 22px;color:var(--dim);font-size:15px;line-height:1.65}
+  .green-block{border:1px solid rgba(224,127,82,.45);background:rgba(224,127,82,.07);border-radius:12px;padding:18px 22px;color:var(--dim);font-size:15px;line-height:1.65}
   .green-block b{color:var(--money)}
   header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
     padding:13px 22px;background:rgba(10,10,12,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,59,69,.6)}
@@ -95,7 +108,7 @@
   .rung .n{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--money)}
   .rung h4{font:800 15.5px Inter;margin:8px 0 6px}
   .rung p{color:var(--dim);font-size:13.5px}
-  .rung.now{background:linear-gradient(180deg,rgba(244,188,162,.1),var(--panel))}
+  .rung.now{background:linear-gradient(180deg,rgba(224,127,82,.1),var(--panel))}
   .fquote{margin-top:28px;border-left:3px solid var(--money);padding:6px 0 6px 20px;font:600 19px/1.5 Inter}
   .srcline{margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;line-height:1.9}
 
@@ -133,7 +146,7 @@
   .lc .shot{aspect-ratio:16/9;background:#000000;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
   .lc .shot img{width:100%;height:100%;object-fit:cover;opacity:.9}
   .lc .lchip{position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
-    background:rgba(244,188,162,.16);border:1px solid rgba(244,188,162,.7);color:var(--money-pale);padding:4px 8px;border-radius:4px}
+    background:rgba(224,127,82,.16);border:1px solid rgba(224,127,82,.7);color:var(--money-pale);padding:4px 8px;border-radius:4px}
   .lc .body{padding:20px 22px 0}
   .lc h4{font:800 16px Inter;margin-bottom:7px}
   .lc p{color:var(--dim);font-size:14px}
