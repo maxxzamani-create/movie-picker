@@ -4,58 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BREAKSHARK — Investor Deck</title>
-<meta name="theme-color" content="#03050a">
-<link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
-<link rel="shortcut icon" href="static/brand/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="static/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="static/brand-2026/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="static/brand-2026/favicon/favicon.svg">
+  <link rel="apple-touch-icon" href="static/brand-2026/favicon/apple-touch-icon.png">
+
+
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <style>
-  :root { --bg:#03050a; --line:#1c2740; --text:#eef5fc; --dim:#8ea1ba;
-    --gold:#4fb6f2; --gold2:#9fdcff; --green:#2ecc71; --red:#ff5c5c; }
+  :root { --bg:#060607; --line:#2a2a32; --text:#fdf2ed; --dim:#a2a2a6;
+    --gold:#e07f52; --gold2:#f1ac8c; --green:#d65c24; --red:#ff5c5c; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:#000; color:var(--text); font-family:"Inter",system-ui,sans-serif; }
   .slide { width:100vw; height:100vh; display:none; position:relative; overflow:hidden;
     background: var(--bg); padding:7vh 8vw; flex-direction:column; justify-content:center; }
   .slide.active { display:flex; }
   .slide::before { content:""; position:absolute; inset:0; pointer-events:none;
-    background: radial-gradient(40% 34% at 22% 18%, rgba(79,182,242,.10), transparent 60%),
-                radial-gradient(32% 28% at 82% 78%, rgba(11,95,176,.07), transparent 60%); }
+    background: radial-gradient(40% 34% at 22% 18%, rgba(224,127,82,.10), transparent 60%),
+                radial-gradient(32% 28% at 82% 78%, rgba(183,61,4,.07), transparent 60%); }
   .kicker { color:var(--gold2); font-weight:800; letter-spacing:4px; font-size:13px;
     text-transform:uppercase; margin-bottom:18px; }
-  h1 { font-family:"Bebas Neue"; font-size:clamp(50px,9vw,120px); letter-spacing:4px; line-height:.95; }
-  h2 { font-family:"Bebas Neue"; font-size:clamp(34px,5vw,60px); letter-spacing:3px; margin-bottom:26px; }
+  h1 { font-family:"microgramma-extended",Impact,sans-serif; font-size:clamp(43.5px,8.778vw,120px); letter-spacing:4px; line-height:.95;text-transform:uppercase;font-weight:500}
+  h2 { font-family:"microgramma-extended",Impact,sans-serif; font-size:clamp(34px,5vw,60px); letter-spacing:3px; margin-bottom:26px;text-transform:uppercase;font-weight:500}
   .gold { background:linear-gradient(120deg,var(--gold2),var(--gold));
     -webkit-background-clip:text; background-clip:text; color:transparent; }
-  p, li { font-size:clamp(15px,1.6vw,20px); line-height:1.75; color:#cdd6e4; }
+  p, li { font-size:clamp(15px,1.6vw,20px); line-height:1.75; color:#d8d8d9; }
   .dim { color:var(--dim); }
   .grid { display:grid; gap:20px; }
   .g2 { grid-template-columns:1fr 1fr; } .g3 { grid-template-columns:1fr 1fr 1fr; }
   .g4 { grid-template-columns:repeat(4,1fr); }
-  .box { background:rgba(19,24,36,.75); border:1px solid rgba(255,255,255,.08);
+  .box { background:rgba(25,25,30,.75); border:1px solid rgba(255,255,255,.08);
     border-radius:16px; padding:22px; position:relative; z-index:1; }
-  .box b.n { display:block; font-family:"Bebas Neue"; font-size:clamp(36px,4.5vw,58px);
+  .box b.n { display:block; font-family:"microgramma-extended",Impact,sans-serif; font-size:clamp(36px,4.5vw,58px);
     line-height:1; margin-bottom:8px;
     background:linear-gradient(120deg,var(--gold2),var(--gold));
-    -webkit-background-clip:text; background-clip:text; color:transparent; }
+    -webkit-background-clip:text; background-clip:text; color:transparent;text-transform:uppercase;font-weight:500;letter-spacing:-.005em}
   .box.red b.n { background:linear-gradient(120deg,#ff8a80,var(--red));
     -webkit-background-clip:text; background-clip:text; }
   .box p { font-size:clamp(12px,1.2vw,15px); color:var(--dim); }
-  .cname { font-family:"Bebas Neue"; font-size:clamp(20px,2.4vw,30px); letter-spacing:1px;
-    line-height:1; margin-bottom:9px; color:#eef2f8; }
+  .cname { font-family:"microgramma-extended",Impact,sans-serif; font-size:clamp(20px,2.4vw,30px); letter-spacing:1px;
+    line-height:1; margin-bottom:9px; color:#f9f1ed;text-transform:uppercase;font-weight:500}
   .foot { position:absolute; bottom:26px; left:8vw; right:8vw; display:flex;
     justify-content:space-between; color:var(--dim); font-size:12px; letter-spacing:1px; }
   .photo { border-radius:16px; width:100%; height:100%; object-fit:cover;
     border:1px solid rgba(255,255,255,.1); }
   ul.check { list-style:none; display:flex; flex-direction:column; gap:12px; }
-  ul.check li::before { content:""; display:inline-block; width:1em; height:1em; background:url(static/brand/icon.png) center/contain no-repeat; vertical-align:-.15em; margin-right:.4em; }
+  ul.check li::before { content:""; display:inline-block; width:1em; height:1em; background:url(static/brand-2026/icon/breakshark-icon.svg) center/contain no-repeat; vertical-align:-.15em; margin-right:.4em; }
   .navhint { position:fixed; bottom:14px; right:18px; color:var(--dim); font-size:12px;
-    z-index:9; background:rgba(6,8,13,.7); padding:6px 12px; border-radius:8px; }
+    z-index:9; background:rgba(9,9,10,.7); padding:6px 12px; border-radius:8px; }
   .logo-row { display:flex; align-items:center; gap:16px; margin-bottom:30px; }
-  .logo-row img { width:64px; height:64px; filter:drop-shadow(0 4px 14px rgba(79,182,242,.45)); }
+  .logo-row img { width:64px; height:64px; filter:drop-shadow(0 4px 14px rgba(224,127,82,.45)); }
   @media print {
-    body { background:#06080d; }
+    body { background:#09090a; }
     .slide { display:flex !important; page-break-after:always; width:100%; height:100vh; }
     .navhint { display:none; }
   }
@@ -65,8 +68,8 @@
 
 <div class="slide active">
   <div class="logo-row">
-    <img src="static/brand/icon.png" alt="BreakShark logo">
-    <div style="font-family:'Bebas Neue'; font-size:34px; letter-spacing:5px" class="gold">BREAKSHARK</div>
+    <img src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark logo">
+    <div style="font-family:"microgramma-extended",Impact,sans-serif; font-size:34px; letter-spacing:5px" class="gold">BREAKSHARK</div>
   </div>
   <h1>YOUR TV.<br><span class="gold">YOUR ADS.</span><br>EVERY BREAK.</h1>
   <p style="margin-top:28px; max-width:640px">The commercial killer for bars &amp; restaurants —
@@ -115,13 +118,13 @@
   <div class="kicker">Product · live today</div>
   <h2>PHASE 1 IS <span class="gold">BUILT AND RUNNING</span></h2>
   <div class="grid g3">
-    <div class="box"><b class="n">⚙️</b><p><b style="color:#eef2f8">Detection engine.</b>
+    <div class="box"><b class="n">⚙️</b><p><b style="color:#f9f1ed">Detection engine.</b>
       Black-frame + audio-silence boundaries, scene-cut-rate classification — the same
       heuristics production broadcast systems use. 82% confidence on the demo feed, tunable.</p></div>
-    <div class="box"><b class="n">📺</b><p><b style="color:#eef2f8">Auto-takeover player.</b>
+    <div class="box"><b class="n">📺</b><p><b style="color:#f9f1ed">Auto-takeover player.</b>
       Virtual TV proves the full loop: break detected → house promos rotate with equal
       airtime → instant snap-back. Real-time luminance/audio telemetry on screen.</p></div>
-    <div class="box"><b class="n">📊</b><p><b style="color:#eef2f8">Owner dashboard.</b>
+    <div class="box"><b class="n">📊</b><p><b style="color:#f9f1ed">Owner dashboard.</b>
       Upload spots, schedule rotation, count plays and airtime, and a revenue-leak
       calculator that turns research rates into the owner's own dollars.</p></div>
   </div>
@@ -129,7 +132,7 @@
     the demo, the dashboard, the calculator. Built lean: one engineer-equivalent, weeks not years.</p>
   <div style="display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; position:relative; z-index:2">
     <a href="tv.html" style="text-decoration:none; font-weight:800; font-size:14px; padding:11px 20px;
-       border-radius:10px; background:linear-gradient(120deg,var(--gold2),var(--gold)); color:#04101f;">▶ Try the live demo</a>
+       border-radius:10px; background:linear-gradient(120deg,var(--gold2),var(--gold)); color:#101013;">▶ Try the live demo</a>
     <a href="dashboard.html" style="text-decoration:none; font-weight:700; font-size:14px; padding:11px 20px;
        border-radius:10px; border:1px solid var(--line); color:var(--text);">See the owner dashboard</a>
   </div>
@@ -148,7 +151,7 @@
       POI data tags 137K "bars" + 21.8K "sports bars." Add gyms, barbershops, waiting rooms.</p></div>
     <div class="box"><b class="n">1/6</b><p>the venue's share on the only break-takeover rival
       (Taiv — an ad network that sells the other five slots). Everyone else replaces the feed or sells
-      the games. BREAKSHARK gives the venue <b style="color:#eef2f8">all six</b>, no ad network.</p></div>
+      the games. BREAKSHARK gives the venue <b style="color:#f9f1ed">all six</b>, no ad network.</p></div>
   </div>
   <p style="margin-top:26px; max-width:760px"><b>The wedge:</b> sports bars are locked out of
     every existing solution because their customers came to watch the game. BREAKSHARK is the
@@ -161,38 +164,38 @@
   <h2>NOT ONE RIVAL — A <span class="gold">CATEGORY.</span> WE OWN THE EMPTY ROW.</h2>
   <p style="max-width:900px; margin-bottom:20px; font-size:clamp(13px,1.4vw,17px)">The industry splits into
     four models. Two make the venue the <b style="color:#ff8a80">product</b> (advertisers pay). Two sell the
-    venue a <b style="color:#ff8a80">cost</b> (content or signage). <b style="color:#eef2f8">None</b> turn the
+    venue a <b style="color:#ff8a80">cost</b> (content or signage). <b style="color:#f9f1ed">None</b> turn the
     commercial break inside the live game into the venue's own revenue.</p>
   <div class="grid g4">
     <div class="box">
       <div class="cname">AMBIENT AD TV</div>
-      <p><b style="color:#eef2f8">Atmosphere · Loop</b><br>Free channels on your <b style="color:#eef2f8">other</b> TVs.
+      <p><b style="color:#f9f1ed">Atmosphere · Loop</b><br>Free channels on your <b style="color:#f9f1ed">other</b> TVs.
         Advertiser pays; you're the inventory. Never the live game or its breaks. ($1B / ~50K venues; Loop delisted 2024.)</p>
     </div>
     <div class="box">
       <div class="cname">BREAK AD NETWORK</div>
-      <p><b style="color:#eef2f8">Taiv</b><br>Our mechanic, sold to advertisers. Venue keeps
+      <p><b style="color:#f9f1ed">Taiv</b><br>Our mechanic, sold to advertisers. Venue keeps
         <b style="color:#ff8a80">1 of 6 slots</b> + ~$1–2K/yr; all six = enterprise-only. Proved the market, capped the upside.</p>
     </div>
     <div class="box">
       <div class="cname">ENGAGEMENT / SIGNAGE</div>
-      <p><b style="color:#eef2f8">UpShow</b> (now EverPass)<br>Decorates your other screens — trivia, social walls,
-        promos — and can rent them to brands. <b style="color:#eef2f8">Ignores the break.</b> ~30K screens.</p>
+      <p><b style="color:#f9f1ed">UpShow</b> (now EverPass)<br>Decorates your other screens — trivia, social walls,
+        promos — and can rent them to brands. <b style="color:#f9f1ed">Ignores the break.</b> ~30K screens.</p>
     </div>
-    <div class="box" style="border-color:rgba(79,182,242,.4)">
+    <div class="box" style="border-color:rgba(224,127,82,.4)">
       <div class="cname">CONTENT / RIGHTS</div>
-      <p><b style="color:#eef2f8">EverPass · DirecTV</b><br>Sells you the <b style="color:#eef2f8">game itself</b>.
+      <p><b style="color:#f9f1ed">EverPass · DirecTV</b><br>Sells you the <b style="color:#f9f1ed">game itself</b>.
         A <b style="color:var(--gold2)">complement we sit on top of</b> — their ~300K venues are our best leads.</p>
     </div>
   </div>
   <div class="grid g2" style="margin-top:20px">
-    <div class="box" style="border-color:var(--gold); background:rgba(79,182,242,.10)">
+    <div class="box" style="border-color:var(--gold); background:rgba(224,127,82,.10)">
       <div class="cname gold">BREAKSHARK — THE EMPTY ROW</div>
-      <p style="color:#dfe8f4">Venue-paid. Game stays on. <b style="color:#eef2f8">All six in-game slots are yours.</b>
+      <p style="color:#f6e5dd">Venue-paid. Game stays on. <b style="color:#f9f1ed">All six in-game slots are yours.</b>
         Zero third-party ads. <b style="color:var(--green)">The only model where the break sells the venue's own menu.</b></p>
     </div>
     <div class="box"><p><b style="color:var(--green)">Path to profit:</b> venue-paid SaaS reaches
-      self-sustaining at <b style="color:#eef2f8">a tiny fraction — under 2% — of U.S. sports bars.</b>
+      self-sustaining at <b style="color:#f9f1ed">a tiny fraction — under 2% — of U.S. sports bars.</b>
       No need to match Atmosphere's ~50,000. And every content-player venue is a pre-qualified lead.</p></div>
   </div>
   <div class="foot"><span>BREAKSHARK</span><span>Taiv/EverPass/Loop: company sites, BusinessWire, SEC · Atmosphere: help.atmosphere.tv, StreamTV Insider · fetched Jul 2026</span></div>
@@ -203,17 +206,17 @@
   <h2>HARDWARE ONCE, <span class="gold">SAAS FOREVER</span></h2>
   <div class="grid g3">
     <div class="box"><b class="n">Venue-paid</b>
-      <p><b style="color:#eef2f8">The venue is the customer</b> — no ad network, no third-party
+      <p><b style="color:#f9f1ed">The venue is the customer</b> — no ad network, no third-party
       advertisers. Detection, takeover, promo spots, dashboard: the whole system per location.</p></div>
     <div class="box" style="border-color:var(--gold)"><b class="n">Inquire</b>
-      <p><b style="color:#eef2f8">Pricing not yet set</b> — finalized with the Founding 10 pilot.
+      <p><b style="color:#f9f1ed">Pricing not yet set</b> — finalized with the Founding 10 pilot.
       Design rule: priced so competitively that one extra sale a day covers it.</p></div>
     <div class="box"><b class="n">Custom</b>
-      <p><b style="color:#eef2f8">Chain</b> · fleet dashboard, central brand control,
+      <p><b style="color:#f9f1ed">Chain</b> · fleet dashboard, central brand control,
       dedicated success. Future: local ad marketplace on every screen.</p></div>
   </div>
   <div class="grid g2" style="margin-top:22px">
-    <div class="box"><p><b style="color:var(--green)">Owner ROI:</b> a documented <b style="color:#eef2f8">6.5% self-promo sales lift</b> — $65K/yr in a $1M room (the ad industry's own case study). One extra sale a day covers the subscription.</p></div>
+    <div class="box"><p><b style="color:var(--green)">Owner ROI:</b> a documented <b style="color:#f9f1ed">6.5% self-promo sales lift</b> — $65K/yr in a $1M room (the ad industry's own case study). One extra sale a day covers the subscription.</p></div>
     <div class="box"><p><b style="color:var(--gold2)">Recurring by design:</b> subscription revenue
       per venue on top of a one-time install — compounding as the detection network and venue
       density grow.</p></div>
@@ -242,15 +245,15 @@
   <div class="kicker">Roadmap</div>
   <h2>DEMO → BOX → <span class="gold">NETWORK</span></h2>
   <div class="grid g4">
-    <div class="box"><b class="n" style="background:linear-gradient(120deg,#7bffb5,var(--green));-webkit-background-clip:text;background-clip:text">✓</b>
-      <p><b style="color:#eef2f8">Phase 1 · done.</b> Working software: detection, takeover,
+    <div class="box"><b class="n" style="background:linear-gradient(120deg,#ffa57b,var(--green));-webkit-background-clip:text;background-clip:text">✓</b>
+      <p><b style="color:#f9f1ed">Phase 1 · done.</b> Working software: detection, takeover,
       dashboard, calculator. You can click it today.</p></div>
-    <div class="box"><b class="n">90d</b><p><b style="color:#eef2f8">Phase 2 · pilot.</b>
+    <div class="box"><b class="n">90d</b><p><b style="color:#f9f1ed">Phase 2 · pilot.</b>
       Raspberry-Pi appliance on live HDMI, HDMI-CEC input switching. 10 friendly
       bars, measure real check lift.</p></div>
-    <div class="box"><b class="n">M4–9</b><p><b style="color:#eef2f8">Phase 3 · sell.</b>
+    <div class="box"><b class="n">M4–9</b><p><b style="color:#f9f1ed">Phase 3 · sell.</b>
       Case studies → outbound to sports bars &amp; franchise groups. Target 200 paying screens.</p></div>
-    <div class="box"><b class="n">Y2</b><p><b style="color:#eef2f8">Phase 4 · network.</b>
+    <div class="box"><b class="n">Y2</b><p><b style="color:#f9f1ed">Phase 4 · network.</b>
       Local ad marketplace on every installed screen.</p></div>
   </div>
   <div class="foot"><span>BREAKSHARK</span><span>every phase gated on pilot data, not faith</span></div>
@@ -274,7 +277,7 @@
 </div>
 
 <div class="slide" style="text-align:center; align-items:center">
-  <img src="static/brand/icon.png" alt="BreakShark" style="width:clamp(90px,14vw,180px); filter:drop-shadow(0 10px 40px rgba(79,182,242,.5)); margin:0 auto 8px">
+  <img src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark" style="width:clamp(90px,14vw,180px); filter:drop-shadow(0 10px 40px rgba(224,127,82,.5)); margin:0 auto 8px">
   <h1><span class="gold">BREAKSHARK</span></h1>
   <p style="margin-top:20px; font-size:22px">Your TV. Your ads. Every break.</p>
   <p class="dim" style="margin-top:30px">Live demo: <a href="tv.html" style="color:inherit">breakshark.com</a><br>

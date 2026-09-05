@@ -4,24 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BreakShark — Live TV</title>
-<meta name="theme-color" content="#03050a">
-<link rel="icon" type="image/png" sizes="32x32" href="static/brand/favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="static/brand/favicon-192.png">
-<link rel="shortcut icon" href="static/brand/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="static/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="static/brand-2026/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="static/brand-2026/favicon/favicon.svg">
+  <link rel="apple-touch-icon" href="static/brand-2026/favicon/apple-touch-icon.png">
+
+
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <style>
   :root {
-    --bg: #03050a; --surface: rgba(17,25,39,.70); --line: #1c2740;
-    --text: #eef5fc; --dim: #8ea1ba;
-    --gold: #4fb6f2; --gold2: #9fdcff; --green: #2ecc71; --red: #ff5c5c;
+    --bg: #060607; --surface: rgba(26,26,30,.70); --line: #2a2a32;
+    --text: #fdf2ed; --dim: #a2a2a6;
+    --gold: #e07f52; --gold2: #f1ac8c; --green: #d65c24; --red: #ff5c5c;
     --glow: 46, 204, 113;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scrollbar-color: #2a3346 transparent; }
+  html { scrollbar-color: #34343c transparent; }
   body {
-    background: radial-gradient(120% 90% at 50% -10%, #0a1120 0%, var(--bg) 45%, #02040a 100%);
+    background: radial-gradient(120% 90% at 50% -10%, #131317 0%, var(--bg) 45%, #060606 100%);
     color: var(--text); min-height: 100vh;
     font-family: "Inter", system-ui, sans-serif; overflow-x: hidden;
   }
@@ -29,20 +32,20 @@
   body::before, body::after {
     content: ""; position: fixed; inset: -40%; z-index: -2; pointer-events: none;
     background:
-      radial-gradient(40% 32% at 20% 16%, rgba(79,182,242,.18), transparent 60%),
-      radial-gradient(34% 30% at 82% 72%, rgba(11,95,176,.16), transparent 60%),
-      radial-gradient(30% 24% at 60% 10%, rgba(46,204,113,.10), transparent 60%);
+      radial-gradient(40% 32% at 20% 16%, rgba(224,127,82,.18), transparent 60%),
+      radial-gradient(34% 30% at 82% 72%, rgba(183,61,4,.16), transparent 60%),
+      radial-gradient(30% 24% at 60% 10%, rgba(214,92,36,.10), transparent 60%);
     animation: drift 26s ease-in-out infinite alternate;
   }
   html::before {
     content: ""; position: fixed; inset: 0; z-index: -1; opacity: .45; pointer-events: none;
-    background-image: radial-gradient(rgba(159,220,255,.06) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255,189,159,.06) 1px, transparent 1px);
     background-size: 26px 26px;
   }
   body::after {
     background:
-      radial-gradient(32% 28% at 82% 16%, rgba(79,182,242,.10), transparent 60%),
-      radial-gradient(36% 32% at 18% 82%, rgba(46,204,113,.07), transparent 60%);
+      radial-gradient(32% 28% at 82% 16%, rgba(224,127,82,.10), transparent 60%),
+      radial-gradient(36% 32% at 18% 82%, rgba(214,92,36,.07), transparent 60%);
     animation-duration: 34s; animation-direction: alternate-reverse;
   }
   @keyframes drift {
@@ -54,27 +57,26 @@
   header {
     display: flex; align-items: center; gap: 16px; padding: 18px 30px;
     position: sticky; top: 0; z-index: 40;
-    background: linear-gradient(180deg, rgba(6,10,18,.94), rgba(6,10,18,.70));
-    border-bottom: 1px solid rgba(79,182,242,.18);
+    background: linear-gradient(180deg, rgba(11,11,13,.94), rgba(11,11,13,.70));
+    border-bottom: 1px solid rgba(224,127,82,.18);
     box-shadow: 0 10px 34px rgba(0,0,0,.4);
     backdrop-filter: blur(14px);
   }
-  .logo { width: 46px; height: 46px; filter: drop-shadow(0 4px 14px rgba(79,182,242,.45)); }
+  .logo { width: 46px; height: 46px; filter: drop-shadow(0 4px 14px rgba(224,127,82,.45)); }
   .wordmark {
-    font-family: "Bebas Neue", sans-serif; font-size: 34px; letter-spacing: 4px;
-    background: linear-gradient(100deg, #9fdcff 10%, #4fb6f2 45%, #0b5fb0 90%);
+    font-family: "microgramma-extended",Impact,sans-serif; font-size: 34px; letter-spacing: 4px;
+    background: linear-gradient(100deg, #f1ac8c 10%, #e07f52 45%, #62270c 90%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    line-height: 1;
-  }
+    line-height: 1;text-transform:uppercase;font-weight:500}
   .tagline { color: var(--dim); font-size: 12px; letter-spacing: 3px;
              text-transform: uppercase; margin-top: 4px; }
   header .biz { margin-left: 10px; padding: 6px 14px; border-radius: 999px;
-    border: 1px solid rgba(79,182,242,.35); color: var(--gold2); font-size: 13px;
-    background: rgba(79,182,242,.07); }
+    border: 1px solid rgba(224,127,82,.35); color: var(--gold2); font-size: 13px;
+    background: rgba(224,127,82,.07); }
   .demo-strip { display: flex; align-items: center; gap: 11px; max-width: 1424px;
     margin: 20px auto 4px; padding: 13px 20px; font-size: 13px; color: var(--dim);
-    background: linear-gradient(90deg, rgba(79,182,242,.12), rgba(46,204,113,.05));
-    border: 1px solid rgba(79,182,242,.22); border-radius: 14px; }
+    background: linear-gradient(90deg, rgba(224,127,82,.12), rgba(214,92,36,.05));
+    border: 1px solid rgba(224,127,82,.22); border-radius: 14px; }
   .demo-strip b { color: var(--text); }
   .demo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red);
     flex-shrink: 0; box-shadow: 0 0 10px rgba(255,92,92,.7); animation: blink 1.6s infinite; }
@@ -85,11 +87,11 @@
     background: var(--surface); transition: .2s;
   }
   header a:hover { border-color: var(--gold); transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(79,182,242,.18); }
-  header a.cta { background: linear-gradient(120deg, #cdeeff, #0b5fb0); color: #04101f;
+    box-shadow: 0 6px 20px rgba(224,127,82,.18); }
+  header a.cta { background: linear-gradient(120deg, #ffddcd, #62270c); color: #101013;
     border-color: transparent; font-weight: 800; border-radius: 999px;
-    box-shadow: 0 6px 20px rgba(79,182,242,.25); }
-  header a.cta:hover { box-shadow: 0 10px 28px rgba(79,182,242,.4); }
+    box-shadow: 0 6px 20px rgba(224,127,82,.25); }
+  header a.cta:hover { box-shadow: 0 10px 28px rgba(224,127,82,.4); }
   @media (max-width: 760px) { header { flex-wrap: wrap; } header nav { margin-left: 0; } }
 
   .wrap {
@@ -102,7 +104,7 @@
   .tv-zone { position: relative; }
   .tv-zone::after {
     content: ""; position: absolute; left: 50%; bottom: -13px; width: 130px; height: 13px;
-    transform: translateX(-50%); background: linear-gradient(180deg, #232a3a, #0a0d14);
+    transform: translateX(-50%); background: linear-gradient(180deg, #2b2b32, #0e0e10);
     border-radius: 0 0 9px 9px; box-shadow: 0 10px 22px rgba(0,0,0,.55); z-index: 0;
   }
   .tv-glow {
@@ -112,9 +114,9 @@
   }
   .tv {
     position: relative; z-index: 1; aspect-ratio: 16/9;
-    background: #04050a; border-radius: 22px; overflow: hidden;
-    border: 1px solid #333c4d;
-    box-shadow: inset 0 0 0 10px #14181f, inset 0 0 0 11px #000,
+    background: #060608; border-radius: 22px; overflow: hidden;
+    border: 1px solid #3b3b45;
+    box-shadow: inset 0 0 0 10px #17171c, inset 0 0 0 11px #000,
                 0 30px 80px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.03);
   }
   .tv video { position: absolute; inset: 10px; width: calc(100% - 20px);
@@ -134,13 +136,13 @@
   #liveBadge::before { content: "●"; margin-right: 7px; animation: blink 1.6s infinite; }
   @keyframes blink { 50% { opacity: .25; } }
   #adBadge { background: linear-gradient(120deg, var(--gold2), var(--gold));
-    color: #04101f; display: none; box-shadow: 0 0 22px rgba(79,182,242,.65); }
+    color: #101013; display: none; box-shadow: 0 0 22px rgba(224,127,82,.65); }
   .tv-mute { position: absolute; top: 26px; left: 28px; z-index: 7;
     width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
-    border: 1px solid rgba(255,255,255,.18); background: rgba(4,10,20,.6);
+    border: 1px solid rgba(255,255,255,.18); background: rgba(5,5,5,.6);
     backdrop-filter: blur(6px); color: #fff; font-size: 17px; line-height: 1;
     display: grid; place-items: center; transition: .2s; }
-  .tv-mute:hover { border-color: var(--gold); background: rgba(4,10,20,.88); transform: scale(1.06); }
+  .tv-mute:hover { border-color: var(--gold); background: rgba(5,5,5,.88); transform: scale(1.06); }
   .tv-mute.muted { color: #ff8a80; border-color: rgba(255,92,92,.5); }
 
   /* shark takeover wipe */
@@ -148,17 +150,16 @@
     overflow: hidden; pointer-events: none; }
   .takeover .wave {
     position: absolute; top: -20%; bottom: -20%; left: -160%; width: 150%;
-    background: linear-gradient(100deg, transparent 0%, rgba(159,220,255,.95) 18%,
-                #4fb6f2 50%, rgba(11,95,176,.95) 82%, transparent 100%);
+    background: linear-gradient(100deg, transparent 0%, rgba(255,189,159,.95) 18%,
+                #e07f52 50%, rgba(183,61,4,.95) 82%, transparent 100%);
     transform: skewX(-14deg);
   }
   .takeover .fin { position: absolute; top: 50%; left: -30%; width: 130px;
     transform: translateY(-58%); filter: brightness(0); opacity: .88; }
   .takeover .stamp {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(2.4);
-    font-family: "Bebas Neue", sans-serif; font-size: 54px; letter-spacing: 8px;
-    color: #04101f; opacity: 0; white-space: nowrap;
-  }
+    font-family: "microgramma-extended",Impact,sans-serif; font-size: 54px; letter-spacing: 8px;
+    color: #101013; opacity: 0; white-space: nowrap;text-transform:uppercase;font-weight:500}
   .takeover.run .wave { animation: sweep 1s cubic-bezier(.7,0,.3,1) forwards; }
   .takeover.run .fin { animation: finmove 1s cubic-bezier(.7,0,.3,1) forwards; }
   .takeover.run .stamp { animation: stamp 1s ease forwards; }
@@ -173,24 +174,23 @@
 
   #startOverlay {
     position: absolute; inset: 10px; z-index: 10; border: 0; cursor: pointer;
-    border-radius: 12px; background: rgba(4, 5, 10, .88); backdrop-filter: blur(6px);
+    border-radius: 12px; background: rgba(6,6,8, .88); backdrop-filter: blur(6px);
     color: var(--text); display: grid; place-items: center; gap: 0;
   }
   #startOverlay .inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
   #startOverlay svg, #startOverlay .startIcon { width: 92px; height: 92px;
-    filter: drop-shadow(0 8px 30px rgba(79,182,242,.5));
+    filter: drop-shadow(0 8px 30px rgba(224,127,82,.5));
     animation: bob 3s ease-in-out infinite; }
   @keyframes bob { 50% { transform: translateY(-8px); } }
   #startOverlay .cta {
-    font-family: "Bebas Neue", sans-serif; font-size: 30px; letter-spacing: 5px;
-    padding: 12px 34px; border-radius: 999px; color: #04101f;
+    font-family: "microgramma-extended",Impact,sans-serif; font-size: clamp(18px,4.4vw,30px); letter-spacing: 5px;
+    padding: 12px 34px; border-radius: 999px; color: #101013;
     background: linear-gradient(120deg, var(--gold2), var(--gold));
-    box-shadow: 0 10px 34px rgba(79,182,242,.4);
-    animation: ctaPulse 2.6s ease-in-out infinite;
-  }
+    box-shadow: 0 10px 34px rgba(224,127,82,.4);
+    animation: ctaPulse 2.6s ease-in-out infinite;text-transform:uppercase;font-weight:500}
   @keyframes ctaPulse {
-    0%,100% { box-shadow: 0 10px 34px rgba(79,182,242,.4); transform: scale(1); }
-    50% { box-shadow: 0 10px 46px rgba(79,182,242,.7); transform: scale(1.015); }
+    0%,100% { box-shadow: 0 10px 34px rgba(224,127,82,.4); transform: scale(1); }
+    50% { box-shadow: 0 10px 46px rgba(224,127,82,.7); transform: scale(1.015); }
   }
   #startOverlay small { color: var(--dim); font-size: 13px; }
 
@@ -198,12 +198,12 @@
   .timeline { margin-top: 16px; position: relative; z-index: 1; }
   .timeline .bar {
     position: relative; height: 34px; border-radius: 10px; overflow: hidden;
-    background: linear-gradient(#171d2b, #10141f); border: 1px solid var(--line);
+    background: linear-gradient(#1e1e24, #161619); border: 1px solid var(--line);
   }
   .timeline .win {
     position: absolute; top: 0; bottom: 0;
-    background: repeating-linear-gradient(-55deg, rgba(79,182,242,.5) 0 10px,
-                rgba(79,182,242,.28) 10px 20px);
+    background: repeating-linear-gradient(-55deg, rgba(224,127,82,.5) 0 10px,
+                rgba(224,127,82,.28) 10px 20px);
     background-size: 200% 100%; animation: stripes 3s linear infinite;
     border-left: 2px solid var(--gold); border-right: 2px solid var(--gold);
   }
@@ -217,34 +217,33 @@
   /* ── panel ── */
   .panel { display: flex; flex-direction: column; gap: 16px; }
   .card {
-    background: linear-gradient(180deg, rgba(21,30,46,.78), rgba(13,19,31,.74));
+    background: linear-gradient(180deg, rgba(31,31,36,.78), rgba(20,20,24,.74));
     border: 1px solid rgba(255,255,255,.08);
     border-radius: 18px; padding: 20px; backdrop-filter: blur(12px);
     box-shadow: 0 10px 30px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.04);
     transition: border-color .25s, transform .25s, box-shadow .25s;
   }
-  .card:hover { border-color: rgba(79,182,242,.4); transform: translateY(-2px);
-    box-shadow: 0 18px 42px rgba(0,0,0,.42), 0 0 30px rgba(79,182,242,.10), inset 0 1px 0 rgba(255,255,255,.05); }
+  .card:hover { border-color: rgba(224,127,82,.4); transform: translateY(-2px);
+    box-shadow: 0 18px 42px rgba(0,0,0,.42), 0 0 30px rgba(224,127,82,.10), inset 0 1px 0 rgba(255,255,255,.05); }
   .card h2 { font-size: 11px; letter-spacing: 3px; color: var(--dim);
     margin-bottom: 13px; font-weight: 800; }
 
   #stateBox {
     position: relative; text-align: center; padding: 20px 12px; border-radius: 14px;
-    font-family: "Bebas Neue", sans-serif; font-size: 26px; letter-spacing: 4px;
-    background: rgba(46,204,113,.09); color: var(--green);
-    border: 1px solid rgba(46,204,113,.35); transition: all .35s;
-  }
+    font-family: "microgramma-extended",Impact,sans-serif; font-size: 26px; letter-spacing: 4px;
+    background: rgba(214,92,36,.09); color: var(--green);
+    border: 1px solid rgba(214,92,36,.35); transition: all .35s;text-transform:uppercase;font-weight:500}
   #stateBox::before { content: ""; position: absolute; top: 14px; left: 16px;
     width: 9px; height: 9px; border-radius: 50%; background: var(--green);
-    box-shadow: 0 0 10px rgba(46,204,113,.7); transition: all .35s; }
+    box-shadow: 0 0 10px rgba(214,92,36,.7); transition: all .35s; }
   #stateBox.break::before { background: var(--red); box-shadow: 0 0 10px rgba(255,92,92,.7); }
-  #stateBox.override::before { background: var(--gold); box-shadow: 0 0 10px rgba(79,182,242,.7); }
+  #stateBox.override::before { background: var(--gold); box-shadow: 0 0 10px rgba(224,127,82,.7); }
   #stateBox.break { background: rgba(255,92,92,.10); color: var(--red);
     border-color: rgba(255,92,92,.4); }
   #stateBox.override {
-    background: rgba(79,182,242,.12); color: var(--gold2);
-    border-color: rgba(79,182,242,.55);
-    box-shadow: 0 0 30px rgba(79,182,242,.18), inset 0 0 24px rgba(79,182,242,.08);
+    background: rgba(224,127,82,.12); color: var(--gold2);
+    border-color: rgba(224,127,82,.55);
+    box-shadow: 0 0 30px rgba(224,127,82,.18), inset 0 0 24px rgba(224,127,82,.08);
   }
   #stateSub { font-family: "Inter"; font-size: 11.5px; font-weight: 400;
     letter-spacing: .4px; color: var(--dim); margin-top: 6px; }
@@ -254,34 +253,34 @@
     align-items: center; }
   .radar {
     position: relative; width: 96px; height: 96px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(46,204,113,.06) 30%, transparent 70%),
-                #0a0f16;
-    border: 1px solid rgba(46,204,113,.3); overflow: hidden;
+    background: radial-gradient(circle, rgba(214,92,36,.06) 30%, transparent 70%),
+                #0f0f11;
+    border: 1px solid rgba(214,92,36,.3); overflow: hidden;
   }
   .radar::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
-    background: conic-gradient(from 0deg, rgba(46,204,113,.55), transparent 26%);
+    background: conic-gradient(from 0deg, rgba(214,92,36,.55), transparent 26%);
     animation: sweepr 2.4s linear infinite; }
-  .radar.alert { border-color: rgba(79,182,242,.6); }
+  .radar.alert { border-color: rgba(224,127,82,.6); }
   .radar.alert::before {
-    background: conic-gradient(from 0deg, rgba(79,182,242,.75), transparent 26%);
+    background: conic-gradient(from 0deg, rgba(224,127,82,.75), transparent 26%);
     animation-duration: .9s; }
   @keyframes sweepr { to { transform: rotate(360deg); } }
-  .radar .ring { position: absolute; inset: 22%; border: 1px solid rgba(140,160,180,.25);
+  .radar .ring { position: absolute; inset: 22%; border: 1px solid rgba(158,158,162,.25);
     border-radius: 50%; }
   .radar .ring.r2 { inset: 40%; }
   .meter { margin-bottom: 12px; }
   .meter:last-child { margin-bottom: 0; }
   .meter .row { display: flex; justify-content: space-between; align-items: center;
     font-size: 11.5px; color: var(--dim); margin-bottom: 5px; }
-  .meter .track { height: 10px; border-radius: 6px; background: #0c1119;
+  .meter .track { height: 10px; border-radius: 6px; background: #111114;
     overflow: hidden; border: 1px solid rgba(255,255,255,.05); }
   .meter .fill { height: 100%; width: 0%; border-radius: 6px; transition: width .12s linear; }
-  #lumaFill { background: linear-gradient(90deg, #26313f, #9fb4cc, #e8f0fa);
-    box-shadow: 0 0 10px rgba(200,220,255,.35); }
-  #audioFill { background: linear-gradient(90deg, #14532d, #2ecc71, #7bffb5);
-    box-shadow: 0 0 10px rgba(46,204,113,.4); }
+  #lumaFill { background: linear-gradient(90deg, #2e2e37, #d2ab99, #fbede7);
+    box-shadow: 0 0 10px rgba(255,217,200,.35); }
+  #audioFill { background: linear-gradient(90deg, #572610, #d65c24, #ffa57b);
+    box-shadow: 0 0 10px rgba(214,92,36,.4); }
   .flag { font-size: 10px; font-weight: 800; letter-spacing: 1px;
-    padding: 3px 9px; border-radius: 6px; background: #10151f; color: #55617a;
+    padding: 3px 9px; border-radius: 6px; background: #161619; color: #5f5f70;
     transition: .15s; }
   .flag.on { background: var(--red); color: #fff;
     box-shadow: 0 0 14px rgba(255,92,92,.6); }
@@ -289,7 +288,7 @@
   #console {
     margin-top: 14px; position: relative;
     font-family: ui-monospace, Menlo, monospace; font-size: 11.5px;
-    color: #93e3a4; background: #060c08; border: 1px solid #17331e;
+    color: #e8aa8e; background: #0d0805; border: 1px solid #361f14;
     border-radius: 10px; padding: 10px 12px; height: 138px; overflow-y: auto;
     line-height: 1.75;
   }
@@ -301,13 +300,13 @@
   .queue { list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .queue li {
     display: flex; align-items: center; gap: 11px; font-size: 13.5px;
-    padding: 11px 13px; border-radius: 12px; background: rgba(16, 21, 32, .8);
+    padding: 11px 13px; border-radius: 12px; background: rgba(22,22,26, .8);
     border: 1px solid transparent; transition: .2s;
   }
-  .queue li.next { border-color: rgba(79,182,242,.55);
-    box-shadow: 0 0 18px rgba(79,182,242,.12); }
+  .queue li.next { border-color: rgba(224,127,82,.55);
+    box-shadow: 0 0 18px rgba(224,127,82,.12); }
   .queue li.playing { border-color: var(--gold);
-    background: rgba(79,182,242,.10); }
+    background: rgba(224,127,82,.10); }
   .queue .dot { width: 9px; height: 9px; border-radius: 50%;
     background: var(--green); flex-shrink: 0; }
   .queue li.off { opacity: .35; } .queue li.off .dot { background: var(--dim); }
@@ -328,27 +327,27 @@
   .switch input { width: 42px; height: 22px; accent-color: var(--gold); }
   .btn {
     width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--line);
-    background: rgba(16,21,32,.8); color: var(--text); font-size: 13.5px;
+    background: rgba(22,22,26,.8); color: var(--text); font-size: 13.5px;
     font-weight: 600; cursor: pointer; margin-top: 10px; transition: .2s;
   }
   .btn:hover { border-color: var(--gold); transform: translateY(-1px);
-    box-shadow: 0 8px 22px rgba(79,182,242,.15); }
+    box-shadow: 0 8px 22px rgba(224,127,82,.15); }
 
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat { background: rgba(16,21,32,.8); border-radius: 12px; padding: 13px;
+  .stat { background: rgba(22,22,26,.8); border-radius: 12px; padding: 13px;
     text-align: center; border: 1px solid rgba(255,255,255,.05); transition: .25s; }
-  .stat:hover { border-color: rgba(79,182,242,.4); transform: translateY(-2px); }
-  .stat b { display: block; font-family: "Bebas Neue"; font-size: 34px;
+  .stat:hover { border-color: rgba(224,127,82,.4); transform: translateY(-2px); }
+  .stat b { display: block; font-family: "microgramma-extended",Impact,sans-serif; font-size: 34px;
     letter-spacing: 1px; line-height: 1;
     background: linear-gradient(120deg, var(--gold2), var(--gold));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
+    -webkit-background-clip: text; background-clip: text; color: transparent;text-transform:uppercase;font-weight:500}
   .stat span { font-size: 10px; color: var(--dim); letter-spacing: 1.5px;
     font-weight: 700; }
 </style>
 </head>
 <body>
 <header>
-  <img class="logo" src="static/brand/icon.png" alt="BreakShark logo">
+  <img class="logo" src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark logo">
   <div>
     <div class="wordmark">BreakShark</div>
     <div class="tagline">live demo · the commercial killer</div>
@@ -375,15 +374,15 @@
         <div class="glass"></div>
         <div class="takeover" id="takeover">
           <div class="wave"></div>
-          <img class="fin" src="static/brand/icon.png" alt="" aria-hidden="true">
+          <img class="fin" src="static/brand-2026/icon/breakshark-icon.svg" alt="" aria-hidden="true">
           <div class="stamp" id="stampText">BREAKSHARK TAKEOVER</div>
         </div>
         <span class="badge" id="liveBadge">LIVE</span>
-        <span class="badge" id="adBadge"><img src="static/brand/icon.png" alt="" style="height:.85em;width:auto;vertical-align:-.1em;margin-right:.15em"> YOUR AD</span>
+        <span class="badge" id="adBadge"><img src="static/brand-2026/icon/breakshark-icon.svg" alt="" style="height:.85em;width:auto;vertical-align:-.1em;margin-right:.15em"> YOUR AD</span>
         <button class="tv-mute" id="muteBtn" title="Mute game audio" aria-label="Mute game audio">🔊</button>
         <button id="startOverlay">
           <span class="inner">
-            <img src="static/brand/icon.png" alt="BreakShark" class="startIcon">
+            <img src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark" class="startIcon">
             <span class="cta">▶ &nbsp;START THE BROADCAST</span>
             <small>simulated live game — the shark strikes when the break hits</small>
           </span>
