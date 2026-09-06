@@ -889,11 +889,11 @@ table.ar td.v.us{color:var(--money)}
 
     <div class="ledgrid">
       <figure class="ledbox" style="margin:0">
-        <div class="head"><span><b>ON FILM</b> · A REAL CATCH ON A WALL TV · ONE TAKE, NO CUTS · THE BREAK FAST-FORWARDED 8×</span><span>SEPTEMBER 5, 2026</span></div>
-        <video controls playsinline preload="metadata" poster="vid/live-catch-2026-09-05-poster.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;background:#000000">
-          <source src="vid/live-catch-2026-09-05.mp4" type="video/mp4">
+        <div class="head"><span><b>ON FILM</b> · A REAL CATCH ON A WALL TV · ONE TAKE, NO CUTS · THE BREAK FAST-FORWARDED 8×</span><span>SEPTEMBER 6, 2026</span></div>
+        <video controls playsinline preload="metadata" poster="vid/live-catch-2026-09-06-poster.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;background:#000000">
+          <source src="vid/live-catch-2026-09-06.mp4" type="video/mp4">
         </video>
-        <figcaption class="meta">One phone, one take, a real wall TV on a live ESPN broadcast. The break hits, BreakShark catches it, and every ad that plays is the bar’s own. The middle of the break is fast-forwarded so you can watch the game snap back. Nobody touched a thing.</figcaption>
+        <figcaption class="meta">One phone, one take, a real wall TV on a live college football broadcast. The break hits, BreakShark catches it, and every ad that plays is the bar’s own. The middle of the break is fast-forwarded so you can watch the game snap back. Nobody touched a thing.</figcaption>
       </figure>
       <div class="ledbox">
         <div class="head" id="rigHead">VENUE BOX FEED — CHECKING…</div>
@@ -918,7 +918,7 @@ table.ar td.v.us{color:var(--money)}
         <tr><td class="d">AUG 30</td><td>Evening satellite broadcast, 37 breaks.</td><td class="ok">29.6 s/hr</td></tr>
         <tr><td class="d">SEP 1</td><td>The venue box's first night alone in a live room: 13.1 hours straight, 219 cut-and-return cycles, zero crashes, every switch verified at the switch.</td><td class="ok">219 / 0</td></tr>
         <tr><td class="d">SEP 1</td><td>Latest graded satellite night, 5.4 hours, 29 breaks, replayed second by second.</td><td class="ok">20 s/hr</td></tr>
-        <tr><td class="d">SEP 5</td><td>Filmed again on the venue box — a wall TV, a live ESPN broadcast, the whole break caught end to end. It's the video above.</td><td class="ok">ON FILM</td></tr>
+        <tr><td class="d">SEP 6</td><td>Filmed on the venue box — a wall TV, a live college football broadcast, the whole break caught end to end. It's the video above.</td><td class="ok">ON FILM</td></tr>
         <tr><td class="d">TODAY</td><td>Commercial breaks the venue box has handled today, in a live room.</td><td class="ok pend" id="ledLiveN">CHECKING…</td></tr>
       </table>
     </div>
@@ -1309,7 +1309,7 @@ table.ar td.v.us{color:var(--money)}
   var U='https://kfsqpmexrlqkfmmarpug.supabase.co',K='sb_publishable_ZsK8APkvAFjAJ4CxibhMfw_KcYJZkJs',H={apikey:K,Authorization:'Bearer '+K};
   var sbDot=document.getElementById('sbDot'),sbState=document.getElementById('sbState'),sbBreaks=document.getElementById('sbBreaks'),bcT=document.getElementById('bcToday'),ledN=document.getElementById('ledLiveN'),ph=document.getElementById('rigPh'),rot=document.getElementById('rigRot'),head=document.getElementById('rigHead');
   var settled=false;setTimeout(function(){if(!settled){settled=true;offline()}},10000);
-  function offline(){sbState.textContent='VENUE BOX: OFF TONIGHT';if(head)head.textContent='VENUE BOX OFFLINE — THE SEPTEMBER 5 FILM IS THE RECEIPT';if(ph)ph.innerHTML='<span>VENUE BOX IS OFF RIGHT NOW.<br>THE GRADED RECORD IS BELOW — WATCH THE FILM.</span>';if(ledN){ledN.textContent='OFFLINE'}if(bcT)bcT.textContent='OFF'}
+  function offline(){sbState.textContent='VENUE BOX: OFF TONIGHT';if(head)head.textContent='VENUE BOX OFFLINE — THE SEPTEMBER 6 FILM IS THE RECEIPT';if(ph)ph.innerHTML='<span>VENUE BOX IS OFF RIGHT NOW.<br>THE GRADED RECORD IS BELOW — WATCH THE FILM.</span>';if(ledN){ledN.textContent='OFFLINE'}if(bcT)bcT.textContent='OFF'}
   try{
     var ads=null,stats=null;
     try{var r=await fetch(U+'/rest/v1/ads?select=filename,label,sort&active=eq.true&device_id=eq.r5j&order=sort',{headers:H});if(r.ok)ads=await r.json()}catch(e){}
