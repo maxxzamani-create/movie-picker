@@ -505,6 +505,23 @@ table.ar td.v.us{color:var(--money)}
   .reveal{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
+
+/* ═══ MULTIBOX CATCH WALL ═══ */
+.livedot{width:7px;height:7px;border-radius:50%;background:var(--money);display:inline-block;animation:livepulse 2.6s ease-out infinite}
+@keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(224,127,82,.5)}70%{box-shadow:0 0 0 9px rgba(224,127,82,0)}100%{box-shadow:0 0 0 0 rgba(224,127,82,0)}}
+.wallstrip{margin-top:36px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#000;position:relative}
+.wallstrip::after{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;opacity:.55;background:linear-gradient(90deg,transparent,var(--money) 22%,var(--money) 78%,transparent)}
+.wallstrip video{display:block;width:100%;height:auto;max-width:100%;background:#000}
+.sigl{color:var(--faint);margin:14px 0 8px;text-transform:uppercase;letter-spacing:.2em;font-size:10px}
+.sigmap{display:grid;grid-template-columns:repeat(6,1fr);column-gap:.84%;margin-inline:.417%}
+.sig{grid-column:span 1}.sig.four{grid-column:span 4}
+.sig .br{height:11px;border:1px solid var(--money);border-bottom:0;opacity:.6}
+.sig.four .br{opacity:1}
+.sig b{display:block;margin-top:9px;font:600 10px var(--mono);letter-spacing:.16em;color:var(--text);text-transform:uppercase}
+.sig span{display:block;margin-top:5px;font-size:12.5px;line-height:1.45;color:var(--dim)}
+.sig.four b{color:var(--money)}
+@media(max-width:760px){.sigmap{grid-template-columns:1fr;margin-inline:0;row-gap:12px}.sig,.sig.four{grid-column:span 1}.sig .br{display:none}.sig{border-top:1px solid var(--line);padding-top:12px}}
+@media(prefers-reduced-motion:reduce){.livedot{animation:none}}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -537,7 +554,7 @@ table.ar td.v.us{color:var(--money)}
 </header>
 <div class="mnav" id="mnav">
   <a href="#compare">Drag It</a><a href="#deal">The Deal</a><a href="#how">How It Works</a><a href="#studio">Ad Studio</a>
-  <a href="#anygame">Any Game</a><a href="#proof">Watch It Work</a><a href="#box">The Box</a><a href="#number">Your Number</a>
+  <a href="#anygame">Any Game</a><a href="#proof">Watch It Work</a><a href="#multibox">Six Screens</a><a href="#box">The Box</a><a href="#number">Your Number</a>
   <a href="#catchnight">Catch Night</a><a href="#founding">Founding 10</a><a href="#faq">FAQ</a>
   <a href="loop.html">Loop Mode</a><a href="sources.html">Sources</a><a href="investors.html">Investors</a>
 </div>
@@ -937,6 +954,45 @@ table.ar td.v.us{color:var(--money)}
   </div>
 </section>
 
+<!-- ═══ MULTIBOX CATCH WALL ═══ -->
+<section id="multibox" class="band deep" style="border-top:0">
+  <div class="wrap reveal">
+    <div class="kick"><span class="livedot"></span>Multibox · live capture</div>
+    <h2>Six screens. Three boxes.<br>Every catch is <span class="g">real.</span></h2>
+    <p class="sub">One continuous take off the BreakShark bench, sped up 12× so you can watch every channel change. The first two screens run one box each. <b style="color:var(--text)">The last four all run off a single box — four separate feeds, four different makes of cable box, one unit holding all of them.</b> Nothing here is staged or re-created. When a break hits, you watch the screen flip.</p>
+  </div>
+
+  <div class="wallstrip">
+    <video id="wallVid" muted loop playsinline autoplay preload="metadata" poster="vid/multibox-wall-poster.jpg" aria-label="Six venue TVs switching to the bar's own ads during live commercial breaks">
+      <source src="vid/multibox-wall-hd.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="wrap reveal">
+    <div class="mono sigl">Signal map — which box is driving which screen</div>
+    <div class="sigmap">
+      <div class="sig"><div class="br"></div><b>Box 01</b><span>Screen 1 · one feed</span></div>
+      <div class="sig"><div class="br"></div><b>Box 02</b><span>Screen 2 · one feed</span></div>
+      <div class="sig four"><div class="br"></div><b>Box 03</b><span>Screens 3–6 · four feeds, four different makes of cable box, one unit</span></div>
+    </div>
+    <div class="board" style="margin-top:28px">
+      <div class="tile"><div class="n">6</div><div class="l">screens live on the wall, one continuous take</div><div class="s">no cuts · no sound · 12× speed</div></div>
+      <div class="tile"><div class="n">3</div><div class="l">BreakShark boxes driving all six</div><div class="s">bench rig · September 2026</div></div>
+      <div class="tile"><div class="n">4</div><div class="l">separate feeds held on a single box at the same time</div><div class="s">screens 3 through 6</div></div>
+      <div class="tile"><div class="n">4</div><div class="l">different makes of cable box behind that one unit</div><div class="s">the detector never looks at the box</div></div>
+    </div>
+    <p class="sub" style="font-size:15px;margin-top:22px">Satellite, cable or streaming, the box reads the broadcast itself — which is why <b style="color:var(--text)">one unit can hold four different sources at once</b> and still put every screen back on the game the moment the break ends.</p>
+  </div>
+</section>
+
+<script>
+(function(){var v=document.getElementById('wallVid');if(!v)return;
+ if(window.innerWidth<760){var s=v.querySelector('source');s.src='vid/multibox-wall-mobile.mp4';v.load();}
+ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.removeAttribute('loop');v.controls=true;v.pause();}
+ var p=v.play();if(p&&p.catch){p.catch(function(){v.controls=true;});}
+})();
+</script>
+
 <!-- ═══ THE BOX ═══ -->
 <section id="box">
   <div class="wrap reveal">
@@ -1027,11 +1083,11 @@ table.ar td.v.us{color:var(--money)}
   <div class="wrap reveal">
     <div class="kick b">The Founding 10</div>
     <h2>Ten places get in first.<br>Here's the <span class="g">real count.</span></h2>
-    <p class="sub">Counted as they're claimed. <b style="color:var(--money)">Spot 01 was claimed July 31, 2026</b> — a restaurant and bar in Newport Beach, California, going in at up to six screens. Spot 02 goes to the next Catch Night venue that wants to keep going.</p>
+    <p class="sub">Counted as they're claimed. <b style="color:var(--money)">Spot 01 was claimed July 31, 2026</b> — a restaurant and bar in Newport Beach, California, going in at up to six screens. <b style="color:var(--money)">Spot 02 is spoken for</b> — a bar in Laguna Niguel, California said yes on September 13; paperwork pending. Spot 03 goes to the next Catch Night venue that wants to keep going.</p>
     <div class="plates">
       <div class="plate claimed"><div class="num">01</div><div class="st">CLAIMED · JUL 31</div><div class="who">NEWPORT BEACH, CA<br>UP TO 6 SCREENS</div></div>
-      <div class="plate next"><div class="num">02</div><div class="st">NEXT — YOURS?</div></div>
-      <div class="plate"><div class="num">03</div><div class="st">OPEN</div></div>
+      <div class="plate claimed"><div class="num">02</div><div class="st">SPOKEN FOR · SEP 13</div><div class="who">LAGUNA NIGUEL, CA<br>BAR · PAPERWORK PENDING</div></div>
+      <div class="plate next"><div class="num">03</div><div class="st">NEXT — YOURS?</div></div>
       <div class="plate"><div class="num">04</div><div class="st">OPEN</div></div>
       <div class="plate"><div class="num">05</div><div class="st">OPEN</div></div>
       <div class="plate"><div class="num">06</div><div class="st">OPEN</div></div>
