@@ -612,6 +612,46 @@ table.ar td.v.us{color:var(--money)}
 </div>
 
 <!-- ═══ AMERICAN COMPANY (Maxx, 9/04: "make a stance") ═══ -->
+<!-- ═══ MULTIBOX CATCH WALL ═══ -->
+<section id="multibox" class="band deep">
+  <div class="wrap reveal">
+    <div class="kick"><span class="livedot"></span>Multibox · live capture</div>
+    <h2>Six screens. Three boxes.<br>Every catch is <span class="g">real.</span></h2>
+    <p class="sub">One continuous take off the BreakShark bench, sped up 12× so you can watch every channel change. The first two screens run one box each. <b style="color:var(--text)">The last four all run off a single box — four separate feeds, four different makes of cable box, one unit holding all of them.</b> Nothing here is staged or re-created. When a break hits, you watch the screen flip.</p>
+  </div>
+
+  <div class="wallstrip">
+    <video id="wallVid" muted loop playsinline autoplay preload="metadata" poster="vid/wall-poster.jpg" aria-label="Six venue TVs switching to the bar's own ads during live commercial breaks">
+      <source src="vid/wall-1920.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="wrap reveal">
+    <div class="mono sigl">Signal map — which box is driving which screen</div>
+    <div class="sigmap">
+      <div class="sig"><div class="br"></div><b>Box 01</b><span>Screen 1 · one feed</span></div>
+      <div class="sig"><div class="br"></div><b>Box 02</b><span>Screen 2 · one feed</span></div>
+      <div class="sig four"><div class="br"></div><b>Box 03</b><span>Screens 3–6 · four feeds, four different makes of cable box, one unit</span></div>
+    </div>
+    <div class="board" style="margin-top:28px">
+      <div class="tile"><div class="n">6</div><div class="l">screens live on the wall, one continuous take</div><div class="s">no cuts · no sound · 12× speed</div></div>
+      <div class="tile"><div class="n">3</div><div class="l">BreakShark boxes driving all six</div><div class="s">bench rig · September 2026</div></div>
+      <div class="tile"><div class="n">4</div><div class="l">separate feeds held on a single box at the same time</div><div class="s">screens 3 through 6</div></div>
+      <div class="tile"><div class="n">4</div><div class="l">different makes of cable box behind that one unit</div><div class="s">the detector never looks at the box</div></div>
+    </div>
+    <p style="margin-top:26px"><a class="btn primary" href="/six/">Watch it full screen on your phone →</a></p>
+    <p class="sub" style="font-size:15px;margin-top:22px">Satellite, cable or streaming, the box reads the broadcast itself — which is why <b style="color:var(--text)">one unit can hold four different sources at once</b> and still put every screen back on the game the moment the break ends.</p>
+  </div>
+</section>
+
+<script>
+(function(){var v=document.getElementById('wallVid');if(!v)return;
+ if(window.innerWidth<760){var s=v.querySelector('source');s.src='vid/wall-1080.mp4';v.load();}
+ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.removeAttribute('loop');v.controls=true;v.pause();}
+ var p=v.play();if(p&&p.catch){p.catch(function(){v.controls=true;});}
+})();
+</script>
+
 <section id="american" class="band">
   <div class="wrap reveal" style="text-align:center;max-width:860px">
     <div class="kick">An American company</div>
@@ -953,45 +993,6 @@ table.ar td.v.us{color:var(--money)}
 
   </div>
 </section>
-
-<!-- ═══ MULTIBOX CATCH WALL ═══ -->
-<section id="multibox" class="band deep" style="border-top:0">
-  <div class="wrap reveal">
-    <div class="kick"><span class="livedot"></span>Multibox · live capture</div>
-    <h2>Six screens. Three boxes.<br>Every catch is <span class="g">real.</span></h2>
-    <p class="sub">One continuous take off the BreakShark bench, sped up 12× so you can watch every channel change. The first two screens run one box each. <b style="color:var(--text)">The last four all run off a single box — four separate feeds, four different makes of cable box, one unit holding all of them.</b> Nothing here is staged or re-created. When a break hits, you watch the screen flip.</p>
-  </div>
-
-  <div class="wallstrip">
-    <video id="wallVid" muted loop playsinline autoplay preload="metadata" poster="vid/multibox-wall-poster.jpg" aria-label="Six venue TVs switching to the bar's own ads during live commercial breaks">
-      <source src="vid/multibox-wall-hd.mp4" type="video/mp4">
-    </video>
-  </div>
-
-  <div class="wrap reveal">
-    <div class="mono sigl">Signal map — which box is driving which screen</div>
-    <div class="sigmap">
-      <div class="sig"><div class="br"></div><b>Box 01</b><span>Screen 1 · one feed</span></div>
-      <div class="sig"><div class="br"></div><b>Box 02</b><span>Screen 2 · one feed</span></div>
-      <div class="sig four"><div class="br"></div><b>Box 03</b><span>Screens 3–6 · four feeds, four different makes of cable box, one unit</span></div>
-    </div>
-    <div class="board" style="margin-top:28px">
-      <div class="tile"><div class="n">6</div><div class="l">screens live on the wall, one continuous take</div><div class="s">no cuts · no sound · 12× speed</div></div>
-      <div class="tile"><div class="n">3</div><div class="l">BreakShark boxes driving all six</div><div class="s">bench rig · September 2026</div></div>
-      <div class="tile"><div class="n">4</div><div class="l">separate feeds held on a single box at the same time</div><div class="s">screens 3 through 6</div></div>
-      <div class="tile"><div class="n">4</div><div class="l">different makes of cable box behind that one unit</div><div class="s">the detector never looks at the box</div></div>
-    </div>
-    <p class="sub" style="font-size:15px;margin-top:22px">Satellite, cable or streaming, the box reads the broadcast itself — which is why <b style="color:var(--text)">one unit can hold four different sources at once</b> and still put every screen back on the game the moment the break ends.</p>
-  </div>
-</section>
-
-<script>
-(function(){var v=document.getElementById('wallVid');if(!v)return;
- if(window.innerWidth<760){var s=v.querySelector('source');s.src='vid/multibox-wall-mobile.mp4';v.load();}
- if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.removeAttribute('loop');v.controls=true;v.pause();}
- var p=v.play();if(p&&p.catch){p.catch(function(){v.controls=true;});}
-})();
-</script>
 
 <!-- ═══ THE BOX ═══ -->
 <section id="box">
