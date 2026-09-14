@@ -537,6 +537,16 @@ table.ar td.v.us{color:var(--money)}
 #american h2{color:var(--us-white)}
 #american h2 .g{color:var(--us-red)}
 #american p{color:#c3cad8}
+#american .usnote{font-size:18px;line-height:1.6;margin:20px auto 0;max-width:62ch}
+#american .usnote b{color:var(--us-white);font-weight:600}
+#american .uspledge{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
+#american .uspledge span{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;
+  border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(6,8,15,.6);
+  font:600 10.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--us-white);white-space:nowrap}
+#american .uspledge span::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;background:var(--us-red)}
+#american .uspledge span:nth-child(2)::before{background:var(--us-white)}
+#american .uspledge span:nth-child(3)::before{background:var(--us-blue)}
+@media(max-width:520px){#american .uspledge span{font-size:10px;padding:9px 13px;letter-spacing:.12em}}
 #american .kick{text-shadow:0 1px 10px rgba(4,6,12,.92)}
 #american h2{text-shadow:0 2px 18px rgba(4,6,12,.96),0 0 44px rgba(4,6,12,.85)}
 #american p{text-shadow:0 1px 14px rgba(4,6,12,.95),0 0 30px rgba(4,6,12,.7)}
@@ -544,15 +554,17 @@ table.ar td.v.us{color:var(--money)}
 /* the flag itself, behind the type, with a scrim heavy enough to keep the
    white headline and the red payoff line legible over the stripes */
 #american{position:relative;overflow:hidden;isolation:isolate}
-#american::before{content:"";position:absolute;inset:-6% -3%;z-index:0;
-  background:url(img/us-flag.svg) center/cover no-repeat;
-  opacity:.62;filter:saturate(1.05) contrast(1) blur(0);
-  transform:rotate(-1.5deg) scale(1.05)}
+#american::before{content:"";position:absolute;inset:0;z-index:0;
+  background:url(img/us-flag.svg) center center/min(1180px,74%) auto no-repeat;
+  opacity:.4;filter:saturate(.92) contrast(.96);
+  -webkit-mask-image:radial-gradient(ellipse 58% 54% at 50% 50%,#000 38%,rgba(0,0,0,.55) 68%,transparent 100%);
+  mask-image:radial-gradient(ellipse 58% 54% at 50% 50%,#000 38%,rgba(0,0,0,.55) 68%,transparent 100%);
+  transform:scale(1.02)}
 #american::after{content:"";position:absolute;inset:0;z-index:1;background:
-  radial-gradient(64% 52% at 50% 47%,rgba(6,8,15,.88) 0%,rgba(6,8,15,.66) 55%,rgba(6,8,15,.14) 100%),
-  linear-gradient(180deg,#07090f 0%,rgba(7,9,15,.3) 13%,rgba(7,9,15,.26) 87%,#07090f 100%)}
+  radial-gradient(72% 60% at 50% 50%,rgba(6,8,15,.9) 0%,rgba(6,8,15,.74) 58%,rgba(6,8,15,.42) 100%),
+  linear-gradient(180deg,#07090f 0%,rgba(7,9,15,.42) 18%,rgba(7,9,15,.42) 82%,#07090f 100%)}
 #american>.wrap{position:relative;z-index:2}
-@media(max-width:720px){#american::before{opacity:.5}}
+@media(max-width:720px){#american::before{opacity:.3}}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -694,6 +706,15 @@ table.ar td.v.us{color:var(--money)}
       veteran is among our investors — and as we grow, we hire American, and veterans get the first call. When
       you put a BreakShark box on your wall, you are working with an American business that shows up in person.
       We think that matters, and we think you do too.</p>
+    <p class="usnote">Nothing about servicing you is outsourced. <b>Every call is answered here in the
+      United States.</b> We do not ship customer service overseas and we do not ship the labor overseas
+      either. The boxes are American made, the company is American backed, and every job this business
+      creates goes to a fellow American.</p>
+    <div class="uspledge">
+      <span>Calls answered in the USA</span>
+      <span>No outsourced support or labor</span>
+      <span>American made, American backed</span>
+    </div>
   </div>
 </section>
 
