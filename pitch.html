@@ -30,14 +30,14 @@
   <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <style>
   :root { --bg:#060607; --line:#2a2a32; --text:#fdf2ed; --dim:#a2a2a6;
-    --gold:#5a8cf0; --gold2:#5a8cf0; --green:#245fd6; --red:#ff5c5c; }
+    --gold:#e07f52; --gold2:#e07f52; --green:#d65c24; --red:#ff5c5c; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:#000; color:var(--text); font-family:"Inter",system-ui,sans-serif; }
   .slide { width:100vw; height:100vh; display:none; position:relative; overflow:hidden;
     background: var(--bg); padding:7vh 8vw; flex-direction:column; justify-content:center; }
   .slide.active { display:flex; }
   .slide::before { content:""; position:absolute; inset:0; pointer-events:none;
-    background: radial-gradient(40% 34% at 22% 18%, rgba(90,140,240,.10), transparent 60%),
+    background: radial-gradient(40% 34% at 22% 18%, rgba(224,127,82,.10), transparent 60%),
                 radial-gradient(32% 28% at 82% 78%, rgba(183,61,4,.07), transparent 60%); }
   .kicker { color:var(--gold2); font-weight:800; letter-spacing:4px; font-size:13px;
     text-transform:uppercase; margin-bottom:18px; }
@@ -56,7 +56,7 @@
     line-height:1; margin-bottom:8px;
     background:linear-gradient(120deg,var(--gold2),var(--gold));
     -webkit-background-clip:text; background-clip:text; color:transparent;text-transform:uppercase;font-weight:500;letter-spacing:-.005em}
-  .box.red b.n { background:linear-gradient(120deg,#ff8088,var(--red));
+  .box.red b.n { background:linear-gradient(120deg,#ff8a80,var(--red));
     -webkit-background-clip:text; background-clip:text; }
   .box p { font-size:clamp(12px,1.2vw,15px); color:var(--dim); }
   .cname { font-family:"microgramma-extended",Impact,sans-serif; font-size:clamp(20px,2.4vw,30px); letter-spacing:1px;
@@ -70,7 +70,7 @@
   .navhint { position:fixed; bottom:14px; right:18px; color:var(--dim); font-size:12px;
     z-index:9; background:rgba(9,9,10,.7); padding:6px 12px; border-radius:8px; }
   .logo-row { display:flex; align-items:center; gap:16px; margin-bottom:30px; }
-  .logo-row img { width:64px; height:64px; filter:drop-shadow(0 4px 14px rgba(90,140,240,.45)); }
+  .logo-row img { width:64px; height:64px; filter:drop-shadow(0 4px 14px rgba(224,127,82,.45)); }
   @media print {
     body { background:#09090a; }
     .slide { display:flex !important; page-break-after:always; width:100%; height:100vh; }
@@ -177,8 +177,8 @@
   <div class="kicker">Competition</div>
   <h2>NOT ONE RIVAL — A <span class="gold">CATEGORY.</span> WE OWN THE EMPTY ROW.</h2>
   <p style="max-width:900px; margin-bottom:20px; font-size:clamp(13px,1.4vw,17px)">The industry splits into
-    four models. Two make the venue the <b style="color:#ff8088">product</b> (advertisers pay). Two sell the
-    venue a <b style="color:#ff8088">cost</b> (content or signage). <b style="color:#f9f1ed">None</b> turn the
+    four models. Two make the venue the <b style="color:#ff8a80">product</b> (advertisers pay). Two sell the
+    venue a <b style="color:#ff8a80">cost</b> (content or signage). <b style="color:#f9f1ed">None</b> turn the
     commercial break inside the live game into the venue's own revenue.</p>
   <div class="grid g4">
     <div class="box">
@@ -189,23 +189,23 @@
     <div class="box">
       <div class="cname">BREAK AD NETWORK</div>
       <p><b style="color:#f9f1ed">Taiv</b><br>Our mechanic, sold to advertisers. Venue keeps
-        <b style="color:#ff8088">1 of 6 slots</b> + ~$1–2K/yr; all six = enterprise-only. Proved the market, capped the upside.</p>
+        <b style="color:#ff8a80">1 of 6 slots</b> + ~$1–2K/yr; all six = enterprise-only. Proved the market, capped the upside.</p>
     </div>
     <div class="box">
       <div class="cname">ENGAGEMENT / SIGNAGE</div>
       <p><b style="color:#f9f1ed">UpShow</b> (now EverPass)<br>Decorates your other screens — trivia, social walls,
         promos — and can rent them to brands. <b style="color:#f9f1ed">Ignores the break.</b> ~30K screens.</p>
     </div>
-    <div class="box" style="border-color:rgba(90,140,240,.4)">
+    <div class="box" style="border-color:rgba(224,127,82,.4)">
       <div class="cname">CONTENT / RIGHTS</div>
       <p><b style="color:#f9f1ed">EverPass · DirecTV</b><br>Sells you the <b style="color:#f9f1ed">game itself</b>.
         A <b style="color:var(--gold2)">complement we sit on top of</b> — their ~300K venues are our best leads.</p>
     </div>
   </div>
   <div class="grid g2" style="margin-top:20px">
-    <div class="box" style="border-color:var(--gold); background:rgba(90,140,240,.10)">
+    <div class="box" style="border-color:var(--gold); background:rgba(224,127,82,.10)">
       <div class="cname gold">BREAKSHARK — THE EMPTY ROW</div>
-      <p style="color:#dde5f6">Venue-paid. Game stays on. <b style="color:#f9f1ed">All six in-game slots are yours.</b>
+      <p style="color:#f6e5dd">Venue-paid. Game stays on. <b style="color:#f9f1ed">All six in-game slots are yours.</b>
         Zero third-party ads. <b style="color:var(--green)">The only model where the break sells the venue's own menu.</b></p>
     </div>
     <div class="box"><p><b style="color:var(--green)">Path to profit:</b> venue-paid SaaS reaches
@@ -259,7 +259,7 @@
   <div class="kicker">Roadmap</div>
   <h2>DEMO → BOX → <span class="gold">NETWORK</span></h2>
   <div class="grid g4">
-    <div class="box"><b class="n" style="background:linear-gradient(120deg,#7ba7ff,var(--green));-webkit-background-clip:text;background-clip:text">✓</b>
+    <div class="box"><b class="n" style="background:linear-gradient(120deg,#ffa57b,var(--green));-webkit-background-clip:text;background-clip:text">✓</b>
       <p><b style="color:#f9f1ed">Phase 1 · done.</b> Working software: detection, takeover,
       dashboard, calculator. You can click it today.</p></div>
     <div class="box"><b class="n">90d</b><p><b style="color:#f9f1ed">Phase 2 · pilot.</b>
@@ -291,7 +291,7 @@
 </div>
 
 <div class="slide" style="text-align:center; align-items:center">
-  <img src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark" style="width:clamp(90px,14vw,180px); filter:drop-shadow(0 10px 40px rgba(90,140,240,.5)); margin:0 auto 8px">
+  <img src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark" style="width:clamp(90px,14vw,180px); filter:drop-shadow(0 10px 40px rgba(224,127,82,.5)); margin:0 auto 8px">
   <h1><span class="gold">BREAKSHARK</span></h1>
   <p style="margin-top:20px; font-size:22px">Your TV. Your ads. Every break.</p>
   <p class="dim" style="margin-top:30px">Live demo: <a href="tv.html" style="color:inherit">breakshark.com</a><br>

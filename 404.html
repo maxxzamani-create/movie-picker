@@ -28,7 +28,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <style>
-  :root{ --ink:#08080a; --line:#43434e; --blue:#3d7eff; --blue-pale:#cddeff; --blue-deep:#0d2e7a; --white:#fef7f3; --dim:#97acd6; }
+  :root{ --ink:#08080a; --line:#43434e; --blue:#ff7a3d; --blue-pale:#ffddcd; --blue-deep:#62270c; --white:#fef7f3; --dim:#d6ab97; }
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:var(--ink);color:var(--white);font-family:Inter,system-ui,sans-serif;min-height:100vh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
@@ -36,7 +36,7 @@
   body::before{content:"";position:fixed;inset:-40%;z-index:-1;
     background:radial-gradient(40% 32% at 30% 20%,rgba(255,122,61,.14),transparent 60%),
                radial-gradient(46% 38% at 60% 100%,rgba(183,61,4,.14),transparent 60%)}
-  #sharkySvg{width:min(340px,80vw);filter:drop-shadow(0 14px 30px rgba(90,140,240,.32));overflow:visible;margin-bottom:8px}
+  #sharkySvg{width:min(340px,80vw);filter:drop-shadow(0 14px 30px rgba(224,127,82,.32));overflow:visible;margin-bottom:8px}
   #sharkySvg .shark{transform-box:fill-box;transform-origin:center;animation:swim 5.2s ease-in-out infinite}
   @keyframes swim{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-1.4deg)}}
   #sharkySvg .fin-tail{transform-box:fill-box;transform-origin:0% 55%;animation:tail 2.1s ease-in-out infinite}
@@ -56,7 +56,7 @@
   .btn{display:inline-block;padding:13px 26px;border-radius:12px;text-decoration:none;font-weight:800;font-size:.95rem;
     border:1px solid var(--line);color:var(--white);background:rgba(46,46,54,.85);transition:.2s}
   .btn:hover{transform:translateY(-2px);border-color:var(--blue)}
-  .btn.primary{background:linear-gradient(120deg,#4a7be0,var(--blue-deep));color:#ffffff;border-color:transparent}
+  .btn.primary{background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));color:#101013;border-color:transparent}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -64,16 +64,16 @@
   <svg id="sharkySvg" viewBox="0 0 340 230" role="img" aria-label="Sharky looking for the missing page">
     <defs>
       <linearGradient id="sgBody" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#5a8cf0"/><stop offset=".45" stop-color="#5a8cf0"/><stop offset="1" stop-color="#0d2e7a"/>
+        <stop offset="0" stop-color="#e07f52"/><stop offset=".45" stop-color="#e07f52"/><stop offset="1" stop-color="#62270c"/>
       </linearGradient>
       <linearGradient id="sgBelly" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#fff3ee"/><stop offset="1" stop-color="#bcd1fb"/>
+        <stop offset="0" stop-color="#fff3ee"/><stop offset="1" stop-color="#fbd0bc"/>
       </linearGradient>
       <linearGradient id="sgFin" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#7aa6fe"/><stop offset="1" stop-color="#0d2e7a"/>
+        <stop offset="0" stop-color="#fea47a"/><stop offset="1" stop-color="#62270c"/>
       </linearGradient>
     </defs>
-    <ellipse cx="165" cy="216" rx="100" ry="9" fill="#5a8cf0" opacity=".14"/>
+    <ellipse cx="165" cy="216" rx="100" ry="9" fill="#e07f52" opacity=".14"/>
     <g class="shark">
       <g class="fin-tail">
         <path fill="url(#sgFin)" d="M262 104 C 284 84, 296 62, 314 44 C 308 74, 310 92, 324 106
@@ -85,7 +85,7 @@
       <path fill="url(#sgBelly)" d="M34 130 C 70 128, 120 126, 170 130 C 210 133, 238 126, 258 114
         C 242 140, 206 157, 156 159 C 108 160, 58 150, 34 130 Z"/>
       <path fill="#ffffff" opacity=".12" d="M60 84 C 92 62, 150 54, 196 62 C 156 60, 100 68, 60 84 Z"/>
-      <g fill="none" stroke="#0d2e7a" stroke-width="3" stroke-linecap="round" opacity=".55">
+      <g fill="none" stroke="#62270c" stroke-width="3" stroke-linecap="round" opacity=".55">
         <path d="M126 88 Q 120 106 126 124"/><path d="M138 86 Q 132 106 138 126"/><path d="M150 86 Q 144 106 150 126"/>
       </g>
       <path fill="#101013" d="M36 118 C 62 130, 94 134, 118 128 C 100 150, 60 150, 36 130 Z"/>
@@ -105,12 +105,12 @@
       <circle cx="79" cy="99" r="5.4" fill="#3c3c46"/>
       <circle cx="78" cy="100" r="2.8" fill="#101013"/>
       <circle cx="76.6" cy="96.6" r="1.6" fill="#ffffff"/>
-      <ellipse class="eye-lid" cx="80" cy="98" rx="9.6" ry="10" fill="#2563de"/>
-      <path fill="none" stroke="#0d2e7a" stroke-width="3.5" stroke-linecap="round" d="M67 81 Q 80 74 93 81"/>
+      <ellipse class="eye-lid" cx="80" cy="98" rx="9.6" ry="10" fill="#de6025"/>
+      <path fill="none" stroke="#62270c" stroke-width="3.5" stroke-linecap="round" d="M67 81 Q 80 74 93 81"/>
       <g class="fin-pec"><path fill="url(#sgFin)" d="M128 146 C 140 164, 140 184, 124 200 C 112 184, 108 162, 116 146 Z"/></g>
       <path fill="url(#sgFin)" d="M206 150 C 214 160, 216 170, 212 180 C 202 170, 198 160, 200 152 Z"/>
     </g>
-    <g fill="none" stroke="#5a8cf0" stroke-width="2" opacity=".7">
+    <g fill="none" stroke="#e07f52" stroke-width="2" opacity=".7">
       <circle class="bub b1" cx="28" cy="86" r="5"/><circle class="bub b2" cx="16" cy="66" r="3.4"/><circle class="bub b3" cx="34" cy="52" r="2.4"/>
     </g>
   </svg>
