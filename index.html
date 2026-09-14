@@ -537,6 +537,22 @@ table.ar td.v.us{color:var(--money)}
 #american h2{color:var(--us-white)}
 #american h2 .g{color:var(--us-red)}
 #american p{color:#c3cad8}
+#american .kick{text-shadow:0 1px 10px rgba(4,6,12,.92)}
+#american h2{text-shadow:0 2px 18px rgba(4,6,12,.96),0 0 44px rgba(4,6,12,.85)}
+#american p{text-shadow:0 1px 14px rgba(4,6,12,.95),0 0 30px rgba(4,6,12,.7)}
+
+/* the flag itself, behind the type, with a scrim heavy enough to keep the
+   white headline and the red payoff line legible over the stripes */
+#american{position:relative;overflow:hidden;isolation:isolate}
+#american::before{content:"";position:absolute;inset:-6% -3%;z-index:0;
+  background:url(img/us-flag.svg) center/cover no-repeat;
+  opacity:.62;filter:saturate(1.05) contrast(1) blur(0);
+  transform:rotate(-1.5deg) scale(1.05)}
+#american::after{content:"";position:absolute;inset:0;z-index:1;background:
+  radial-gradient(64% 52% at 50% 47%,rgba(6,8,15,.88) 0%,rgba(6,8,15,.66) 55%,rgba(6,8,15,.14) 100%),
+  linear-gradient(180deg,#07090f 0%,rgba(7,9,15,.3) 13%,rgba(7,9,15,.26) 87%,#07090f 100%)}
+#american>.wrap{position:relative;z-index:2}
+@media(max-width:720px){#american::before{opacity:.5}}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
