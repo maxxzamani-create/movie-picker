@@ -6,7 +6,11 @@
 <title>Six TVs, One Room — BreakShark</title>
 <meta name="description" content="Six TVs in one room. Every flip is a real commercial break getting caught.">
 <meta name="robots" content="noindex">
-<link rel="icon" href="/favicon.ico">
+<link rel="canonical" href="https://breakshark.com/six/">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/static/brand-2026/favicon/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/static/brand-2026/favicon/favicon.svg">
+<link rel="apple-touch-icon" href="/static/brand-2026/favicon/apple-touch-icon.png">
 <meta property="og:type" content="video.other">
 <meta property="og:site_name" content="BreakShark">
 <meta property="og:title" content="Six TVs, One Room">
@@ -22,29 +26,36 @@
 <meta name="twitter:title" content="Six TVs, One Room">
 <meta name="twitter:description" content="Every flip is a real commercial break getting caught.">
 <meta name="twitter:image" content="https://breakshark.com/vid/six-screens-poster.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <style>
   :root{
-    --ground:#08090B; --copper:#C97A3D; --ember:#E8944A;
-    --bone:#E9E5DF; --steel:#79818D;
-    --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-    --f-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --ground:#08080a; --line:#3a3a40;
+    --money:#e07f52; --money-deep:#913c15; --money-pale:#f2efea;
+    --copper:var(--money); --ember:var(--money);
+    --bone:#f2efea; --steel:#b3b4b6; --faint:#818182;
+    --f-body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --f-display:"microgramma-extended",Impact,sans-serif;
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--ground);color:var(--bone);
     font-family:var(--f-body);-webkit-font-smoothing:antialiased}
   .page{min-height:100svh;display:flex;flex-direction:column;align-items:center;
     gap:clamp(12px,2.4vh,20px);padding:clamp(16px,3vh,28px) 16px clamp(20px,4vh,32px)}
-  .mark{display:flex;align-items:center;gap:9px;margin:0;
-    font-family:var(--f-mono);font-size:clamp(11px,2.9vw,13px);letter-spacing:.22em;
-    text-transform:uppercase;color:var(--bone)}
+  .mark{display:flex;align-items:center;gap:10px;margin:0;color:var(--bone);text-decoration:none}
+  .mark img{height:26px;width:auto;display:block}
+  .mark b{font-family:var(--f-display);font-size:16px;letter-spacing:.055em;text-transform:uppercase;font-weight:500}
   .mark i{width:7px;height:7px;border-radius:50%;background:var(--ember);
     display:block;flex:none;animation:pulse 2.6s ease-out infinite}
   @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(232,148,74,.5)}
-    70%{box-shadow:0 0 0 10px rgba(232,148,74,0)}
-    100%{box-shadow:0 0 0 0 rgba(232,148,74,0)}}
-  h1{margin:0;max-width:30ch;text-align:center;font-weight:700;
-    font-size:clamp(17px,4.6vw,23px);line-height:1.3;letter-spacing:-.012em}
+    0%{box-shadow:0 0 0 0 rgba(224,127,82,.5)}
+    70%{box-shadow:0 0 0 10px rgba(224,127,82,0)}
+    100%{box-shadow:0 0 0 0 rgba(224,127,82,0)}}
+  h1{margin:0;max-width:34ch;text-align:center;font-family:var(--f-display);font-weight:500;
+    font-size:clamp(15px,3.6vw,22px);line-height:1.2;letter-spacing:.5px;text-transform:uppercase}
   h1 em{font-style:normal;color:var(--ember)}
   .frame{position:relative;width:100%;display:flex;justify-content:center;min-height:0}
   video{display:block;width:auto;height:auto;max-width:100%;max-height:68svh;
@@ -52,7 +63,7 @@
   .tap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
     border:0;cursor:pointer;font-family:var(--f-mono);
     font-size:clamp(11px,3vw,13px);letter-spacing:.16em;text-transform:uppercase;
-    color:#fff;background:rgba(201,122,61,.94);padding:16px 26px;border-radius:999px;
+    color:#0c0603;background:linear-gradient(120deg,var(--money),var(--money-deep));padding:16px 26px;border-radius:999px;
     box-shadow:0 8px 30px rgba(0,0,0,.65)}
   .tap[hidden]{display:none}
   .meta{margin:0;text-align:center;font-family:var(--f-mono);
@@ -63,15 +74,20 @@
   .note b{color:var(--bone);font-weight:600}
   .links{margin-top:auto;display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
   .links a{font-family:var(--f-mono);font-size:clamp(9px,2.4vw,11px);letter-spacing:.18em;
-    color:var(--copper);text-decoration:none;border-bottom:1px solid rgba(201,122,61,.4);
+    color:var(--copper);text-decoration:none;border-bottom:1px solid rgba(224,127,82,.4);
     padding-bottom:3px;text-transform:uppercase}
-  .links a:hover,.links a:focus-visible{color:var(--ember);border-bottom-color:var(--ember)}
+  .links a:hover,.links a:focus-visible{color:var(--money-pale);border-bottom-color:var(--money-pale)}
+  footer{border-top:1px solid rgba(224,127,82,.25);padding:40px 24px 60px;color:var(--faint);font-size:13px}
+  .foot-in{max-width:1120px;margin:0 auto}
+  .brand.lockup{display:inline-flex;align-items:center}
+  .brand.lockup img{height:104px;width:auto;display:block}
+  .patline{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;margin-top:14px;line-height:1.9}
   @media (prefers-reduced-motion:reduce){.mark i{animation:none}}
 </style>
 </head>
 <body>
 <div class="page">
-  <p class="mark"><i aria-hidden="true"></i>BreakShark</p>
+  <a class="mark" href="https://breakshark.com"><img src="/static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark fin logo"><i aria-hidden="true"></i><b>BreakShark</b></a>
 
   <h1>Six TVs in one room. Every flip is a <em>real</em> commercial break getting caught.</h1>
 
@@ -94,6 +110,12 @@
     <a href="/vid/six-screens-share.mp4">Download the clip</a>
   </div>
 </div>
+<footer>
+  <div class="foot-in">
+    <a class="brand lockup" href="https://breakshark.com"><img src="/static/brand-2026/logo-lockup/breakshark-logo-transparent.svg" alt="BreakShark"></a>
+    <div class="patline">U.S. PATENT PENDING — TWO PROVISIONALS FILED JULY 17 AND SEPTEMBER 3, 2026<br>© 2026 BREAKSHARK, INC. · AN AMERICAN COMPANY, AMERICAN-BUILT · MAXX ZAMANI, ORANGE COUNTY, CALIFORNIA<br>BREAKSHARK, INC. — A DELAWARE C-CORPORATION, FORMED AUGUST 10, 2026</div>
+  </div>
+</footer>
 
 <script>
 (function () {

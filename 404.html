@@ -23,18 +23,19 @@
 <link rel="icon" href="/static/brand-2026/favicon/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/static/brand-2026/favicon/favicon.svg">
   <link rel="apple-touch-icon" href="/static/brand-2026/favicon/apple-touch-icon.png">
+<link rel="canonical" href="https://breakshark.com/404.html">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <style>
-  :root{ --ink:#08080a; --line:#43434e; --blue:#ff7a3d; --blue-pale:#ffddcd; --blue-deep:#62270c; --white:#fef7f3; --dim:#d6ab97; }
+  :root{ --ink:#08080a; --line:#43434e; --blue:#e07f52; --blue-pale:#e07f52; --blue-deep:#62270c; --white:#fef7f3; --dim:#d6ab97; }
   *{margin:0;padding:0;box-sizing:border-box}
   body{background:var(--ink);color:var(--white);font-family:Inter,system-ui,sans-serif;min-height:100vh;
     display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
     padding:40px 20px;overflow-x:hidden}
   body::before{content:"";position:fixed;inset:-40%;z-index:-1;
-    background:radial-gradient(40% 32% at 30% 20%,rgba(255,122,61,.14),transparent 60%),
+    background:radial-gradient(40% 32% at 30% 20%,rgba(224,127,82,.14),transparent 60%),
                radial-gradient(46% 38% at 60% 100%,rgba(183,61,4,.14),transparent 60%)}
   #sharkySvg{width:min(340px,80vw);filter:drop-shadow(0 14px 30px rgba(224,127,82,.32));overflow:visible;margin-bottom:8px}
   #sharkySvg .shark{transform-box:fill-box;transform-origin:center;animation:swim 5.2s ease-in-out infinite}
@@ -57,6 +58,10 @@
     border:1px solid var(--line);color:var(--white);background:rgba(46,46,54,.85);transition:.2s}
   .btn:hover{transform:translateY(-2px);border-color:var(--blue)}
   .btn.primary{background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));color:#101013;border-color:transparent}
+  footer{margin-top:56px;padding-top:32px;border-top:1px solid rgba(224,127,82,.25);width:min(720px,100%)}
+  .brand.lockup{display:inline-block}
+  .brand.lockup img{height:104px;width:auto;display:block;margin:0 auto}
+  .patline{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.12em;margin-top:14px;line-height:1.9;color:var(--dim)}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -123,5 +128,9 @@
     <a class="btn" href="/tv.html">▶ Live demo</a>
     <a class="btn" href="/founding10.html">Founding 10</a>
   </div>
+  <footer>
+    <a class="brand lockup" href="/"><img src="/static/brand-2026/logo-lockup/breakshark-logo-transparent.svg" alt="BreakShark"></a>
+    <div class="patline">U.S. PATENT PENDING — TWO PROVISIONALS FILED JULY 17 AND SEPTEMBER 3, 2026<br>© 2026 BREAKSHARK, INC. · AN AMERICAN COMPANY, AMERICAN-BUILT · MAXX ZAMANI, ORANGE COUNTY, CALIFORNIA<br>BREAKSHARK, INC. — A DELAWARE C-CORPORATION, FORMED AUGUST 10, 2026</div>
+  </footer>
 </body>
 </html>

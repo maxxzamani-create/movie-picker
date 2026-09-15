@@ -21,6 +21,7 @@
 <link rel="icon" href="static/brand-2026/favicon/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="static/brand-2026/favicon/favicon.svg">
   <link rel="apple-touch-icon" href="static/brand-2026/favicon/apple-touch-icon.png">
+<link rel="canonical" href="https://breakshark.com/dashboard.html">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
@@ -29,7 +30,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JPSCL18MG6"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JPSCL18MG6');</script>
 <style>
-  :root{--bg:#08080a;--card:rgba(59,59,69,.5);--line:#43434e;--dim:#b3b4b6;--money:#ea5a18;--warn:#ff7e42}
+  :root{--bg:#08080a;--card:rgba(59,59,69,.5);--line:#43434e;--dim:#b3b4b6;--money:#e07f52;--money-deep:#913c15;--warn:#ff7e42}
   *{box-sizing:border-box;margin:0}
   body{background:var(--bg);color:#fff3ee;font-family:Inter,sans-serif;padding:24px;max-width:1020px;margin:0 auto}
   h1{font-family:"microgramma-extended",Impact,sans-serif;letter-spacing:.04em;font-size:2.2rem;display:flex;align-items:center;gap:12px;text-transform:uppercase;font-weight:500}
@@ -55,14 +56,14 @@
   .adrow input.label{width:100%;max-width:280px}
   .grab{cursor:grab;color:var(--dim);font-size:1.55rem;padding:12px 8px;user-select:none;touch-action:none;line-height:1}
   .grab:active{cursor:grabbing;color:var(--money)}
-  .sortGhost{opacity:.45;background:rgba(234,90,24,.08);outline:1px dashed var(--money);border-radius:10px}
+  .sortGhost{opacity:.45;background:rgba(224,127,82,.08);outline:1px dashed var(--money);border-radius:10px}
   .dp{display:flex;gap:7px;align-items:center;font-size:.8rem;color:var(--dim);flex-wrap:wrap}
   .pill{font-size:.72rem;font-weight:800;padding:4px 11px;border-radius:20px;cursor:pointer;user-select:none;display:inline-block}
-  .on{background:rgba(234,90,24,.15);color:var(--money)} .off{background:rgba(255,120,120,.12);color:#ff9b9b}
+  .on{background:rgba(224,127,82,.15);color:var(--money)} .off{background:rgba(255,120,120,.12);color:#ff9b9b}
   .dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;margin-top:5px;background:#727277}
   .dot.green{background:var(--money)} .dot.red{background:#ff6b6b} .dot.amber{background:var(--warn)} .dot.idle{background:#727277}
   .dot.pulse{animation:pulse 1.6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(234,90,24,.5)}50%{box-shadow:0 0 0 9px rgba(234,90,24,0)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,127,82,.5)}50%{box-shadow:0 0 0 9px rgba(224,127,82,0)}}
   .chip{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
   .chip.live{color:var(--money);border-color:var(--money)}
   .switchwrap{display:flex;gap:9px;align-items:center;font-size:.85rem;color:var(--dim);cursor:pointer;border:1px solid var(--line);border-radius:9px;padding:8px 12px}
@@ -70,7 +71,7 @@
   #log{font-size:.8rem;color:var(--dim);max-height:220px;overflow:auto;white-space:pre-wrap}
   #saveBar{position:sticky;bottom:14px;display:none;justify-content:flex-end;gap:10px;margin-top:14px;z-index:5}
   #saveBar.show{display:flex}
-  #saveBar button{box-shadow:0 6px 24px rgba(234,90,24,.35);font-size:1.02rem;padding:12px 22px}
+  #saveBar button{box-shadow:0 6px 24px rgba(224,127,82,.35);font-size:1.02rem;padding:12px 22px}
   #toast{position:fixed;top:64px;right:18px;background:#2c160c;border:1px solid var(--money);color:#ffe4d7;
     padding:12px 18px;border-radius:10px;font-weight:600;display:none;z-index:9;max-width:min(430px,86vw)}
   .demobar{position:sticky;top:0;z-index:8;margin:-24px -24px 18px;background:linear-gradient(90deg,#292931,#34343d);
@@ -170,7 +171,8 @@
   <div class="card"><div id="log"></div></div>
 </div>
 
-<footer style="text-align:center;color:var(--dim);font-size:.74rem;opacity:.8;margin:30px 0 6px;line-height:1.5">
+<footer style="text-align:center;color:var(--dim);font-size:.74rem;opacity:.8;margin:30px 0 6px;line-height:1.5;border-top:1px solid rgba(224,127,82,.25);padding-top:40px">
+  <a class="brand lockup" href="index.html" style="display:inline-block;margin-bottom:14px"><img src="static/brand-2026/logo-lockup/breakshark-logo-transparent.svg" alt="BreakShark" style="height:104px;width:auto;display:block;margin:0 auto"></a><br>
   BreakShark™ &middot; <b style="color:var(--money);font-weight:800">U.S. Patent&nbsp;Pending</b> &middot; two provisionals filed July&nbsp;17 and September&nbsp;3,&nbsp;2026<br>
   &copy; 2026 BreakShark. Automated break-detection &amp; display-takeover system. &middot; <a href="index.html" style="color:#e07f52">breakshark.com</a>
 </footer>
