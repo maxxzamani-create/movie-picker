@@ -2,9 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://breakshark.com/</loc></url>
   <url><loc>https://breakshark.com/founding10.html</loc></url>
+  <url><loc>https://breakshark.com/investors.html</loc></url>
+  <url><loc>https://breakshark.com/support.html</loc></url>
+  <url><loc>https://breakshark.com/sources.html</loc></url>
+  <url><loc>https://breakshark.com/privacy.html</loc></url>
+  <url><loc>https://breakshark.com/loop.html</loc></url>
   <url><loc>https://breakshark.com/tv.html</loc></url>
   <url><loc>https://breakshark.com/dashboard.html</loc></url>
-  <url><loc>https://breakshark.com/dashboard-demo.html</loc></url>
-  <url><loc>https://breakshark.com/pitch.html</loc></url>
-  <url><loc>https://breakshark.com/investors.html</loc></url>
 </urlset>
