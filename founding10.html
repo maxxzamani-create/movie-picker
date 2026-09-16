@@ -285,10 +285,10 @@
       <input required name="city" placeholder="City, State" aria-label="City and state" autocomplete="address-level2">
       <input required name="phone" type="tel" placeholder="Cell (we text, we don't spam)" aria-label="Cell phone" autocomplete="tel" inputmode="tel">
       <button class="btn primary" type="submit">Claim a founding spot →</button>
-      <div class="orline" id="claimNote">OR JUST TEXT MAXX: (916) 628-6299 — THAT'S THE GUY WHO BUILT IT, NOT A CALL CENTER</div>
+      <div class="orline" id="claimNote">OR JUST TEXT MAXX: (916) 628-MAXX (6299) — THAT'S THE GUY WHO BUILT IT, NOT A CALL CENTER</div>
     </form>
   </div>
-  <p class="terms">Rather just talk? Text or call <a href="sms:+19166286299">(916) 628-6299</a>, or email
+  <p class="terms">Rather just talk? Text or call <a href="sms:+19166286299">(916) 628-MAXX (6299)</a>, or email
     <a href="mailto:maxx@breakshark.com">maxx@breakshark.com</a>. Tell me what your room looks like and
     how many TVs are on the same box.</p>
 </section>
@@ -326,7 +326,7 @@
     </div>
     <div>
       <h5>Talk to the guy who built it</h5>
-      <a href="sms:+19166286299">Text Maxx: (916) 628-6299</a>
+      <a href="sms:+19166286299">Text Maxx: (916) 628-MAXX (6299)</a>
       <a href="mailto:maxx@breakshark.com">maxx@breakshark.com</a>
     </div>
   </div>
@@ -343,8 +343,8 @@
     var body='Hey Maxx — '+d.get('name')+' here. I run '+d.get('venue')+' in '+d.get('city')+'. I want one of the Founding 10 spots, starting with a Catch Night. Reach me at '+d.get('phone')+'.';
     var mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if(note)note.textContent=mobile
-      ?'OPENING YOUR MESSAGES — HIT SEND AND MAXX REPLIES TODAY. OR CALL (916) 628-6299.'
-      :'OPENING YOUR EMAIL — HIT SEND AND MAXX REPLIES TODAY. OR TEXT (916) 628-6299.';
+      ?'OPENING YOUR MESSAGES — HIT SEND AND MAXX REPLIES TODAY. OR CALL (916) 628-MAXX (6299).'
+      :'OPENING YOUR EMAIL — HIT SEND AND MAXX REPLIES TODAY. OR TEXT (916) 628-MAXX (6299).';
     location.href=mobile
       ?'sms:+19166286299?body='+encodeURIComponent(body)
       :'mailto:maxx@breakshark.com?subject='+encodeURIComponent('Founding 10 — '+d.get('venue'))+'&body='+encodeURIComponent(body);
