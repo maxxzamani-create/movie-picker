@@ -153,3 +153,6 @@ curl -sS -X POST https://movie-genie-lseb.onrender.com/api/pick \
 - Render the logo locally before shipping changes: `py -c "import logo; logo.make_logo(64).save('t.png')"`
   — it must stay legible at **64px** (the served size); sprocket holes are size-gated for that reason.
 - Verified good: all **18/18 movie genres** and **16/16 TV genres** return real titles.
+
+## Visitor analytics (added 2026-09-20)
+GoatCounter tag sits just before `</body>` in `templates/index.html`. Dashboard: https://movierando.goatcounter.com (Maxx's account, maxxzamani@gmail.com). Free, no cookies. Live-verified on movierando.com the same day.
