@@ -1,16 +1,136 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>BreakShark</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#000000">
+<title>404 — Nothing but open water | BreakShark.com</title>
+  <meta property="og:site_name" content="BreakShark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="404 — Nothing but open water | BreakShark.com">
+  <meta property="og:description" content="That page is gone, but the box is still catching breaks. BreakShark takes your ad breaks back.">
+  <meta property="og:url" content="https://breakshark.com/404.html">
+  <meta property="og:image" content="https://breakshark.com/img/og-moment.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BreakShark">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="404 — Nothing but open water | BreakShark.com">
+  <meta name="twitter:description" content="That page is gone, but the box is still catching breaks. BreakShark takes your ad breaks back.">
+  <meta name="twitter:image" content="https://breakshark.com/img/og-moment.jpg">
+  <meta name="description" content="That page is gone, but the box is still catching breaks. BreakShark takes your ad breaks back.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/static/brand-2026/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/static/brand-2026/favicon/favicon.svg">
+  <link rel="apple-touch-icon" href="/static/brand-2026/favicon/apple-touch-icon.png">
+<link rel="canonical" href="https://breakshark.com/404.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.typekit.net/jag4xgl.css">
 <style>
-  html,body{height:100%;margin:0;background:#0b0d10;color:#e8e6e3;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-  main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
-  h1{font-weight:600;letter-spacing:.08em;margin:0 0 12px;font-size:clamp(28px,6vw,48px)}
-  p{margin:0;color:#e07f52;font-size:18px}
+  :root{ --ink:#08080a; --line:#43434e; --blue:#e07f52; --blue-pale:#e07f52; --blue-deep:#62270c; --white:#fef7f3; --dim:#d6ab97; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:var(--white);font-family:Inter,system-ui,sans-serif;min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    padding:40px 20px;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:-40%;z-index:-1;
+    background:radial-gradient(40% 32% at 30% 20%,rgba(224,127,82,.14),transparent 60%),
+               radial-gradient(46% 38% at 60% 100%,rgba(183,61,4,.14),transparent 60%)}
+  #sharkySvg{width:min(340px,80vw);filter:drop-shadow(0 14px 30px rgba(224,127,82,.32));overflow:visible;margin-bottom:8px}
+  #sharkySvg .shark{transform-box:fill-box;transform-origin:center;animation:swim 5.2s ease-in-out infinite}
+  @keyframes swim{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7px) rotate(-1.4deg)}}
+  #sharkySvg .fin-tail{transform-box:fill-box;transform-origin:0% 55%;animation:tail 2.1s ease-in-out infinite}
+  @keyframes tail{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(6deg)}}
+  #sharkySvg .fin-pec{transform-box:fill-box;transform-origin:50% 0%;animation:pec 2.6s ease-in-out infinite}
+  @keyframes pec{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(6deg)}}
+  #sharkySvg .eye-lid{transform-box:fill-box;transform-origin:center;animation:blink 4.6s infinite}
+  @keyframes blink{0%,93.5%,100%{transform:scaleY(0)}95.5%{transform:scaleY(1)}97.5%{transform:scaleY(0)}}
+  #sharkySvg .bub{animation:bubrise 4.2s ease-in infinite}
+  #sharkySvg .b2{animation-delay:1.3s}#sharkySvg .b3{animation-delay:2.5s}
+  @keyframes bubrise{0%{transform:translateY(6px);opacity:0}18%{opacity:.75}80%{opacity:.5}100%{transform:translateY(-34px);opacity:0}}
+  .code{font-family:"microgramma-extended",Impact,sans-serif,sans-serif;font-size:clamp(4rem,14vw,7.5rem);line-height:1;letter-spacing:.04em;
+    background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));-webkit-background-clip:text;background-clip:text;color:transparent;text-transform:uppercase;font-weight:500}
+  h1{font-family:"microgramma-extended",Impact,sans-serif,sans-serif;font-size:clamp(1.6rem,5vw,2.6rem);letter-spacing:.05em;margin:6px 0 12px;text-transform:uppercase;font-weight:500}
+  p{color:var(--dim);max-width:440px;margin:0 auto 28px;line-height:1.6}
+  .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:13px 26px;border-radius:12px;text-decoration:none;font-weight:800;font-size:.95rem;
+    border:1px solid var(--line);color:var(--white);background:rgba(46,46,54,.85);transition:.2s}
+  .btn:hover{transform:translateY(-2px);border-color:var(--blue)}
+  .btn.primary{background:linear-gradient(120deg,var(--blue-pale),var(--blue-deep));color:#101013;border-color:transparent}
+  footer{margin-top:56px;padding-top:32px;border-top:1px solid rgba(224,127,82,.25);width:min(720px,100%)}
+  .brand.lockup{display:inline-block}
+  .brand.lockup img{height:104px;width:auto;display:block;margin:0 auto}
+  .patline{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.12em;margin-top:14px;line-height:1.9;color:var(--dim)}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
-<body><main><h1>BREAKSHARK</h1><p>Back soon.</p></main></body>
+<body>
+  <svg id="sharkySvg" viewBox="0 0 340 230" role="img" aria-label="Sharky looking for the missing page">
+    <defs>
+      <linearGradient id="sgBody" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#e07f52"/><stop offset=".45" stop-color="#e07f52"/><stop offset="1" stop-color="#62270c"/>
+      </linearGradient>
+      <linearGradient id="sgBelly" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff3ee"/><stop offset="1" stop-color="#fbd0bc"/>
+      </linearGradient>
+      <linearGradient id="sgFin" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fea47a"/><stop offset="1" stop-color="#62270c"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="165" cy="216" rx="100" ry="9" fill="#e07f52" opacity=".14"/>
+    <g class="shark">
+      <g class="fin-tail">
+        <path fill="url(#sgFin)" d="M262 104 C 284 84, 296 62, 314 44 C 308 74, 310 92, 324 106
+          C 308 112, 296 112, 284 110 C 296 124, 300 140, 298 158 C 282 142, 270 128, 260 116 Z"/>
+      </g>
+      <path fill="url(#sgFin)" d="M148 62 C 146 36, 156 18, 178 8 C 174 32, 180 48, 192 60 Z"/>
+      <path fill="url(#sgBody)" d="M30 126 C 44 92, 92 60, 152 57 C 200 55, 240 74, 264 108
+        C 246 138, 208 158, 156 160 C 106 162, 54 150, 30 126 Z"/>
+      <path fill="url(#sgBelly)" d="M34 130 C 70 128, 120 126, 170 130 C 210 133, 238 126, 258 114
+        C 242 140, 206 157, 156 159 C 108 160, 58 150, 34 130 Z"/>
+      <path fill="#ffffff" opacity=".12" d="M60 84 C 92 62, 150 54, 196 62 C 156 60, 100 68, 60 84 Z"/>
+      <g fill="none" stroke="#62270c" stroke-width="3" stroke-linecap="round" opacity=".55">
+        <path d="M126 88 Q 120 106 126 124"/><path d="M138 86 Q 132 106 138 126"/><path d="M150 86 Q 144 106 150 126"/>
+      </g>
+      <path fill="#101013" d="M36 118 C 62 130, 94 134, 118 128 C 100 150, 60 150, 36 130 Z"/>
+      <g fill="#ffffff">
+        <path d="M46 122 l4.5 9 l4.5 -7.6 Z"/><path d="M58 125 l4.5 9 l4.5 -7.4 Z"/><path d="M70 127 l4.5 9 l4.5 -7.4 Z"/>
+        <path d="M82 128 l4.5 9 l4.5 -7.6 Z"/><path d="M94 128 l4.5 8.4 l4.5 -8 Z"/><path d="M105 126 l4 7.6 l4 -8.4 Z"/>
+      </g>
+      <g class="jaw">
+        <path fill="url(#sgBelly)" d="M40 136 C 64 148, 96 148, 114 134 C 102 154, 62 156, 40 144 Z"/>
+        <g fill="#ffffff">
+          <path d="M56 143 l3.8 -7 l3.8 8 Z"/><path d="M68 145 l3.8 -7.4 l3.8 7.8 Z"/>
+          <path d="M80 145 l3.8 -7.4 l3.8 7 Z"/><path d="M92 143 l3.6 -7 l3.6 6.4 Z"/>
+        </g>
+      </g>
+      <path fill="none" stroke="#101013" stroke-width="3" stroke-linecap="round" d="M116 128 Q 124 126 128 120"/>
+      <ellipse cx="80" cy="98" rx="9" ry="9.5" fill="#ffffff"/>
+      <circle cx="79" cy="99" r="5.4" fill="#3c3c46"/>
+      <circle cx="78" cy="100" r="2.8" fill="#101013"/>
+      <circle cx="76.6" cy="96.6" r="1.6" fill="#ffffff"/>
+      <ellipse class="eye-lid" cx="80" cy="98" rx="9.6" ry="10" fill="#de6025"/>
+      <path fill="none" stroke="#62270c" stroke-width="3.5" stroke-linecap="round" d="M67 81 Q 80 74 93 81"/>
+      <g class="fin-pec"><path fill="url(#sgFin)" d="M128 146 C 140 164, 140 184, 124 200 C 112 184, 108 162, 116 146 Z"/></g>
+      <path fill="url(#sgFin)" d="M206 150 C 214 160, 216 170, 212 180 C 202 170, 198 160, 200 152 Z"/>
+    </g>
+    <g fill="none" stroke="#e07f52" stroke-width="2" opacity=".7">
+      <circle class="bub b1" cx="28" cy="86" r="5"/><circle class="bub b2" cx="16" cy="66" r="3.4"/><circle class="bub b3" cx="34" cy="52" r="2.4"/>
+    </g>
+  </svg>
+  <div class="code">404</div>
+  <h1>NOTHING BUT OPEN WATER OUT HERE</h1>
+  <p>The page you're hunting swam off. Sharky looked everywhere — even behind the coral.
+     Let's get you back to the boat.</p>
+  <div class="ctas">
+    <a class="btn primary" href="/"><img src="/static/brand-2026/icon/breakshark-icon.svg" alt="" style="height:.85em;width:auto;vertical-align:-.1em;margin-right:.15em"> Back to home</a>
+    <a class="btn" href="/tv.html">▶ Live demo</a>
+    <a class="btn" href="/founding10.html">Founding 10</a>
+  </div>
+  <footer>
+    <a class="brand lockup" href="/"><img src="/static/brand-2026/logo-lockup/breakshark-logo-transparent.svg" alt="BreakShark"></a>
+    <div class="patline">U.S. PATENT PENDING — THREE PROVISIONALS FILED JULY 17, SEPTEMBER 3 AND SEPTEMBER 25, 2026<br>© 2026 BREAKSHARK, INC. · AN AMERICAN COMPANY, AMERICAN-BUILT · MAXX ZAMANI, ORANGE COUNTY, CALIFORNIA<br>BREAKSHARK, INC. — A DELAWARE C-CORPORATION, FORMED AUGUST 10, 2026</div>
+  </footer>
+</body>
 </html>
