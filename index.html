@@ -73,7 +73,7 @@ section{padding:110px 0;position:relative;scroll-margin-top:100px}
 .reveal.in{opacity:1;transform:none}
 
 /* ── STATUS BAR + NAV ─────────────────────────────── */
-.statusbar{position:fixed;top:0;left:0;right:0;z-index:70;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(224,127,82,.35);font:500 11px var(--mono);letter-spacing:.08em;color:var(--faint)}
+.statusbar{position:absolute;top:0;left:0;right:0;z-index:70;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(224,127,82,.35);font:500 11px var(--mono);letter-spacing:.08em;color:var(--faint)}
 .statusbar-in{max-width:var(--wrap);margin:0 auto;padding:8px 24px;display:flex;gap:22px;align-items:center;white-space:nowrap;overflow:hidden}
 .sdot{width:8px;height:8px;border-radius:50%;background:var(--faint);display:inline-block;margin-right:7px;flex:none}
 .sdot.on{background:var(--blue);box-shadow:0 0 10px var(--blue);animation:pulse 1.6s infinite}
@@ -81,8 +81,13 @@ section{padding:110px 0;position:relative;scroll-margin-top:100px}
 .statusbar b{color:var(--text);font-weight:600}
 .statusbar .g{color:var(--blue2)}
 .statusbar .right{margin-left:auto;color:var(--blue2);opacity:.9}
+.statusbar .sbmq{flex:none;display:inline-block}
+.statusbar .sbmq.on{animation:sbmq 16s linear infinite}
+.statusbar .sbmq.on>span{padding-right:56px}
+@keyframes sbmq{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.statusbar .sbmq.on{animation:none}}
 @media(max-width:720px){.statusbar .hide-m,.statusbar .right{display:none}}
-header{position:fixed;top:31px;left:0;right:0;z-index:60;background:rgba(0,0,0,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(58,58,64,.6)}
+header{position:absolute;top:31px;left:0;right:0;z-index:60;background:rgba(0,0,0,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(58,58,64,.6)}
 header .wrap{display:flex;align-items:center;gap:22px;height:62px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--text);flex:none}
 .brand img{height:26px;width:auto;display:block}
@@ -585,7 +590,7 @@ table.ar td.v.us{color:var(--green)}
 
 <div class="statusbar">
   <div class="statusbar-in">
-    <span>LIVE SPORTS: <b class="g">99.5% ACCURATE · THOUSANDS OF HOURS GRADED</b></span>
+    <span class="sbmq" id="sbMq"><span>LIVE SPORTS: <b class="g">99.5% ACCURATE · THOUSANDS OF HOURS OF TESTED LIVE TV</b></span></span>
     <span class="hide-m" id="sbLive" style="display:none"><span class="sdot" id="sbDot"></span><span id="sbState">VENUE BOX: ON AND RUNNING</span></span>
     <span class="hide-m" id="sbBreaks" style="display:none">BREAKS CAUGHT · LAST 24H: <b>—</b></span>
     <a class="right" href="#proof">watch the film ↓</a>
@@ -653,27 +658,11 @@ table.ar td.v.us{color:var(--green)}
   </div>
 </section>
 
-<!-- ═══ TICKER ═══ -->
-<div class="ticker" aria-label="Graded results">
-  <div class="lbl">GRADED</div>
-  <div class="track" id="track">
-    <span>OCT 26 · THOUSANDS OF HOURS GRADED · 12 BOXES · <b>99.5% ACCURATE</b> · <b>97% OF ADS CAUGHT</b></span>
-    <span>AUG 28 · 9 HR DAYTIME · <b>73 BREAKS GRADED</b></span>
-    <span>AUG 29 · NFL LIONS–COLTS · <b>64 BREAKS GRADED</b></span>
-    <span>AUG 29 · COMMERCIAL VS HOME SATELLITE · <b>SAME ADS, SAME SECONDS</b></span>
-    <span>AUG 30 · EVENING SATELLITE · <b>37 BREAKS GRADED</b></span>
-    <span>SEP 1 · ONE BOX, ONE ROOM, 13 HOURS STRAIGHT · <b>0 CRASHES</b></span>
-    <span>SEP 1 · SATELLITE · <b>29 BREAKS GRADED</b></span>
-  </div>
-</div>
-
 <!-- ═══ AMERICAN COMPANY (Maxx, 9/04: "make a stance") ═══ -->
 <!-- ═══ MULTIBOX CATCH WALL ═══ -->
 <section id="multibox" class="band deep">
   <div class="wrap reveal">
-    <div class="kick"><span class="livedot"></span>Six boxes · recorded inside the box</div>
     <h2>Six screens. Six boxes.<br>Every catch is <span class="g">real.</span></h2>
-    <p class="sub">Each screen below is one BreakShark box&rsquo;s own TV output, <b style="color:var(--text)">recorded inside the box: the exact picture it sent to its TV</b>, not a camera pointed at a wall. Live TV, the moment the break hits, the bar&rsquo;s own screen taking over, and the broadcast coming back. The cut and the return play at real speed; the middle of each break is sped up and says so on screen. Nothing here is staged or re-created. When a break hits, you watch the screen flip.</p>
   </div>
 
   <div class="tvwall" id="tvWall">
@@ -707,27 +696,6 @@ table.ar td.v.us{color:var(--green)}
           <source src="vid/wall6/box6.mp4" type="video/mp4"></video><span class="tvt-wait">clip pending</span></div>
         <figcaption><b>Box 06</b><span class="tvt-sport" data-box="6">SEC Network</span></figcaption>
       </figure>
-  </div>
-  <div class="tvwall-map">
-    <div class="mono sigl">Signal map — which box is driving which screen</div>
-    <div class="sigmap six">
-      <div class="sig"><div class="br"></div><b>Box 01</b><span>Screen 1 · its own HDMI output</span></div>
-      <div class="sig"><div class="br"></div><b>Box 02</b><span>Screen 2 · its own HDMI output</span></div>
-      <div class="sig"><div class="br"></div><b>Box 03</b><span>Screen 3 · its own HDMI output</span></div>
-      <div class="sig"><div class="br"></div><b>Box 04</b><span>Screen 4 · its own HDMI output</span></div>
-      <div class="sig"><div class="br"></div><b>Box 05</b><span>Screen 5 · its own HDMI output</span></div>
-      <div class="sig"><div class="br"></div><b>Box 06</b><span>Screen 6 · its own HDMI output</span></div>
-    </div>
-  </div>
-
-  <div class="wrap reveal">
-    <div class="board" style="margin-top:28px">
-      <div class="tile"><div class="n">6</div><div class="l">boxes, one screen each</div><div class="s">every tile is that box&rsquo;s own output</div></div>
-      <div class="tile"><div class="n">0</div><div class="l">cameras</div><div class="s">recorded from the picture the box sends to its TV</div></div>
-      <div class="tile"><div class="n">1&times;</div><div class="l">speed at every cut and every return</div><div class="s">only the middle of a break is sped up, and labelled</div></div>
-      <div class="tile"><div class="n">6</div><div class="l">breaks, one per box, each from that box&rsquo;s own recording</div><div class="s">live TV · our screen · back on air</div></div>
-    </div>
-    <p class="sub" style="font-size:15px;margin-top:22px">Satellite, cable or streaming, the box reads the broadcast itself, which is why it can put the screen back on the broadcast the moment the break ends.</p>
   </div>
 </section>
 
@@ -1338,7 +1306,7 @@ table.ar td.v.us{color:var(--green)}
   n.addEventListener('click',function(e){if(e.target.tagName==='A')n.classList.remove('open')});
 })();
 /* ticker: duplicate track for a seamless loop */
-(function(){var t=document.getElementById('track');if(t)t.innerHTML+=t.innerHTML})();
+(function(){var m=document.getElementById('sbMq');if(m&&m.scrollWidth>m.parentNode.clientWidth-48){m.innerHTML+=m.innerHTML;m.classList.add('on')}})();
 /* money count-up */
 (function(){
   var el=document.getElementById('moneyBig');if(!el)return;var T=+el.dataset.target,done=false;
