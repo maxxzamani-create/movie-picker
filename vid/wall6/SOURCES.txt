@@ -1,0 +1,6 @@
+orangepi1/20261026-175043-1154 -> box1
+orangepi3/20261026-183838-353-long -> box3
+orangepi8/20261026-183005-195421 -> box2 (Maxx ok 10/26 21:1x)
+orangepi10/20261026-175631-3169-long -> box4 (Maxx ok 10/26 21:1x)
+orangepi6t/20261026-191021-2496.v2 -> box6 (banner scaled) (Maxx ok 10/26 21:1x)
+orangepi11/20261026-183629-75465 -> box5 (Spurs, studio bumper -> game)
