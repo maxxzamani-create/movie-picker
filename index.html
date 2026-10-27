@@ -177,7 +177,9 @@ nav.main .cta{color:#0a0a0c;background:linear-gradient(120deg,var(--blue2),var(-
 /* ── MONEY ─────────────────────────────────────────── */
 .moneygrid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
 .money-big{font-family:var(--display);font-size:clamp(90px,12.5vw,180px);line-height:.9;color:var(--green);letter-spacing:2px;margin-top:22px;font-weight:500;text-transform:uppercase}
-.money-big small{font-size:.38em;color:var(--text);letter-spacing:2px;margin-left:8px}
+.money-big small{display:inline-block;white-space:nowrap;font-size:.38em;line-height:1.05;color:var(--text);letter-spacing:2px;margin-left:8px}
+.money-big{white-space:nowrap}
+@media(max-width:560px){.money-big small{font-size:.25em;letter-spacing:1px;margin-left:6px}}
 .receipts{display:grid;gap:12px}
 .rcpt{display:grid;grid-template-columns:118px 1fr;gap:16px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;color:var(--dim);transition:border-color .2s,transform .2s}
 .rcpt:hover{border-color:var(--blue);transform:translateX(4px)}
@@ -799,8 +801,8 @@ table.ar td.v.us{color:var(--green)}
       <div>
         <div class="kick">The money</div>
         <h2>A third of your airtime<br>is <span class="money">already commercials.</span></h2>
-        <div class="money-big" id="moneyBig" data-target="63">0<small>MIN</small></div>
-        <p class="sub">of commercials in an average <b>NFL broadcast</b> — 32.98% of the airtime, about <b>23.5 hours a
+        <div class="money-big" id="moneyBig" data-target="63">0<small>MIN<br>PER GAME</small></div>
+        <p class="sub">of commercials in an average <b>NFL broadcast</b>. <b>33% of an average game is commercials</b>, about <b>23.5 hours a
           season</b>. You already pay for that airtime. Every minute of it sells <b>somebody else's brand</b> in your room.</p>
         <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
           <a class="chip" href="https://www.cbssports.com/nfl/news/study-nfl-fans-watch-an-average-of-almost-24-hours-of-commercials-in-a-season/" target="_blank" rel="noopener">CBS SPORTS · SEASON ANALYSIS ↗</a>
@@ -1309,7 +1311,7 @@ table.ar td.v.us{color:var(--green)}
 /* money count-up */
 (function(){
   var el=document.getElementById('moneyBig');if(!el)return;var T=+el.dataset.target,done=false;
-  function run(){if(done)return;done=true;var s=performance.now();(function f(n){var p=Math.min(1,(n-s)/1400),v=Math.round(T*(1-Math.pow(1-p,3)));el.innerHTML=v+'<small>MIN</small>';if(p<1)requestAnimationFrame(f)})(s)}
+  function run(){if(done)return;done=true;var s=performance.now();(function f(n){var p=Math.min(1,(n-s)/1400),v=Math.round(T*(1-Math.pow(1-p,3)));el.innerHTML=v+'<small>MIN<br>PER GAME</small>';if(p<1)requestAnimationFrame(f)})(s)}
   if(!('IntersectionObserver' in window))return run();
   new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){run();o.disconnect()}})},{threshold:.4}).observe(el);
 })();
