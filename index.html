@@ -132,6 +132,8 @@ nav.main .cta{color:#0a0a0c;background:linear-gradient(120deg,var(--blue2),var(-
 .adframe .fallback b{font-family:var(--display);font-size:clamp(21px,3vw,40px);color:var(--money-pale);letter-spacing:1px;font-weight:500;text-transform:uppercase}
 .adframe .fallback span{display:block;font:600 11px var(--mono);letter-spacing:.2em;color:#e07f52;margin-top:8px}
 @media(max-width:820px){.adframe{left:4%;right:4%;width:auto;top:15%}}
+/* phones: demo picture as its own strip under the menu, copy below it - nothing overlaps (Maxx 10/27) */
+@media(max-width:720px){.hero{min-height:0;display:block;padding-top:93px}.stage{position:relative;inset:auto;aspect-ratio:16/9}.stage-scrim{background:linear-gradient(180deg,rgba(0,0,0,0) 55%,var(--bg) 100%)}.stage-tag{top:10px!important;font-size:9px}#tagSim{top:auto!important;bottom:10px;right:10px}.adframe{left:6%;right:6%;top:6%;width:auto}.hero-copy{padding-top:22px}section.hero.adon .hero-copy h1,section.hero.adon .pat{opacity:1}}
 .hero-copy{position:relative;z-index:9;max-width:var(--wrap);margin:0 auto;width:100%;padding:0 24px 34px}
 .hero-copy h1{font-size:clamp(21px,5.65vw,81px);text-wrap:balance;text-shadow:0 2px 26px rgba(0,0,0,.95),0 0 60px rgba(0,0,0,.7);transition:opacity .5s}
 .hero-copy h1 .you{color:var(--blue2);text-shadow:0 0 40px rgba(224,127,82,.55),0 2px 26px rgba(0,0,0,.95)}
@@ -945,7 +947,6 @@ table.ar td.v.us{color:var(--green)}
     <div class="kick">Any game. Any channel. Any break.</div>
     <h2>If it has commercial breaks,<br>the SBX-1 <span class="g">hunts them.</span></h2>
     <p class="sub">Football, hockey, baseball, hoops, soccer, golf, race day, fight night — and not just sports. Watch each screen: the show plays, the break hits, <b style="color:var(--money)">your ad takes the screen</b>, the show comes back.</p>
-    <div class="toggle" id="reelTog"><button class="on" data-set="all">Every screen</button><button data-set="bar">Sports bar</button><button data-set="rest">Restaurant</button><button data-set="loop">Loop venue</button></div>
     <div class="chgrid" id="chGrid">
       <div class="ctile" data-clip="football" data-ad="wings" data-set="bar rest" data-copy="WING NIGHT|half price · till the 4th"><div class="clbl">LIVE FOOTBALL</div></div>
       <div class="ctile" data-clip="hockey" data-ad="burger" data-set="bar" data-copy="THE DOUBLE|two patties · one price"><div class="clbl">LIVE HOCKEY</div></div>
