@@ -147,7 +147,7 @@
     <a href="loop.html">Loop Mode</a>
     <a href="support.html">Support</a>
     <a href="sources.html">Sources</a>
-    <a class="cta" href="index.html#catchnight">Book a Catch Night</a>
+    <a class="cta" href="index.html#inquire">Inquire now</a>
   </nav>
 </header>
 
@@ -163,9 +163,9 @@
     I'd rather tell you that plainly than pretend there's a line out the door.</p>
   <div style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
     <a class="btn primary" href="#claim">Put my name on the board →</a>
-    <a class="btn" href="index.html#catchnight">Never seen it work? Book a free Catch Night</a>
+    <a class="btn" href="index.html#inquire">Never seen it work? Inquire now</a>
   </div>
-  <p class="mono" style="color:var(--faint);margin-top:18px">GRADED RECORD: 99.5% ACCURATE ON LIVE SPORTS · THOUSANDS OF HOURS GRADED SECOND BY SECOND ON 12 SBX-1 BOXES · 97% OF ADS CAUGHT — <a href="sources.html">see sources.html</a></p>
+  <p class="mono" style="color:var(--faint);margin-top:18px">GRADED RECORD: 99.5% ACCURATE ON LIVE SPORTS · THOUSANDS OF HOURS GRADED SECOND BY SECOND ON 12 SBX-1 BOXES — <a href="sources.html">see sources.html</a></p>
 </section>
 
 <!-- 2 · THE BOARD -->
@@ -223,22 +223,21 @@
 
   <div class="green-block" style="margin-top:22px">
     <b>ON MONEY, SO IT'S NOT A MYSTERY:</b> nothing gets billed unless you've seen terms in writing and
-    said yes to them. The founding ninety days are free — box, install and your ads. The box stays ours the whole time, so you never buy hardware. A Catch Night is free too, with nothing to sign.
+    said yes to them. The founding ninety days are free — box, install and your ads. The box stays ours the whole time, so you never buy hardware.
   </div>
 </section>
 
 <!-- 4 · HOW IT GOES -->
 <section id="how">
   <div class="kick">How it actually goes</div>
-  <h2>See it work. Install.<br>Then your <span class="g">own numbers.</span></h2>
-  <p class="sub">Three steps. Founding venues can go straight to the agreement — the Catch Night is there for rooms that have never seen the box.</p>
+  <h2>Inquire. Install.<br>Then your <span class="g">own numbers.</span></h2>
+  <p class="sub">Three steps. No long contract: cancel anytime.</p>
 
   <div class="steps">
     <div class="step">
-      <div class="n">01 · SEE IT WORK</div>
-      <h4>Free, nothing to sign</h4>
-      <p>I bring the SBX-1 to your place and run it on your TVs for one real game night. You hold the kill
-        switch the whole time. If you shrug, the box goes home with me and that's the end of it. Founding venues don't have to start here — you can go straight to the founding agreement and have the box in your room for a season instead of a night.</p>
+      <div class="n">01 · INQUIRE</div>
+      <h4>Tell us about your place</h4>
+      <p>Fill in the form below or just text me. I walk your setup and tell you honestly how many boxes your room needs before anything else happens.</p>
     </div>
     <div class="step">
       <div class="n">02 · INSTALL</div>
@@ -261,8 +260,7 @@
 
   <div class="amber-block" style="margin-top:14px">
     <b>WHERE IT'S PROVEN AND WHERE IT ISN'T:</b> twelve SBX-1 boxes on live TV, graded second by second
-    against answer keys a person signs: <b>99.5% accurate on live sports</b> across thousands of graded hours, with 97% of
-    the ads caught. <b>What it isn't:</b> a number from a bar. It's our own boxes on our own feeds, and your
+    against answer keys a person signs: <b>99.5% accurate on live sports</b> across thousands of graded hours. <b>What it isn't:</b> a number from a bar. It's our own boxes on our own feeds, and your
     room will produce its own numbers. Every figure, and how it
     was counted, is at <a href="sources.html">sources.html</a>.
   </div>
@@ -274,8 +272,7 @@
   <div class="offer">
     <h3>Put your name on a spot.</h3>
     <p class="sub" style="margin-top:8px">Fill this in and it opens a message to me — already written, you
-      just hit send. It goes to my phone, not a call center. If we've never met, start with a free Catch Night —
-      nothing to sign. Founding venues can go straight to the agreement.</p>
+      just hit send. It goes to my phone, not a call center. No long contract: cancel anytime.</p>
     <form class="claim" id="claimForm">
       <input required name="name" placeholder="Your name" aria-label="Your name" autocomplete="name">
       <input required name="venue" placeholder="Your place" aria-label="Venue name" autocomplete="organization">
@@ -338,7 +335,7 @@
   f.addEventListener('submit',function(e){
     e.preventDefault();
     var d=new FormData(f);
-    var body='Hey Maxx — '+d.get('name')+' here. I run '+d.get('venue')+' in '+d.get('city')+'. I want one of the Founding 10 spots, starting with a Catch Night. Reach me at '+d.get('phone')+'.';
+    var body='Hey Maxx — '+d.get('name')+' here. I run '+d.get('venue')+' in '+d.get('city')+'. I want one of the Founding 10 spots. Reach me at '+d.get('phone')+'.';
     var mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
     if(note)note.textContent=mobile
       ?'OPENING YOUR MESSAGES — HIT SEND AND MAXX REPLIES TODAY. OR CALL (916) 628-MAXX (6299).'
