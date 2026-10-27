@@ -1095,11 +1095,11 @@ table.ar td.v.us{color:var(--green)}
 
     <div class="ledgrid">
       <figure class="ledbox" style="margin:0">
-        <div class="head"><span><b>ON FILM</b> · A REAL CATCH ON A WALL TV · ONE TAKE, NO CUTS · THE BREAK FAST-FORWARDED 8×</span><span>SEPTEMBER 6, 2026</span></div>
-        <video controls playsinline preload="metadata" poster="vid/live-catch-2026-09-06-poster.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;background:#000000">
-          <source src="vid/live-catch-2026-09-06.mp4" type="video/mp4">
+        <div class="head"><span><b>ON SCREEN</b> · RECORDED INSIDE THE BOX · THE EXACT PICTURE IT SENT TO ITS TV · THE BREAK SPED UP 26×</span><span>OCTOBER 26, 2026</span></div>
+        <video controls playsinline preload="metadata" poster="vid/live-catch-2026-10-26-poster.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;background:#000000">
+          <source src="vid/live-catch-2026-10-26.mp4" type="video/mp4">
         </video>
-        <figcaption class="meta">One phone, one take, a real wall TV on a live college football broadcast. The break hits, BreakShark catches it, and every ad that plays is the bar’s own. The middle of the break is fast-forwarded so you can watch the game snap back. Nobody touched a thing.</figcaption>
+        <figcaption class="meta">Monday Night Football, live, recorded inside the box: the exact picture it sent to its TV, not a camera pointed at a wall. The break hits, BreakShark takes the screen with the bar&rsquo;s own ads, and the game comes back. The cut and the return play at real speed; only the middle of the break is sped up, and it says so on screen. Nobody touched a thing.</figcaption>
       </figure>
       <div class="ledbox">
         <div class="head" id="rigHead">VENUE BOX FEED — CHECKING…</div>
@@ -1499,7 +1499,7 @@ table.ar td.v.us{color:var(--green)}
   var U='https://kfsqpmexrlqkfmmarpug.supabase.co',K='sb_publishable_ZsK8APkvAFjAJ4CxibhMfw_KcYJZkJs',H={apikey:K,Authorization:'Bearer '+K};
   var sbDot=document.getElementById('sbDot'),sbState=document.getElementById('sbState'),sbBreaks=document.getElementById('sbBreaks'),bcT=document.getElementById('bcToday'),ledN=document.getElementById('ledLiveN'),ph=document.getElementById('rigPh'),rot=document.getElementById('rigRot'),head=document.getElementById('rigHead');
   var settled=false;setTimeout(function(){if(!settled){settled=true;offline()}},10000);
-  function offline(){sbState.textContent='VENUE BOX: OFF TONIGHT';if(head)head.textContent='VENUE BOX OFFLINE — THE SEPTEMBER 6 FILM IS THE RECEIPT';if(ph)ph.innerHTML='<span>VENUE BOX IS OFF RIGHT NOW.<br>THE GRADED RECORD IS BELOW — WATCH THE FILM.</span>';if(ledN){ledN.textContent='OFFLINE'}if(bcT)bcT.textContent='OFF'}
+  function offline(){sbState.textContent='VENUE BOX: OFF TONIGHT';if(head)head.textContent='VENUE BOX OFFLINE — THE OCTOBER 26 RECORDING IS THE RECEIPT';if(ph)ph.innerHTML='<span>VENUE BOX IS OFF RIGHT NOW.<br>THE GRADED RECORD IS BELOW — WATCH THE FILM.</span>';if(ledN){ledN.textContent='OFFLINE'}if(bcT)bcT.textContent='OFF'}
   try{
     var ads=null,stats=null;
     try{var r=await fetch(U+'/rest/v1/ads?select=filename,label,sort&active=eq.true&device_id=eq.opi1&order=sort',{headers:H});if(r.ok)ads=await r.json()}catch(e){}
