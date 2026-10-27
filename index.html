@@ -389,6 +389,7 @@ footer{border-top:1px solid rgba(224,127,82,.25);padding:64px 0 36px;background:
 .pn b{font-family:var(--display);font-size:36px;line-height:1;color:var(--text);display:block;font-weight:500;text-transform:uppercase}
 .pn.bad b{color:var(--steel)}
 .pn span{font-size:12px;color:var(--dim);display:block;margin-top:5px;line-height:1.4}
+@media(max-width:560px){.pn div{flex-basis:100%}}
 .pbox .cav{margin-top:14px;font:500 10px var(--mono);letter-spacing:.08em;color:var(--faint);line-height:1.7}
 
 .mathbox{margin-top:22px;border:1px solid var(--line2);border-radius:16px;overflow:hidden;background:#050506}
@@ -603,7 +604,6 @@ table.ar td.v.us{color:var(--green)}
   <div class="wrap">
     <a class="brand" href="#top"><img src="static/brand-2026/icon/breakshark-icon.svg" alt="BreakShark fin"><b>BREAKSHARK</b></a>
     <nav class="main" aria-label="Main">
-      <a href="#deal">The Deal</a>
       <a href="#how">How It Works</a>
       <a href="#studio">Ad Studio</a>
       <a href="#proof">Watch It Work</a>
@@ -616,7 +616,7 @@ table.ar td.v.us{color:var(--green)}
   </div>
 </header>
 <div class="mnav" id="mnav">
-  <a href="#compare">Drag It</a><a href="#deal">The Deal</a><a href="#how">How It Works</a><a href="#studio">Ad Studio</a>
+  <a href="#how">How It Works</a><a href="#studio">Ad Studio</a>
   <a href="#anygame">Any Game</a><a href="#proof">Watch It Work</a><a href="#multibox">Six Screens</a><a href="#box">The Box</a><a href="#number">Your Number</a>
   <a href="#catchnight">Catch Night</a><a href="#founding">Founding 10</a><a href="#faq">FAQ</a>
   <a href="loop.html">Loop Mode</a><a href="sources.html">Sources</a><a href="investors.html">Investors</a>
@@ -648,7 +648,7 @@ table.ar td.v.us{color:var(--green)}
       right back the second it returns.</p>
     <div class="hero-cta">
       <a class="btn primary" href="#catchnight">Book a free Catch Night</a>
-      <a class="btn" href="#deal">Why you keep all six slots →</a>
+      <a class="btn" href="#how">How it works →</a>
     </div>
     <div class="hero-facts">
       <span><b>99.5%</b> ACCURATE ON LIVE SPORTS</span>
@@ -817,118 +817,35 @@ table.ar td.v.us{color:var(--green)}
         <a class="rcpt" href="https://www.mlb.com/news/mlb-pace-of-play-rules-explanation-c266724556" target="_blank" rel="noopener">
           <b class="big">2:05</b><p>of guaranteed commercial break <b>between every half inning</b>. The league mandates it. 20+ minutes a game, every game.<span class="cite">MLB.com rulebook ↗</span></p></a>
       </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══ WITH / WITHOUT ═══ -->
-<section id="compare" style="padding-top:0">
-  <div class="wrap reveal">
-    <div class="kick b">Drag it</div>
-    <h2>Your screens tonight, <span class="g">both ways.</span></h2>
-    <p class="sub">Left: the "free" ad box — one slot for you, five sold to national brands. Right: BreakShark — every slot pushes your kitchen. Drag the line.</p>
-    <div class="cmp" id="cmp" style="--x:50%">
-      <div class="pane without">
-        <i class="y"><img src="static/deal/your-wings.jpg" alt="" loading="lazy"></i><i><img src="static/deal/their-cola.jpg" alt="" loading="lazy"></i><i><img src="static/deal/their-truck.jpg" alt="" loading="lazy"></i><i><img src="static/deal/their-ins.jpg" alt="" loading="lazy"></i><i><img src="static/deal/their-beer.jpg" alt="" loading="lazy"></i><i><img src="static/deal/their-phone.jpg" alt="" loading="lazy"></i>
-      </div>
-      <div class="pane with">
-        <i><img src="vid/ads/card-wings5.jpg" alt="" loading="lazy"></i><i><img src="vid/ads/burger.jpg" alt="" loading="lazy"></i><i><img src="vid/ads/card-happyhour.jpg" alt="" loading="lazy"></i><i><img src="vid/ads/card-pitchers.jpg" alt="" loading="lazy"></i><i><img src="vid/ads/pizza.jpg" alt="" loading="lazy"></i><i><img src="vid/ads/card-trivia.jpg" alt="" loading="lazy"></i>
-      </div>
-      <div class="lab l">WITHOUT · THE "FREE" AD BOX</div><div class="lab r" style="background:var(--blue);color:#0a0a0c">WITH BREAKSHARK</div>
-      <div class="handle"></div>
-      <input type="range" min="0" max="100" value="50" id="cmpRange" aria-label="Drag to compare">
-      <div class="cap">ONE COMMERCIAL BREAK · SIX SPOTS · DRAG TO COMPARE</div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ THE DEAL ═══ -->
-<section id="deal" class="band field">
-  <div class="wrap reveal">
-    <div class="kick b">The deal on the table</div>
-    <h2>The "free" ad box rents your screens.<br>BreakShark <span class="money">hands them back.</span></h2>
-    <p class="sub">A commercial break is about six spots long. The other product in this category gives you one of them
-      on its free plan, sells the other five to national advertisers, and pays you a cut. Their own published plan
-      sheet says so. We don't sell a national ad network, so there is nothing to reserve.</p>
-    <div class="deal">
-      <div class="deal-card">
-        <div class="tag">Their deal — the "free" ad box</div>
-        <h3>Six slots a break. You get one. They sell five.</h3>
-        <div class="slots">
-          <div class="slot yours"><img src="static/deal/your-wings.jpg" alt="" loading="lazy"></div>
-          <div class="slot theirs"><img src="static/deal/their-cola.jpg" alt="" loading="lazy"></div>
-          <div class="slot theirs"><img src="static/deal/their-truck.jpg" alt="" loading="lazy"></div>
-          <div class="slot theirs"><img src="static/deal/their-ins.jpg" alt="" loading="lazy"></div>
-          <div class="slot theirs"><img src="static/deal/their-beer.jpg" alt="" loading="lazy"></div>
-          <div class="slot theirs"><img src="static/deal/their-phone.jpg" alt="" loading="lazy"></div>
+      <div class="proof2" style="grid-template-columns:1fr">
+        <div class="pbox">
+          <div class="k">Published research · one month, real pubs</div>
+          <h4>Promos in the breaks <span class="g">did this.</span></h4>
+          <p>A four-location pub group ran its own promos in the commercial breaks for one month, measured against <b>four matched control locations</b>. Every number went up, in a single month. It&rsquo;s a published case study, not our own measurement.</p>
+          <div class="pn"><div><b>+6.5%</b><span>food and drink sales</span></div><div><b>+14.8%</b><span>pours of the one beer they featured</span></div><div><b>+70%</b><span>turnout at the event they promoted</span></div></div>
+          <div class="cav">A PUBLISHED CASE STUDY, NOT A BREAKSHARK MEASUREMENT. <a href="sources.html#borrowed">THE STUDY AND ITS CAVEATS →</a></div>
         </div>
-        <p>Their customer is the advertiser. Your room is the product — five of six slots sell <b>somebody else's brand</b>
-          on your walls, your TVs, your electric bill.</p>
-      </div>
-      <div class="deal-card us">
-        <div class="tag">The BreakShark deal</div>
-        <h3>Six slots a break. You keep all six.</h3>
-        <div class="slots">
-          <div class="slot yours"><img src="static/deal/your-wings.jpg" alt="" loading="lazy"></div>
-          <div class="slot yours"><img src="static/deal/your-burger.jpg" alt="" loading="lazy"></div>
-          <div class="slot yours"><img src="static/deal/your-cocktail.jpg" alt="" loading="lazy"></div>
-          <div class="slot yours"><img src="static/deal/your-gym.jpg" alt="" loading="lazy"></div>
-          <div class="slot yours"><img src="static/deal/your-steak.jpg" alt="" loading="lazy"></div>
-          <div class="slot yours"><img src="static/deal/your-barber.jpg" alt="" loading="lazy"></div>
-        </div>
-        <p>Nobody pays us for your screens, so your screens answer to nobody but you. All six slots push your specials,
-          and every extra order rings <b>your</b> register. Sell a slot to the mechanic down the street? <b style="color:var(--green)">Keep 100% of it.</b></p>
-        <p>And the box changes the channel for you between games. Theirs doesn't touch the receiver.</p>
-      </div>
-    </div>
-    <div class="fquote">Nobody pays us for your screens. <span class="g">That's the whole difference.</span></div>
-    <div class="proof2">
-      <div class="pbox">
-        <div class="k">Borrowed proof · their study, not ours</div>
-        <h4>One slot of six <span class="g">did this.</span></h4>
-        <p>A four-location pub group ran its own promos in the breaks for one month against <b>four matched control locations</b>. Published by a company in this category — a competitor of ours. We link it because you should read it yourself.</p>
-        <div class="pn"><div><b>+6.5%</b><span>food and drink sales</span></div><div><b>+14.8%</b><span>pours of the one beer they featured</span></div><div><b>+70%</b><span>turnout at the event they promoted</span></div></div>
-        <div class="cav">THEIR CASE STUDY DESCRIBES THE BOX AS FREE. THEIR PLAN SHEET SAYS THE FREE PLAN IS ONE SLOT OF SIX. PUTTING THE TWO TOGETHER IS OUR INFERENCE, NOT THEIR STATEMENT. <a href="sources.html#borrowed">BOTH QUOTES AND THE CAVEATS →</a></div>
-      </div>
-      <div class="pbox">
-        <div class="k">And the five slots you don't have aren't idle</div>
-        <h4>They work — <span class="g">for whoever bought them.</span></h4>
-        <p>From the <b>same company's</b> advertiser case study: a spirits brand ran in those slots across 200 venue screens for four months.</p>
-        <div class="pn bad"><div><b>+287%</b><span>that brand's sales, measured inside the venues</span></div><div><b>−28%</b><span>the competing brand's sales, same rooms</span></div><div><b>60%</b><span>of venues that didn't stock it started stocking it</span></div></div>
-        <div class="cav">THAT LAST ONE IS THE PART THAT MATTERS: FIVE SIXTHS OF EVERY BREAK IN YOUR BUILDING, STEERING WHAT YOU POUR AND WHAT YOU ORDER. <a href="sources.html#borrowed">SOURCE →</a></div>
-      </div>
-    </div>
-
-    <div class="mathbox" id="sixmodel">
-      <div class="hd"><b>THE HONEST MATH ON ALL SIX SLOTS</b><span>PART ONE IS ARITHMETIC · PART TWO IS A MODEL, MARKED</span></div>
-      <div class="tblwrap"><table class="ar">
-        <thead><tr><th>Part one — what each company publishes</th><th class="them">The free ad box</th><th class="us">BreakShark</th></tr></thead>
-        <tbody>
-          <tr><td>Ad slots in the break that are yours</td><td class="v">1 of 6</td><td class="v us">6 of 6</td></tr>
-          <tr><td>Your share of the break</td><td class="v">17%</td><td class="v us">100%</td></tr>
-          <tr><td>Slots selling somebody else's brand in your room</td><td class="v">5</td><td class="v us">0</td></tr>
-        </tbody>
-      </table></div>
-      <div class="model">
-        <div>
-          <div class="kick b" style="margin-bottom:6px">Part two — the model</div>
-          <div style="font-size:14px;color:var(--dim);line-height:1.55">One slot is <b style="color:var(--text)">their</b> published range exactly: their CEO's 3% low claim to their best case study's 6.5%. Their study does not say whether that 6.5% came from one slot or all six, so we cover both readings — the floor climbs to 6.5% only when you own all six, and the ceiling already starts at 6.5% with just one. Either way we never claim more than the number they published. Both lines flatten as they go, because the sixth time somebody sees your wings does less than the first. Tap a slot.</div>
-          <div class="pips" id="pips"></div>
-          <label for="smRev" style="display:block;font:600 10px var(--mono);letter-spacing:.16em;color:var(--faint);margin-top:18px">YOUR FOOD &amp; DRINK REVENUE A YEAR</label>
-          <input type="range" id="smRev" min="100000" max="1500000" step="25000" value="500000" style="width:100%;margin-top:8px;accent-color:var(--money)">
-          <div class="bebas" style="font-size:28px;color:var(--green);margin-top:4px" id="smRevVal">$500,000 / YR</div>
-        </div>
-        <div class="mout">
-          <div class="lbl">Modeled lift on food &amp; drink · not a promise</div>
-          <div class="band" id="slotBand">6.5% – 11.9%</div>
-          <div class="lbl" id="slotSay">ALL SIX SLOTS YOURS</div>
-          <div class="lbl" style="margin-top:16px">Worth, at your revenue, per year</div>
-          <div class="amt" id="slotDollars">$32,500 – $59,500</div>
-          <p style="font-size:12px;color:var(--faint);margin-top:12px;line-height:1.5">The same numbers drive the calculator below. <a href="sources.html#borrowed">The model, in full →</a></p>
+      <div class="mathbox" id="sixmodel">
+        <div class="hd"><b>WHAT ALL SIX SLOTS COULD BE WORTH TO YOU</b><span>AN ESTIMATE BUILT ON THE STUDY ABOVE · NOT A PROMISE</span></div>
+        <div class="model">
+          <div>
+            <div class="kick b" style="margin-bottom:6px">Run the numbers</div>
+            <div style="font-size:14px;color:var(--dim);line-height:1.55">A commercial break holds about six ad slots, and with BreakShark <b style="color:var(--text)">every one of them is yours</b>. The study above saw sales climb with promos in the breaks. Pick how many slots run your own promos and set your yearly food and drink sales: the more of the break you fill, the bigger the upside.</div>
+            <div class="pips" id="pips"></div>
+            <label for="smRev" style="display:block;font:600 10px var(--mono);letter-spacing:.16em;color:var(--faint);margin-top:18px">YOUR FOOD &amp; DRINK SALES A YEAR</label>
+            <input type="range" id="smRev" min="100000" max="1500000" step="25000" value="500000" style="width:100%;margin-top:8px;accent-color:var(--money)">
+            <div class="bebas" style="font-size:28px;color:var(--green);margin-top:4px" id="smRevVal">$500,000 / YR</div>
+          </div>
+          <div class="mout">
+            <div class="lbl">Estimated lift on food &amp; drink · not a promise</div>
+            <div class="band" id="slotBand">6.5% – 11.9%</div>
+            <div class="lbl" id="slotSay">ALL SIX SLOTS RUNNING YOUR PROMOS</div>
+            <div class="lbl" style="margin-top:16px">Worth, at your sales, per year</div>
+            <div class="amt" id="slotDollars">$32,500 – $59,500</div>
+            <p style="font-size:12px;color:var(--faint);margin-top:12px;line-height:1.5">An estimate, not a measurement: your room will set the real number. <a href="sources.html#borrowed">The study and the math →</a></p>
+          </div>
         </div>
       </div>
-    </div>
 
     <div class="station">
       <div>
@@ -944,10 +861,13 @@ table.ar td.v.us{color:var(--green)}
         <p class="mono" style="color:var(--faint);font-size:10px;line-height:1.7">PUBLISHED VENDOR RATE GUIDES — MARKET RANGE, NOT A QUOTE. YOUR TOWN AND YOUR FOOT TRAFFIC SET THE REAL PRICE. <a href="sources.html#rates">ALL THREE, WITH CAVEATS →</a></p>
       </div>
     </div>
-
+      </div>
+    </div>
   </div>
 </section>
 
+
+<!-- ═══ WITH / WITHOUT ═══ -->
 <!-- ═══ WHAT YOU GET ═══ -->
 <section id="features" class="band">
   <div class="wrap reveal">
@@ -961,7 +881,7 @@ table.ar td.v.us{color:var(--green)}
       <div class="feat"><div class="ic">CHANNELS</div><h4>Hands off the TVs</h4><p>Tell it tonight's games. When one game ends, the box changes the channel on the receiver to the next one, on every screen it drives. Nobody hunts for the remote or climbs for the guide. If your staff change a channel by hand, the box backs off and leaves it alone for two hours.</p></div>
       <div class="feat"><div class="ic">KILL SWITCH</div><h4>Your staff always wins</h4><p>One tap and the box stops touching the TVs. It stands down whenever a person is driving the room — a box that fights the bartender gets unplugged.</p></div>
       <div class="feat"><div class="ic">PRIVACY</div><h4>No camera. No room mic.</h4><p>It watches the TV line and nothing else — no camera, no microphone in the room. What leaves the building is a heartbeat (up or down, breaks caught, which promo is playing). Never audio, never the room.</p></div>
-      <div class="feat"><div class="ic">MUSIC</div><h4>No dead air in the break</h4><p>When a TV's volume is up, your ads play over light background music, so the room never drops into silence. A muted TV stays muted.</p></div>
+      <div class="feat"><div class="ic">MUSIC</div><h4>The vibe never dies</h4><p>No dead air in the break. When a TV's volume is up, your ads play over light background music, so the room never drops into silence and the vibe stays in check from the first pitch to the last call. A muted TV stays muted.</p></div>
       <div class="feat"><div class="ic">LIGHTS</div><h4>Know it's working from across the room</h4><p>The light on the front of the box tells your staff what it's doing: green, the game is on; blue, your ad is up; blinking teal, no picture is coming from the cable box, so check it; red alone, restart the box.</p></div>
     </div>
 
@@ -1138,7 +1058,7 @@ table.ar td.v.us{color:var(--green)}
           <label for="lift">The lift <b style="color:var(--text)">you</b> think you'd get on what you push</label>
           <input type="range" id="lift" min="1" max="12" step="0.1" value="4">
           <div class="val" id="liftVal">4.0%</div>
-          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Their published one-slot band is 3% to 6.5% — their CEO's own low number to their best case study. The six-slot model above runs 6.5% to 11.9%, and one slot is their published range exactly — 3% to 6.5% — so neither end ever claims past their own numbers. Slide it to whatever you'd actually bet on.</p>
+          <p style="margin-top:16px;font-size:13px;color:var(--faint);line-height:1.6">Figures reported for promos in the breaks run from about 3% to the 6.5% in the pub study above. Slide it to whatever you&rsquo;d actually bet on.</p>
         </div>
         <div class="calcout">
           <div class="line">What that would be worth a year · your numbers</div>
@@ -1281,7 +1201,7 @@ table.ar td.v.us{color:var(--green)}
         <p style="color:var(--dim);font-size:14.5px;margin-top:14px;max-width:34ch">The commercial break belongs to the room it plays in.</p>
         <div class="fnote">U.S. PATENT PENDING — THREE PROVISIONALS FILED JULY 17, SEPTEMBER 3 AND SEPTEMBER 25, 2026<br>© 2026 BREAKSHARK, INC. · AN AMERICAN COMPANY · MAXX ZAMANI, ORANGE COUNTY, CALIFORNIA<br>BREAKSHARK, INC. — A DELAWARE C-CORPORATION, FORMED AUGUST 10, 2026</div>
       </div>
-      <div><h5>Product</h5><a href="#how">How it works</a><a href="#deal">All six slots</a><a href="#studio">Ad Studio</a><a href="#box">The SBX-1</a><a href="loop.html">Loop mode</a><a href="tv.html">On the TV</a></div>
+      <div><h5>Product</h5><a href="#how">How it works</a><a href="#studio">Ad Studio</a><a href="#box">The SBX-1</a><a href="loop.html">Loop mode</a><a href="tv.html">On the TV</a></div>
       <div><h5>The record</h5><a href="#proof">Watch it work</a><a href="sources.html">Every number, sourced</a><a href="dashboard.html">Dashboard demo</a><a href="privacy.html">What the box sees</a><a href="support.html">After you say yes</a></div>
       <div><h5>Company</h5><a href="founding10.html">The Founding 10</a><a href="investors.html">Investors</a><a href="pitch.html">The pitch</a><a href="https://vault.breakshark.com" target="_blank" rel="noopener">Owner login</a></div>
       <div><h5>Talk to Maxx</h5><a href="sms:+19166286299">Text: (916) 628-MAXX (6299)</a><a href="tel:+19166286299">Call: (916) 628-MAXX (6299)</a><a href="mailto:maxx@breakshark.com">maxx@breakshark.com</a><a href="mailto:carly@breakshark.com">Or Carly: carly@breakshark.com</a><a href="#catchnight" style="color:var(--money);font-weight:700;margin-top:10px">Book a free Catch Night →</a></div>
@@ -1324,26 +1244,18 @@ table.ar td.v.us{color:var(--green)}
   rev.addEventListener('input',calc);lift.addEventListener('input',calc);calc();
 })();
 
-/* with/without slider */
-(function(){var c=document.getElementById('cmp'),r=document.getElementById('cmpRange');if(!c)return;r.addEventListener('input',function(){c.style.setProperty('--x',r.value+'%')})})();
-/* six-slot model */
+/* six-slot estimate: 1 slot 3.0-6.5%, 6 slots 6.5-11.9%, even steps between (Maxx 9/02 fixed points) */
 (function(){
-  var LOW=3.0,HIGH=6.5,n=6,rev=500000;
-  /* BOTH curves are pinned so neither ever claims more than the competitor's own two published numbers,
-     whichever way their case study is read (Maxx, 9/02):
-       floor  3.0% at one slot  ->  exactly 6.5% at six   (covers 'the 6.5% came from all six slots')
-       ceiling 6.5% at one slot ->  11.9% at six          (covers 'the 6.5% came from one slot') */
-  /* Maxx's fixed points (9/02): 1 slot = their published range exactly (3.0-6.5); 3 slots floor 4.5; 6 slots 6.5-11.9.
-     Both columns step up uniformly between those points — no flat spots, no curve nobody can read. */
+  var n=6,rev=500000;
   var FLOOR=[3.0,3.8,4.5,5.2,5.9,6.5], CEIL=[6.5,7.6,8.7,9.7,10.8,11.9];
   var pips=document.getElementById('pips'),band=document.getElementById('slotBand'),say=document.getElementById('slotSay'),dol=document.getElementById('slotDollars'),sr=document.getElementById('smRev'),srv=document.getElementById('smRevVal');
   if(!pips)return;
   function m(v){return '$'+(Math.round(v/500)*500).toLocaleString()}
   function lo(k){return FLOOR[k-1]} function hi(k){return CEIL[k-1]}
   function render(){
-    pips.innerHTML='';for(var k=1;k<=6;k++){var p=document.createElement('button');p.type='button';p.setAttribute('aria-pressed',k<=n?'true':'false');p.className='pip'+(k<=n?' on':'');p.textContent=k<=n?'YOURS':'THEIRS';p.dataset.k=k;p.addEventListener('click',function(){n=+this.dataset.k;render()});pips.appendChild(p)}
+    pips.innerHTML='';for(var k=1;k<=6;k++){var p=document.createElement('button');p.type='button';p.setAttribute('aria-pressed',k<=n?'true':'false');p.className='pip'+(k<=n?' on':'');p.textContent=k<=n?'YOURS':'OPEN';p.dataset.k=k;p.addEventListener('click',function(){n=+this.dataset.k;render()});pips.appendChild(p)}
     band.textContent=lo(n).toFixed(1)+'% – '+hi(n).toFixed(1)+'%';
-    say.textContent=n===6?'ALL SIX SLOTS YOURS':n===1?'ONE SLOT — THEIR FREE PLAN, TOP END TRIMMED':n+' OF 6 SLOTS YOURS';
+    say.textContent=n===6?'ALL SIX SLOTS RUNNING YOUR PROMOS':n===1?'ONE SLOT RUNNING YOUR PROMOS':n+' OF 6 SLOTS RUNNING YOUR PROMOS';
     dol.textContent=m(rev*lo(n)/100)+' – '+m(rev*hi(n)/100);
     srv.textContent=m(rev)+' / YR';
   }
