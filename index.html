@@ -159,11 +159,12 @@ nav.main .cta{color:#0a0a0c;background:linear-gradient(120deg,var(--blue2),var(-
 
 /* ── SCOREBOARD TILES ─────────────────────────────── */
 .board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+@media(min-width:1001px){.board.three{grid-template-columns:repeat(3,1fr)}}
 .tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 22px 22px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
 .tile::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--money) 55%,transparent 90%)}
 .tile:hover{border-color:var(--line2);transform:translateY(-3px)}
 .tile .n{font-family:var(--display);font-size:clamp(37px,3.4vw,49px);line-height:1;color:var(--blue2);letter-spacing:1px;font-weight:500;text-transform:uppercase}
-.tile .n.w{color:var(--steel)} .tile .n.bl{color:var(--blue)}
+.tile .n.words{font-size:clamp(28px,2.5vw,36px);line-height:1.05}.tile .n.w{color:var(--steel)} .tile .n.bl{color:var(--blue)}
 .tile .l{margin-top:10px;font-size:15px;color:var(--dim);line-height:1.5}
 .tile .s{margin-top:12px;font:500 10.5px var(--mono);letter-spacing:.1em;color:var(--faint);text-transform:uppercase}
 
@@ -972,41 +973,28 @@ table.ar td.v.us{color:var(--green)}
     <p class="sub">The record below is real. The takeover demos above are simulated and labeled. Twelve SBX-1 boxes run on live TV every day;
       each graded page has an answer key a person signs off, and the box's decisions are scored against it second by second.</p>
 
-    <div class="board">
+    <div class="board three">
       <div class="tile"><div class="n">99.5%</div><div class="l">accurate on live sports: the game on screen while the game is on, your ad while the break is on</div><div class="s">graded second by second</div></div>
-      <div class="tile"><div class="n">99.5%</div><div class="l">accurate on live sports, every second graded: the break covered with yours, the game left on</div><div class="s">live sports · thousands of hours</div></div>
-      <div class="tile"><div class="n">1000s</div><div class="l">of hours of live TV graded second by second against an answer key a person signs</div><div class="s">12 SBX-1 boxes</div></div>
+      <div class="tile"><div class="n words">Thousands of hours</div><div class="l">of live TV graded second by second against an answer key a person signs</div><div class="s">12 SBX-1 boxes</div></div>
       <div class="tile"><div class="n bl" id="bcToday">—</div><div class="l">commercial breaks the venue box has handled in the last 24 hours</div><div class="s">live · from the box itself</div></div>
     </div>
 
-    <div class="ledgrid">
+    <div class="ledgrid" style="grid-template-columns:1fr">
       <figure class="ledbox" style="margin:0">
-        <div class="head"><span><b>ON SCREEN</b> · RECORDED INSIDE THE BOX · THE EXACT PICTURE IT SENT TO ITS TV · THE BREAK SPED UP 13×</span><span>OCTOBER 26, 2026</span></div>
+        <div class="head"><span><b>REAL CATCH</b> · MONDAY NIGHT FOOTBALL</span></div>
         <video controls playsinline preload="metadata" poster="vid/live-catch-2026-10-26-poster.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;background:#000000">
           <source src="vid/live-catch-2026-10-26.mp4" type="video/mp4">
         </video>
-        <figcaption class="meta">Monday Night Football, live, recorded inside the box: the exact picture it sent to its TV, not a camera pointed at a wall. The break hits, BreakShark takes the screen with the bar&rsquo;s own ads, and the game comes back. The cut and the return play at real speed; only the middle of the break is sped up, and it says so on screen. Nobody touched a thing.</figcaption>
       </figure>
-      <div class="ledbox">
-        <div class="head" id="rigHead">VENUE BOX FEED — CHECKING…</div>
-        <div class="rigframe">
-          <div class="ph" id="rigPh"><span>CONNECTING TO THE VENUE BOX…</span></div>
-          <div id="rigRot" style="position:absolute;inset:0;display:none"></div>
-        </div>
-        <div class="meta">The <b style="color:var(--money)">actual ads the venue box is playing right now</b>, in our test room, from the same feed the device reads. Check it yourself — this link is open to anyone:
-          <a href="https://kfsqpmexrlqkfmmarpug.supabase.co/storage/v1/object/public/live-frames/opi1/latest.jpg" target="_blank" rel="noopener">see the frame the box is looking at right now →</a></div>
-      </div>
     </div>
 
     <div class="kick b" style="margin-top:56px">More of the record</div>
     <h3 class="bb" style="font-size:clamp(34px,4.4vw,58px)">Tested the <span class="g">hard way.</span></h3>
-    <div class="board">
-      <div class="tile"><div class="n">9 / 9</div><div class="l">Live test, July 27 — a person called every break out loud; the box caught all nine and never cut into live play. Relay moved, screen changed, game came back.</div><div class="s">supervised · hand-labeled live</div></div>
+    <div class="board three">
       <div class="tile"><div class="n">SELF-START</div><div class="l">Recovery from a dead plug. We cold-killed the box on purpose; it brought every piece of itself back with nobody touching it.</div><div class="s">tested July 27</div></div>
       <div class="tile"><div class="n">BARS TOO</div><div class="l">Channels that keep a graphics bar on screen the whole way through the ads — caught anyway.</div><div class="s">self-learning bottom-bar detector</div></div>
       <div class="tile"><div class="n">1080p</div><div class="l">The venue receiver is set to 1080p and verified at install — the picture the box was trained on is the picture it gets.</div><div class="s">golden install image</div></div>
     </div>
-    <div class="miss"><b class="big">NOT SURE IT'S A BREAK?<br>THE GAME STAYS ON.</b><p>The box is built to stay quiet rather than guess: if it isn't sure, your TVs keep showing the game. The light on the front tells your staff what it's doing, and one tap on your phone stands it down. <b>A night it stays quiet is a night your TVs work exactly like they do today.</b> <a href="sources.html#ours">Every figure and its source →</a></p></div>
 
   </div>
 </section>
@@ -1388,7 +1376,7 @@ table.ar td.v.us{color:var(--green)}
     if(bc!=null&&+bc>0){var n=(+bc).toLocaleString();sbBreaks.innerHTML='BREAKS CAUGHT · LAST 24H: <b class="g">'+n+'</b>';if(bcT)bcT.textContent=n;if(ledN)ledN.textContent=n}else{sbBreaks.innerHTML='VENUE BOX: <b class="g">WATCHING</b>';if(bcT)bcT.textContent='LIVE';if(ledN)ledN.textContent='WATCHING'}
     if(ads&&ads.length){
       ads=ads.filter(function(a){var L=a.label||'',F=a.filename||'';if(/tavernhouse/i.test(L)||/tavernhouse/i.test(F))return false;return /\(motion\)/i.test(L)||/(^|-)\d{2}_[a-z]+\.mp4$/i.test(F)||/-ad\d{2}-[a-z0-9-]+\.mp4$/i.test(F)||/BreakShark-AD-\d+/i.test(F)});
-      if(ads.length){var media=function(f){return U+'/storage/v1/object/public/ads/'+encodeURIComponent(f)},i=0,timer=null;
+      if(ads.length&&rot){var media=function(f){return U+'/storage/v1/object/public/ads/'+encodeURIComponent(f)},i=0,timer=null;
         function showAd(){if(document.hidden){clearTimeout(timer);timer=setTimeout(showAd,4000);return}var a=ads[i%ads.length];i++;var mp4=(a.filename||'').toLowerCase().endsWith('.mp4');
           rot.innerHTML=mp4?'<video src="'+media(a.filename)+'" muted autoplay playsinline style="width:100%;height:100%;object-fit:cover"></video>':'<img src="'+media(a.filename)+'" alt="" style="width:100%;height:100%;object-fit:cover">';
           rot.style.display='block';clearTimeout(timer);timer=setTimeout(showAd,mp4?15000:8000)}
