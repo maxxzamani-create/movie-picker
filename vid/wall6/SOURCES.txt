@@ -4,3 +4,5 @@ orangepi8/20261026-183005-195421 -> box2 (Maxx ok 10/26 21:1x)
 orangepi10/20261026-175631-3169-long -> box4 (Maxx ok 10/26 21:1x)
 orangepi6t/20261026-191021-2496.v2 -> box6 (banner scaled) (Maxx ok 10/26 21:1x)
 orangepi11/20261026-183629-75465 -> box5 (Spurs, studio bumper -> game)
+
+10/26 21:3x all six re-cut at half the old speed (Maxx): same clips + .half suffix, built by r5j/screen-recorder-20261026/halfspeed_remake.py
