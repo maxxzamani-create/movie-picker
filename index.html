@@ -81,12 +81,13 @@ section{padding:110px 0;position:relative;scroll-margin-top:100px}
 .statusbar b{color:var(--text);font-weight:600}
 .statusbar .g{color:var(--blue2)}
 .statusbar .right{margin-left:auto;color:var(--blue2);opacity:.9}
-.statusbar .sbmq{flex:none;display:inline-block}
-.statusbar .sbmq.on{animation:sbmq 16s linear infinite}
-.statusbar .sbmq.on>span{padding-right:56px}
+.statusbar .sbmq{flex:none;display:flex}
+.statusbar .sbmq.on{animation:sbmq var(--sbdur,30s) linear infinite}
+.statusbar:hover .sbmq{animation-play-state:paused}
+.statusbar .sbset{flex:none;display:inline-flex;align-items:center;gap:22px;padding-right:56px}
+.statusbar .sbset .right{margin-left:0}
 @keyframes sbmq{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.statusbar .sbmq.on{animation:none}}
-@media(max-width:720px){.statusbar .hide-m,.statusbar .right{display:none}}
 header{position:absolute;top:31px;left:0;right:0;z-index:60;background:rgba(0,0,0,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(58,58,64,.6)}
 header .wrap{display:flex;align-items:center;gap:22px;height:62px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--text);flex:none}
@@ -602,10 +603,12 @@ table.ar td.v.us{color:var(--green)}
 
 <div class="statusbar">
   <div class="statusbar-in">
-    <span class="sbmq" id="sbMq"><span>LIVE SPORTS: <b class="g">99.5% ACCURATE · THOUSANDS OF HOURS OF TESTED LIVE TV</b></span></span>
-    <span class="hide-m" id="sbLive" style="display:none"><span class="sdot" id="sbDot"></span><span id="sbState">VENUE BOX: ON AND RUNNING</span></span>
-    <span class="hide-m" id="sbBreaks" style="display:none">BREAKS CAUGHT · LAST 24H: <b>—</b></span>
+    <div class="sbmq" id="sbMq"><span class="sbset" id="sbSet">
+    <span>LIVE SPORTS: <b class="g">99.5% ACCURATE · THOUSANDS OF HOURS OF TESTED LIVE TV</b></span>
+    <span id="sbLive" style="display:none"><span class="sdot" id="sbDot"></span><span id="sbState">VENUE BOX: ON AND RUNNING</span></span>
+    <span id="sbBreaks" style="display:none">BREAKS CAUGHT · LAST 24H: <b>—</b></span>
     <a class="right" href="#proof">watch the film ↓</a>
+    </span></div>
   </div>
 </div>
 
@@ -1251,7 +1254,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
   n.addEventListener('click',function(e){if(e.target.tagName==='A')n.classList.remove('open')});
 })();
 /* ticker: duplicate track for a seamless loop */
-(function(){var m=document.getElementById('sbMq');if(m&&m.scrollWidth>m.parentNode.clientWidth-48){m.innerHTML+=m.innerHTML;m.classList.add('on')}})();
+(function(){var m=document.getElementById('sbMq'),s=document.getElementById('sbSet');if(!m||!s)return;var c=document.createElement('span');c.className='sbset';c.setAttribute('aria-hidden','true');m.appendChild(c);function sync(){c.innerHTML=s.innerHTML.replace(/ id="[^"]*"/g,'');[].forEach.call(c.querySelectorAll('a'),function(a){a.tabIndex=-1});m.style.setProperty('--sbdur',Math.max(18,s.offsetWidth/55)+'s')}sync();m.classList.add('on');if('MutationObserver' in window)new MutationObserver(sync).observe(s,{subtree:true,childList:true,characterData:true,attributes:true})})();
 /* money count-up */
 (function(){
   var el=document.getElementById('moneyBig');if(!el)return;var T=+el.dataset.target,done=false;
