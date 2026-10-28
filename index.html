@@ -634,8 +634,8 @@ table.ar td.v.us{color:var(--green)}
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="top">
   <div class="stage" aria-hidden="true">
-    <video class="herofilm" muted loop playsinline autoplay preload="auto" poster="vid/live-catch-2026-10-26-poster.jpg" src="vid/live-catch-2026-10-26.mp4"></video>
-    <div class="herolabel">REAL CATCH · MONDAY NIGHT FOOTBALL</div>
+    <video class="herofilm" id="heroFilm" muted playsinline autoplay preload="auto" poster="vid/live-catch-2026-10-26-poster.jpg" src="vid/live-catch-2026-10-26.mp4"></video>
+    <div class="herolabel" id="heroLabel">REAL CATCH · MONDAY NIGHT FOOTBALL</div>
     <div class="stage-scrim"></div>
   </div>
   <div class="hero-copy">
@@ -656,6 +656,19 @@ table.ar td.v.us{color:var(--green)}
     </div>
   </div>
 </section>
+<script>
+/* the six real catches: [file, poster, label, button] - hero and proof reel both play these in order, nonstop */
+window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-poster.jpg','NFL · MONDAY NIGHT FOOTBALL','NFL'],
+ ['vid/wall6/box2.mp4','vid/wall6/box2-poster.jpg','MLB','MLB'],
+ ['vid/wall6/box3.mp4','vid/wall6/box3-poster.jpg','NBA','NBA'],
+ ['vid/wall6/box4.mp4','vid/wall6/box4-poster.jpg','NHL','NHL'],
+ ['vid/wall6/box5.mp4','vid/wall6/box5-poster.jpg','NBA TV','NBA TV'],
+ ['vid/wall6/box6.mp4','vid/wall6/box6-poster.jpg','SEC NETWORK','SEC']];
+(function(){var v=document.getElementById('heroFilm'),lab=document.getElementById('heroLabel'),L=window.BS_CATCHES,cur=0;if(!v)return;
+ v.addEventListener('ended',function(){cur=(cur+1)%L.length;v.poster=L[cur][1];v.src=L[cur][0];
+   if(lab)lab.textContent='REAL CATCH · '+L[cur][2];var p=v.play();if(p&&p.catch)p.catch(function(){});});
+})();
+</script>
 
 <!-- ═══ AMERICAN COMPANY (Maxx, 9/04: "make a stance") ═══ -->
 <!-- ═══ MULTIBOX CATCH WALL ═══ -->
@@ -1004,12 +1017,7 @@ table.ar td.v.us{color:var(--green)}
     </div>
     <script>
     (function(){var v=document.getElementById('crVid'),dots=document.getElementById('crDots');if(!v||!dots)return;
-     var L=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-poster.jpg','NFL · MONDAY NIGHT FOOTBALL','NFL'],
-      ['vid/wall6/box2.mp4','vid/wall6/box2-poster.jpg','MLB','MLB'],
-      ['vid/wall6/box3.mp4','vid/wall6/box3-poster.jpg','NBA','NBA'],
-      ['vid/wall6/box4.mp4','vid/wall6/box4-poster.jpg','NHL','NHL'],
-      ['vid/wall6/box5.mp4','vid/wall6/box5-poster.jpg','NBA TV','NBA TV'],
-      ['vid/wall6/box6.mp4','vid/wall6/box6-poster.jpg','SEC NETWORK','SEC']];
+     var L=window.BS_CATCHES;if(!L)return;
      var lab=document.getElementById('crLabel'),cnt=document.getElementById('crCount'),cur=0,btns=[];
      function show(n,play){cur=n;v.poster=L[n][1];v.src=L[n][0];lab.textContent=L[n][2];cnt.textContent=(n+1)+' OF '+L.length;
        btns.forEach(function(b,x){b.classList.toggle('on',x===n);});
@@ -1017,7 +1025,7 @@ table.ar td.v.us{color:var(--green)}
      L.forEach(function(c,n){var b=document.createElement('button');b.type='button';b.textContent=(n+1)+' · '+c[3];
        b.addEventListener('click',function(){show(n,true);});dots.appendChild(b);btns.push(b);});
      btns[0].classList.add('on');
-     v.addEventListener('ended',function(){if(cur<L.length-1)show(cur+1,true);else show(0,false);});
+     v.addEventListener('ended',function(){show((cur+1)%L.length,true);});
     })();
     </script>
 
