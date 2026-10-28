@@ -508,6 +508,62 @@ table.ar td.v.us{color:var(--green)}
 @media(max-width:360px){.mbar .btn{font-size:12px;padding:9px 8px}.statusbar-in{font-size:10px;gap:12px}}
 
 
+/* ad studio demo: four steps that play by themselves */
+.asd-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.asd-step{font:600 9.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:7px 4px;border-radius:7px;border:1px solid var(--line2);background:transparent;cursor:pointer;line-height:1.3}
+.asd-step b{display:block;font:500 17px var(--display);margin-bottom:2px}
+.asd-step.done{color:var(--text);border-color:rgba(224,127,82,.5)}
+.asd-step.on{color:#0a0a0c;background:var(--money);border-color:var(--money)}
+.asd-screen{position:relative;height:400px;overflow:hidden;background:#0c0c0f}
+.asd-pane{position:absolute;inset:0;padding:18px;opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s;display:flex;flex-direction:column}
+.asd-pane.on{opacity:1;visibility:visible}
+.asd-k{font:600 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);margin-bottom:12px}
+.asd-p1{justify-content:center}
+.asd-inp{border:1px solid var(--line2);border-radius:10px;padding:16px 18px;background:rgba(255,255,255,.04);font-size:22px;color:var(--text);min-height:62px}
+.asd-caret{display:inline-block;width:2px;height:22px;background:var(--money);vertical-align:-4px;margin-left:2px;animation:blink 1s steps(1) infinite}
+.asd-btn{margin-top:16px;align-self:stretch;text-align:center;padding:14px;border-radius:10px;background:var(--money);color:#0a0a0c;font:700 15px var(--sans);transition:transform .15s,filter .15s}
+.asd-btn.press{transform:scale(.96);filter:brightness(1.25)}
+.asd-browser{position:relative;flex:1;border-radius:10px;overflow:hidden;background:#f3eee6;color:#1d1b18;display:flex;flex-direction:column;min-height:0}
+.asd-url{background:#26262b;color:#c9c9cf;font:500 12px var(--sans);padding:8px 12px}
+.asd-site{flex:1;padding:12px;display:flex;flex-direction:column;gap:10px;min-height:0}
+.asd-sitehead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:2px solid #1d1b18;padding-bottom:7px}
+.asd-sitehead b{font:700 18px Georgia,serif}.asd-sitehead span{font:600 11px var(--sans);color:#6b6358}
+.asd-sitebody{flex:1;display:grid;grid-template-columns:1.45fr 1fr;gap:10px;min-height:0}
+.asd-photos{display:grid;grid-template-columns:1fr 1fr;gap:7px;min-height:0}
+.asd-photos figure{margin:0;position:relative;border-radius:6px;overflow:hidden;background:#000;min-height:0}
+.asd-photos img{width:100%;height:100%;object-fit:cover;display:block}
+.asd-photos figcaption{position:absolute;left:0;right:0;bottom:0;padding:4px 7px;font:700 11px var(--sans);color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75))}
+.asd-specials{background:#fff;border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:7px}
+.asd-sph{font:700 13px Georgia,serif;margin-bottom:2px}
+.asd-sp{font:600 12px/1.35 var(--sans);padding:6px 58px 6px 7px;border-radius:5px;background:#f3eee6;position:relative}
+.asd-f{outline:2px solid transparent;outline-offset:1px;transition:outline-color .25s,box-shadow .25s}
+.asd-f.found{outline-color:var(--money);box-shadow:0 0 0 4px rgba(224,127,82,.25)}
+.asd-f.found::after{content:"FOUND";position:absolute;right:4px;top:4px;font:700 8.5px var(--mono);letter-spacing:.08em;padding:2px 5px;border-radius:3px;background:var(--money);color:#0a0a0c}
+.asd-scan{position:absolute;left:0;right:0;top:34px;height:3px;background:var(--money);box-shadow:0 0 18px 6px rgba(224,127,82,.55);opacity:0}
+.asd-p2.scan .asd-scan{animation:asdscan 3s linear forwards}
+@keyframes asdscan{0%{top:34px;opacity:1}92%{opacity:1}100%{top:100%;opacity:0}}
+.asd-count{margin-top:10px;font:600 11px var(--mono);letter-spacing:.1em;color:var(--blue2);text-transform:uppercase}
+.asd-picks{display:grid;grid-template-columns:1fr 1fr;gap:9px;flex:1;min-height:0}
+.asd-pk{position:relative;border:1px solid var(--line2);border-radius:9px;overflow:hidden;background:#131316;display:flex;flex-direction:column;min-height:0;transition:border-color .2s,box-shadow .2s}
+.asd-pk img{width:100%;flex:1;min-height:0;object-fit:cover;display:block}
+.asd-pk b{padding:7px 9px;font:700 12px/1.3 var(--sans);color:var(--text)}
+.asd-pk .tk{position:absolute;left:8px;top:8px;width:22px;height:22px;border-radius:6px;border:1px solid rgba(255,255,255,.6);background:rgba(4,4,6,.72);display:grid;place-items:center;font:700 13px var(--sans);color:transparent}
+.asd-pk.on{border-color:var(--money);box-shadow:0 0 0 1px var(--money)}
+.asd-pk.on .tk{background:var(--money);border-color:var(--money);color:#0a0a0c}
+.asd-ads{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.asd-ad{position:relative}
+.asd-adv{aspect-ratio:16/9;border-radius:9px;overflow:hidden;border:1px solid rgba(224,127,82,.55);background:#000}
+.asd-adv img,.asd-adv video{width:100%;height:100%;object-fit:cover;display:block}
+.asd-p4.on .asd-kb{animation:asdkb 7s ease-in-out infinite alternate}
+@keyframes asdkb{to{transform:scale(1.12) translateX(-3%)}}
+.asd-from{margin-top:7px;font-size:12px;line-height:1.4;color:var(--dim)}.asd-from b{color:var(--text)}
+.asd-chip{display:inline-block;margin-top:8px;font:700 9.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:5px 8px;border-radius:5px;border:1px solid var(--line2);color:var(--dim)}
+.asd-chip.ok{background:var(--money);border-color:var(--money);color:#0a0a0c}
+.asd-cap{padding:14px 18px;border-top:1px solid var(--line);font-size:15px;line-height:1.5;color:var(--dim);min-height:76px}
+.asd-cap b{color:var(--text)}
+.asd-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 18px 16px;font:500 9.5px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.asd-foot button{font:600 11px var(--mono);letter-spacing:.08em;color:var(--blue2);background:transparent;border:1px solid var(--line2);border-radius:6px;padding:7px 10px;cursor:pointer;white-space:nowrap}
+@media(max-width:620px){.asd-screen{height:660px}.asd-step{font-size:8px;letter-spacing:.04em}.asd-sitebody{grid-template-columns:1fr}.asd-specials{gap:5px;padding:8px}.asd-sp{font-size:11px;padding:4px 6px}.asd-ads{grid-template-columns:1fr}.asd-inp{font-size:18px}.asd-foot{flex-direction:column;align-items:flex-start}}
 .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
 .pcard{position:relative;border:1px solid var(--line2);border-radius:9px;overflow:hidden;background:#131316;cursor:pointer;transition:border-color .15s,box-shadow .15s}
 .pcard img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
@@ -947,27 +1003,67 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
           <li><b>Nothing airs until you say so.</b> Finished spots wait in a list with the video and the line.
             Press Approve and it joins that box's lineup and starts playing on your screens.</li>
         </ul>
-        <p class="sub" style="font-size:15.5px"><b>You do the fun part:</b> pick what you want to show off, say what the spot should say, and choose six seconds or ten. <b>We do the rest.</b> Every spot comes out in HD, and making them is free. Make as many as you like and play them as often as you want.</p>
+        <p class="sub" style="font-size:15.5px"><b>You do the fun part:</b> pick what you want to show off and say what the spot should say. <b>We do the rest.</b> Every spot comes out in HD, and making them is free. Make as many as you like and play them as often as you want.</p>
       </div>
 
-      <div class="mock">
-        <div class="bar"><i></i><i></i><i></i><span>DEMO · HOW AD STUDIO WORKS ON THE OWNER'S DASHBOARD</span></div>
-        <div class="body">
-          <div class="fld"><label>Your website</label><div class="inp typing" id="adType"></div></div>
-          <div class="fld">
-            <div class="foundnote">▸ FOUND 4 PHOTOS ON YOUR SITE — TICK THE ONES YOU WANT</div>
-            <div class="pgrid" id="pgrid">
-              <div class="pcard on"><span class="tk">✓</span><img src="vid/ads/card-wings5.jpg" alt=""><div class="ln">Wing night — half price till the fourth</div><div class="src">FROM /MENU</div></div>
-              <div class="pcard on"><span class="tk">✓</span><img src="vid/ads/burger.jpg" alt=""><div class="ln">The double, fries and a draft</div><div class="src">FROM /MENU</div></div>
-              <div class="pcard"><span class="tk">✓</span><img src="vid/ads/cocktails.jpg" alt=""><div class="ln">Happy hour, four to seven</div><div class="src">FROM /SPECIALS</div></div>
-              <div class="pcard"><span class="tk">✓</span><img src="vid/ads/pizza.jpg" alt=""><div class="ln">Kitchen open late, every night</div><div class="src">FROM /HOME</div></div>
+      <div class="mock asd" id="asd">
+        <div class="bar"><i></i><i></i><i></i><span>DEMO · HOW AD STUDIO WORKS</span></div>
+        <div class="asd-steps" role="tablist">
+          <button type="button" class="asd-step on" data-s="0"><b>1</b>Your website</button>
+          <button type="button" class="asd-step" data-s="1"><b>2</b>We read it</button>
+          <button type="button" class="asd-step" data-s="2"><b>3</b>You pick</button>
+          <button type="button" class="asd-step" data-s="3"><b>4</b>Your ads</button>
+        </div>
+        <div class="asd-screen">
+          <div class="asd-pane asd-p1 on">
+            <div class="asd-k">Type your web address</div>
+            <div class="asd-inp"><span id="asdUrl"></span><i class="asd-caret"></i></div>
+            <div class="asd-btn" id="asdFind">Find my photos →</div>
+          </div>
+          <div class="asd-pane asd-p2">
+            <div class="asd-browser">
+              <div class="asd-url">🔒 yourbar.com</div>
+              <div class="asd-site">
+                <div class="asd-sitehead"><b>Your Bar &amp; Grill</b><span>Menu · Specials · Events</span></div>
+                <div class="asd-sitebody">
+                  <div class="asd-photos">
+                    <figure class="asd-f" data-f="0"><img src="vid/ads/site/wings.jpg" alt=""><figcaption>Wings</figcaption></figure>
+                    <figure class="asd-f" data-f="1"><img src="vid/ads/site/burger.jpg" alt=""><figcaption>Burger</figcaption></figure>
+                    <figure class="asd-f" data-f="2"><img src="vid/ads/site/cocktails.jpg" alt=""><figcaption>Cocktails</figcaption></figure>
+                    <figure class="asd-f" data-f="3"><img src="vid/ads/site/pizza.jpg" alt=""><figcaption>Pizza</figcaption></figure>
+                  </div>
+                  <div class="asd-specials">
+                    <div class="asd-sph">This week's specials</div>
+                    <div class="asd-f asd-sp" data-f="4">$5 wings every Wednesday</div>
+                    <div class="asd-f asd-sp" data-f="5">Game-day burger + beer, $12</div>
+                    <div class="asd-f asd-sp" data-f="6">Happy hour 4 to 7</div>
+                  </div>
+                </div>
+              </div>
+              <i class="asd-scan"></i>
+            </div>
+            <div class="asd-count" id="asdCount">Reading yourbar.com…</div>
+          </div>
+          <div class="asd-pane asd-p3">
+            <div class="asd-k">Found on your site · tick the ones you want</div>
+            <div class="asd-picks">
+              <div class="asd-pk" data-k="0"><span class="tk">✓</span><img src="vid/ads/site/wings.jpg" alt=""><b>$5 wings every Wednesday</b></div>
+              <div class="asd-pk" data-k="1"><span class="tk">✓</span><img src="vid/ads/site/burger.jpg" alt=""><b>Game-day burger + beer, $12</b></div>
+              <div class="asd-pk"><span class="tk">✓</span><img src="vid/ads/site/cocktails.jpg" alt=""><b>Happy hour 4 to 7</b></div>
+              <div class="asd-pk"><span class="tk">✓</span><img src="vid/ads/site/pizza.jpg" alt=""><b>Kitchen open late</b></div>
             </div>
           </div>
-          <div class="fld"><label>Length</label><div class="chips"><span class="cp on">6 sec</span><span class="cp">10 sec</span></div></div>
-          <div id="mockPrev" style="display:none;margin:4px 0 14px;border:1px solid rgba(224,127,82,.6);border-radius:10px;overflow:hidden;position:relative"><img src="vid/ads/card-wings5.jpg" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover"><span style="position:absolute;left:10px;top:10px;font:600 9.5px var(--mono);letter-spacing:.16em;padding:5px 9px;border-radius:4px;background:rgba(224,127,82,.95);color:#0a0a0c">WAITING FOR YOUR OK</span></div>
-          <button class="btn primary go" type="button" id="mockGo">Make my spots →</button>
-          <div class="fine">NOTHING REACHES A SCREEN UNTIL YOU PRESS APPROVE</div>
+          <div class="asd-pane asd-p4">
+            <div class="asd-k">Your ads, made for you</div>
+            <div class="asd-ads">
+              <div class="asd-ad"><div class="asd-adv"><img class="asd-kb" src="vid/ads/card-wings5.jpg" alt="Finished ad: $5 wings every Wednesday"></div><div class="asd-from">Made from your <b>wings photo</b> + &ldquo;$5 wings every Wednesday&rdquo;</div><span class="asd-chip">Waiting for your OK</span></div>
+              <div class="asd-ad"><div class="asd-adv"><video muted loop playsinline preload="none" poster="vid/ads/burger.jpg" data-src="vid/ads/burger.mp4"></video></div><div class="asd-from">Made from your <b>burger photo</b> + &ldquo;Game-day burger + beer, $12&rdquo;</div><span class="asd-chip">Waiting for your OK</span></div>
+            </div>
+            <div class="asd-btn" id="asdOk">Approve →</div>
+          </div>
         </div>
+        <div class="asd-cap" id="asdCap"></div>
+        <div class="asd-foot"><span>FREE · ALWAYS HD · NOTHING AIRS UNTIL YOU APPROVE</span><button type="button" id="asdAgain">↺ Watch again</button></div>
       </div>
     </div>
   </div>
@@ -1339,20 +1435,38 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
     if(note)note.textContent='YOUR MESSAGE IS BELOW. COPY IT AND TEXT IT TO (916) 628-MAXX (6299), OR EMAIL IT. OR JUST CALL.';var out=document.getElementById('claimOut'),msg=document.getElementById('claimMsg'),cp=document.getElementById('claimCopy');if(out){out.style.display='block';msg.textContent=body;cp.onclick=function(){try{navigator.clipboard.writeText(body);cp.textContent='Copied ✓'}catch(x){cp.textContent='Select and copy the text above'}};out.scrollIntoView({block:'nearest'})}
   });
 })();
-/* ad studio photo cards */
-(function(){var g=document.getElementById('pgrid');if(!g)return;g.addEventListener('click',function(e){var c=e.target.closest('.pcard');if(c)c.classList.toggle('on')})})();
-/* ad studio chips */
-(function(){document.querySelectorAll('.mock .chips').forEach(function(g){g.addEventListener('click',function(e){var c=e.target.closest('.cp');if(!c)return;g.querySelectorAll('.cp').forEach(function(x){x.classList.toggle('on',x===c)})})})})();
-/* ad studio typing demo */
-(function(){
-  var el=document.getElementById('adType');if(!el)return;
-  var lines=['yourbar.com','yourrestaurant.com','yourvenue.com'];
-  var b=document.getElementById('mockGo'),pv=document.getElementById('mockPrev');
-  if(b)b.addEventListener('click',function(){b.textContent='Building your spots…';pv.style.display='none';setTimeout(function(){pv.style.display='block';b.textContent='2 spots built — waiting for your OK ✓'},1400);setTimeout(function(){b.textContent='Make my spots →';pv.style.display='none'},7000)});
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=lines[0];el.classList.remove('typing');return}
-  var li=0,ci=0,del=false;
-  (function tick(){var s=lines[li%lines.length];ci=del?ci-1:ci+1;el.textContent=s.slice(0,ci);var w=del?26:52;
-    if(!del&&ci===s.length){del=true;w=2100}else if(del&&ci===0){del=false;li++;w=340}setTimeout(tick,w)})();
+/* ad studio demo: website -> read it -> pick -> ads, plays by itself, steps clickable */
+(function(){var root=document.getElementById('asd');if(!root)return;
+ var panes=root.querySelectorAll('.asd-pane'),steps=root.querySelectorAll('.asd-step'),cap=document.getElementById('asdCap'),
+  url=document.getElementById('asdUrl'),find=document.getElementById('asdFind'),cnt=document.getElementById('asdCount'),ok=document.getElementById('asdOk'),
+  vid=root.querySelector('.asd-adv video'),timers=[],started=false;
+ var CAPS=['<b>Step 1.</b> Type in your web address. That\'s all we need to get started.',
+  '<b>Step 2.</b> We read your website and pull out <b>your photos</b> and <b>your specials</b>, all on our own.',
+  '<b>Step 3.</b> You tick the ones you want to show off. Change any of the words if you like.',
+  '<b>Step 4.</b> We turn each one into a moving ad. Press <b>Approve</b> and it starts playing on your TVs during the breaks.'];
+ function later(f,ms){timers.push(setTimeout(f,ms))}
+ function clear(){timers.forEach(clearTimeout);timers=[]}
+ function reset(){url.textContent='';find.classList.remove('press');ok.classList.remove('press');ok.textContent='Approve →';
+  root.querySelectorAll('.found').forEach(function(e){e.classList.remove('found')});root.querySelector('.asd-p2').classList.remove('scan');
+  root.querySelectorAll('.asd-pk').forEach(function(e){e.classList.remove('on')});root.querySelectorAll('.asd-chip').forEach(function(e){e.classList.remove('ok');e.textContent='Waiting for your OK'});cnt.textContent='Reading yourbar.com…'}
+ function show(n){panes.forEach(function(p,i){p.classList.toggle('on',i===n)});steps.forEach(function(b,i){b.classList.toggle('on',i===n);b.classList.toggle('done',i<n)});cap.innerHTML=CAPS[n];
+  if(vid){if(n===3){if(!vid.src)vid.src=vid.getAttribute('data-src');var pr=vid.play();if(pr&&pr.catch)pr.catch(function(){})}else vid.pause()}}
+ function run(n){clear();reset();show(n);
+  if(n===0){var t='yourbar.com';for(var i=1;i<=t.length;i++)(function(i){later(function(){url.textContent=t.slice(0,i)},300+i*120)})(i);
+   later(function(){find.classList.add('press')},300+t.length*120+1100);later(function(){run(1)},300+t.length*120+1900);return}
+  if(n===1){root.querySelector('.asd-p2').classList.add('scan');var fs=root.querySelectorAll('.asd-p2 .asd-f');
+   [0,1,4,2,3,5,6].forEach(function(f,i){later(function(){fs[f].classList.add('found')},450+i*360)});
+   later(function(){cnt.textContent='Found 4 photos and 3 specials ✓'},3200);later(function(){run(2)},5000);return}
+  if(n===2){var pk=root.querySelectorAll('.asd-pk');later(function(){pk[0].classList.add('on')},900);later(function(){pk[1].classList.add('on')},1700);later(function(){run(3)},3600);return}
+  if(n===3){later(function(){ok.classList.add('press')},2600);
+   later(function(){ok.classList.remove('press');ok.textContent='Approved ✓ Playing in your breaks';root.querySelectorAll('.asd-chip').forEach(function(e){e.classList.add('ok');e.textContent='On your TVs ✓'})},2900);
+   later(function(){run(0)},9000)}}
+ steps.forEach(function(b,i){b.addEventListener('click',function(){started=true;run(i)})});
+ document.getElementById('asdAgain').addEventListener('click',function(){started=true;run(0)});
+ if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){show(3);return}
+ show(0);url.textContent='yourbar.com';
+ if(!('IntersectionObserver' in window)){started=true;run(0);return}
+ new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!started){started=true;run(0)}})},{threshold:.35}).observe(root);
 })();
 /* HERO takeover — game → break → your ad in a TV frame → game */
 (function(){
