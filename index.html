@@ -36,7 +36,7 @@
   --text:#f2efea; --dim:#b3b4b6; --faint:#818182;
   --blue:#e07f52; --blue2:#e07f52; --blue-deep:#62270c; --blue-pale:#e07f52;
   --money:#e07f52; --money-deep:#913c15; --money-pale:#f2efea;
-  --green:#33c46b; --green-deep:#0f6b37; --green-pale:#8ff0b4;
+  --green:#e07f52; --green-deep:#913c15; --green-pale:#fbd0bc;
   --red:#ff5a5a; --amber:#ffc93d;              /* --amber: unused, kept as a spare alert only */
   --steel:#c9cacb; --steel-mid:#818182; --steel-dark:#6b6b6d; --charcoal:#2d2d30;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -415,7 +415,7 @@ table.ar td.v.us{color:var(--green)}
 .model{padding:24px 22px;display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start;border-top:1px solid var(--line)}
 .pips{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px}
 .pip{aspect-ratio:1.2;border-radius:8px;border:1px solid var(--line2);background:rgba(255,255,255,.03);display:grid;place-items:center;font:700 11px var(--mono);color:var(--faint);cursor:pointer;transition:all .15s}
-.pip.on{background:rgba(51,196,107,.18);border-color:var(--green);color:var(--green)}
+.pip.on{background:rgba(224,127,82,.18);border-color:var(--green);color:var(--green)}
 .mout{border:1px solid rgba(224,127,82,.4);border-radius:12px;padding:22px;background:rgba(224,127,82,.06)}
 .mout .lbl{font:600 10px var(--mono);letter-spacing:.16em;color:var(--faint);text-transform:uppercase}
 .mout .band{font-family:var(--display);font-size:clamp(29px,3.75vw,54px);line-height:1;color:var(--green);letter-spacing:1px;margin:8px 0 4px;font-weight:500;text-transform:uppercase}
@@ -481,7 +481,7 @@ table.ar td.v.us{color:var(--green)}
 .cnav span.on{color:var(--green)}
 .cchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .cchips button{border:1px solid rgba(224,127,82,.45);background:rgba(0,0,0,.6);color:#fff;font:700 13.5px var(--sans);padding:12px 18px;border-radius:8px;cursor:pointer}
-.cchips button.on{background:var(--green);color:#06210f;border-color:transparent}
+.cchips button.on{background:var(--green);color:#0c0603;border-color:transparent}
 
 @media(max-width:1000px){.chgrid{grid-template-columns:1fr 1fr}.proof2,.station,.model,.ladder{grid-template-columns:1fr}.loopband{grid-template-columns:1fr}.cmp{aspect-ratio:8/3.4}}
 @media(max-width:620px){.cfields{grid-template-columns:1fr!important}.chgrid{grid-template-columns:1fr 1fr}.ladder{grid-template-columns:1fr}.miss{grid-template-columns:1fr}.cmp .pane{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,1fr);padding:40px 8px 30px}.cmp{aspect-ratio:32/31}.cmp .handle::after{font-size:8px;padding:6px 8px}}
