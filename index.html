@@ -659,11 +659,11 @@ table.ar td.v.us{color:var(--green)}
 <script>
 /* the six real catches: [file, poster, label, button] - hero and proof reel both play these in order, nonstop */
 window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-poster.jpg','NFL · MONDAY NIGHT FOOTBALL','NFL'],
- ['vid/wall6/box2.mp4','vid/wall6/box2-poster.jpg','MLB','MLB'],
- ['vid/wall6/box3.mp4','vid/wall6/box3-poster.jpg','NBA','NBA'],
- ['vid/wall6/box4.mp4','vid/wall6/box4-poster.jpg','NHL','NHL'],
- ['vid/wall6/box5.mp4','vid/wall6/box5-poster.jpg','NBA TV','NBA TV'],
- ['vid/wall6/box6.mp4','vid/wall6/box6-poster.jpg','SEC NETWORK','SEC']];
+ ['vid/catch/catch2.mp4','vid/catch/catch2-poster.jpg','MLB','MLB'],
+ ['vid/catch/catch3.mp4','vid/catch/catch3-poster.jpg','NBA','NBA'],
+ ['vid/catch/catch4.mp4','vid/catch/catch4-poster.jpg','NHL','NHL'],
+ ['vid/catch/catch5.mp4','vid/catch/catch5-poster.jpg','NBA TV','NBA TV'],
+ ['vid/catch/catch6.mp4','vid/catch/catch6-poster.jpg','SEC NETWORK','SEC']];
 (function(){var v=document.getElementById('heroFilm'),lab=document.getElementById('heroLabel'),L=window.BS_CATCHES,cur=0;if(!v)return;
  v.addEventListener('ended',function(){cur=(cur+1)%L.length;v.poster=L[cur][1];v.src=L[cur][0];
    if(lab)lab.textContent='REAL CATCH · '+L[cur][2];var p=v.play();if(p&&p.catch)p.catch(function(){});});
