@@ -257,6 +257,7 @@ nav.main .cta{color:#0a0a0c;background:linear-gradient(120deg,var(--blue2),var(-
 .ledbox{border:1px solid var(--line2);border-radius:14px;background:#050506;overflow:hidden}
 .ledbox .head{display:flex;justify-content:space-between;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line);font:600 10.5px var(--mono);letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
 .ledbox .head b{color:var(--blue2)}
+.crdots{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;border-top:1px solid var(--line)}.crdots button{font:600 10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);background:transparent;border:1px solid var(--line2);border-radius:6px;padding:7px 10px;cursor:pointer}.crdots button:hover{color:var(--text)}.crdots button.on{color:var(--text);border-color:var(--money)}
 .ledbox .meta{padding:14px 16px;font-size:13.5px;color:var(--dim);line-height:1.6}
 .rigframe{position:relative;aspect-ratio:16/9;background:#000000}
 .rigframe .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;font:600 11px var(--mono);letter-spacing:.16em;color:var(--faint);line-height:1.9}
@@ -994,14 +995,31 @@ table.ar td.v.us{color:var(--green)}
       <div class="tile"><div class="n bl" id="bcToday">—</div><div class="l">commercial breaks the venue box has handled in the last 24 hours</div><div class="s">live · from the box itself</div></div>
     </div>
 
-    <div class="ledgrid" style="grid-template-columns:1fr">
-      <figure class="ledbox" style="margin:0">
-        <div class="head"><span><b>REAL CATCH</b> · MONDAY NIGHT FOOTBALL</span></div>
-        <video controls playsinline preload="metadata" poster="vid/live-catch-2026-10-26-poster.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;background:#000000">
-          <source src="vid/live-catch-2026-10-26.mp4" type="video/mp4">
-        </video>
+    <div class="ledgrid" style="grid-template-columns:minmax(0,1fr)">
+      <figure class="ledbox" id="catchReel" style="margin:0;min-width:0">
+        <div class="head"><span><b>REAL CATCH</b> · <span id="crLabel">NFL · MONDAY NIGHT FOOTBALL</span></span><span id="crCount">1 OF 6</span></div>
+        <video id="crVid" controls playsinline preload="metadata" poster="vid/live-catch-2026-10-26-poster.jpg" src="vid/live-catch-2026-10-26.mp4" style="display:block;width:100%;max-width:100%;aspect-ratio:16/9;object-fit:cover;background:#000000"></video>
+        <div class="crdots" id="crDots"></div>
       </figure>
     </div>
+    <script>
+    (function(){var v=document.getElementById('crVid'),dots=document.getElementById('crDots');if(!v||!dots)return;
+     var L=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-poster.jpg','NFL · MONDAY NIGHT FOOTBALL','NFL'],
+      ['vid/wall6/box2.mp4','vid/wall6/box2-poster.jpg','MLB','MLB'],
+      ['vid/wall6/box3.mp4','vid/wall6/box3-poster.jpg','NBA','NBA'],
+      ['vid/wall6/box4.mp4','vid/wall6/box4-poster.jpg','NHL','NHL'],
+      ['vid/wall6/box5.mp4','vid/wall6/box5-poster.jpg','NBA TV','NBA TV'],
+      ['vid/wall6/box6.mp4','vid/wall6/box6-poster.jpg','SEC NETWORK','SEC']];
+     var lab=document.getElementById('crLabel'),cnt=document.getElementById('crCount'),cur=0,btns=[];
+     function show(n,play){cur=n;v.poster=L[n][1];v.src=L[n][0];lab.textContent=L[n][2];cnt.textContent=(n+1)+' OF '+L.length;
+       btns.forEach(function(b,x){b.classList.toggle('on',x===n);});
+       if(play){var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}}
+     L.forEach(function(c,n){var b=document.createElement('button');b.type='button';b.textContent=(n+1)+' · '+c[3];
+       b.addEventListener('click',function(){show(n,true);});dots.appendChild(b);btns.push(b);});
+     btns[0].classList.add('on');
+     v.addEventListener('ended',function(){if(cur<L.length-1)show(cur+1,true);else show(0,false);});
+    })();
+    </script>
 
     <div class="kick b" style="margin-top:56px">More of the record</div>
     <h3 class="bb" style="font-size:clamp(34px,4.4vw,58px)">Tested the <span class="g">hard way.</span></h3>
