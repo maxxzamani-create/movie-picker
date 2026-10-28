@@ -652,6 +652,22 @@ table.ar td.v.us{color:var(--green)}
   linear-gradient(180deg,#07090f 0%,rgba(7,9,15,.42) 18%,rgba(7,9,15,.42) 82%,#07090f 100%)}
 #american>.wrap{position:relative;z-index:2}
 @media(max-width:720px){#american::before{opacity:.44}}
+/* ── phone trim (Maxx 10/28): long card stacks become side-swipe rows; cards that repeat a section below are hidden. Phones only. ── */
+.swipehint{display:none}
+@media(max-width:620px){
+  .feats,.receipts,.loopband,#investors .ladder,#how .steps,#proof .board.tested{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;
+    margin-inline:-24px;padding:0 24px 8px;scroll-padding-inline:24px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .feats::-webkit-scrollbar,.receipts::-webkit-scrollbar,#how .steps::-webkit-scrollbar,#proof .board.tested::-webkit-scrollbar,.loopband::-webkit-scrollbar,#investors .ladder::-webkit-scrollbar{display:none}
+  .feats,.receipts,.loopband,#investors .ladder,#how .steps,#proof .board.tested{align-items:flex-start}
+  .feat,.rcpt,.lcard,#investors .rung,#how .step,#proof .board.tested .tile{flex:0 0 84%;scroll-snap-align:start}
+  .feats{margin-top:28px}
+  #investors .rung h4{line-height:1.05}
+  .pn div{flex-basis:100%;display:flex;align-items:center;gap:14px;padding:10px 14px}
+  .pn b{font-size:28px;flex:0 0 108px}
+  .feat.dup{display:none}
+  .plates{grid-template-columns:1fr 1fr}
+  .swipehint{display:block;font:600 10px var(--mono);letter-spacing:.18em;color:var(--faint);margin-top:10px}
+}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -839,6 +855,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
       <div class="step"><div class="n">03</div><h4>Your screens flip</h4><p>Every TV switches to your reel — food, drinks, events, whatever you loaded.</p><div class="t">Every screen at once</div></div>
       <div class="step"><div class="n">04</div><h4>The game comes back</h4><p>The second play resumes, the box hands the screens back. Nobody has to watch it.</p><div class="t">Hands off.</div></div>
     </div>
+    <div class="swipehint">SWIPE FOR MORE &rarr;</div>
   </div>
 </section>
 
@@ -896,6 +913,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
         <a class="rcpt" href="https://www.mlb.com/news/mlb-pace-of-play-rules-explanation-c266724556" target="_blank" rel="noopener">
           <b class="big">2:05</b><p>of guaranteed commercial break <b>between every half inning</b>. The league mandates it. 20+ minutes a game, every game.<span class="cite">MLB.com rulebook ↗</span></p></a>
       </div>
+      <div class="swipehint" style="margin-top:-24px">SWIPE FOR MORE &rarr;</div>
       <div class="proof2" style="grid-template-columns:1fr">
         <div class="pbox">
           <div class="k">Published research · one month, real pubs</div>
@@ -954,7 +972,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
     <h2>Everything runs from <span class="g">one screen.</span></h2>
     <div class="feats">
       <div class="feat"><div class="ic">PROMOS</div><h4>Your reel, every break</h4><p>Load your specials, events and sponsors once. They rotate across every screen in the building for as long as the break lasts.</p></div>
-      <div class="feat hot"><div class="ic">AD STUDIO</div><h4>Ads from your own photos</h4><p>Paste your website; every photo on it comes back with a line already written. Tick the ones you want and they become moving spots. No agency, no camera crew, no stock footage.</p></div>
+      <div class="feat hot dup"><div class="ic">AD STUDIO</div><h4>Ads from your own photos</h4><p>Paste your website; every photo on it comes back with a line already written. Tick the ones you want and they become moving spots. No agency, no camera crew, no stock footage.</p></div>
       <div class="feat"><div class="ic">RETURN</div><h4>It gives the game back</h4><p>Giving the game back fast is the hard part, and it's where most of the work goes.</p></div>
       <div class="feat"><div class="ic">PHONE</div><h4>Run it from the walk-in</h4><p>Change tonight's rotation from your phone. Schedule by day, by time of day, or by which game is on.</p></div>
       <div class="feat"><div class="ic">CHANNELS</div><h4>Hands off the TVs</h4><p>Tell it tonight's games. When one game ends, the box changes the channel on the receiver to the next one, on every screen it drives. Nobody hunts for the remote or climbs for the guide. If your staff change a channel by hand, the box backs off and leaves it alone for two hours.</p></div>
@@ -963,9 +981,10 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
       <div class="feat"><div class="ic">TRIVIA</div><h4>Trivia that keeps them looking up</h4><p>Interactive trivia on your screens keeps the room watching, so your ads keep making an impact.</p></div>
       <div class="feat"><div class="ic">FRAMES</div><h4>More room for your offers</h4><p>A frame around the picture carries trivia or more of your promos, during fun videos or live TV.</p></div>
       <div class="feat"><div class="ic">FUN VIDEOS</div><h4>Nothing on? Still worth watching</h4><p>Funny, interesting, captivating videos play when nothing else is on, keeping eyes on your screens.</p></div>
-      <div class="feat"><div class="ic">LOOP MODE</div><h4>Your own channel, all day</h4><p>No live TV? Loop mode runs your offers and content from open to close.</p></div>
+      <div class="feat dup"><div class="ic">LOOP MODE</div><h4>Your own channel, all day</h4><p>No live TV? Loop mode runs your offers and content from open to close.</p></div>
       <div class="feat"><div class="ic">LIGHTS</div><h4>Know it's working from across the room</h4><p>The light on the front of the box tells your staff what it's doing: green, the game is on; blue, your ad is up; blinking teal, no picture is coming from the cable box, so check it; red alone, restart the box.</p></div>
     </div>
+    <div class="swipehint">SWIPE FOR MORE &rarr;</div>
 
     <div class="kick" style="margin-top:56px">Your ad library · real spots, real menus</div>
     <h3 class="bb" style="font-size:clamp(32px,4vw,52px)">These are the ads. <span class="g">Yours start the same way.</span></h3>
@@ -1122,11 +1141,12 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
 
     <div class="kick b" style="margin-top:56px">More of the record</div>
     <h3 class="bb" style="font-size:clamp(34px,4.4vw,58px)">Tested the <span class="g">hard way.</span></h3>
-    <div class="board three">
+    <div class="board three tested">
       <div class="tile"><div class="n">SELF-START</div><div class="l">Recovery from a dead plug. We cold-killed the box on purpose; it brought every piece of itself back with nobody touching it.</div><div class="s">cold-start tested</div></div>
       <div class="tile"><div class="n">BARS TOO</div><div class="l">Channels that keep a graphics bar on screen the whole way through the ads — caught anyway.</div><div class="s">self-learning bottom-bar detector</div></div>
       <div class="tile"><div class="n">High res</div><div class="l">Works with the high-resolution picture your venue already runs. Every install is set up and checked so the picture the box reads is the picture it was trained on.</div><div class="s">verified at install</div></div>
     </div>
+    <div class="swipehint">SWIPE FOR MORE &rarr;</div>
 
   </div>
 </section>
@@ -1248,6 +1268,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
       <div class="lcard"><div class="tv"><div class="fb"><b>NEW PATIENTS WELCOME</b><span>SAME-WEEK APPOINTMENTS</span></div><img src="static/adspots/still-derm.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><span class="ch">YOUR CHANNEL · LIVE</span></div><div class="bd"><h4>The waiting room</h4><p>Your providers, your services, your seasonal reminders. Quiet, professional, nothing to maintain, nothing recorded.</p></div></div>
       <div class="lcard"><div class="tv"><div class="fb"><b>HIIT 6PM — 4 SPOTS LEFT</b><span>SIGN UP AT THE FRONT DESK</span></div><img src="static/adspots/still-gym.jpg" alt="" loading="lazy" onerror="this.style.display='none'"><span class="ch">YOUR CHANNEL · LIVE</span></div><div class="bd"><h4>The gym floor</h4><p>Tonight's classes, open spots, member offers on every screen on the cardio row — sold while they're in the building.</p></div></div>
     </div>
+    <div class="swipehint">SWIPE FOR MORE &rarr;</div>
     <p style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn primary" href="sms:+19166286299?body=Hey%20Maxx%20—%20I%27d%20like%20pricing%20on%20Loop%20for%20my%20business.">Inquire about Loop →</a><a class="btn" href="loop.html">The whole Loop page →</a></p>
   </div>
 </section>
@@ -1263,6 +1284,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
       <div class="rung"><div class="n">NEXT</div><h4>Founding 10 installs</h4><p>Paid pilot venues, each with its own numbers.</p></div>
       <div class="rung"><div class="n">SCALE</div><h4>Fleet</h4><p>Venue-by-venue rollout, no ad network needed — the venue keeps its screens and its money; we keep the relationship.</p></div>
     </div>
+    <div class="swipehint">SWIPE FOR MORE &rarr;</div>
     <p style="margin-top:22px;font:600 15px var(--sans)"><a href="investors.html">Investor page &amp; materials →</a> &nbsp;·&nbsp; <a href="mailto:maxx@breakshark.com">Email Maxx directly</a></p>
   </div>
 </section>
