@@ -834,6 +834,17 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
     #feel h2{margin-bottom:22px}
     .feelvid{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(224,127,82,.45);background:#000;box-shadow:0 18px 50px rgba(0,0,0,.55)}
     .feelvid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+    /* the answer to the clip (Maxx 10/29): a real catch beside one plain line */
+    .feelans{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:center;text-align:left;margin-top:26px;padding:22px;border:1px solid var(--line);border-top:2px solid var(--money);border-radius:14px;background:rgba(10,10,12,.55)}
+    .feelans .clip{position:relative;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#000;border:1px solid var(--line2)}
+    .feelans .clip video{display:block;width:100%;height:100%;object-fit:cover}
+    .feelans .clip span{position:absolute;left:8px;top:8px;font:600 9.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--text);background:rgba(10,10,12,.78);border:1px solid var(--line2);padding:4px 7px;border-radius:4px}
+    .feelans .kick{margin-bottom:8px}
+    .feelans h3{font-size:clamp(22px,2.6vw,30px);line-height:1.1;margin:0 0 10px}
+    .feelans h3 .g{color:var(--money)}
+    .feelans p{color:var(--dim);margin:0 0 12px;font-size:15.5px;line-height:1.55}
+    .feelans a{font:600 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--money)}
+    @media(max-width:700px){.feelans{grid-template-columns:1fr;gap:16px;padding:14px;margin-top:18px}.feelans p{font-size:15px}}
   </style>
   <div class="wrap reveal">
     <h2>Ever feel <span class="g">like this?</span></h2>
@@ -842,7 +853,24 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
+    <div class="feelans">
+      <div class="clip"><video id="feelClip" muted loop playsinline preload="none" poster="vid/wall6/box1-poster.jpg" aria-label="A real catch: Monday Night Football cuts to commercial, the box puts the bar's own screen up, then hands the game back">
+        <source src="vid/m/wall6/box1.mp4" type="video/mp4" media="(max-width:900px)"><source src="vid/wall6/box1.mp4" type="video/mp4"></video><span>Real catch &middot; NFL</span></div>
+      <div>
+        <div class="kick">The BreakShark answer</div>
+        <h3>Don't pull the plug. <span class="g">Change the picture.</span></h3>
+        <p>When the game cuts to commercial, the box puts your own food, drinks and events on every screen showing that game, then switches back to the broadcast when play resumes. No remote, no unplugging, nobody behind the bar watching for it.</p>
+        <a href="#how">See how it works &darr;</a>
+      </div>
+    </div>
   </div>
+  <script>
+  (function(){var v=document.getElementById('feelClip');if(!v)return;
+   if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.controls=true;v.preload='metadata';return;}
+   if(!('IntersectionObserver' in window)){var p0=v.play();if(p0&&p0.catch)p0.catch(function(){v.controls=true;});return;}
+   new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var p=v.play();if(p&&p.catch)p.catch(function(){v.controls=true;});}else v.pause();});},{rootMargin:'200px'}).observe(v);
+  })();
+  </script>
 </section>
 
 <!-- ═══ HOW IT WORKS ═══ -->
