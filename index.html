@@ -88,7 +88,8 @@ section{padding:110px 0;position:relative;scroll-margin-top:100px}
 .statusbar .sbset .right{margin-left:0}
 @keyframes sbmq{to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.statusbar .sbmq.on{animation:none}}
-header{position:absolute;top:31px;left:0;right:0;z-index:60;background:rgba(0,0,0,.82);backdrop-filter:blur(14px);border-bottom:1px solid rgba(58,58,64,.6)}
+header{position:fixed;top:31px;left:0;right:0;z-index:60;background:rgba(0,0,0,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(58,58,64,.6);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);transition:background-color .2s}
+header.pinned{background:rgba(0,0,0,.95);padding-top:env(safe-area-inset-top)}
 header .wrap{display:flex;align-items:center;gap:22px;height:62px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--text);flex:none}
 .brand img{height:26px;width:auto;display:block}
@@ -498,7 +499,7 @@ table.ar td.v.us{color:var(--green)}
 
 
 :where(a,button,summary,input,[tabindex]):focus-visible{outline:3px solid var(--blue2);outline-offset:2px;border-radius:4px}
-.mnav{max-height:calc(100vh - 120px);overflow-y:auto}
+.mnav{max-height:calc(100vh - 120px);max-height:calc(100dvh - var(--mnt,100px) - 16px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .cmp input[type=range]{touch-action:pan-y}
 .hero.adon .hero-copy h1,.hero.adon .pat{opacity:.35}
 .mout .band{font-size:clamp(29px,3.75vw,54px)} .mout .amt{font-size:clamp(19px,2.69vw,40px)}
@@ -929,8 +930,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
         <div class="kick">The money</div>
         <h2>A third of your airtime<br>is <span class="money">already commercials.</span></h2>
         <div class="money-big" id="moneyBig" data-target="63">0<small>MIN<br>PER GAME</small></div>
-        <p class="sub">of commercials in an average <b>NFL broadcast</b>. <b>33% of an average game is commercials</b>, about <b>23.5 hours a
-          season</b>. You already pay for that airtime. Every minute of it sells <b>somebody else's brand</b> in your room.</p>
+        <p class="sub">of commercials in an average <b>NFL broadcast</b>. <b>33% of an average game is commercials</b>. You already pay for that airtime. Every minute of it sells <b>somebody else's brand</b> in your room.</p>
         <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
           <a class="chip" href="https://www.cbssports.com/nfl/news/study-nfl-fans-watch-an-average-of-almost-24-hours-of-commercials-in-a-season/" target="_blank" rel="noopener">CBS SPORTS · SEASON ANALYSIS ↗</a>
           <a class="chip ours" href="#number">RUN YOUR OWN NUMBER ↓</a>
@@ -1393,6 +1393,8 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
   b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false')});
   n.addEventListener('click',function(e){if(e.target.tagName==='A')n.classList.remove('open')});
 })();
+/* header stays on screen: sits under the ticker at the top, pins to the top once the ticker scrolls away */
+(function(){var h=document.querySelector('body>header'),n=document.getElementById('mnav');if(!h)return;var base=parseFloat(getComputedStyle(h).top)||0,last=-1;function f(){var t=Math.max(0,Math.round(base-(window.pageYOffset||document.documentElement.scrollTop||0)));if(t===last)return;last=t;h.style.top=t+'px';h.classList.toggle('pinned',t===0);if(n){var m=t+h.offsetHeight+7;n.style.top=m+'px';document.documentElement.style.setProperty('--mnt',m+'px')}}window.addEventListener('scroll',f,{passive:true});window.addEventListener('resize',function(){last=-1;f()});f()})();
 /* ticker: duplicate track for a seamless loop */
 (function(){var m=document.getElementById('sbMq'),s=document.getElementById('sbSet');if(!m||!s)return;var c=document.createElement('span');c.className='sbset';c.setAttribute('aria-hidden','true');m.appendChild(c);function sync(){c.innerHTML=s.innerHTML.replace(/ id="[^"]*"/g,'');[].forEach.call(c.querySelectorAll('a'),function(a){a.tabIndex=-1});m.style.setProperty('--sbdur',Math.max(18,s.offsetWidth/55)+'s')}sync();m.classList.add('on');if('MutationObserver' in window)new MutationObserver(sync).observe(s,{subtree:true,childList:true,characterData:true,attributes:true})})();
 /* money count-up */
