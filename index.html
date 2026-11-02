@@ -611,48 +611,18 @@ table.ar td.v.us{color:var(--green)}
 @media(max-width:760px){.sigmap{grid-template-columns:1fr;margin-inline:0;row-gap:12px}.sig,.sig.four{grid-column:span 1}.sig .br{display:none}.sig{border-top:1px solid var(--line);padding-top:12px}}
 @media(prefers-reduced-motion:reduce){.livedot{animation:none}}
 
-/* ═══ AMERICAN BAND — red, white and blue, scoped to this one section ═══ */
-#american{--us-red:#d7263d;--us-blue:#3f74e4;--us-white:#f7f8fb;
-  background:linear-gradient(180deg,#0b1020,#07090f);
-  border-top:1px solid rgba(63,116,228,.4);border-bottom:1px solid rgba(215,38,61,.32)}
+/* ═══ ORANGE COUNTY BAND — brand only (black/steel, the one copper), scoped to this section ═══ */
 #american .flagbar{display:flex;gap:5px;justify-content:center;margin:0 0 20px}
-#american .flagbar i{display:block;width:36px;height:4px;border-radius:2px}
-#american .flagbar i:nth-child(1){background:var(--us-red)}
-#american .flagbar i:nth-child(2){background:var(--us-white)}
-#american .flagbar i:nth-child(3){background:var(--us-blue)}
-#american .kick{color:var(--us-blue);justify-content:center}
-#american .kick::before{background:var(--us-blue)}
-#american h2{color:var(--us-white)}
-#american h2 .g{color:var(--us-red)}
-#american p{color:#c3cad8}
-#american .usnote{font-size:18px;line-height:1.6;margin:20px auto 0;max-width:62ch}
-#american .usnote b{color:var(--us-white);font-weight:600}
+#american .flagbar i{display:block;width:36px;height:4px;border-radius:2px;background:var(--line2)}
+#american .flagbar i:nth-child(2){background:var(--money)}
+#american .kick{justify-content:center}
+#american h2 .g{color:var(--money)}
 #american .uspledge{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px}
 #american .uspledge span{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;
-  border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(6,8,15,.6);
-  font:600 10.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--us-white);white-space:nowrap}
-#american .uspledge span::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;background:var(--us-red)}
-#american .uspledge span:nth-child(2)::before{background:var(--us-white)}
-#american .uspledge span:nth-child(3)::before{background:var(--us-blue)}
+  border:1px solid var(--line2);border-radius:999px;background:rgba(0,0,0,.45);
+  font:600 10.5px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--text);white-space:nowrap}
+#american .uspledge span::before{content:"";width:7px;height:7px;border-radius:50%;flex:none;background:var(--money)}
 @media(max-width:520px){#american .uspledge span{font-size:10px;padding:9px 13px;letter-spacing:.12em}}
-#american .kick{text-shadow:0 1px 10px rgba(4,6,12,.92)}
-#american h2{text-shadow:0 2px 18px rgba(4,6,12,.96),0 0 44px rgba(4,6,12,.85)}
-#american p{text-shadow:0 1px 14px rgba(4,6,12,.95),0 0 30px rgba(4,6,12,.7)}
-
-/* the flag itself, behind the type, with a scrim heavy enough to keep the
-   white headline and the red payoff line legible over the stripes */
-#american{position:relative;overflow:hidden;isolation:isolate}
-#american::before{content:"";position:absolute;inset:0;z-index:0;
-  background:url(img/us-flag.svg) center center/cover no-repeat;
-  opacity:.58;filter:saturate(1.18) contrast(1);
-  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 91%,transparent 100%);
-  mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 91%,transparent 100%);
-  transform:scale(1.02)}
-#american::after{content:"";position:absolute;inset:0;z-index:1;background:
-  radial-gradient(70% 58% at 50% 49%,rgba(6,8,15,.9) 0%,rgba(6,8,15,.66) 56%,rgba(6,8,15,.2) 100%),
-  linear-gradient(180deg,#07090f 0%,rgba(7,9,15,.42) 18%,rgba(7,9,15,.42) 82%,#07090f 100%)}
-#american>.wrap{position:relative;z-index:2}
-@media(max-width:720px){#american::before{opacity:.44}}
 /* ── phone trim (Maxx 10/28): long card stacks become side-swipe rows; cards that repeat a section below are hidden. Phones only. ── */
 .swipehint{display:none}
 @media(max-width:620px){
@@ -749,7 +719,7 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
 })();
 </script>
 
-<!-- ═══ AMERICAN COMPANY (Maxx, 9/04: "make a stance") ═══ -->
+<!-- ═══ FOUNDED IN ORANGE COUNTY (Maxx 9/04 "make a stance"; recopied + rebranded on his order 11/01) ═══ -->
 <!-- ═══ MULTIBOX CATCH WALL ═══ -->
 <section id="multibox" class="band deep">
   <div class="wrap reveal">
@@ -809,21 +779,13 @@ window.BS_CATCHES=[['vid/live-catch-2026-10-26.mp4','vid/live-catch-2026-10-26-p
 <section id="american" class="band">
   <div class="wrap reveal" style="text-align:center;max-width:860px">
     <div class="flagbar" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="kick">An American company</div>
-    <h2>American-founded.<br><span class="g">American-answered.</span></h2>
-    <p style="font-size:18px;line-height:1.6;color:var(--dim);margin:14px auto 0;max-width:62ch">BreakShark is an
-      American company. It was founded in Orange County, California, and the person
-      whose cell number is on this page is the one who answers it. As we grow, we hire American, and veterans
-      get the first call. When
-      you put a BreakShark box on your wall, you are working with an American business that shows up in person.
-      We think that matters, and we think you do too.</p>
-    <p class="usnote">Nothing about servicing you is outsourced. <b>Every call is answered here in the
-      United States.</b> We do not ship customer service overseas. The company is American backed, and every job this business
-      creates goes to a fellow American.</p>
+    <div class="kick">Founded in Orange County</div>
+    <h2>Founded in Orange County.<br><span class="g">Answered in Orange County.</span></h2>
+    <p style="font-size:18px;line-height:1.6;color:var(--dim);margin:14px auto 0;max-width:62ch">BreakShark is an American company, built in Orange County, California. The cell number on this page rings a founder, and a founder picks up. Nothing about serving you is handed off: no overseas call center, no ticket queue, no runaround. When a BreakShark box goes on your wall, you’re working with a local business that shows up in person and stands behind the install. We think that matters, and we think you do too.</p>
     <div class="uspledge">
-      <span>Calls answered in the USA</span>
-      <span>No outsourced support</span>
-      <span>American backed</span>
+      <span>A founder picks up</span>
+      <span>No overseas call center</span>
+      <span>Shows up in person</span>
     </div>
   </div>
 </section>
