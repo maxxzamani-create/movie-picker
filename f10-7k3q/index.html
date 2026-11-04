@@ -1,0 +1,106 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="BreakShark">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.png"><link rel="icon" href="icon.png">
+<title>BreakShark · Founding 10</title>
+<style>
+:root{--bg:#0e0e10;--ink:#f2efea;--cop:#e07f52}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+#wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1920px;height:1080px;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;pointer-events:none}
+.slide.on{opacity:1;pointer-events:auto}
+.slide>img.bg{position:absolute;inset:0;width:1920px;height:1080px;display:block}
+.slide video{position:absolute;object-fit:cover;background:#000}
+.tap{position:absolute;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.tap span{width:110px;height:110px;border-radius:50%;background:rgba(224,127,82,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.tap span:after{content:"";margin-left:10px;border-left:40px solid #121212;border-top:26px solid transparent;border-bottom:26px solid transparent}
+#bar{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(0,0,0,.65),rgba(0,0,0,0));transition:opacity .4s}
+#bar.hide{opacity:0}
+#bar button{font:600 14px/1 inherit;color:var(--ink);background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:10px 14px;cursor:pointer}
+#count{font:600 14px/1 inherit;opacity:.85;min-width:54px;text-align:center}
+#dots{flex:1;display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
+#dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer}
+#dots i.on{background:var(--cop)}
+#notes{position:fixed;left:12px;right:12px;bottom:64px;max-height:38vh;overflow:auto;background:rgba(16,16,18,.96);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:14px 16px;font-size:16px;line-height:1.45;display:none}
+#notes.show{display:block}#notes b{color:var(--cop);display:block;margin-bottom:6px;font-size:12px;letter-spacing:.12em}
+#hint{position:fixed;top:calc(12px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);font-size:13px;background:rgba(0,0,0,.55);padding:8px 12px;border-radius:999px;opacity:.9;transition:opacity 1s}
+#load{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--bg);z-index:9;font-size:15px}
+#load .b{width:220px;height:6px;border-radius:3px;background:rgba(255,255,255,.15);overflow:hidden}#load .b i{display:block;height:100%;width:0;background:var(--cop);transition:width .2s}
+</style></head><body>
+<div id="wrap"><div id="stage"></div></div>
+<div id="bar"><button id="prev" aria-label="Previous slide">‹ Back</button><span id="count"></span><div id="dots"></div><button id="nbtn">Notes</button><button id="fs">Full screen</button><button id="next" aria-label="Next slide">Next ›</button></div>
+<div id="notes"></div>
+<div id="hint">Tap the right side or swipe to go forward</div>
+<div id="load"><div>Loading the deck…</div><div class="b"><i id="lp"></i></div><div id="lt" style="opacity:.6;font-size:13px"></div></div>
+<script>
+const SLIDES = [{"img": "s/p-01.jpg", "v": [{"src": "v/cover.mp4", "x": 0, "y": 0, "w": 1920, "h": 1080, "r": 0, "sound": false}], "note": "Don’t present yet. Set the tablet down facing the owner and ask the discovery questions first: how many TVs, how many receivers, big nights, what they want to sell more of, and whether any other company’s box is on their TVs. Then come back here and let the TV do the talking for a few seconds: \"That’s a game on your TV. Watch what happens when it goes to commercial.\" The break hits, the SBX-1 switches the screen to the venue’s own specials, one after another, and the game comes right back. Then: \"That’s BreakShark. Your TVs, your breaks, your sales.\" Present mode plays it on its own.", "ov": "s/ov_cover.png"}, {"img": "s/p-02.jpg", "v": [{"src": "v/problem.mp4", "x": 690, "y": 210, "w": 1102, "h": 620, "r": 6, "sound": false}], "note": "Let the video play. It shows one break, twice. First without BreakShark: the bar down the street, a drive-thru ice cream ad, then a rash cream commercial right as the food lands. Then the same break with BreakShark: your own specials play instead, one after another: the house special, a dessert, then happy hour. Ask: \"Two hundred people in here on a Sunday. When the game breaks, whose ad are they looking at?\" Let it sink in. Never name a real competitor."}, {"img": "s/p-03.jpg", "v": [], "note": "Walk the three cards left to right. One: the chain down the street, their dinner deal and happy hour on your TVs. Two: the drive-thru. \"Dad, can we stop for ice cream on the way home?\" They could have ordered your butter cake. Three: pharmaceutical commercials. \"There are some things you want out of your customers’ line of sight, and a commercial for a rash cream is one of them.\" Then: \"BreakShark fixes all of that.\" Use the venue’s own dessert if you know it. No brand names."}, {"img": "s/p-04.jpg", "v": [{"src": "v/how.mp4", "x": 0, "y": 0, "w": 1920, "h": 1080, "r": 0, "sound": false}], "note": "The box is the SBX-1. Point at the three TVs: three different specials, and halfway through the break they rotate to the next ones. Keep it simple: \"It watches the broadcast. When the game goes to commercial, your TVs show your stuff. When the game comes back, so do your TVs.\" If they ask how it knows it's a commercial: \"That's our patent-pending part. It watches the broadcast, not the room.\" Don't go deeper than that.", "ov": "s/ov_how.png"}, {"img": "s/p-05.jpg", "v": [{"src": "v/studio.mp4", "x": 944, "y": 316, "w": 848, "h": 477, "r": 6, "sound": false}], "note": "This is what owners don’t expect. Point left: \"That’s a real menu photo.\" Point right: \"That’s the ad we built from it. Same plate.\" Then: \"You don’t need an ad agency. Just give us your website. We pull your photos, plus your Google and Yelp photos, turn them into full-motion clips, and you approve it from your phone before it ever airs.\" Founding venues get their spots built free. Never promise a turnaround time."}, {"img": "s/p-06.jpg", "v": [{"src": "v/screens.mp4", "x": 0, "y": 0, "w": 1920, "h": 1080, "r": 0, "sound": false}], "note": "Point at the card that matches what they told you in discovery. \"You said you want to move more wings. That's this one, every break, every Sunday.\" Spots are built from their own photos and prices, and they approve every one before it airs.", "ov": "s/ov_screens.png"}, {"img": "s/p-07.jpg", "v": [], "note": "Ask: \"What's your best server's best day look like? Every table hears the special, every round gets upsold. That's what this does on every TV, every break.\" Then: \"And it's the lowest-cost employee you'll ever have.\""}, {"img": "s/p-08.jpg", "v": [{"src": "v/clock1.mp4", "x": 128, "y": 420, "w": 520, "h": 293, "r": 6, "sound": false}, {"src": "v/clock2.mp4", "x": 700, "y": 420, "w": 520, "h": 293, "r": 6, "sound": false}, {"src": "v/clock3.mp4", "x": 1272, "y": 420, "w": 520, "h": 293, "r": 6, "sound": false}], "note": "Use their menu out loud: \"Your Monday night kickoff is 5:15. That's inside your happy hour. So every break, every table sees your $5 drafts.\" Swap in whatever they told you they want to sell."}, {"img": "s/p-09.jpg", "v": [{"src": "v/control.mp4", "x": 1308, "y": 168, "w": 424, "h": 744, "r": 44, "sound": false}], "note": "This slide answers the fears before they're said out loud. If they ask \"is it watching my customers?\", tap the camera line. Then move on. Never talk about the signal path, delay, or what happens if the box fails. Those go to Maxx."}, {"img": "s/p-10.jpg", "v": [], "note": "Owners hate projects. The message here: they don't buy anything, don't rewire anything, don't close. We show up before open, we leave with it running."}, {"img": "s/p-11.jpg", "v": [], "note": "Use these when the owner asks, or walk them quickly before the offer. Read the answer as written. If a question isn’t here: \"Good question, I’ll get you Maxx’s answer today.\" Write it down and text Maxx. Never guess."}, {"img": "s/p-12.jpg", "v": [], "note": "On sales lift, say only the 6.5% line on this slide. If they ask which study, say you’ll get them the source from Maxx. Never quote a price, a monthly number, a range or a discount. Pricing isn’t set; the ten founding venues help set it. Technical questions (how it detects a break, delay, what happens if a box fails) go to Maxx: \"That’s a technical one. I’ll have Maxx call you today.\""}, {"img": "s/p-13.jpg", "v": [], "note": "Say the numbers, don't add to them. Never quote speed, timing or accuracy numbers. If they want to see it work, open breakshark.com and play the film."}, {"img": "s/p-14.jpg", "v": [], "note": "This is the offer. Founding 10 venues get: free for the first 90 days, priority install (we schedule it with them), their break spots built free, and a direct line to Maxx. Pricing is not set yet, so never quote a price, a monthly number or a discount. If they ask what it costs after 90 days, go to the next slide: they help us set it. Only ten spots exist, so say it plainly: \"We're picking ten venues.\" Then the proof that it's moving: \"Three founding spots are already committed, and we haven't done any advertising. Every venue we've offered it to has said yes. You'd be in our first group.\" Update the count before every visit."}, {"img": "s/p-15.jpg", "v": [], "note": "Say: \"We haven't set the price yet, and we want your help doing it. After your 90 free days you get a founding-member rate we set together, and you keep it. And there's no obligation to continue.\" Never guess a number, a range or a \"probably around.\" If they push: \"Honestly, it's not set. That's why we want ten owners like you to help us set it.\""}, {"img": "s/p-16.jpg", "v": [], "note": "Risk reversal. Say: \"The only risk is not trying it.\" Free for 90 days, no obligation after. Don't promise anything beyond that."}, {"img": "s/p-17.jpg", "v": [{"src": "v/next.mp4", "x": 149, "y": 631, "w": 456, "h": 257, "r": 16, "sound": true}], "note": "This is the close. Ask one direct question: \"Which nights do you want your specials running first, Sunday or Monday?\" or \"One box on the main bar, or the patio too?\" If yes: fill out the founding agreement with them and tell them Maxx's team will call to schedule the install. Never promise an install date. If not yet: book a date and time to come back before you leave, and text the short video today."}];
+const stage = document.getElementById('stage'), dots = document.getElementById('dots');
+let cur = 0;
+SLIDES.forEach((s, i) => {
+  const el = document.createElement('div'); el.className = 'slide';
+  const im = document.createElement('img'); im.className = 'bg'; im.src = s.img; im.alt = 'Slide ' + (i + 1); el.appendChild(im);
+  s.v.forEach(v => {
+    const vd = document.createElement('video'); vd.playsInline = true; vd.setAttribute('playsinline', ''); vd.setAttribute('webkit-playsinline', '');
+    if (!v.sound) { vd.muted = true; vd.defaultMuted = true; vd.setAttribute('muted', ''); vd.autoplay = false; }
+    vd.preload = 'auto'; vd.dataset.src = v.src;
+    vd.addEventListener('canplay', () => { if (SLIDES[cur] === s && !vd.dataset.sound && vd.paused) { const p = vd.play(); if (p) p.catch(() => {}); } });
+    Object.assign(vd.style, { left: v.x + 'px', top: v.y + 'px', width: v.w + 'px', height: v.h + 'px', borderRadius: v.r + 'px' });
+    if (v.sound) { vd.controls = false; vd.loop = false; vd.muted = false; vd.dataset.sound = 1; vd.style.background = 'transparent'; vd.style.opacity = 0;
+      const t = document.createElement('div'); t.className = 'tap'; Object.assign(t.style, { left: v.x + 'px', top: v.y + 'px', width: v.w + 'px', height: v.h + 'px' }); t.innerHTML = '<span></span>';
+      t.addEventListener('click', e => { e.stopPropagation(); if (vd.paused) { vd.style.opacity = 1; vd.play(); t.style.display = 'none'; } });
+      vd.addEventListener('click', e => { e.stopPropagation(); if (vd.paused) vd.play(); else vd.pause(); });
+      vd.addEventListener('ended', () => { t.style.display = 'flex'; vd.style.opacity = 0; vd.currentTime = 0; });
+      el.appendChild(vd); el.appendChild(t); s.tap = t;
+    } else { vd.muted = true; vd.defaultMuted = true; vd.setAttribute('muted', ''); vd.loop = true; el.appendChild(vd); }
+  });
+  if (s.ov) { const o = document.createElement('img'); o.src = s.ov; o.alt = ''; o.style.cssText = 'position:absolute;inset:0;width:1920px;height:1080px;pointer-events:none'; el.appendChild(o); }
+  stage.appendChild(el); s.el = el;
+  const d = document.createElement('i'); d.onclick = e => { e.stopPropagation(); go(i); }; dots.appendChild(d);
+});
+function fit() { const k = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = 'scale(' + k + ')'; }
+addEventListener('resize', fit); fit();
+function arm(s, on) { s.el.querySelectorAll('video').forEach(v => { if (on && !v.getAttribute('src')) { v.src = v.dataset.src; v.load(); } else if (!on && v.getAttribute('src')) { v.pause(); v.removeAttribute('src'); v.load(); } }); }
+function go(n) {
+  n = Math.max(0, Math.min(SLIDES.length - 1, n));
+  SLIDES.forEach((s, i) => arm(s, Math.abs(i - n) <= 1));
+  SLIDES.forEach((s, i) => { const on = i === n; s.el.classList.toggle('on', on);
+    s.el.querySelectorAll('video').forEach(v => { if (on && !v.dataset.sound) { v.currentTime = 0; const p = v.play(); if (p) p.catch(() => {}); } else { v.pause(); if (v.dataset.sound) { v.currentTime = 0; v.style.opacity = 0; if (s.tap) s.tap.style.display = 'flex'; } } });
+      });
+  cur = n; document.getElementById('count').textContent = (n + 1) + ' / ' + SLIDES.length;
+  [...dots.children].forEach((d, i) => d.classList.toggle('on', i === n));
+  document.getElementById('notes').innerHTML = '<b>SPEAKER NOTES · SLIDE ' + (n + 1) + '</b>' + (SLIDES[n].note || '');
+  try { history.replaceState(null, '', '#' + (n + 1)); } catch (e) {}
+  wake();
+}
+document.getElementById('prev').onclick = e => { e.stopPropagation(); go(cur - 1); };
+document.getElementById('next').onclick = e => { e.stopPropagation(); go(cur + 1); };
+document.getElementById('nbtn').onclick = e => { e.stopPropagation(); document.getElementById('notes').classList.toggle('show'); };
+document.getElementById('notes').onclick = e => e.stopPropagation();
+const fsb = document.getElementById('fs'), de = document.documentElement;
+if (!(de.requestFullscreen || de.webkitRequestFullscreen) || matchMedia('(display-mode: standalone)').matches || navigator.standalone) fsb.style.display = 'none';
+fsb.onclick = e => { e.stopPropagation(); const f = de.requestFullscreen || de.webkitRequestFullscreen; if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document); else f.call(de); };
+document.getElementById('wrap').addEventListener('click', e => { if (e.clientX > innerWidth * 0.35) go(cur + 1); else go(cur - 1); });
+addEventListener('keydown', e => { if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); go(cur + 1); } if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); go(cur - 1); } if (e.key === 'n') document.getElementById('notes').classList.toggle('show'); });
+let sx = null, sy = 0; addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { go(cur + (dx < 0 ? 1 : -1)); e.preventDefault(); } sx = null; });
+let ht; function wake() { const b = document.getElementById('bar'); b.classList.remove('hide'); clearTimeout(ht); ht = setTimeout(() => { if (!document.getElementById('notes').classList.contains('show')) b.classList.add('hide'); }, 3500); }
+function kick() { SLIDES[cur].el.querySelectorAll('video').forEach(v => { if (!v.dataset.sound && v.paused) { const p = v.play(); if (p) p.catch(() => {}); } }); }
+addEventListener('touchend', kick, { passive: true }); addEventListener('click', kick, true);
+setInterval(kick, 1500);
+addEventListener('mousemove', wake); addEventListener('touchstart', wake, { passive: true });
+setTimeout(() => document.getElementById('hint').style.opacity = 0, 4000);
+// first-load: fetch everything so it plays smoothly and keeps working offline
+const ASSETS = ["./", "index.html", "manifest.json", "icon.png", "s/p-01.jpg", "s/p-02.jpg", "s/p-03.jpg", "s/p-04.jpg", "s/p-05.jpg", "s/p-06.jpg", "s/p-07.jpg", "s/p-08.jpg", "s/p-09.jpg", "s/p-10.jpg", "s/p-11.jpg", "s/p-12.jpg", "s/p-13.jpg", "s/p-14.jpg", "s/p-15.jpg", "s/p-16.jpg", "s/p-17.jpg", "v/cover.mp4", "v/problem.mp4", "v/how.mp4", "v/studio.mp4", "v/screens.mp4", "v/clock1.mp4", "v/clock2.mp4", "v/clock3.mp4", "v/control.mp4", "v/next.mp4", "s/ov_cover.png", "s/ov_how.png", "s/ov_screens.png", "sw.js"];
+(async () => {
+  if ('serviceWorker' in navigator) { try { await navigator.serviceWorker.register('sw.js'); } catch (e) {} }
+  let done = 0; const lp = document.getElementById('lp'), lt = document.getElementById('lt');
+  const files = ASSETS.filter(a => a !== './');
+  const cache = ('caches' in window) ? await caches.open('bs-f10-v2').catch(() => null) : null;
+  await Promise.all(files.map(async u => { try { if (cache) { const hit = await cache.match(u); if (!hit) await cache.add(u); } else await fetch(u); } catch (e) {} done++; lp.style.width = (100 * done / files.length) + '%'; lt.textContent = done + ' of ' + files.length; }));
+  document.getElementById('load').remove();
+  const h = parseInt(location.hash.slice(1)); go(isNaN(h) ? 0 : h - 1);
+})();
+</script></body></html>
