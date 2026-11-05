@@ -1,4 +1,4 @@
-const C='th-fall-v1';
+const C='th-fall-v2';
 self.addEventListener('install',e=>{self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim());});
 self.addEventListener('fetch',e=>{
