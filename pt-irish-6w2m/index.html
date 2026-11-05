@@ -99,7 +99,7 @@ const ASSETS = ["./", "index.html", "manifest.json", "icon.png", "logo.png", "s/
   if ('serviceWorker' in navigator) { try { await navigator.serviceWorker.register('sw.js'); } catch (e) {} }
   let done = 0; const lp = document.getElementById('lp'), lt = document.getElementById('lt');
   const files = ASSETS.filter(a => a !== './');
-  const cache = ('caches' in window) ? await caches.open('pt-v1').catch(() => null) : null;
+  const cache = ('caches' in window) ? await caches.open('pt-v2').catch(() => null) : null;
   await Promise.all(files.map(async u => { try { if (cache) { const hit = await cache.match(u); if (!hit) await cache.add(u); } else await fetch(u); } catch (e) {} done++; lp.style.width = (100 * done / files.length) + '%'; lt.textContent = done + ' of ' + files.length; }));
   document.getElementById('load').remove();
   const h = parseInt(location.hash.slice(1)); go(isNaN(h) ? 0 : h - 1);
