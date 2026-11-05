@@ -79,11 +79,12 @@ document.getElementById('prev').onclick = e => { e.stopPropagation(); go(cur - 1
 document.getElementById('next').onclick = e => { e.stopPropagation(); go(cur + 1); };
 document.getElementById('nbtn').onclick = e => { e.stopPropagation(); document.getElementById('notes').classList.toggle('show'); };
 document.getElementById('notes').onclick = e => e.stopPropagation();
+if (!/[?&]notes/.test(location.search)) { document.getElementById('nbtn').style.display = 'none'; window.NONOTES = 1; }
 const fsb = document.getElementById('fs'), de = document.documentElement;
 if (!(de.requestFullscreen || de.webkitRequestFullscreen) || matchMedia('(display-mode: standalone)').matches || navigator.standalone) fsb.style.display = 'none';
 fsb.onclick = e => { e.stopPropagation(); const f = de.requestFullscreen || de.webkitRequestFullscreen; if (document.fullscreenElement || document.webkitFullscreenElement) (document.exitFullscreen || document.webkitExitFullscreen).call(document); else f.call(de); };
 document.getElementById('wrap').addEventListener('click', e => { if (e.clientX > innerWidth * 0.35) go(cur + 1); else go(cur - 1); });
-addEventListener('keydown', e => { if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); go(cur + 1); } if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); go(cur - 1); } if (e.key === 'n') document.getElementById('notes').classList.toggle('show'); });
+addEventListener('keydown', e => { if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); go(cur + 1); } if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); go(cur - 1); } if (e.key === 'n' && !window.NONOTES) document.getElementById('notes').classList.toggle('show'); });
 let sx = null, sy = 0; addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
 addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { go(cur + (dx < 0 ? 1 : -1)); e.preventDefault(); } sx = null; });
 let ht; function wake() { const b = document.getElementById('bar'); b.classList.remove('hide'); clearTimeout(ht); ht = setTimeout(() => { if (!document.getElementById('notes').classList.contains('show')) b.classList.add('hide'); }, 3500); }
