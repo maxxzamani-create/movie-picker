@@ -103,4 +103,14 @@ const ASSETS = ["./", "index.html", "manifest.json", "icon.png", "s/p-01.jpg", "
   document.getElementById('load').remove();
   const h = parseInt(location.hash.slice(1)); go(isNaN(h) ? 0 : h - 1);
 })();
-</script></body></html>
+</script><!--bs-guard--><style>img,video{-webkit-touch-callout:none;-webkit-user-drag:none;-webkit-user-select:none;user-select:none}</style>
+<script>(function(){
+function lock(el){ if(el.tagName==='VIDEO'){ el.setAttribute('controlslist','nodownload noplaybackrate noremoteplayback'); el.disablePictureInPicture=true; el.setAttribute('disablepictureinpicture',''); el.disableRemotePlayback=true; el.setAttribute('disableremoteplayback',''); }
+  if(el.tagName==='IMG'||el.tagName==='VIDEO'){ el.setAttribute('draggable','false'); } }
+function sweep(r){ (r.querySelectorAll?r.querySelectorAll('video,img'):[]).forEach(lock); }
+document.addEventListener('contextmenu',function(e){e.preventDefault();},true);
+document.addEventListener('dragstart',function(e){ if(e.target&&(e.target.tagName==='IMG'||e.target.tagName==='VIDEO')) e.preventDefault(); },true);
+document.addEventListener('keydown',function(e){ var k=(e.key||'').toLowerCase(); if((e.ctrlKey||e.metaKey)&&(k==='s'||k==='u')) e.preventDefault(); },true);
+new MutationObserver(function(ms){ ms.forEach(function(m){ m.addedNodes.forEach(function(n){ if(n.nodeType===1){ lock(n); sweep(n); } }); }); }).observe(document.documentElement,{childList:true,subtree:true});
+sweep(document);
+})();</script><!--/bs-guard--></body></html>
